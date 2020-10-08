@@ -4,7 +4,9 @@ using UnityEngine;
 [System.Serializable]
 public class ItemFightStats
 {
+    [SerializeField]
     private float attack;
+    [SerializeField]
     private float defence;
 
     public ItemFightStats(float attack, float defence)

@@ -16,6 +16,25 @@ public class Item
     public List<Item> innerItems;
     public int capacity;
 
+    public override string ToString()
+    {
+        return "id " + id.ToString() +
+                "\nitemName " + itemName +
+                "\nitemPrice " + itemPrice +
+                "\nitemSprite " + ((itemSprite == null) ? " - " : " + ") +
+                "\nstats " + ((itemSprite == null) ? " - " : stats.ToString()) +
+                "\nItemFightStats " + ((ItemFightStats == null) ? " - " : ItemFightStats.ToString()) +
+                "\nitemUseData " + ((itemUseData == null) ? " - " : itemUseData.ToString());
+            
+    }
+
+    //public void CopyItem(Item itemToCopy) 
+    //{
+    //    itemToCopy.id = id;
+    //    itemToCopy.itemSprite = itemSprite;
+    //    itemToCopy.stats = stats
+    //}
+
     public Item(ItemStats stats, ItemFightStats itemFightStats, string itemName, 
         int itemPrice, ItemUseData itemUseData, Sprite itemSprite, int capacity, List<Item> innerItems)
     {

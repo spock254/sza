@@ -215,7 +215,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 // если сумка открыта, тогда закрыть
                 foreach (var item_types in itemInHand.itemUseData.itemTypes)
                 {
-                    Debug.Log("close");
                     if ((item_types == ItemUseData.ItemType.Openable 
                       || item_types == ItemUseData.ItemType.Upgradable) && isBagOpen)
                     {

@@ -1689,6 +1689,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -1853,6 +1856,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -2441,6 +2447,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -3065,6 +3074,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -3082,6 +3094,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -3176,19 +3191,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 626fde91b11112b4699283fa4e89dec7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
-  item: {fileID: 519420035}
-  tileA: {fileID: 11400000, guid: e19d8c41ca785cc46b727c54b28c6bbc, type: 2}
-  tilemap: {fileID: 1903574704}
-  tilemap_upper: {fileID: 0}
-  previous: {x: -5, y: 0, z: 0}
-  player: {fileID: 43560103}
-  opened_door: {fileID: 11400000, guid: 2181b67c6ae55c941bb62247982c2b0f, type: 2}
+  stats: {fileID: 519420037}
 --- !u!114 &519420041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3525,6 +3533,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -3767,6 +3778,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -3918,6 +3932,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -4379,6 +4396,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -4804,6 +4824,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -4955,6 +4978,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -5119,6 +5145,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -5361,6 +5390,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -5525,6 +5557,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -5780,6 +5815,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -6022,6 +6060,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -6249,6 +6290,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -6428,7 +6472,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 43560103}
   prefab: {fileID: 8545361510536536705, guid: bf79c35f0775378489176baf436f71bd, type: 3}
-  maxThrowDistance: 1
+  maxThrowDistance_SmallItem: 3
+  maxThrowDistance_MidleItem: 2
+  maxThrowDistance_BigItem: 1
 --- !u!114 &1106411688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6839,6 +6885,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -6912,6 +6961,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -7076,6 +7128,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -7706,6 +7761,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -8039,6 +8097,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -8112,6 +8173,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -8445,6 +8509,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -8765,6 +8832,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -9706,6 +9776,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -9913,6 +9986,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -10251,6 +10327,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -10917,6 +10996,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -10990,6 +11072,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -11310,6 +11395,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -11778,6 +11866,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:
@@ -12310,6 +12401,9 @@ MonoBehaviour:
       value: 0
       duration: 0
       time: 0
+    ItemFightStats:
+      attack: 0
+      defence: 0
     itemName: 
     itemPrice: 0
     itemUseData:

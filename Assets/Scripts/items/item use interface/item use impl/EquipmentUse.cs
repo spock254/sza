@@ -37,6 +37,8 @@ public class EquipmentUse : IUse
 
     public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
     {
+        Debug.Log(item.ToString());
+
         fightStats.Attack += item.ItemFightStats.Attack;
         fightStats.Defence += item.ItemFightStats.Defence;
     }

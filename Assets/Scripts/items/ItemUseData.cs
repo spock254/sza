@@ -18,6 +18,13 @@ public class ItemUseData
     [SerializeReference]
     public ItemType[] itemTypes;
 
+    public override string ToString()
+    {
+        return "\n\t\titemSize " + itemSize.ToString()+
+               "\n\t\t use" + ((use == null) ? " - " : use.ToString()) +
+               "\n\t\t itemTypes" + ((itemTypes == null) ? " - " : itemTypes.ToString());
+    }
+
     public ItemUseData(ItemSize itemSize, IUse use, ItemType[] itemTypes)
     {
         this.itemSize = itemSize;
