@@ -10,7 +10,9 @@ public class ActionPanelController : MonoBehaviour
     //Button currrentHand;
     Controller uiContrall;
 
-    public float maxThrowDistance = 1;
+    public float maxThrowDistance_SmallItem = 3;
+    public float maxThrowDistance_MidleItem = 2;
+    public float maxThrowDistance_BigItem = 1;
 
     bool isThrown = false;
 
@@ -56,6 +58,8 @@ public class ActionPanelController : MonoBehaviour
             Item item = uiContrall.currentHand.GetComponent<ItemCell>().item;
             item.itemUseData.use.Use_To_Drop(prefab, player, item);
 
+            float maxThrowDistance = ThrowDistance(item);
+
             Vector2 offset = uiContrall.mousePosRight - player.position;
             Vector2 throwPosition = new Vector2(player.position.x, player.position.y) + 
                                         Vector2.ClampMagnitude(offset, maxThrowDistance);
@@ -88,5 +92,19 @@ public class ActionPanelController : MonoBehaviour
         Instantiate(prefab, player.position, Quaternion.identity);
 
         uiContrall.SetDefaultItem(uiContrall.currentHand);
+    }
+
+    float ThrowDistance(Item item) 
+    {
+        if (item.itemUseData.itemSize == ItemUseData.ItemSize.Small)
+        {
+            return maxThrowDistance_SmallItem;
+        }
+        else if (item.itemUseData.itemSize == ItemUseData.ItemSize.Middle) 
+        {
+            return maxThrowDistance_MidleItem;
+        }
+
+        return maxThrowDistance_BigItem;
     }
 }

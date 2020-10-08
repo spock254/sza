@@ -72,8 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -8692970365127612261, guid: 8397b6dc86a309e4b9c90899d2edb939,
-    type: 3}
+  m_Sprite: {fileID: 338616210289973951, guid: ef7bad5a2b12a8649b3575fe584ad27d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,27 +96,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    id: 1548091829
-    itemSprite: {fileID: -8692970365127612261, guid: 8397b6dc86a309e4b9c90899d2edb939,
+    id: -158745403
+    itemSprite: {fileID: 338616210289973951, guid: ef7bad5a2b12a8649b3575fe584ad27d,
       type: 3}
     stats:
-      playerStats: 2
-      value: 5
-      duration: 5
-      time: 5
-    itemName: apple
-    itemPrice: 23
+      playerStats: 5
+      value: 0
+      duration: 0
+      time: 0
+    itemName: head
+    itemPrice: 120
     itemUseData:
-      itemSize: 0
+      itemSize: 1
       use:
         id: 0
-      itemTypes: 07000000080000000c000000
+      itemTypes: 00000000
     innerItems: []
     capacity: 0
   references:
     version: 1
     00000000:
-      type: {class: FoodUse, ns: , asm: Assembly-CSharp}
+      type: {class: EquipmentUse, ns: , asm: Assembly-CSharp}
 --- !u!61 &6379150749542398364
 BoxCollider2D:
   m_ObjectHideFlags: 0
