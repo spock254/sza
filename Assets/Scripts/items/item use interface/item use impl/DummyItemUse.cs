@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DummyItemUse : IUse
+public class DummyItemUse : UseMassage, IUse
 {
     public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UseFace : IUse
+public class UseFace : UseMassage, IUse
 {
     public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
     {
