@@ -14,6 +14,13 @@ public class CasePanelController : MonoBehaviour
     public Controller controller;
     public bool caseIsOpen;
 
+    //public EventController eventController;
+
+    private void Start()
+    {
+        //eventController.OnCaseEvent.AddListener()
+    }
+
     public void ActivateStaticItemPanel(CaseItem caseItem, Transform casePosition) 
     {
         this.caseItem = caseItem;

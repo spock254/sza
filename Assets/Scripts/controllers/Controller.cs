@@ -130,6 +130,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     {
                         CaseItem caseItem = hit.collider.GetComponent<CaseItem>();
                         Transform casePosition = hit.collider.transform;
+
+                        // важно соблюдать очередность, сначало открывается сундук потом панэль
+                        //eventController.OnCaseEvent.Invoke(casePosition.position);
+                        hit.collider.GetComponent<CaseController>().OnCaseCloseOpen(casePosition.position);
                         eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
                     }
 
