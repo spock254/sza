@@ -122,7 +122,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     {
                         Item itemInHand = GetItemInHand(currentHand);
                         // использовать айтем как ключ
-                        eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
+                        //eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
+                        hit.collider.GetComponent<DoorController>().OnDoorClick(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
                         itemInHand.itemUseData.use.Use_To_Open(statInit.stats, itemInHand);
                     }
 

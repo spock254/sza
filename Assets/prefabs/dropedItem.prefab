@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -6286996620446520809, guid: ef7bad5a2b12a8649b3575fe584ad27d,
+  m_Sprite: {fileID: -8692970365127612261, guid: 8397b6dc86a309e4b9c90899d2edb939,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -96,83 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221e48c46ec8e3e44a54325b3728581a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    id: -696947694
-    itemSprite: {fileID: -6286996620446520809, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-      type: 3}
-    stats:
-      playerStats: 5
-      value: 0
-      duration: 0
-      time: 0
-    ItemFightStats:
-      attack: 0
-      defence: 10
-    itemName: chest
-    itemPrice: 200
-    itemUseData:
-      itemSize: 1
-      use:
-        id: 0
-      itemTypes: 020000000f000000
-    innerItems:
-    - id: 1
-    - id: 2
-    capacity: 3
-  references:
-    version: 1
-    00000000:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000001:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: -1114624903
-        itemSprite: {fileID: -4350086889351868749, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        ItemFightStats:
-          attack: 0
-          defence: 10
-        itemName: chest_upgrate
-        itemPrice: 200
-        itemUseData:
-          itemSize: 0
-          use:
-            id: 3
-          itemTypes: 0e0000000700000008000000
-        innerItems: []
-        capacity: 1
-    00000002:
-      type: {class: Item, ns: , asm: Assembly-CSharp}
-      data:
-        id: -1114624903
-        itemSprite: {fileID: -4350086889351868749, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-          type: 3}
-        stats:
-          playerStats: 5
-          value: 0
-          duration: 0
-          time: 0
-        ItemFightStats:
-          attack: 0
-          defence: 10
-        itemName: chest_upgrate
-        itemPrice: 200
-        itemUseData:
-          itemSize: 0
-          use:
-            id: 4
-          itemTypes: 0e0000000700000008000000
-        innerItems: []
-        capacity: 1
-    00000003:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
-    00000004:
-      type: {class: DummyItemUse, ns: , asm: Assembly-CSharp}
+  item: {fileID: 0}
 --- !u!61 &6379150749542398364
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -190,7 +114,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.25, y: 0.25}
+    oldSize: {x: 0.5, y: 0.5}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

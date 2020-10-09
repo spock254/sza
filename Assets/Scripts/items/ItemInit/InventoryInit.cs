@@ -6,18 +6,18 @@ public class InventoryInit : MonoBehaviour
 {
     public Dictionary<string, Item> inventoryDefaultDB { get;  set; }
 
-    [SerializeField] Sprite head;
-    [SerializeField] Sprite face;
-    [SerializeField] Sprite body;
-    [SerializeField] Sprite arm;
-    [SerializeField] Sprite lags;
-    [SerializeField] Sprite bag;
-    [SerializeField] Sprite left_hand;
-    [SerializeField] Sprite right_hand;
-    [SerializeField] Sprite left_pack;
-    [SerializeField] Sprite right_pack;
-    [SerializeField] Sprite card;
-    [SerializeField] Sprite bagCell;
+    [SerializeField] Sprite head = null;
+    [SerializeField] Sprite face = null;
+    [SerializeField] Sprite body = null;
+    [SerializeField] Sprite arm = null;
+    [SerializeField] Sprite lags = null;
+    [SerializeField] Sprite bag = null;
+    [SerializeField] Sprite left_hand = null;
+    [SerializeField] Sprite right_hand = null;
+    [SerializeField] Sprite left_pack = null;
+    [SerializeField] Sprite right_pack = null;
+    [SerializeField] Sprite card = null;
+    [SerializeField] Sprite bagCell = null;
 
     void Awake()
     {

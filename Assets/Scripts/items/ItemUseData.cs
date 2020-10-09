@@ -13,8 +13,16 @@ public class ItemUseData
                            Unwearable, Untakable, Dragable, HandUsable, Openable, Upgrate, Upgradable, NONE }
 
     public ItemSize itemSize;
+
+    //[SerializeReference]
+    [HideInInspector]
     [SerializeReference]
     public IUse use;
+
+    //[RequireInterface(typeof(IUse))]
+    //public Object use;
+    //private IUse use2;
+
     [SerializeReference]
     public ItemType[] itemTypes;
 

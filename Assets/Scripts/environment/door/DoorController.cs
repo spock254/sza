@@ -12,16 +12,18 @@ public class DoorController : MonoBehaviour
     public bool isLocked;
     bool isOpen = false;
 
-    public Tile openDoorTile;
-    public Tile closeDoorTile;
+    //public Tile openDoorTile;
+    //public Tile closeDoorTile;
+    public List<Tile> doorTiles;
 
     public Tilemap doorTilemap;
+    public float doorSpeed = 0.1f;
 
-    public EventController eventController;
+    //public EventController eventController;
 
     void Start()
     {
-        eventController.OnDoorEvent.AddListener(OnDoorClick);
+        //eventController.OnDoorEvent.AddListener(OnDoorClick);
 
         itemsToUnlockDoor = new List<Item>();
 
@@ -42,21 +44,51 @@ public class DoorController : MonoBehaviour
             {
                 if (itemInHand.IsSameItems(item))
                 {
-                    OpenCloseDoor(mousePosition, collider);
+                    StartCoroutine(CloseOpenDoor(mousePosition, collider));
+                    //OpenCloseDoor(mousePosition, collider);
                     return;
                 }
             }
         }
         else 
         {
-            OpenCloseDoor(mousePosition, collider);
+            StartCoroutine(CloseOpenDoor(mousePosition, collider));
+            //OpenCloseDoor(mousePosition, collider);
         }
     }
 
-    private void OpenCloseDoor(Vector3 mousePosition, Collider2D collider) 
+    //private void OpenCloseDoor(Vector3 mousePosition, Collider2D collider) 
+    //{
+    //    Vector3Int currentCell = doorTilemap.WorldToCell(mousePosition);
+    //    doorTilemap.SetTile(currentCell, (!isOpen) ? openDoorTile : closeDoorTile);
+    //    isOpen = !isOpen;
+    //    collider.isTrigger = isOpen;
+    //}
+
+    IEnumerator CloseOpenDoor(Vector3 mousePosition, Collider2D collider) 
     {
         Vector3Int currentCell = doorTilemap.WorldToCell(mousePosition);
-        doorTilemap.SetTile(currentCell, (!isOpen) ? openDoorTile : closeDoorTile);
+
+        if (isOpen)
+        {
+            for (int i = doorTiles.Count - 1; i >= 0; i--)
+            {
+                doorTilemap.SetTile(currentCell, doorTiles[i]);
+
+                yield return new WaitForSeconds(doorSpeed);
+            }
+        }
+        else 
+        { 
+            for (int i = 0; i < doorTiles.Count; i++)
+            {
+                doorTilemap.SetTile(currentCell, doorTiles[i]);
+
+                yield return new WaitForSeconds(doorSpeed);
+            }
+        }
+
+
         isOpen = !isOpen;
         collider.isTrigger = isOpen;
     }

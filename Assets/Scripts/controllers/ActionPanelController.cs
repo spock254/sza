@@ -56,7 +56,7 @@ public class ActionPanelController : MonoBehaviour
             }
 
             Item item = uiContrall.currentHand.GetComponent<ItemCell>().item;
-            item.itemUseData.use.Use_To_Drop(prefab, player, item);
+            ((IUse)item.itemUseData.use).Use_To_Drop(prefab, player, item);
 
             float maxThrowDistance = ThrowDistance(item);
 

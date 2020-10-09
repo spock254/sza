@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
-public class Item
+[CreateAssetMenu(fileName = "Data", menuName = "Item")]
+public class Item : ScriptableObject
 {
+    [HideInInspector]
     public int id;
-    public Sprite itemSprite;
-    public ItemStats stats;
-    public ItemFightStats ItemFightStats;
     public string itemName;
     public int itemPrice;
+
+    public Sprite itemSprite;
+    
+    public ItemStats stats;
+    public ItemFightStats ItemFightStats;
     public ItemUseData itemUseData;
 
+    public int capacity;
     [SerializeReference]
     public List<Item> innerItems;
-    public int capacity;
 
     public override string ToString()
     {

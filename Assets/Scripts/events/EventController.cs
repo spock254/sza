@@ -22,6 +22,7 @@ public class EventController : MonoBehaviour
     {
         OnStaticCaseItemEvent = new StaticCaseItemEvent();
         OnRightButtonClickEvent = new RightButtonClickEvent();
+
         OnDoorEvent = new DoorEvent();
         OnCaseEvent = new CaseEvent();
     }
