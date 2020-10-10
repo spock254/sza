@@ -25,15 +25,15 @@ public class DoorController : MonoBehaviour
     {
         //eventController.OnDoorEvent.AddListener(OnDoorClick);
 
-        itemsToUnlockDoor = new List<Item>();
+        //itemsToUnlockDoor = new List<Item>();
 
-        Item card = new Item(new ItemFightStats(0, 0), "card", 200,
-        new ItemUseData(ItemUseData.ItemSize.Small, new DummyItemUse(),
-                    new ItemUseData.ItemType[] { ItemUseData.ItemType.Card,
-                                                         ItemUseData.ItemType.Packet_left,
-                                                         ItemUseData.ItemType.Packet_right}),
-        null, 2, null);
-        itemsToUnlockDoor.Add(card);
+        //Item card = new Item(new ItemFightStats(0, 0), "card", 200,
+        //new ItemUseData(ItemUseData.ItemSize.Small, new DummyItemUse(),
+        //            new ItemUseData.ItemType[] { ItemUseData.ItemType.Card,
+        //                                                 ItemUseData.ItemType.Packet_left,
+        //                                                 ItemUseData.ItemType.Packet_right}),
+        //null, 2, null);
+        //itemsToUnlockDoor.Add(card);
     }
 
     public void OnDoorClick(Item itemInHand, Vector3 mousePosition, Collider2D collider, bool isLocked) 
@@ -44,6 +44,7 @@ public class DoorController : MonoBehaviour
             {
                 if (itemInHand.IsSameItems(item))
                 {
+                    Debug.Log(isLocked);
                     StartCoroutine(CloseOpenDoor(mousePosition, collider));
                     //OpenCloseDoor(mousePosition, collider);
                     return;

@@ -39,47 +39,47 @@ public class Item : ScriptableObject
     //    itemToCopy.stats = stats
     //}
 
-    public Item(ItemStats stats, ItemFightStats itemFightStats, string itemName, 
-        int itemPrice, ItemUseData itemUseData, Sprite itemSprite, int capacity, List<Item> innerItems)
-    {
-        this.id = GenerateId(itemName, stats);
-        this.stats = stats;
-        this.ItemFightStats = itemFightStats;
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-        this.itemUseData = itemUseData;
-        this.itemSprite = itemSprite;
-        this.capacity = capacity;
-        this.innerItems = innerItems;
-    }
+    //public Item(ItemStats stats, ItemFightStats itemFightStats, string itemName, 
+    //    int itemPrice, ItemUseData itemUseData, Sprite itemSprite, int capacity, List<Item> innerItems)
+    //{
+    //    this.id = GenerateId(itemName, stats);
+    //    this.stats = stats;
+    //    this.ItemFightStats = itemFightStats;
+    //    this.itemName = itemName;
+    //    this.itemPrice = itemPrice;
+    //    this.itemUseData = itemUseData;
+    //    this.itemSprite = itemSprite;
+    //    this.capacity = capacity;
+    //    this.innerItems = innerItems;
+    //}
 
     //ctr for non eatable items
-    public Item(ItemFightStats itemFightStats, string itemName, int itemPrice, 
-        ItemUseData itemUseData, Sprite itemSprite, int capacity, List<Item> innerItems)
-    {
-        this.stats = new ItemStats(PlayerStats.NONE, 0, 0, 0);
-        this.id = GenerateId(itemName, stats);
-        this.ItemFightStats = itemFightStats;
-        this.itemName = itemName;
-        this.itemPrice = itemPrice;
-        this.itemUseData = itemUseData;
-        this.itemSprite = itemSprite;
-        this.capacity = capacity;
-        this.innerItems = innerItems;
-    }
+    //public Item(ItemFightStats itemFightStats, string itemName, int itemPrice, 
+    //    ItemUseData itemUseData, Sprite itemSprite, int capacity, List<Item> innerItems)
+    //{
+    //    this.stats = new ItemStats(PlayerStats.NONE, 0, 0, 0);
+    //    this.id = GenerateId(itemName, stats);
+    //    this.ItemFightStats = itemFightStats;
+    //    this.itemName = itemName;
+    //    this.itemPrice = itemPrice;
+    //    this.itemUseData = itemUseData;
+    //    this.itemSprite = itemSprite;
+    //    this.capacity = capacity;
+    //    this.innerItems = innerItems;
+    //}
 
     // кстр для пустых ячеек инв
-    public Item(string itemName, ItemUseData itemUseData, Sprite sprite) 
-    {
-        this.itemName = itemName;
-        this.itemUseData = itemUseData;
-        this.itemSprite = sprite;
-    }
+    //public Item(string itemName, ItemUseData itemUseData, Sprite sprite) 
+    //{
+    //    this.itemName = itemName;
+    //    this.itemUseData = itemUseData;
+    //    this.itemSprite = sprite;
+    //}
 
-    protected int GenerateId(string name, ItemStats stats) 
+    public int GenerateId() 
     {
 
-        return name.GetHashCode() + 
+        return itemName.GetHashCode() + 
             (int)stats.value + 
             (int)stats.playerStats;
     }

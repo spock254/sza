@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
+  m_Name: card
+  m_EditorClassIdentifier: 
+  id: 762134937
+  itemName: card
+  itemPrice: 5000
+  itemSprite: {fileID: 4392401687526413892, guid: e3915133abcf5854ba42a77bc51a524b,
+    type: 3}
+  stats:
+    playerStats: 5
+    value: 0
+    duration: 0
+    time: 0
+  ItemFightStats:
+    attack: 0
+    defence: 0
+  itemUseData:
+    itemSize: 0
+    use:
+      id: 0
+    itemTypes: 060000000700000008000000
+  capacity: 0
+  innerItems: []
+  references:
+    version: 1
+    00000000:
+      type: {class: EquipmentUse, ns: , asm: Assembly-CSharp}

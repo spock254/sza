@@ -7,7 +7,7 @@ using System.Linq;
 public class InventoryManager : MonoBehaviour
 {
     public InventoryInit inventory;
-    public ItemInit item;
+    //public ItemInit item;
     public StatInit stats;
     public UI ui;
     UnityEvent removeItem;
@@ -41,15 +41,15 @@ public class InventoryManager : MonoBehaviour
         //}
     }
 
-    public void OpenInventoryUI() 
-    {
-        ui.isInventoryOpen = !ui.isInventoryOpen;
-    }
+    //public void OpenInventoryUI() 
+    //{
+    //    ui.isInventoryOpen = !ui.isInventoryOpen;
+    //}
 
-    private void AddToList(Item newItem) 
-    {
-            item.items.Add(newItem);
-    }
+    //private void AddToList(Item newItem) 
+    //{
+    //        item.items.Add(newItem);
+    //}
     //private void UpdateInventory()
     //{
     //    inventory.inventory.Clear();

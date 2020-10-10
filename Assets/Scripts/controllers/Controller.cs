@@ -11,11 +11,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public StatInit statInit;
     public FightStatsInit fightStatsInit;
 
-    public ItemInit itemDB;
+    //public ItemInit itemDB;
     public InventoryInit inventoryInit;
-    public FoodInit foodInit;
-    public EquipmentInit equipmentInit;
-    public BagInit bagInit;
+    //public FoodInit foodInit;
+    //public EquipmentInit equipmentInit;
+    //public BagInit bagInit;
 
     [Header("Buttons")]
     public Button head_btn;
@@ -72,12 +72,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         //DressCell(left_pack_btn, itemDB.items[3]);
         //DressCell(bag_btn, itemDB.items[2]);
 
-        DressCell(head_btn, equipmentInit.equipmentDB["head"]);
-        DressCell(left_hand_btn, foodInit.foodDB["apple"]);
-        DressCell(bag_btn, bagInit.bagDB["bag"]);
+        //DressCell(head_btn, equipmentInit.equipmentDB["head"]);
+        //DressCell(left_hand_btn, foodInit.foodDB["apple"]);
+       // DressCell(bag_btn, bagInit.bagDB["bag"]);
 
-        equipmentInit.equipmentDB["head"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, equipmentInit.equipmentDB["head"]);
-        bagInit.bagDB["bag"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, bagInit.bagDB["bag"]);
+        //equipmentInit.equipmentDB["head"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, equipmentInit.equipmentDB["head"]);
+        //bagInit.bagDB["bag"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, bagInit.bagDB["bag"]);
     }
 
 
