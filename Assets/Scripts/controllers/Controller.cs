@@ -11,11 +11,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public StatInit statInit;
     public FightStatsInit fightStatsInit;
 
-    //public ItemInit itemDB;
     public InventoryInit inventoryInit;
-    //public FoodInit foodInit;
-    //public EquipmentInit equipmentInit;
-    //public BagInit bagInit;
+    public ItemInInventoryInit itemInInventoryInit;
 
     [Header("Buttons")]
     public Button head_btn;
@@ -66,18 +63,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     void Start()
     {
         InitCells();
-
+        InitItemInInventory();
         currentHand = left_hand_btn;
-        //DressCell(right_hand_btn, itemDB.items[1]);
-        //DressCell(left_pack_btn, itemDB.items[3]);
-        //DressCell(bag_btn, itemDB.items[2]);
-
-        //DressCell(head_btn, equipmentInit.equipmentDB["head"]);
-        //DressCell(left_hand_btn, foodInit.foodDB["apple"]);
-       // DressCell(bag_btn, bagInit.bagDB["bag"]);
-
-        //equipmentInit.equipmentDB["head"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, equipmentInit.equipmentDB["head"]);
-        //bagInit.bagDB["bag"].itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, bagInit.bagDB["bag"]);
     }
 
 
@@ -335,6 +322,64 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCell8.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["8"];
         bagCell9.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["9"];
         bagCell10.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["10"];
+    }
+
+    void InitItemInInventory() 
+    {
+        if (itemInInventoryInit.head != null) 
+        {
+            DressCell(head_btn, itemInInventoryInit.head);
+        }
+
+        if (itemInInventoryInit.arm != null)
+        {
+            DressCell(arm_btn, itemInInventoryInit.arm);
+        }
+
+        if (itemInInventoryInit.face != null)
+        {
+            DressCell(face_btn, itemInInventoryInit.face);
+        }
+
+        if (itemInInventoryInit.lags != null)
+        {
+            DressCell(lags_btn, itemInInventoryInit.lags);
+        }
+
+        if (itemInInventoryInit.bag != null)
+        {
+            DressCell(bag_btn, itemInInventoryInit.bag);
+        }
+
+        if (itemInInventoryInit.body != null)
+        {
+            DressCell(body_btn, itemInInventoryInit.body);
+        }
+
+        if (itemInInventoryInit.left_hand != null)
+        {
+            DressCell(left_hand_btn, itemInInventoryInit.left_hand);
+        }
+
+        if (itemInInventoryInit.right_hand != null)
+        {
+            DressCell(right_hand_btn, itemInInventoryInit.right_hand);
+        }
+
+        if (itemInInventoryInit.left_pack != null)
+        {
+            DressCell(left_pack_btn, itemInInventoryInit.left_pack);
+        }
+
+        if (itemInInventoryInit.right_pack != null)
+        {
+            DressCell(right_pack_btn, itemInInventoryInit.right_pack);
+        }
+
+        if (itemInInventoryInit.card != null)
+        {
+            DressCell(card_btn, itemInInventoryInit.card);
+        }
     }
 
     /*                                  */

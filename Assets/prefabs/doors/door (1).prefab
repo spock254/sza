@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5660232559732992377
+--- !u!1 &7675177335394976900
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5660232559732992382}
-  - component: {fileID: 5660232559732992383}
-  - component: {fileID: 5660232559732992376}
+  - component: {fileID: 7675177335394976921}
+  - component: {fileID: 7675177335394976922}
+  - component: {fileID: 7675177335394976923}
   m_Layer: 0
-  m_Name: door
+  m_Name: door (1)
   m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5660232559732992382
+--- !u!4 &7675177335394976921
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5660232559732992377}
+  m_GameObject: {fileID: 7675177335394976900}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.5, y: -0.5, z: -0.8574219}
+  m_LocalPosition: {x: 4.5, y: 0.5, z: -0.8574219}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &5660232559732992383
+--- !u!61 &7675177335394976922
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5660232559732992377}
+  m_GameObject: {fileID: 7675177335394976900}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -58,23 +58,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5660232559732992376
+--- !u!114 &7675177335394976923
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5660232559732992377}
+  m_GameObject: {fileID: 7675177335394976900}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d6f779c47bb0c34d9485d6ba7c08945, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemsToUnlockDoor: []
-  isLocked: 0
-  openDoorTile: {fileID: 11400000, guid: 3a1d69b191eda9c4aba55be27264c116, type: 2}
-  closeDoorTile: {fileID: 11400000, guid: b8d91c8c8f4bac54e8ae124e072231d1, type: 2}
+  itemsToUnlockDoor:
+  - {fileID: 11400000, guid: 1a3ebd40dc069a14893a7d3eec08a946, type: 2}
+  isLocked: 1
+  doorTiles:
+  - {fileID: 11400000, guid: e82d881faeb35bf4b9e0e78718e23f6d, type: 2}
+  - {fileID: 11400000, guid: b8f7b4a7dc480a945bb89dacbb0e1f4e, type: 2}
+  - {fileID: 11400000, guid: e8cec52e830838d40b8a482db4ed4192, type: 2}
+  - {fileID: 11400000, guid: 3fe11e187f6d2ce49a1f40c3b09953e5, type: 2}
+  - {fileID: 11400000, guid: f747e894cfc34db41855fa09009f9d7e, type: 2}
+  - {fileID: 11400000, guid: 9ef3ee693c9eb894292f99477da0b002, type: 2}
   doorTilemap: {fileID: 0}
-  eventController: {fileID: 0}
-  references:
-    version: 1
+  doorSpeed: 0.1

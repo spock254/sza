@@ -14,9 +14,6 @@ public class ActionPanelController : MonoBehaviour
     public float maxThrowDistance_MidleItem = 2;
     public float maxThrowDistance_BigItem = 1;
 
-    bool isThrown = false;
-
-    GameObject goToThrow;
     void Start()
     {
         uiContrall = GameObject.FindGameObjectWithTag("ui")
