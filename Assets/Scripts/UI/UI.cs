@@ -7,8 +7,8 @@ public class UI : MonoBehaviour
     public const Item NO_ITEM = null;
     public Item choosedItem = NO_ITEM;
     public Item choosedShopItem = NO_ITEM;
-    int chooseItemIndex = 0;
-    int chooseShopItemIndex = 0;
+    //int chooseItemIndex = 0;
+    //int chooseShopItemIndex = 0;
 
     int barlength = 150;
 

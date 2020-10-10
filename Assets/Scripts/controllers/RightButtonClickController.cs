@@ -45,6 +45,7 @@ public class RightButtonClickController : MonoBehaviour
         //rightButtonClick_panel.transform.position = SetPanelPosition(mousePosition);
         //TODO
         rightButtonClick_panel.GetComponent<RectTransform>().anchoredPosition = SetPanelPosition(mousePosition);
+        //rightButtonClick_panel.GetComponent<RectTransform>().anchoredPosition = SetPanelPosition(mousePosition);
 
         float step = GetItemHeight();
 
@@ -77,13 +78,6 @@ public class RightButtonClickController : MonoBehaviour
     Vector3 SetPanelPosition(Vector2 mousePosition) 
     {
         RectTransform rt = UICanval;
-        //Vector2 localpoint;
-        //RectTransformUtility.ScreenPointToLocalPointInRectangle(rt, Input.mousePosition, GetComponentInParent<Canvas>().worldCamera, out localpoint);
-
-        //Vector2 normalizedPoint = Rect.PointToNormalized(rt.rect, localpoint);
-        //return normalizedPoint;
-        //Debug.Log(normalizedPoint);
-
 
         Vector2 viewportPoint = Camera.main.ScreenToViewportPoint(mousePosition);
 
@@ -91,7 +85,11 @@ public class RightButtonClickController : MonoBehaviour
         float rightCornerY = 0;//rt.rect.height / 2;
 
         return new Vector3(viewportPoint.x - leftCornerX, viewportPoint.y - rightCornerY, rightButtonClick_panel.transform.position.z);
-        //return new Vector3()
+
+        //RectTransform rt = (RectTransform)spawnPoint.transform;
+        //Vector2 P = RectTransformUtility.WorldToScreenPoint(Camera.main, mousePosition);
+        //rt.position = P;
+        //return P;
     }
 
     void DestroyItems() 

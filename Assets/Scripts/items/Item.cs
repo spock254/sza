@@ -8,6 +8,7 @@ public class Item : ScriptableObject
     [HideInInspector]
     public int id;
     public string itemName;
+    public string itemDescription;
     public int itemPrice;
 
     public Sprite itemSprite;
@@ -32,6 +33,7 @@ public class Item : ScriptableObject
             
     }
 
+    #region old ctr
     //public void CopyItem(Item itemToCopy) 
     //{
     //    itemToCopy.id = id;
@@ -75,6 +77,8 @@ public class Item : ScriptableObject
     //    this.itemUseData = itemUseData;
     //    this.itemSprite = sprite;
     //}
+
+    #endregion
 
     public int GenerateId() 
     {
