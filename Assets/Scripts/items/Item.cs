@@ -16,6 +16,7 @@ public class Item : ScriptableObject
     public ItemStats stats;
     public ItemFightStats ItemFightStats;
     public ItemUseData itemUseData;
+    public ItemCraftData itemCraftData;
 
     public int capacity;
     [SerializeReference]

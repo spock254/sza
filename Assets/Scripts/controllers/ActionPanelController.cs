@@ -70,7 +70,7 @@ public class ActionPanelController : MonoBehaviour
         }
     }
 
-    void SpawnItem(Transform prefab, Vector3 position, Item item) 
+    public void SpawnItem(Transform prefab, Vector3 position, Item item) 
     {
         //Item prefabItem = prefab.GetComponent<ItemCell>().item;
 

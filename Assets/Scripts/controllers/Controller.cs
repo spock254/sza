@@ -56,9 +56,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     [HideInInspector]
     public Vector3 mousePosRight;
 
-    // Events
+    [Header("controllers")]
     public EventController eventController;
-
+    public CraftController craftController;
 
     void Start()
     {
@@ -84,7 +84,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             Vector2 mousePos2D = new Vector2(mousePosRight.x, mousePosRight.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
 
+            foreach (var hit in hits)
+            {
+                Debug.Log(hit.collider.name);
+
+                if (hit.collider.gameObject.tag == "table") 
+                {
+                    craftController.Craft(hits);
+
+                    return;
+                }
+            }
+
             eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
+
 
         }
 
@@ -96,8 +109,18 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
             foreach (var hit in hits)
             {
+                Debug.Log(hit.collider.name);
                 if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
                 {
+                    // ели на полу айтем и в руках не чего нет
+                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
+                    && IsEmpty(currentHand))
+                    {
+                        GameObject itemGo = hit.collider.gameObject;
+                        ItemPickUp(itemGo);
+                        return; // приоритет что бы не взять айтем и не положить его потом на стол если он был уже на столе
+                    }
+
                     if (hit.collider.gameObject.tag == "player")
                     {
                         Item item = currentHand.GetComponent<ItemCell>().item;
@@ -125,13 +148,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
                     }
 
-                    // ели на полу айтем и в руках не чего нет
-                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
-                    && IsEmpty(currentHand))
+
+                    if (hit.collider.gameObject.tag == "table") 
                     {
-                        GameObject itemGo = hit.collider.gameObject;
-                        ItemPickUp(itemGo);
+                        //Debug.Log("table");
+                        hit.collider.GetComponent<TableController>().OnTableClick(hit.transform.position,
+                            IsEmpty(currentHand) ? null : GetItemInHand(currentHand));
                     }
+
                 }
             }
         }
