@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
-  m_Name: carrot
+  m_Name: chips
   m_EditorClassIdentifier: 
-  id: 1209113206
-  itemName: cut carrot
-  itemDescription: carrot
-  itemPrice: 5
-  itemSprite: {fileID: -3768985631323812124, guid: a93de999f9bb83743b7f7fc59e705741,
+  id: 2031936075
+  itemName: chips
+  itemDescription: 
+  itemPrice: 25
+  itemSprite: {fileID: 3046544090647025007, guid: 608b7ba8f713be44a8e9798fcec4acfd,
     type: 3}
   stats:
-    playerStats: 2
-    value: 15
-    duration: 0
-    time: 0
+    playerStats: 0
+    value: 30
+    duration: 3
+    time: 3
   ItemFightStats:
     attack: 0
     defence: 0
@@ -30,13 +30,7 @@ MonoBehaviour:
     itemSize: 0
     use:
       id: 0
-    itemTypes: 0700000008000000
-  itemCraftData:
-    recept:
-    - {fileID: 11400000}
-    craftType: 1
-    craftTable: 2
-    craftMinLVL: 0
+    itemTypes: 0c0000000700000008000000
   capacity: 0
   innerItems: []
   references:

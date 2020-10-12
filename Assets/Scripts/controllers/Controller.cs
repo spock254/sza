@@ -86,11 +86,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
             foreach (var hit in hits)
             {
-                Debug.Log(hit.collider.name);
 
                 if (hit.collider.gameObject.tag == "table") 
                 {
-                    craftController.Craft(hits);
+                    craftController.Craft(hits, GetItemInHand(currentHand));
 
                     return;
                 }
@@ -109,7 +108,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
             foreach (var hit in hits)
             {
-                Debug.Log(hit.collider.name);
+
                 if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
                 {
                     // ели на полу айтем и в руках не чего нет

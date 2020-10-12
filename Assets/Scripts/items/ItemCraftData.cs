@@ -2,15 +2,15 @@
 using UnityEngine;
 public enum CraftType { None, Cooking };
 public enum CraftTable { None, Hands, Table };
+public enum CraftComplexety { Simple, Complex };
 
 [System.Serializable]
-public class ItemCraftData
+[CreateAssetMenu(fileName = "Data", menuName = "Recept")]
+public class ItemCraftData : ScriptableObject
 {
-
-    [SerializeReference]
-    public List<Item> recept;
-    [SerializeReference]
-    public List<Item> craftTool;
+    [SerializeField]
+    public Recept recept;
+    public CraftComplexety craftComplexety;
     public CraftType craftType;
     public CraftTable craftTable;
     public int craftMinLVL;
