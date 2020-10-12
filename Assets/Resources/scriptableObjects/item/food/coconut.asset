@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
+  m_Name: coconut
+  m_EditorClassIdentifier: 
+  id: 1209113206
+  itemName: coconut
+  itemDescription: coconut
+  itemPrice: 35
+  itemSprite: {fileID: -292197119483982767, guid: a93de999f9bb83743b7f7fc59e705741,
+    type: 3}
+  stats:
+    playerStats: 2
+    value: 35
+    duration: 0
+    time: 0
+  ItemFightStats:
+    attack: 0
+    defence: 0
+  itemUseData:
+    itemSize: 1
+    use:
+      id: 0
+    itemTypes: 0700000008000000
+  capacity: 0
+  innerItems: []
+  references:
+    version: 1
+    00000000:
+      type: {class: FoodUse, ns: , asm: Assembly-CSharp}

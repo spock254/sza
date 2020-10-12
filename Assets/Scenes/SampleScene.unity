@@ -10378,7 +10378,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70579c08047f5fe4fb426d00167c3452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemCraftData: {fileID: 11400000, guid: e3605f694ec05a349be0f38e9653b1c1, type: 2}
+  itemCraftData:
+  - {fileID: 11400000, guid: e3605f694ec05a349be0f38e9653b1c1, type: 2}
+  - {fileID: 11400000, guid: 5dd6d1c5f10c7554c85bb7027e8202a8, type: 2}
+  - {fileID: 11400000, guid: c701194cfaaa2b940b87aa53c2bab7ee, type: 2}
 --- !u!4 &1562283017
 Transform:
   m_ObjectHideFlags: 0
@@ -10760,10 +10763,10 @@ MonoBehaviour:
   arm: {fileID: 0}
   lags: {fileID: 0}
   bag: {fileID: 0}
-  left_hand: {fileID: 0}
+  left_hand: {fileID: 11400000, guid: 696b5376b328c624e98b4548128512e4, type: 2}
   right_hand: {fileID: 11400000, guid: 526918a5006dee94aa0a9f89b356392f, type: 2}
   left_pack: {fileID: 11400000, guid: 28ec8e2fc81cef94499bf595fb7ee8fb, type: 2}
-  right_pack: {fileID: 0}
+  right_pack: {fileID: 11400000, guid: 16ad646e852432f47a4f142c9cec8a6d, type: 2}
   card: {fileID: 0}
   bagCell: {fileID: 0}
 --- !u!4 &1592438375
@@ -13394,13 +13397,19 @@ PrefabInstance:
     - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
       propertyPath: items.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
       propertyPath: items.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 0a0829c0c9174404fb880f42a4d955f1,
+        type: 2}
+    - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: items.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6d2aa7d6e34fcea4d82799450873509f,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 413b41d385057064f9251b5543e99c83, type: 3}
