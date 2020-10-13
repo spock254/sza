@@ -89,7 +89,16 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 if (hit.collider.gameObject.tag == "table") 
                 {
-                    craftController.Craft(hits, GetItemInHand(currentHand));
+                    craftController.Craft_Table(hits, GetItemInHand(currentHand));
+
+                    return;
+                }
+
+                if (hit.collider.gameObject.tag == "microwave")
+                {
+                    MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
+
+                    craftController.Craft_Microwave(microwave);
 
                     return;
                 }
@@ -125,6 +134,24 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         Item item = currentHand.GetComponent<ItemCell>().item;
                         item.itemUseData.use.Use_On_Player(statInit.stats, item);
                         SetDefaultItem(currentHand);
+                    }
+
+                    if (hit.collider.gameObject.tag == "microwave") 
+                    {
+                        Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
+                        MicrowaveController microwaveController = hit.collider.GetComponent<MicrowaveController>();
+
+                        MicrowaveController.MicrowaveStatus status = microwaveController.OnMicrowaveClick(itemInHand, mousePos);
+
+                        if (status == MicrowaveController.MicrowaveStatus.PutItem) 
+                        {
+                            SetDefaultItem(currentHand);
+                        }
+                        else if (status == MicrowaveController.MicrowaveStatus.TakeItem) 
+                        {
+                            DressCell(currentHand, microwaveController.itemInside);
+                            microwaveController.itemInside = null;
+                        }
                     }
 
                     if (hit.collider.gameObject.tag == "door") 

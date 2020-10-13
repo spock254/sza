@@ -11,7 +11,7 @@ public class CraftController : MonoBehaviour
     {
         itemCraftData = Resources.LoadAll<ItemCraftData>(Global.Path.RECEPT).ToList();
     }
-    public void Craft(RaycastHit2D[] hits, Item tool) 
+    public void Craft_Table(RaycastHit2D[] hits, Item tool) 
     {
         GameObject GameObjOnTable = GetGameObjOnTable(hits);
         
@@ -49,28 +49,20 @@ public class CraftController : MonoBehaviour
         GameObjOnTable.GetComponent<ItemCell>().item = craftResult;
         GameObjOnTable.GetComponent<SpriteRenderer>().sprite = craftResult.itemSprite;
         
-        //if (!IsToolInRecept(itemCraftData, tool)) 
-        //{
-        //    Debug.Log("No tool");
-        //    return;
-        //}
+    }
 
-        //// если стол для крафта не пустой
-        //if (GameObjOnTable != null) 
-        //{
-        //    Item itemOnTable = GameObjOnTable.GetComponent<ItemCell>().item;
+    public void Craft_Microwave(MicrowaveController microwave) 
+    {
+        if (microwave.isOpen && microwave.itemInside)
+        {
+            microwave.Close();
+        }
+        else if (!microwave.isOpen && microwave.itemInside) 
+        {
+            StartCoroutine(microwave.Work());
+        }
 
-        //    if (itemCraftData.craftComplexety == CraftComplexety.Simple) 
-        //    {
-        //        if (itemOnTable.IsSameItems(itemCraftData.recept.ingredients[0])) 
-        //        {
-        //            // подстановка текущуго айтеса на крафт айтем 
-        //            Item resutItem = itemCraftData.recept.craftResult;
-        //            GameObjOnTable.GetComponent<ItemCell>().item = resutItem;
-        //            GameObjOnTable.GetComponent<SpriteRenderer>().sprite = resutItem.itemSprite;
-        //        }
-        //    }
-        //}
+
     }
 
     GameObject GetGameObjOnTable(RaycastHit2D[] hits) 
@@ -86,16 +78,4 @@ public class CraftController : MonoBehaviour
         return null;
     }
 
-    bool IsToolInRecept(ItemCraftData itemCraftData, Item toolInHand) 
-    {
-        foreach (var tool in itemCraftData.recept.craftTool)
-        {
-            if (tool.IsSameItems(toolInHand)) 
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
