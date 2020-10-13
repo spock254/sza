@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 public enum CraftType { None, Cooking };
-public enum CraftTable { None, Hands, Table };
+public enum CraftTable { None, Hands, Table, Microwave };
 public enum CraftComplexety { Simple, Complex };
 
 [System.Serializable]

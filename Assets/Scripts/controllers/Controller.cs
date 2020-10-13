@@ -98,7 +98,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 {
                     MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
 
-                    craftController.Craft_Microwave(microwave);
+                    craftController.Craft_Microwave(microwave, GetItemInHand(currentHand));
 
                     return;
                 }

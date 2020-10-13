@@ -14,6 +14,7 @@ public class MicrowaveController : MonoBehaviour
     public float cookingTime;
 
     public bool isOpen = false;
+    public bool isBlocked = false;
     //[HideInInspector]
     public Item itemInside;
 
@@ -21,30 +22,34 @@ public class MicrowaveController : MonoBehaviour
     public MicrowaveStatus OnMicrowaveClick(Item itemInHand, Vector3 mousePosition)
     {
         currentCell = tilemap.WorldToCell(mousePosition);
-        
-        if (isOpen == false && itemInHand == null)
-        {
-            Open();
 
-            Debug.Log("open");
-            return MicrowaveStatus.CloseOpen;
-        }
-        else if (isOpen == true && itemInHand == null && itemInside == null)
-        {
-            Close();
+        if (isBlocked == false) 
+        { 
+            if (isOpen == false && itemInHand == null)
+            {
+                Open();
 
-            Debug.Log("close");
-            return MicrowaveStatus.CloseOpen;
+                Debug.Log("open");
+                return MicrowaveStatus.CloseOpen;
+            }
+            else if (isOpen == true && itemInHand == null && itemInside == null)
+            {
+                Close();
+
+                Debug.Log("close");
+                return MicrowaveStatus.CloseOpen;
+            }
+            else if (isOpen == true && itemInHand != null && itemInside == null)
+            {
+                itemInside = itemInHand;
+                return MicrowaveStatus.PutItem;
+            }
+            else if (isOpen == true && itemInHand == null && itemInside != null) 
+            {
+                return MicrowaveStatus.TakeItem;
+            }
         }
-        else if (isOpen == true && itemInHand != null && itemInside == null)
-        {
-            itemInside = itemInHand;
-            return MicrowaveStatus.PutItem;
-        }
-        else if (isOpen == true && itemInHand == null && itemInside != null) 
-        {
-            return MicrowaveStatus.TakeItem;
-        }
+
 
         return MicrowaveStatus.None;
     }
@@ -63,10 +68,14 @@ public class MicrowaveController : MonoBehaviour
     
     public IEnumerator Work() 
     {
+        isBlocked = true;
+
         tilemap.SetTile(currentCell, wark_tile);
 
         yield return new WaitForSeconds(cookingTime);
 
         tilemap.SetTile(currentCell, close_tile);
+
+        isBlocked = false;
     }
 }

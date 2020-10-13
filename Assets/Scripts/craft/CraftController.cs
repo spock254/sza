@@ -23,20 +23,7 @@ public class CraftController : MonoBehaviour
 
         Item itemOnTabe = GameObjOnTable.GetComponent<ItemCell>().item;
 
-        List<ItemCraftData> sameTool = new List<ItemCraftData>();
-        
-        foreach (var cd in itemCraftData)
-        {
-            if (cd.recept.craftTool.Contains(tool)) 
-            {
-                sameTool.Add(cd);
-            }
-        }
-        Debug.Log(sameTool.Count);
-
-        ItemCraftData recept = sameTool
-            .Where(r => r.recept.ingredients[0].itemName.Equals(itemOnTabe.itemName))
-            .FirstOrDefault();
+        ItemCraftData recept = FindRecept(tool, itemOnTabe);
 
         if (recept == null) 
         {
@@ -51,7 +38,7 @@ public class CraftController : MonoBehaviour
         
     }
 
-    public void Craft_Microwave(MicrowaveController microwave) 
+    public void Craft_Microwave(MicrowaveController microwave, Item hand) 
     {
         if (microwave.isOpen && microwave.itemInside)
         {
@@ -60,6 +47,18 @@ public class CraftController : MonoBehaviour
         else if (!microwave.isOpen && microwave.itemInside) 
         {
             StartCoroutine(microwave.Work());
+
+            ItemCraftData recept = FindRecept(hand, microwave.itemInside);
+
+            if (recept == null)
+            {
+                Debug.Log("no recept");
+                return;
+            }
+
+            Item craftResult = recept.recept.craftResult;
+            Debug.Log(craftResult.itemName);
+            microwave.itemInside = craftResult;
         }
 
 
@@ -78,4 +77,24 @@ public class CraftController : MonoBehaviour
         return null;
     }
 
+    ItemCraftData FindRecept(Item tool, Item originItem) 
+    {
+        List<ItemCraftData> sameTool = new List<ItemCraftData>();
+
+        foreach (var cd in itemCraftData)
+        {
+            if (cd.recept.craftTool.Contains(tool))
+            {
+                sameTool.Add(cd);
+            }
+        }
+
+        Debug.Log(sameTool.Count);
+
+        ItemCraftData recept = sameTool
+                    .Where(r => r.recept.ingredients[0].itemName.Equals(originItem.itemName))
+                    .FirstOrDefault();
+
+        return recept;
+    }
 }
