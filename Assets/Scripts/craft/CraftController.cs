@@ -11,14 +11,14 @@ public class CraftController : MonoBehaviour
     {
         itemCraftData = Resources.LoadAll<ItemCraftData>(Global.Path.RECEPT).ToList();
     }
-    public void Craft_Table(RaycastHit2D[] hits, Item tool) 
+    public bool Craft_Table(RaycastHit2D[] hits, Item tool) 
     {
         GameObject GameObjOnTable = GetGameObjOnTable(hits);
         
         if (GameObjOnTable == null) 
         {
             Debug.Log("TableIsEmpty");
-            return;        
+            return false;        
         }
 
         Item itemOnTabe = GameObjOnTable.GetComponent<ItemCell>().item;
@@ -28,14 +28,15 @@ public class CraftController : MonoBehaviour
         if (recept == null) 
         {
             Debug.Log("no recept");
-            return;
+            return false;
         }
 
         Item craftResult = recept.recept.craftResult;
 
         GameObjOnTable.GetComponent<ItemCell>().item = craftResult;
         GameObjOnTable.GetComponent<SpriteRenderer>().sprite = craftResult.itemSprite;
-        
+
+        return recept.removeTool;
     }
 
     public void Craft_Microwave(MicrowaveController microwave, Item hand) 

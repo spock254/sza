@@ -89,7 +89,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 if (hit.collider.gameObject.tag == "table") 
                 {
-                    craftController.Craft_Table(hits, GetItemInHand(currentHand));
+                    bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand));
+
+                    if (removeTool) 
+                    {
+                        SetDefaultItem(currentHand);
+                    }
 
                     return;
                 }

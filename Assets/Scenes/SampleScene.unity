@@ -7422,6 +7422,7 @@ MonoBehaviour:
   wark_tile: {fileID: 11400000, guid: 565f2d3ab32adb74a8401633e70b5059, type: 2}
   cookingTime: 5
   isOpen: 0
+  isBlocked: 0
   itemInside: {fileID: 0}
 --- !u!61 &1171675444
 BoxCollider2D:
@@ -13480,7 +13481,7 @@ PrefabInstance:
     - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
       propertyPath: items.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
@@ -13499,6 +13500,18 @@ PrefabInstance:
       propertyPath: items.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 2c08da89511c00d49b7a82aedbe795b5,
+        type: 2}
+    - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: items.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: c645eed8f7df8dd4cbb2131f71605fe9,
+        type: 2}
+    - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: items.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c54a11095d623543a6347eefa5b01c8,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 413b41d385057064f9251b5543e99c83, type: 3}
@@ -13645,8 +13658,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7675177335394976923, guid: eb62386ede817c74f9af48901904ffae,
         type: 3}
+      propertyPath: doorTiles.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7675177335394976923, guid: eb62386ede817c74f9af48901904ffae,
+        type: 3}
       propertyPath: doorTilemap
       value: 
       objectReference: {fileID: 438892339}
+    - target: {fileID: 7675177335394976923, guid: eb62386ede817c74f9af48901904ffae,
+        type: 3}
+      propertyPath: doorTiles.Array.data[6]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ef3ee693c9eb894292f99477da0b002,
+        type: 2}
+    - target: {fileID: 7675177335394976923, guid: eb62386ede817c74f9af48901904ffae,
+        type: 3}
+      propertyPath: doorTiles.Array.data[7]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9ef3ee693c9eb894292f99477da0b002,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb62386ede817c74f9af48901904ffae, type: 3}
