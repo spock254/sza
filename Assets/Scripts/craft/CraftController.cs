@@ -11,7 +11,7 @@ public class CraftController : MonoBehaviour
     {
         itemCraftData = Resources.LoadAll<ItemCraftData>(Global.Path.RECEPT).ToList();
     }
-    public bool Craft_Table(RaycastHit2D[] hits, Item tool) 
+    public bool Craft_Table(RaycastHit2D[] hits, Item tool, CraftType craftType, CraftTable craftTable) 
     {
         GameObject GameObjOnTable = GetGameObjOnTable(hits);
         
@@ -23,7 +23,7 @@ public class CraftController : MonoBehaviour
 
         Item itemOnTabe = GameObjOnTable.GetComponent<ItemCell>().item;
 
-        ItemCraftData recept = FindRecept(tool, itemOnTabe);
+        ItemCraftData recept = FindRecept(tool, itemOnTabe, craftType, craftTable);
 
         if (recept == null) 
         {
@@ -39,7 +39,7 @@ public class CraftController : MonoBehaviour
         return recept.removeTool;
     }
 
-    public void Craft_Microwave(MicrowaveController microwave, Item hand) 
+    public void Craft_Microwave(MicrowaveController microwave, Item hand, CraftType craftType, CraftTable craftTable) 
     {
         if (microwave.isOpen && microwave.itemInside)
         {
@@ -49,7 +49,7 @@ public class CraftController : MonoBehaviour
         {
             StartCoroutine(microwave.Work());
 
-            ItemCraftData recept = FindRecept(hand, microwave.itemInside);
+            ItemCraftData recept = FindRecept(hand, microwave.itemInside, craftType, craftTable);
 
             if (recept == null)
             {
@@ -78,7 +78,7 @@ public class CraftController : MonoBehaviour
         return null;
     }
 
-    ItemCraftData FindRecept(Item tool, Item originItem) 
+    ItemCraftData FindRecept(Item tool, Item originItem, CraftType craftType, CraftTable craftTable) 
     {
         List<ItemCraftData> sameTool = new List<ItemCraftData>();
 
@@ -92,7 +92,11 @@ public class CraftController : MonoBehaviour
 
         Debug.Log(sameTool.Count);
 
-        ItemCraftData recept = sameTool
+        List<ItemCraftData> sameType = sameTool
+                    .Where(r => r.craftType == craftType)
+                    .Where(r => r.craftTable == craftTable).ToList();
+
+        ItemCraftData recept = sameType
                     .Where(r => r.recept.ingredients[0].itemName.Equals(originItem.itemName))
                     .FirstOrDefault();
 

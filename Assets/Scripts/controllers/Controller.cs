@@ -89,7 +89,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 if (hit.collider.gameObject.tag == "table") 
                 {
-                    bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand));
+                    bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand), 
+                                                                        CraftType.Cooking, 
+                                                                        CraftTable.Table);
 
                     if (removeTool) 
                     {
@@ -103,7 +105,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 {
                     MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
 
-                    craftController.Craft_Microwave(microwave, GetItemInHand(currentHand));
+                    craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
+                                                               CraftType.Cooking, 
+                                                               CraftTable.Microwave);
+
+                    return;
+                }
+                
+                if (hit.collider.gameObject.tag == "oven")
+                {
+                    MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
+
+                    craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
+                                                               CraftType.Cooking, 
+                                                               CraftTable.Oven);
 
                     return;
                 }
@@ -141,7 +156,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         SetDefaultItem(currentHand);
                     }
 
-                    if (hit.collider.gameObject.tag == "microwave") 
+                    if (hit.collider.gameObject.tag == "microwave" || hit.collider.gameObject.tag == "oven") 
                     {
                         Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
                         MicrowaveController microwaveController = hit.collider.GetComponent<MicrowaveController>();
