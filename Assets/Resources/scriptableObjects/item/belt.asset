@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
+  m_Name: belt
+  m_EditorClassIdentifier: 
+  id: -871206188
+  itemName: belt
+  itemDescription: belt
+  itemPrice: 500
+  itemSprite: {fileID: 9044428675723339679, guid: af7c4b80bdc4d6d4d9b11de1eded2d3e,
+    type: 3}
+  stats:
+    playerStats: 5
+    value: 0
+    duration: 0
+    time: 0
+  ItemFightStats:
+    attack: 0
+    defence: 15
+  itemUseData:
+    itemSize: 1
+    use:
+      id: 0
+    itemTypes: 050000000e000000
+  capacity: 10
+  innerItems: []
+  references:
+    version: 1
+    00000000:
+      type: {class: EquipmentUse, ns: , asm: Assembly-CSharp}
