@@ -15,4 +15,5 @@ public class ItemCraftData : ScriptableObject
     public CraftTable craftTable;
     public int craftMinLVL;
     public bool removeTool;
+    public float expReward;
 }

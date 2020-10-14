@@ -9,7 +9,7 @@ public class GeneralTest : MonoBehaviour
     //public ItemInit item;
 
     public FightStatsInit stats;
-
+    public SkillsInit skillsInit;
     //public Tile tileA;
     //public Tilemap tilemap;
     //public Tilemap tilemap_upper;
@@ -28,8 +28,7 @@ public class GeneralTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log(stats.fightStats.Attack);
-            Debug.Log(stats.fightStats.Defence);
+            skillsInit.cooking.AddExp(250);
 
         }
     }

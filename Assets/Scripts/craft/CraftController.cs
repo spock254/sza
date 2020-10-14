@@ -6,6 +6,7 @@ using System.Linq;
 public class CraftController : MonoBehaviour
 {
     List<ItemCraftData> itemCraftData;
+    public SkillsInit skillsInit;
 
     void Awake()
     {
@@ -36,6 +37,8 @@ public class CraftController : MonoBehaviour
         GameObjOnTable.GetComponent<ItemCell>().item = craftResult;
         GameObjOnTable.GetComponent<SpriteRenderer>().sprite = craftResult.itemSprite;
 
+        AddExpReward(recept);
+
         return recept.removeTool;
     }
 
@@ -60,6 +63,8 @@ public class CraftController : MonoBehaviour
             Item craftResult = recept.recept.craftResult;
             Debug.Log(craftResult.itemName);
             microwave.itemInside = craftResult;
+
+            AddExpReward(recept);
         }
 
 
@@ -101,5 +106,17 @@ public class CraftController : MonoBehaviour
                     .FirstOrDefault();
 
         return recept;
+    }
+
+    void AddExpReward(ItemCraftData itemCraftData) 
+    {
+        CraftType craftType = itemCraftData.craftType;
+        float exp = itemCraftData.expReward;
+
+        if (craftType == CraftType.Cooking) 
+        {
+            skillsInit.cooking.AddExp(exp);
+        }
+
     }
 }

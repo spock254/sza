@@ -10,6 +10,8 @@ public class UI : MonoBehaviour
     //int chooseItemIndex = 0;
     //int chooseShopItemIndex = 0;
 
+    public SkillsInit skillsInit;
+
     int barlength = 150;
 
     //get stats after init
@@ -72,7 +74,7 @@ public class UI : MonoBehaviour
         DrawExpBar(5);
         DrawFightStatBar(fightStats.fightStats.Attack, 6, "attack");
         DrawFightStatBar(fightStats.fightStats.Defence, 7, "defence");
-
+        DrawCookingSkill(9);
         // inv
         if (isInventoryOpen)
         {
@@ -137,6 +139,19 @@ public class UI : MonoBehaviour
         GUI.EndGroup();
         GUI.EndGroup();
         GUI.Label(new Rect(0, step * order, barlength, step), "exp " + exp.exp.Current_exp.ToString() + " / " + exp.exp.lvllt[exp.exp.Lvl + 1].ToString() + " lvl " + exp.exp.Lvl);
+    }
+
+    void DrawCookingSkill(int order) 
+    {
+        GUI.BeginGroup(new Rect(0, step * order, barlength, step));
+        GUI.Box(new Rect(0, 0, barlength, step), progressBarEmpty);
+        float exp_progressBar = (((float)(skillsInit.cooking.GetSkillExp() - skillsInit.cooking.GetMinCurrentLvlExp()) 
+            / skillsInit.cooking.ExpToNextLvl()));
+        GUI.BeginGroup(new Rect(0, 0, exp_progressBar * barlength, step));
+        GUI.Box(new Rect(0, 0, barlength, step), progressBarFull);
+        GUI.EndGroup();
+        GUI.EndGroup();
+        GUI.Label(new Rect(0, step * order, barlength, step), "cooking " + skillsInit.cooking.GetSkillExp() + " / " + skillsInit.cooking.ExpToNextLvl().ToString() + " lvl " + skillsInit.cooking.GetSkillLvl());
     }
 
     void DrawItemsBar() 
