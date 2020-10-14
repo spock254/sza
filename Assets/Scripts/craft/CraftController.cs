@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CraftController : MonoBehaviour
 {
@@ -11,7 +12,42 @@ public class CraftController : MonoBehaviour
     void Awake()
     {
         itemCraftData = Resources.LoadAll<ItemCraftData>(Global.Path.RECEPT).ToList();
+        
     }
+
+    //private void Start()
+    //{
+    //    foreach (var i in itemCraftData)
+    //    {
+    //        Debug.Log(i.craftTable.ToString());
+    //    }
+    //}
+
+    public void Craft_Hands(GameObject itemInHand, GameObject emptyHand) 
+    {
+        Item emptyHandItem = emptyHand.GetComponent<ItemCell>().item;
+        Item item = itemInHand.GetComponent<ItemCell>().item;
+
+        ItemCraftData recept = FindRecept(emptyHandItem, item, CraftType.Cooking, CraftTable.Hands);
+
+        if (recept == null)
+        {
+            Debug.Log("no recept");
+            return;
+        }
+
+        if (!IsSuitableMinLvl(recept))
+        {
+            Debug.Log("recept lvl bigger then skill lvl");
+            return;
+        }
+
+        Item craftResult = recept.recept.craftResult;
+
+        itemInHand.GetComponent<ItemCell>().item = craftResult;
+        itemInHand.GetComponent<Image>().sprite = craftResult.itemSprite;
+    }
+
     public bool Craft_Table(RaycastHit2D[] hits, Item tool, CraftType craftType, CraftTable craftTable) 
     {
         GameObject GameObjOnTable = GetGameObjOnTable(hits);
@@ -29,6 +65,12 @@ public class CraftController : MonoBehaviour
         if (recept == null) 
         {
             Debug.Log("no recept");
+            return false;
+        }
+
+        if (!IsSuitableMinLvl(recept)) 
+        {
+            Debug.Log("recept lvl bigger then skill lvl");
             return false;
         }
 
@@ -66,8 +108,6 @@ public class CraftController : MonoBehaviour
 
             AddExpReward(recept);
         }
-
-
     }
 
     GameObject GetGameObjOnTable(RaycastHit2D[] hits) 
@@ -95,8 +135,6 @@ public class CraftController : MonoBehaviour
             }
         }
 
-        Debug.Log(sameTool.Count);
-
         List<ItemCraftData> sameType = sameTool
                     .Where(r => r.craftType == craftType)
                     .Where(r => r.craftTable == craftTable).ToList();
@@ -118,5 +156,19 @@ public class CraftController : MonoBehaviour
             skillsInit.cooking.AddExp(exp);
         }
 
+    }
+
+    bool IsSuitableMinLvl(ItemCraftData itemCraftData) 
+    {
+        CraftType craftType = itemCraftData.craftType;
+        int minCraftLvl = itemCraftData.craftMinLVL;
+
+        if (craftType == CraftType.Cooking 
+        && skillsInit.cooking.GetSkillLvl() >= minCraftLvl)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

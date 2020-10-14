@@ -126,7 +126,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
             eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
 
-
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -311,20 +310,28 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         if (item_type == ItemUseData.ItemType.HandUsable)
                         {
                             itemInCell.itemUseData.use.Use_In_Hands(statInit.stats, itemInCell);
+
                             return;
                         }
-                        else if (item_type == ItemUseData.ItemType.Openable 
-                              || item_type == ItemUseData.ItemType.Upgradable) 
+                        else if (item_type == ItemUseData.ItemType.HandCraftable) 
+                        {
+                            craftController.Craft_Hands(GetAnotherHand().gameObject, 
+                                                             currentHand.gameObject);
+
+                            return;
+                        }
+                        else if (item_type == ItemUseData.ItemType.Openable
+                              || item_type == ItemUseData.ItemType.Upgradable)
                         {
                             // TODO:  
-                            if (!isBagOpen) 
-                            { 
+                            if (!isBagOpen)
+                            {
                                 itemInCell.itemUseData.use.Use_To_Open(statInit.stats, itemInCell);
                             }
 
                             CloseOpenContainer(bag_panel, ref isBagOpen);
 
-                            if (isBagOpen) 
+                            if (isBagOpen)
                             {
                                 ContainerContentInit(itemInCell.innerItems, bag_panel);
                                 Debug.Log("bag init");

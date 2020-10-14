@@ -5,12 +5,12 @@ using UnityEngine;
 public class ItemUseData
 {
     public enum ItemSize { Small, Middle, Big }
-    // не может быть одновременно HandUsable и Openable и Upgradable
+    // не может быть одновременно HandUsable и Openable и Upgradable, HandCraftable
     // Upgrate - айтем для абгрейта
     // Upgradable - айтем который можно абрейдить
     //
     public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, Packet_left, Packet_right,
-                           Unwearable, Untakable, Dragable, HandUsable, Openable, Upgrate, Upgradable, NONE }
+                           Unwearable, Untakable, Dragable, HandUsable, HandCraftable, Openable, Upgrate, Upgradable, NONE }
 
     public ItemSize itemSize;
 
