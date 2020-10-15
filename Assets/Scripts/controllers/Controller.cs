@@ -155,6 +155,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         SetDefaultItem(currentHand);
                     }
 
+                    if (hit.collider.gameObject.tag == "pc") 
+                    {
+                        PCController pcController = hit.collider.GetComponent<PCController>();
+                        Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
+                        pcController.OnPc_ClicK(itemInHand, mousePos);
+                    }
+
                     if (hit.collider.gameObject.tag == "microwave" || hit.collider.gameObject.tag == "oven") 
                     {
                         Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
