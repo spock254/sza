@@ -65,7 +65,7 @@ public class MicrowaveController : MonoBehaviour
         tilemap.SetTile(currentCell, open_tile);
         isOpen = true;
     }
-    
+
     public IEnumerator Work() 
     {
         isBlocked = true;

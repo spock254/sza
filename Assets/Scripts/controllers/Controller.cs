@@ -359,6 +359,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         }
     }
 
+    /*                                  */
+    /*              ACTIONS             */
+    /*                                  */
     public void ItemPickUp(GameObject itemGo) 
     {
         Item item = itemGo.GetComponent<ItemCell>().item;
@@ -459,9 +462,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         }
     }
 
-    /*                                  */
-    /*              ACTIONS             */
-    /*                                  */
     public List<Item> GetInnerItems()
     {
         return GetAnotherHand().GetComponent<ItemCell>().item.innerItems;

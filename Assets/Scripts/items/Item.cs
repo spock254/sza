@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
@@ -21,6 +22,7 @@ public class Item : ScriptableObject
     public int capacity;
     [SerializeReference]
     public List<Item> innerItems;
+    //public int transformationTime;
 
     public override string ToString()
     {
@@ -133,4 +135,5 @@ public class Item : ScriptableObject
     {
         return this.id == item.id;
     }
+
 }
