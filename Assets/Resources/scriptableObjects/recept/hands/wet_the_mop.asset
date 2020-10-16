@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd46816619a34dd4bb1b19a88b1cef1a, type: 3}
+  m_Name: wet_the_mop
+  m_EditorClassIdentifier: 
+  recept:
+    ingredients:
+    - {fileID: 11400000, guid: 38531c08e5bf4f045977112013596ad1, type: 2}
+    craftTool:
+    - {fileID: 11400000, guid: 9f3c828a9b4bb6241b662c79741dccfa, type: 2}
+    - {fileID: 11400000, guid: c786af9d7471be4469ca4e57159379f6, type: 2}
+    craftResult: {fileID: 11400000, guid: 267e9bba3f54b0f4eb70a7187c090bbb, type: 2}
+  craftComplexety: 0
+  craftType: 1
+  craftTable: 1
+  craftMinLVL: 0
+  removeTool: 0
+  expReward: 1

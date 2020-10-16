@@ -28,14 +28,7 @@ public class TabWaterController : MonoBehaviour
         }
 
         Item itemInHand = hand.GetComponent<ItemCell>().item;
-
         List<Item> pair = new List<Item>();
-
-        //if (!vessels.Contains(itemInHand)) 
-        //{
-        //    Debug.Log("cant fill");
-        //    return;
-        //}
 
         foreach (var item in vessels)
         {

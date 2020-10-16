@@ -23,12 +23,12 @@ public class CraftController : MonoBehaviour
     //    }
     //}
 
-    public void Craft_Hands(GameObject itemInHand, GameObject emptyHand) 
+    public void Craft_Hands(GameObject itemInHand, GameObject toolGO) 
     {
-        Item emptyHandItem = emptyHand.GetComponent<ItemCell>().item;
+        Item tool = toolGO.GetComponent<ItemCell>().item;
         Item item = itemInHand.GetComponent<ItemCell>().item;
 
-        ItemCraftData recept = FindRecept(emptyHandItem, item, CraftType.Cooking, CraftTable.Hands);
+        ItemCraftData recept = FindRecept(tool, item, CraftType.Cooking, CraftTable.Hands);
 
         if (recept == null)
         {
@@ -43,7 +43,7 @@ public class CraftController : MonoBehaviour
         }
 
         Item craftResult = recept.recept.craftResult;
-
+        Debug.Log(craftResult.itemName);
         itemInHand.GetComponent<ItemCell>().item = craftResult;
         itemInHand.GetComponent<Image>().sprite = craftResult.itemSprite;
     }
@@ -126,7 +126,7 @@ public class CraftController : MonoBehaviour
     ItemCraftData FindRecept(Item tool, Item originItem, CraftType craftType, CraftTable craftTable) 
     {
         List<ItemCraftData> sameTool = new List<ItemCraftData>();
-
+        
         foreach (var cd in itemCraftData)
         {
             if (cd.recept.craftTool.Contains(tool))
@@ -134,7 +134,7 @@ public class CraftController : MonoBehaviour
                 sameTool.Add(cd);
             }
         }
-
+        Debug.Log(sameTool.Count);
         List<ItemCraftData> sameType = sameTool
                     .Where(r => r.craftType == craftType)
                     .Where(r => r.craftTable == craftTable).ToList();

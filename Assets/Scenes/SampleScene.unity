@@ -7876,7 +7876,7 @@ PrefabInstance:
     - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
       propertyPath: items.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
@@ -7901,6 +7901,18 @@ PrefabInstance:
       propertyPath: items.Array.data[3]
       value: 
       objectReference: {fileID: 11400000, guid: 696b5376b328c624e98b4548128512e4,
+        type: 2}
+    - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: items.Array.data[4]
+      value: 
+      objectReference: {fileID: 11400000, guid: 38531c08e5bf4f045977112013596ad1,
+        type: 2}
+    - target: {fileID: 2629205702211164541, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: items.Array.data[5]
+      value: 
+      objectReference: {fileID: 11400000, guid: fc40cc1345d9915438341c105623286e,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 413b41d385057064f9251b5543e99c83, type: 3}
@@ -11037,8 +11049,8 @@ MonoBehaviour:
   arm: {fileID: 0}
   lags: {fileID: 0}
   bag: {fileID: 11400000, guid: f230835cc9246ed418bbe373cab948d8, type: 2}
-  left_hand: {fileID: 11400000, guid: 739b338773e040e44b6ff747fa076f4c, type: 2}
-  right_hand: {fileID: 11400000, guid: 526918a5006dee94aa0a9f89b356392f, type: 2}
+  left_hand: {fileID: 11400000, guid: 9f3c828a9b4bb6241b662c79741dccfa, type: 2}
+  right_hand: {fileID: 11400000, guid: 38531c08e5bf4f045977112013596ad1, type: 2}
   left_pack: {fileID: 11400000, guid: 28ec8e2fc81cef94499bf595fb7ee8fb, type: 2}
   right_pack: {fileID: 11400000, guid: 16ad646e852432f47a4f142c9cec8a6d, type: 2}
   card: {fileID: 11400000, guid: 1a3ebd40dc069a14893a7d3eec08a946, type: 2}

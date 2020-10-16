@@ -155,10 +155,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         SetDefaultItem(currentHand);
                     }
 
-                    //Debug.Log(hit.collider.gameObject.tag);
                     if (hit.collider.gameObject.tag == "tapWater")
                     {
-                        Debug.Log("ds");
                         TabWaterController tabWaterController = hit.collider.GetComponent<TabWaterController>();
                         Button btn_itemInHand = IsEmpty(currentHand) ? null : currentHand;
                         tabWaterController.OnWaterTap_Click(btn_itemInHand);
@@ -204,7 +202,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         Transform casePosition = hit.collider.transform;
 
                         // важно соблюдать очередность, сначало открывается сундук потом панэль
-                        //eventController.OnCaseEvent.Invoke(casePosition.position);
                         hit.collider.GetComponent<CaseController>().OnCaseCloseOpen(casePosition.position);
                         eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
                     }
@@ -283,6 +280,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         Button cell = cellGo.GetComponent<Button>();
 
+
         if (!IsEmpty(currentHand)) //если в руке что то есть
         {
             Item itemInHand = currentHand.GetComponent<ItemCell>().item;
@@ -312,6 +310,24 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             { 
             
             }
+
+            // если две руки заняты попробовать скрафтить
+            // и если заимод только с айтемом во второй руке
+            Item itemInCell = cell.GetComponent<ItemCell>().item;
+            if (!IsEmpty(GetAnotherHand()) && itemInCell == GetItemInHand(GetAnotherHand())) 
+            {
+                foreach (var item_type in itemInHand.itemUseData.itemTypes) 
+                {
+                    if (item_type == ItemUseData.ItemType.HandCraftable) 
+                    {
+                        Debug.Log("CRAFT");
+                        craftController.Craft_Hands(currentHand.gameObject,
+                                                    GetAnotherHand().gameObject);
+
+                        return;
+                    }
+                }
+            }
         }
         else //если в руках не чего нет
         {
@@ -329,9 +345,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                             return;
                         }
-                        else if (item_type == ItemUseData.ItemType.HandCraftable) 
+                        else if (item_type == ItemUseData.ItemType.HandCraftable)
                         {
-                            craftController.Craft_Hands(GetAnotherHand().gameObject, 
+                            Debug.Log("CRAFT");
+                            craftController.Craft_Hands(GetAnotherHand().gameObject,
                                                              currentHand.gameObject);
 
                             return;
