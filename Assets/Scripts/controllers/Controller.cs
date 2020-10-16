@@ -155,6 +155,15 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         SetDefaultItem(currentHand);
                     }
 
+                    //Debug.Log(hit.collider.gameObject.tag);
+                    if (hit.collider.gameObject.tag == "tapWater")
+                    {
+                        Debug.Log("ds");
+                        TabWaterController tabWaterController = hit.collider.GetComponent<TabWaterController>();
+                        Button btn_itemInHand = IsEmpty(currentHand) ? null : currentHand;
+                        tabWaterController.OnWaterTap_Click(btn_itemInHand);
+                    }
+
                     if (hit.collider.gameObject.tag == "pc") 
                     {
                         PCController pcController = hit.collider.GetComponent<PCController>();

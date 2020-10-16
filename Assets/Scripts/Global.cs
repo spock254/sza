@@ -19,5 +19,6 @@ public static class Global
         public const string FOOD_SPRITES_ROOT = "Images/Items/Food/";
         public const string EQUIPMENT_SPRITES_ROOT = "Images/Items/Equipment/";
         public const string RECEPT = "scriptableObjects/recept";
+        public const string VESSELS = "scriptableObjects/item/Vessels";
     }
 }
