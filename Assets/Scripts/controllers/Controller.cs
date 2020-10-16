@@ -139,6 +139,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
                 {
+                    Debug.Log(hit.collider.gameObject.tag);
                     // ели на полу айтем и в руках не чего нет
                     if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
                     && IsEmpty(currentHand))
