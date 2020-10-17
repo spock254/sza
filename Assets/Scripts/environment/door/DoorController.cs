@@ -24,6 +24,7 @@ public class DoorController : MonoBehaviour
     void Start()
     {
         doorTilemap = Global.TileMaps.GetTileMap(Global.TileMaps.DOORS);
+        doorTilemap.SetTile(doorTilemap.WorldToCell(transform.position), doorTiles[0]);
         //eventController.OnDoorEvent.AddListener(OnDoorClick);
 
         //itemsToUnlockDoor = new List<Item>();

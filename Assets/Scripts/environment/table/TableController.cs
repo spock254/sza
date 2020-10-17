@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class TableController : MonoBehaviour
 {
-    public ActionPanelController actionPanelController;
+    ActionPanelController actionPanelController;
+
+    void Start()
+    {
+        actionPanelController = Global.Component.GetActionPanelController();
+    }
 
     public void OnTableClick(Vector2 mousePosition, Item item) 
     {

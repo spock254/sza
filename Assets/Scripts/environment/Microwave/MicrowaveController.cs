@@ -8,7 +8,9 @@ public class MicrowaveController : MonoBehaviour
     public enum MicrowaveStatus { CloseOpen, PutItem, TakeItem, None }
 
     Tilemap tilemap;
-    
+    Tilemap bodymap;
+
+    public Tile body_tile;
     public Tile open_tile;
     public Tile close_tile;
     public Tile wark_tile;
@@ -16,7 +18,7 @@ public class MicrowaveController : MonoBehaviour
 
     public bool isOpen = false;
     public bool isBlocked = false;
-    //[HideInInspector]
+
     public Item itemInside;
 
     Vector3Int currentCell;
@@ -24,8 +26,11 @@ public class MicrowaveController : MonoBehaviour
 
     void Start()
     {
+        bodymap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+
         tilemap.SetTile(tilemap.WorldToCell(transform.position), close_tile);
+        bodymap.SetTile(bodymap.WorldToCell(transform.position), body_tile);
         
         //tilemap.SetColliderType(tilemap.WorldToCell(transform.position), Tile.ColliderType.Sprite);
     }

@@ -15,7 +15,7 @@ GameObject:
   m_Layer: 0
   m_Name: case
   m_TagString: case
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -75,16 +75,6 @@ MonoBehaviour:
   itemsToUnlockCase: []
   caseCapacity: 10
   isLocked: 0
-  sprite_chest: {fileID: -6286996620446520809, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-    type: 3}
-  sprite_helmet: {fileID: -6437820805256666715, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-    type: 3}
-  sprite_card: {fileID: 4392401687526413892, guid: e3915133abcf5854ba42a77bc51a524b,
-    type: 3}
-  sprite_upgrate: {fileID: -4350086889351868749, guid: ef7bad5a2b12a8649b3575fe584ad27d,
-    type: 3}
-  references:
-    version: 1
 --- !u!114 &2629205702211164418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,9 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164dedf2b818a7c49bd34f6a18ab4ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caseTilemap: {fileID: 0}
+  caseBody: {fileID: 11400000, guid: ed1a85c39e43098459d872652bdc8b60, type: 2}
   caseOpen: {fileID: 11400000, guid: 9d5e1e070b1fba440bf199e129720b51, type: 2}
   caseClosed: {fileID: 11400000, guid: 6d4ebaac223e2c042bf54f958ddf6651, type: 2}
   isOpen: 0
-  eventController: {fileID: 0}
-  casePanelController: {fileID: 0}

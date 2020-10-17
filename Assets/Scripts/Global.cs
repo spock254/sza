@@ -28,6 +28,7 @@ public static class Global
         public const string BASE = "base";
         public const string BASE_2 = "base2";
         public const string BASE_3 = "base3";
+        public const string BASE_4 = "base4";
 
         public const string UPPER = "upper";
         public const string UPPER_2 = "upper2";
@@ -38,6 +39,24 @@ public static class Global
         public static Tilemap GetTileMap(string tag) 
         {
             return GameObject.FindGameObjectWithTag(tag).GetComponent<Tilemap>();
+        }
+    }
+
+    public static class Component 
+    {
+        public static EventController GetEventController() 
+        {
+            return GameObject.FindGameObjectWithTag("eventSystem").GetComponent<EventController>();
+        }
+
+        public static CasePanelController GetCasePanelController()
+        {
+            return GameObject.FindGameObjectWithTag("ui").GetComponent<CasePanelController>();
+        }
+
+        public static ActionPanelController GetActionPanelController() 
+        { 
+            return GameObject.FindGameObjectWithTag("ui").GetComponent<ActionPanelController>();
         }
     }
 }

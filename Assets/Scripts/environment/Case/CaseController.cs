@@ -6,21 +6,31 @@ using UnityEngine.Tilemaps;
 
 public class CaseController : MonoBehaviour
 {
-    Tilemap caseTilemap;
-    
+    Tilemap caseTilemap_door;
+    Tilemap caseTilemap_body;
+
+    public Tile caseBody;
     public Tile caseOpen;
     public Tile caseClosed;
 
     public bool isOpen = false;
-    public EventController eventController;
-    public CasePanelController casePanelController;
+    
+    EventController eventController;
+    CasePanelController casePanelController;
     // Start is called before the first frame update
 
     //private Vector3 mousePos;
 
     void Start()
     {
-        caseTilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+        caseTilemap_body = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
+        caseTilemap_door = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+
+        eventController = Global.Component.GetEventController();
+        casePanelController = Global.Component.GetCasePanelController();
+
+        caseTilemap_body.SetTile(caseTilemap_body.WorldToCell(transform.position), caseBody);
+        caseTilemap_door.SetTile(caseTilemap_door.WorldToCell(transform.position), caseClosed);
     }
 
 
@@ -32,8 +42,8 @@ public class CaseController : MonoBehaviour
             return;
         }
 
-        Vector3Int currentCell = caseTilemap.WorldToCell(mousePosition);
-        caseTilemap.SetTile(currentCell, (!isOpen) ? caseOpen : caseClosed);
+        Vector3Int currentCell = caseTilemap_door.WorldToCell(mousePosition);
+        caseTilemap_door.SetTile(currentCell, (!isOpen) ? caseOpen : caseClosed);
         isOpen = !isOpen;
         //mousePos = mousePosition;
     }
