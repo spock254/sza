@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class CaseController : MonoBehaviour
 {
-    public Tilemap caseTilemap;
+    Tilemap caseTilemap;
+    
     public Tile caseOpen;
     public Tile caseClosed;
 
@@ -19,7 +20,7 @@ public class CaseController : MonoBehaviour
 
     void Start()
     {
-        //eventController.OnCaseEvent.AddListener(OnCaseCloseOpen);
+        caseTilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
     }
 
 

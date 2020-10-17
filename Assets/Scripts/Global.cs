@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public static class Global
 {
@@ -20,5 +21,23 @@ public static class Global
         public const string EQUIPMENT_SPRITES_ROOT = "Images/Items/Equipment/";
         public const string RECEPT = "scriptableObjects/recept";
         public const string VESSELS = "scriptableObjects/item/Vessels";
+    }
+
+    public static class TileMaps
+    {
+        public const string BASE = "base";
+        public const string BASE_2 = "base2";
+        public const string BASE_3 = "base3";
+
+        public const string UPPER = "upper";
+        public const string UPPER_2 = "upper2";
+
+        public const string WALLS = "walls";
+        public const string DOORS = "doors";
+
+        public static Tilemap GetTileMap(string tag) 
+        {
+            return GameObject.FindGameObjectWithTag(tag).GetComponent<Tilemap>();
+        }
     }
 }

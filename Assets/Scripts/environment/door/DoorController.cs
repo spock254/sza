@@ -16,13 +16,14 @@ public class DoorController : MonoBehaviour
     //public Tile closeDoorTile;
     public List<Tile> doorTiles;
 
-    public Tilemap doorTilemap;
+    Tilemap doorTilemap;
     public float doorSpeed = 0.1f;
 
     //public EventController eventController;
 
     void Start()
     {
+        doorTilemap = Global.TileMaps.GetTileMap(Global.TileMaps.DOORS);
         //eventController.OnDoorEvent.AddListener(OnDoorClick);
 
         //itemsToUnlockDoor = new List<Item>();
