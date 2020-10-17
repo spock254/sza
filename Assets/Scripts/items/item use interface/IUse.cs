@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public interface IUse
 {
@@ -22,5 +23,5 @@ public interface IUse
     // когда айтем уже одет на играока использование пустой рукой
     void Use_DressedUp(FightStats fightStats, Stats stats, Item item);
 
-    //void Use_On_Env();
+    void Use_On_Env(RaycastHit2D[] rigidbody2Ds, Vector2 mousePos, Button btn_itemInHand, Button btn_tool);
 }

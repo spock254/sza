@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UseFace : UseMassage, IUse
 {
@@ -12,6 +13,11 @@ public class UseFace : UseMassage, IUse
     public void Use_In_Hands(Stats stats, Item item)
     {
         
+    }
+
+    public void Use_On_Env(RaycastHit2D[] rigidbody2Ds, Vector2 mousePos, Button btn_itemInHand, Button btn_tool)
+    {
+
     }
 
     public void Use_On_Player(Stats stats, Item item)

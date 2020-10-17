@@ -22,8 +22,10 @@ public class ItemEditor : Editor
         "UseCard",
 
         "BagUse", 
-        "EquipmentUse" , 
-        "FoodUse" 
+        "EquipmentUse", 
+        "FoodUse",
+
+        "MobUse"
     };
 
     Dictionary<string, IUse> use;
@@ -52,6 +54,8 @@ public class ItemEditor : Editor
         use.Add("BagUse", new BagUse());
         use.Add("EquipmentUse", new EquipmentUse());
         use.Add("FoodUse", new FoodUse());
+
+        use.Add("MobUse", new MobUse());
 
         DrawDefaultInspector();
 

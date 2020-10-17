@@ -134,6 +134,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
 
+            if (IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
+            {
+                Item itemInHand = GetItemInHand(currentHand);
+                itemInHand.itemUseData.use.Use_On_Env(hits, mousePos, currentHand, GetAnotherHand());
+            }
+
             foreach (var hit in hits)
             {
 
@@ -321,7 +327,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 {
                     if (item_type == ItemUseData.ItemType.HandCraftable) 
                     {
-                        Debug.Log("CRAFT");
                         craftController.Craft_Hands(currentHand.gameObject,
                                                     GetAnotherHand().gameObject);
 
