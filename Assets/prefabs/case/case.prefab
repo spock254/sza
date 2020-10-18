@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2629205702211164419}
   - component: {fileID: 2629205702211164541}
   - component: {fileID: 2629205702211164418}
+  - component: {fileID: 8058116717453988471}
   m_Layer: 0
   m_Name: case
   m_TagString: case
@@ -49,10 +50,10 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -91,3 +92,29 @@ MonoBehaviour:
   caseOpen: {fileID: 11400000, guid: 9d5e1e070b1fba440bf199e129720b51, type: 2}
   caseClosed: {fileID: 11400000, guid: 6d4ebaac223e2c042bf54f958ddf6651, type: 2}
   isOpen: 0
+--- !u!114 &8058116717453988471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629205702211164417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.2226935, y: -0.46985865, z: 0}
+  - {x: 0.219233, y: -0.46981192, z: 0}
+  - {x: 0.21554789, y: 0.47293723, z: 0}
+  - {x: -0.2243805, y: 0.4743501, z: 0}
+  m_ShapePathHash: 1712529153
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 71426
