@@ -111,6 +111,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                                                                CraftType.Cooking, 
                                                                CraftTable.Microwave);
 
+                    eventController.OnEnvChangeShapeEvent.Invoke();
+
                     return;
                 }
                 
@@ -121,6 +123,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
                                                                CraftType.Cooking, 
                                                                CraftTable.Oven);
+
+                    eventController.OnEnvChangeShapeEvent.Invoke();
 
                     return;
                 }
@@ -196,6 +200,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             DressCell(currentHand, microwaveController.itemInside);
                             microwaveController.itemInside = null;
                         }
+
+                        eventController.OnEnvChangeShapeEvent.Invoke();
                     }
 
                     if (hit.collider.gameObject.tag == "door") 
@@ -215,6 +221,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         // важно соблюдать очередность, сначало открывается сундук потом панэль
                         hit.collider.GetComponent<CaseController>().OnCaseCloseOpen(casePosition.position);
                         eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
+
+                        eventController.OnEnvChangeShapeEvent.Invoke();
                     }
 
 

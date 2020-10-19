@@ -21,7 +21,7 @@ public class SetTilemapShadows : MonoBehaviour
 
     public void Start()
     {
-        eventController.OnMouseClickEvent.AddListener(ResetAndCleanUp);
+        eventController.OnEnvChangeShapeEvent.AddListener(ResetAndCleanUp);
 
         Instance = this;
         tilemapCollider = GetComponent<CompositeCollider2D>();

@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6638897104909688067}
   - component: {fileID: 2693132654820799005}
   - component: {fileID: 6712039900156977095}
-  - component: {fileID: 4853380627535156440}
   m_Layer: 0
   m_Name: oven
   m_TagString: oven
@@ -146,37 +145,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4853380627535156440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44557081738524617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.34695435, y: -0.49893188, z: 0}
-  - {x: 0.31155396, y: -0.49395752, z: 0}
-  - {x: 0.31652832, y: -0.15792847, z: 0}
-  - {x: 0.47052002, y: -0.15582275, z: 0}
-  - {x: 0.4699707, y: 0.093688965, z: 0}
-  - {x: 0.34466553, y: 0.09552002, z: 0}
-  - {x: 0.3466797, y: 0.21679688, z: 0}
-  - {x: -0.37142944, y: 0.21524048, z: 0}
-  - {x: -0.3751831, y: 0.09609985, z: 0}
-  - {x: -0.4973755, y: 0.090423584, z: 0}
-  - {x: -0.4977417, y: -0.15792847, z: 0}
-  - {x: -0.3430481, y: -0.15710449, z: 0}
-  m_ShapePathHash: 1014270645
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -35348

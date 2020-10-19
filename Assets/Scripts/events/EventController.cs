@@ -14,6 +14,8 @@ public class EventController : MonoBehaviour
     public CaseEvent OnCaseEvent;
     [HideInInspector]
     public MouseClickEvent OnMouseClickEvent;
+    [HideInInspector]
+    public EnvChangeShapeEvent OnEnvChangeShapeEvent;
 
     public CasePanelController casePanelController;
     public RightButtonClickController rightButtonClickController;
@@ -23,6 +25,7 @@ public class EventController : MonoBehaviour
     void Awake()
     {
         OnMouseClickEvent = new MouseClickEvent();
+        OnEnvChangeShapeEvent = new EnvChangeShapeEvent();
 
         OnStaticCaseItemEvent = new StaticCaseItemEvent();
         OnRightButtonClickEvent = new RightButtonClickEvent();

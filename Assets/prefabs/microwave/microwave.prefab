@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6697957908733582350}
   - component: {fileID: 6697957908733582351}
   - component: {fileID: 6697957908733582344}
-  - component: {fileID: 6335446209310107236}
   m_Layer: 0
   m_Name: microwave
   m_TagString: microwave
@@ -79,29 +78,3 @@ MonoBehaviour:
   isOpen: 0
   isBlocked: 0
   itemInside: {fileID: 0}
---- !u!114 &6335446209310107236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6697957908733582345}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.23744208, y: -0.23398733, z: 0}
-  - {x: 0.26169866, y: -0.2375232, z: 0}
-  - {x: 0.25133777, y: 0.2375232, z: 0}
-  - {x: -0.23398837, y: 0.23744619, z: 0}
-  m_ShapePathHash: -699088055
-  m_Mesh: {fileID: 0}
-  m_InstanceId: -31790
