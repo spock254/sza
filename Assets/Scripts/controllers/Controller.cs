@@ -80,6 +80,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         if (Input.GetMouseButtonDown(1)) 
         {
+            eventController.OnMouseClickEvent.Invoke();
+
             mousePosRight = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePosRight.x, mousePosRight.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
@@ -130,6 +132,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         if (Input.GetMouseButtonDown(0))
         {
+            eventController.OnMouseClickEvent.Invoke();
+
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);

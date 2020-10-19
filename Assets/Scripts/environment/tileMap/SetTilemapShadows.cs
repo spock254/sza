@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class SetTilemapShadows : MonoBehaviour
 {
+    public EventController eventController;
 
     public GameObject shadow_caster_go;
     public static SetTilemapShadows Instance;
@@ -16,10 +17,12 @@ public class SetTilemapShadows : MonoBehaviour
     private List<PolygonCollider2D> shadowPolygons = new List<PolygonCollider2D>();
     private List<ShadowCaster2D> shadowCasterComponents = new List<ShadowCaster2D>();
 
-    private bool doReset = true, doCleanup = true;
+    public bool doReset = true, doCleanup = true;
 
     public void Start()
     {
+        eventController.OnMouseClickEvent.AddListener(ResetAndCleanUp);
+
         Instance = this;
         tilemapCollider = GetComponent<CompositeCollider2D>();
         shadowCasterContainer = shadow_caster_go;
@@ -28,12 +31,8 @@ public class SetTilemapShadows : MonoBehaviour
         {
             Vector2[] pathVertices = new Vector2[tilemapCollider.GetPathPointCount(i)];
             tilemapCollider.GetPath(i, pathVertices);
-            foreach (var item in pathVertices)
-            {
-                Debug.Log(item);
 
-            }
-            GameObject shadowCaster = new GameObject("shadow_caster_" + i);
+            GameObject shadowCaster = new GameObject("shadow_caster_^" + i);
             shadowCasters.Add(shadowCaster);
             PolygonCollider2D shadowPolygon = (PolygonCollider2D)shadowCaster.AddComponent(typeof(PolygonCollider2D));
             shadowPolygons.Add(shadowPolygon);
@@ -61,7 +60,7 @@ public class SetTilemapShadows : MonoBehaviour
         {
             Vector2[] pathVertices = new Vector2[tilemapCollider.GetPathPointCount(i)];
             tilemapCollider.GetPath(i, pathVertices);
-            GameObject shadowCaster = new GameObject("shadow_caster_" + i);
+            GameObject shadowCaster = new GameObject("shadow_caster_^" + i);
             shadowCasters.Add(shadowCaster);
             PolygonCollider2D shadowPolygon = (PolygonCollider2D)shadowCaster.AddComponent(typeof(PolygonCollider2D));
             shadowPolygons.Add(shadowPolygon);
@@ -105,5 +104,10 @@ public class SetTilemapShadows : MonoBehaviour
     public void UpdateShadows()
     {
         doReset = true;
+    }
+
+    void ResetAndCleanUp() 
+    {
+        doReset = doCleanup = true;
     }
 }
