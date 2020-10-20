@@ -44,7 +44,7 @@ public class RightButtonClickController : MonoBehaviour
         rightButtonClick_panel.SetActive(true);
         //rightButtonClick_panel.transform.position = SetPanelPosition(mousePosition);
         //TODO
-        rightButtonClick_panel.GetComponent<RectTransform>().anchoredPosition = SetPanelPosition(mousePosition);
+        rightButtonClick_panel.GetComponent<RectTransform>().localPosition = SetPanelPosition(mousePosition);
         //rightButtonClick_panel.GetComponent<RectTransform>().anchoredPosition = SetPanelPosition(mousePosition);
 
         float step = GetItemHeight();
