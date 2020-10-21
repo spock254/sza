@@ -20,7 +20,6 @@ public class Quest : ScriptableObject
         if (currentEventIndex < questEvents.Count) 
         {
             eventToReturn = questEvents[currentEventIndex];
-            Debug.Log(eventToReturn.questEventDescription);
             currentEventIndex++;
         }
 

@@ -6,10 +6,14 @@ public class ItemCell : MonoBehaviour
 {
     
     public Item item;
-    //public Sprite empty_cell_sprite;
-    //private void Update()
-    //{
-    //    if (item == null)
-    //        Debug.Log("ITEM ++ NULL");
-    //}
+    
+    void Start()
+    {
+        SpriteRenderer spriteRenderer;
+        
+        if (TryGetComponent<SpriteRenderer>(out spriteRenderer)) 
+        { 
+           spriteRenderer.sprite = item.itemSprite;
+        }
+    }
 }

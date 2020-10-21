@@ -6,6 +6,9 @@ using UnityEngine;
 public class QuestSystem : MonoBehaviour
 {
     [SerializeField]
+    Controller controller;
+
+    [SerializeField]
     EventController eventController;
 
     QuestEvent currentQuestEvent;
@@ -40,13 +43,23 @@ public class QuestSystem : MonoBehaviour
         eventController.OnNextQuestEvent.Invoke();
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.S)) 
+        if (currentQuestEvent.questType == QuestType.Gather) 
         {
-            currentQuestEvent = quests.Peek().NextQuestEvent();
-            eventController.OnNextQuestEvent.Invoke();
-
+            if (currentQuestEvent.questData.gather
+                .Gather(currentQuestEvent.questData.necessaryItems[0], 
+                        controller.currentHand.gameObject))
+            {
+                currentQuestEvent = quests.Peek().NextQuestEvent();
+                eventController.OnNextQuestEvent.Invoke();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            //currentQuestEvent = quests.Peek().NextQuestEvent();
+            //eventController.OnNextQuestEvent.Invoke();
+            Debug.Log(currentQuestEvent.questEventDescription);
         }
     }
 

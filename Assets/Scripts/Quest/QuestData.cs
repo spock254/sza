@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
+
+
 public class QuestData 
-{   
+{
+    public enum QuestLine { None, HandGather }
+
+
     [Header("Requirements")]
     public Stats necessaryStats;
     public FightStats necessaryFightStats;
@@ -15,5 +20,6 @@ public class QuestData
     [SerializeReference]
     public List<Item> rewards;
 
-
+    public QuestLine questLine;
+    public IGather gather;
 }
