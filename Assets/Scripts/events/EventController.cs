@@ -16,6 +16,8 @@ public class EventController : MonoBehaviour
     public MouseClickEvent OnMouseClickEvent;
     [HideInInspector]
     public EnvChangeShapeEvent OnEnvChangeShapeEvent;
+    [HideInInspector]
+    public NextQuestEvent OnNextQuestEvent;
 
     public CasePanelController casePanelController;
     public RightButtonClickController rightButtonClickController;
@@ -32,6 +34,8 @@ public class EventController : MonoBehaviour
 
         OnDoorEvent = new DoorEvent();
         OnCaseEvent = new CaseEvent();
+
+        OnNextQuestEvent = new NextQuestEvent();
     }
 
     private void OnEnable()

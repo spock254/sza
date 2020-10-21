@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9356614d4f3ba6a4eb6dd1961dc8293e, type: 3}
-  m_Name: quest3
+  m_Script: {fileID: 11500000, guid: 335dffd30dacdda4480840c523c6d917, type: 3}
+  m_Name: phoneAnswer
   m_EditorClassIdentifier: 
-  questName: 3
-  questDescription: 3
+  questEventDescription: 
   questType: 0
-  necessaryItems: []
-  rewards: []
+  questData:
+    necessaryItems: []
+    rewards: []
