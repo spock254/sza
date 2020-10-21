@@ -3,29 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-//[CreateAssetMenu(fileName = "Data", menuName = "Quest/Quest")]
+[CreateAssetMenu(fileName = "Data", menuName = "Quest/Quest")]
 public class Quest : ScriptableObject
 {
     public string questName;
     public string questDescription;
-    [SerializeReference]
-    public Queue<QuestEvent> questEvents;
-    
-    //QuestEvent currentQuestEvent;
 
-    //public Quest() { }
+    public List<QuestEvent> questEvents;
 
-    public QuestEvent AddQuestEvent(QuestEvent questEvent) 
+    public int currentEventIndex = 0;
+
+    public QuestEvent NextQuestEvent()
     {
-        //if (questEvents.Count == 1) { currentQuestEvent = questEvents[0]; }
+        QuestEvent eventToReturn = null;
 
-        questEvents.Enqueue(questEvent);
+        if (currentEventIndex < questEvents.Count) 
+        {
+            eventToReturn = questEvents[currentEventIndex];
+            Debug.Log(eventToReturn.questEventDescription);
+            currentEventIndex++;
+        }
 
-        return questEvent;
+        return eventToReturn;
     }
-
-    public QuestEvent NextQuestEvent() 
-    {
-        return (questEvents.Count == 0) ? null : questEvents.Dequeue();
-    } 
 }

@@ -21,6 +21,7 @@ public static class Global
         public const string EQUIPMENT_SPRITES_ROOT = "Images/Items/Equipment/";
         public const string RECEPT = "scriptableObjects/recept";
         public const string VESSELS = "scriptableObjects/item/Vessels";
+        public const string QUESTS = "scriptableObjects/Quest";
     }
 
     public static class TileMaps

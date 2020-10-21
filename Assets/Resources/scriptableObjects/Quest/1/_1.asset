@@ -12,5 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69165311a092ac41be5a549187d4be0, type: 3}
   m_Name: _1
   m_EditorClassIdentifier: 
-  questName: 
-  questDescription: 
+  questName: start quest
+  questDescription: escape
+  questEvents:
+  - {fileID: 11400000, guid: 3fe2f67eb3f8aa54cb2842bdcc193c94, type: 2}
+  - {fileID: 11400000, guid: 893739587e9c9814392c51a05b74a4e9, type: 2}
+  - {fileID: 11400000, guid: dfbd52457ba589e4880b5572543fec50, type: 2}
+  currentEventIndex: 0

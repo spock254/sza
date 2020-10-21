@@ -2,19 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum QuestType { Kill, Combo, Delivery, Gather, Escort, Syntax, Hybrids }
 
 [System.Serializable]
-//[CreateAssetMenu(fileName = "Data", menuName = "Quest/QuestEvent")]
-public class QuestEvent : ScriptableObject
+[CreateAssetMenu(fileName = "Data", menuName = "Quest/QuestEvent")]
+public class QuestEvent : ScriptableObject, IComparable<QuestEvent>
 {
-    public enum QuestType { Kill, Combo, Delivery, Gather, Escort, Syntax, Hybrids }
 
     //public string questEventName;
+    public int order;
     public string questEventDescription;
     public QuestType questType;
 
-    //public string id;
+    [SerializeField]
     public QuestData questData;
+
+    public int CompareTo(QuestEvent other)
+    {
+        return order - other.order;
+    }
+
+
 
     //public QuestEvent(QuestData questData) 
     //{

@@ -10,10 +10,10 @@ public class QuestUI : MonoBehaviour
     public Text questEventDescription;
 
     [SerializeField]
-    EventController eventController;
+    EventController eventController = null;
 
     [SerializeField]
-    QuestSystem questSystem;
+    QuestSystem questSystem = null;
 
     void Start()
     {
@@ -35,9 +35,10 @@ public class QuestUI : MonoBehaviour
             questName.text = questSystem.quests.Peek().questName;
             questDescription.text = questSystem.quests.Peek().questDescription;
 
-            if (questSystem.quests.Peek().questEvents.Count > 0) 
+            if (questSystem.GetCurrentQuestEvent() != null) 
             {
-                questEventDescription.text = questSystem.quests.Peek().questEvents.Peek().questEventDescription;
+                questEventDescription.text = questSystem.GetCurrentQuestEvent().questEventDescription;
+                //questEventDescription.text = questSystem.quests.Peek().questEvents.Peek().questEventDescription;
             }
         }
     }
