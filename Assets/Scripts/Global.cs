@@ -22,6 +22,7 @@ public static class Global
         public const string RECEPT = "scriptableObjects/recept";
         public const string VESSELS = "scriptableObjects/item/Vessels";
         public const string QUESTS = "scriptableObjects/Quest";
+        public const string QUESTS_DIALOGS = "scriptableObjects/Quest";
     }
 
     public static class TileMaps
@@ -60,4 +61,13 @@ public static class Global
             return GameObject.FindGameObjectWithTag("ui").GetComponent<ActionPanelController>();
         }
     }
+
+    public static class UIElement 
+    {
+        public static GameObject GetDialogWindow() 
+        {
+            return GameObject.FindGameObjectWithTag("dialogWindow");
+        }
+    }
+
 }

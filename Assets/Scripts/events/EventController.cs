@@ -18,6 +18,10 @@ public class EventController : MonoBehaviour
     public EnvChangeShapeEvent OnEnvChangeShapeEvent;
     [HideInInspector]
     public NextQuestEvent OnNextQuestEvent;
+    [HideInInspector]
+    public QuestDialogEvent OnDialogEvent;
+    [HideInInspector]
+    public UseOnPlayerEvent OnUseOnPlayerEvent;
 
     public CasePanelController casePanelController;
     public RightButtonClickController rightButtonClickController;
@@ -36,6 +40,8 @@ public class EventController : MonoBehaviour
         OnCaseEvent = new CaseEvent();
 
         OnNextQuestEvent = new NextQuestEvent();
+        OnDialogEvent = new QuestDialogEvent();
+        OnUseOnPlayerEvent = new UseOnPlayerEvent();
     }
 
     private void OnEnable()

@@ -153,7 +153,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
                 {
-                    Debug.Log(hit.collider.gameObject.tag);
+
                     // ели на полу айтем и в руках не чего нет
                     if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
                     && IsEmpty(currentHand))
@@ -167,7 +167,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     {
                         Item item = currentHand.GetComponent<ItemCell>().item;
                         item.itemUseData.use.Use_On_Player(statInit.stats, item);
-                        SetDefaultItem(currentHand);
+
+
+                        if (item.isDestroyOnPlayerUse) 
+                        { 
+                            SetDefaultItem(currentHand);
+                        }
                     }
 
                     if (hit.collider.gameObject.tag == "tapWater")

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
   m_Name: redPhone
   m_EditorClassIdentifier: 
-  id: 762134937
+  id: -31530893
   itemName: phone
   itemDescription: red phone
   itemPrice: 2500
@@ -33,7 +33,8 @@ MonoBehaviour:
     itemTypes: 0800000007000000
   capacity: 0
   innerItems: []
+  isDestroyOnPlayerUse: 0
   references:
     version: 1
     00000000:
-      type: {class: EquipmentUse, ns: , asm: Assembly-CSharp}
+      type: {class: PhoneUse, ns: , asm: Assembly-CSharp}

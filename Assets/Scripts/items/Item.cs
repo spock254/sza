@@ -23,7 +23,7 @@ public class Item : ScriptableObject
     [SerializeReference]
     public List<Item> innerItems;
     //public int transformationTime;
-
+    public bool isDestroyOnPlayerUse;
     public override string ToString()
     {
         return "id " + id.ToString() +

@@ -24,12 +24,12 @@ public class InterfaceMapper : MonoBehaviour
 
     void Map(QuestEvent questEvent) 
     {
-        if (questEvent.questType == QuestType.Gather) 
-        {
-            if (questEvent.questData.questLine == QuestData.QuestLine.HandGather) 
-            {
-                questEvent.questData.gather = new HandGather();
-            }
-        }
+        //if (questEvent.questType == QuestType.Gather) 
+        //{
+        //    if (questEvent.questData.questLine == QuestData.QuestLine.HandGather) 
+        //    {
+        //        questEvent.questData.gather = new HandGather();
+        //    }
+        //}
     }
 }

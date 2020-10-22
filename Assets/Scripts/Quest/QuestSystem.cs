@@ -40,32 +40,85 @@ public class QuestSystem : MonoBehaviour
         SortQuestEvents();
 
         currentQuestEvent = quests.Peek().questEvents[0];
+
+        //eventController.OnNextQuestEvent.AddListener(OnNextQuestEvent);
         eventController.OnNextQuestEvent.Invoke();
+
+        StartCoroutine("QuestEventControll");
     }
 
-    private void LateUpdate()
+    
+
+    IEnumerator QuestEventControll() 
     {
-        if (currentQuestEvent.questType == QuestType.Gather) 
+        while (true) 
         {
-            if (currentQuestEvent.questData.gather
-                .Gather(currentQuestEvent.questData.necessaryItems[0], 
-                        controller.currentHand.gameObject))
+            yield return new WaitForSeconds(1);
+
+            if (currentQuestEvent.questType == QuestType.Gather)
             {
-                currentQuestEvent = quests.Peek().NextQuestEvent();
-                eventController.OnNextQuestEvent.Invoke();
+                if (quests.Peek().Gather(currentQuestEvent.questData.necessaryItems[0],
+                                        controller.currentHand.gameObject))
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.Syntax)
+            {
+                if (quests.Peek().StartDialog(quests.Peek().NextDialog()))
+                {
+
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.Use)
+            {
+                if (quests.Peek().Use())
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
             }
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //currentQuestEvent = quests.Peek().NextQuestEvent();
-            //eventController.OnNextQuestEvent.Invoke();
-            Debug.Log(currentQuestEvent.questEventDescription);
-        }
     }
+
+    //private void LateUpdate()
+    //{
+    //    if (currentQuestEvent.questType == QuestType.Gather)
+    //    {
+    //        if (quests.Peek().Gather(currentQuestEvent.questData.necessaryItems[0],
+    //                                controller.currentHand.gameObject))
+    //        {
+    //            currentQuestEvent = quests.Peek().NextQuestEvent();
+    //            eventController.OnNextQuestEvent.Invoke();
+    //        }
+    //    }
+    //    else if (currentQuestEvent.questType == QuestType.Syntax)
+    //    {
+    //        if (quests.Peek().StartDialog(quests.Peek().NextDialog())) 
+    //        {
+
+    //            currentQuestEvent = quests.Peek().NextQuestEvent();
+    //            eventController.OnNextQuestEvent.Invoke();
+    //        }
+    //    }
+    //    else if (currentQuestEvent.questType == QuestType.Use) 
+    //    {
+    //        if (quests.Peek().Use()) 
+    //        {
+    //            currentQuestEvent = quests.Peek().NextQuestEvent();
+    //            eventController.OnNextQuestEvent.Invoke();
+    //        }
+    //    }
+
+    //}
 
     private void OnApplicationQuit()
     {
         // для тест что бы не менять скр обдж поле
         quests.Peek().currentEventIndex = 0;
+        quests.Peek().currentDialogeIndex = 0;
     }
 }
