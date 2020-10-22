@@ -26,8 +26,8 @@ public class PhoneUse : IUse
         
         if (dialogWindow) 
         { 
-            dialogWindow.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            Global.Component.GetEventController().OnDialogEvent.Invoke();
+            //dialogWindow.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            Global.Component.GetEventController().OnStartDialogEvent.Invoke(item.itemName, "bzzz... bzz..");
             //Global.Component.GetEventController().OnUseOnPlayerEvent.Invoke(item);
 
         }

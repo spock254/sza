@@ -11,12 +11,13 @@ public class QuestData
     //public enum QuestLine { None, HandGather }
 
 
-    [Header("Requirements")]
+    [Header("SetUp")]
     public Stats necessaryStats;
     public FightStats necessaryFightStats;
+
     [SerializeReference]
     public List<Item> necessaryItems;
-
+    public string arg;
 
     [Header("Rewards")]
     [SerializeReference]

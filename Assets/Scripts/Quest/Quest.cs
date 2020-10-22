@@ -11,12 +11,11 @@ public class Quest : ScriptableObject
     public string questDescription;
 
     public List<QuestEvent> questEvents;
-
-    public int currentEventIndex = 0;
-
     public List<QuestDialog> questDialogs;
 
+    public int currentEventIndex = 0;
     public int currentDialogeIndex = 0;
+
 
     public QuestEvent NextQuestEvent()
     {
@@ -46,13 +45,12 @@ public class Quest : ScriptableObject
 
     // QUEST LINES
 
-    public bool StartDialog(QuestDialog questDialog)
+    public bool StartDialog(QuestDialog questDialog, string speaker)
     {
-        Text text = GameObject.FindGameObjectWithTag("dialogText").GetComponent<Text>();
-        text.text = questDialog.dialog;
+        DialogueManager dialogue = GameObject.FindGameObjectWithTag("dialogWindow").GetComponent<DialogueManager>();
+        dialogue.SetDialog(questDialog.dialog);
 
-        //NextQuestEvent();
-        return true;
+        return dialogue.speaker == speaker;
     }
 
     public bool Gather(Item item, GameObject gatherPoint, int count = -1)

@@ -6,23 +6,16 @@ public enum QuestType { Kill, Combo, Delivery, Gather, Escort, Syntax, Hybrids, 
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Data", menuName = "Quest/QuestEvent")]
-public class QuestEvent : ScriptableObject, IComparable<QuestEvent>
+public class QuestEvent : ScriptableObject
 {
 
     //public string questEventName;
-    public int order;
+
     public string questEventDescription;
     public QuestType questType;
 
     [SerializeField]
     public QuestData questData;
-
-    public int CompareTo(QuestEvent other)
-    {
-        return order - other.order;
-    }
-
-
 
     //public QuestEvent(QuestData questData) 
     //{

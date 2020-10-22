@@ -26,18 +26,10 @@ public class QuestSystem : MonoBehaviour
                                            .ToList());
     }
 
-    void SortQuestEvents() 
-    {
-        foreach (var quest in quests)
-        {
-            quest.questEvents.Sort();
-        }
-    }
-
     void Awake()
     {
         LoadQuests();
-        SortQuestEvents();
+        //SortQuestEvents();
 
         currentQuestEvent = quests.Peek().questEvents[0];
 
@@ -66,7 +58,7 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Syntax)
             {
-                if (quests.Peek().StartDialog(quests.Peek().NextDialog()))
+                if (quests.Peek().StartDialog(quests.Peek().NextDialog(), currentQuestEvent.questData.arg))
                 {
 
                     currentQuestEvent = quests.Peek().NextQuestEvent();
