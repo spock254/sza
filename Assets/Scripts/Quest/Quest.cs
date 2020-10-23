@@ -48,9 +48,14 @@ public class Quest : ScriptableObject
     public bool StartDialog(QuestDialog questDialog, string speaker)
     {
         DialogueManager dialogue = GameObject.FindGameObjectWithTag("dialogWindow").GetComponent<DialogueManager>();
-        dialogue.SetDialog(questDialog.dialog);
+        
+        if (dialogue.speaker == speaker) 
+        { 
+            dialogue.SetDialog(questDialog.dialog);
+            return true;
+        }
 
-        return dialogue.speaker == speaker;
+        return false;
     }
 
     public bool Gather(Item item, GameObject gatherPoint, int count = -1)

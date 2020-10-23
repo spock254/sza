@@ -17,6 +17,7 @@ public class Item : ScriptableObject
     public ItemStats stats;
     public ItemFightStats ItemFightStats;
     public ItemUseData itemUseData;
+    public ItemOptionData itemOptionData;
     //public ItemCraftData itemCraftData;
 
     public int capacity;

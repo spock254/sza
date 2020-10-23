@@ -60,6 +60,19 @@ public class CraftController : MonoBehaviour
 
         Item itemOnTabe = GameObjOnTable.GetComponent<ItemCell>().item;
 
+        // TODO
+        if (itemOnTabe.itemOptionData.actionWindowTag != string.Empty) 
+        {
+            GameObject actionWindow = GameObject.FindGameObjectWithTag(itemOnTabe.itemOptionData.actionWindowTag);
+
+            for (int i = 0; i < actionWindow.transform.childCount; i++)
+            {
+                actionWindow.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            return false;
+        }
+
         ItemCraftData recept = FindRecept(tool, itemOnTabe, craftType, craftTable);
 
         if (recept == null) 

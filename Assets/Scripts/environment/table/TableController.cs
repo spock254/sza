@@ -15,7 +15,7 @@ public class TableController : MonoBehaviour
     {
         if (item != null)
         {
-            actionPanelController.SpawnItem(actionPanelController.prefab, mousePosition, item);
+            actionPanelController.SpawnItem(actionPanelController.prefab, transform.position, item);
         }
         else 
         {
