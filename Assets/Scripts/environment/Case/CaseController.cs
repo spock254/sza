@@ -36,7 +36,6 @@ public class CaseController : MonoBehaviour
 
     public void OnCaseCloseOpen(Vector3 mousePosition) 
     {
-        Debug.Log(casePanelController.caseIsOpen);
         if (!casePanelController.caseIsOpen && isOpen) 
         {
             return;

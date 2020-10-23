@@ -60,6 +60,17 @@ public static class Global
         { 
             return GameObject.FindGameObjectWithTag("ui").GetComponent<ActionPanelController>();
         }
+
+        public static ActionWindowController GetActionWindowController() 
+        {
+            return GameObject.FindGameObjectWithTag("actionWindow").GetComponent<ActionWindowController>();
+        }
+
+        public static PaperController GetPaperController() 
+        {
+            return GameObject.FindGameObjectWithTag("awPaper").GetComponent<PaperController>();
+        }
+
     }
 
     public static class UIElement 

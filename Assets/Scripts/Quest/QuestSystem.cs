@@ -6,10 +6,10 @@ using UnityEngine;
 public class QuestSystem : MonoBehaviour
 {
     [SerializeField]
-    Controller controller;
+    Controller controller = null;
 
     [SerializeField]
-    EventController eventController;
+    EventController eventController = null;
 
     QuestEvent currentQuestEvent;
 

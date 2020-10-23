@@ -60,18 +60,6 @@ public class CraftController : MonoBehaviour
 
         Item itemOnTabe = GameObjOnTable.GetComponent<ItemCell>().item;
 
-        // TODO
-        if (itemOnTabe.itemOptionData.actionWindowTag != string.Empty) 
-        {
-            GameObject actionWindow = GameObject.FindGameObjectWithTag(itemOnTabe.itemOptionData.actionWindowTag);
-
-            for (int i = 0; i < actionWindow.transform.childCount; i++)
-            {
-                actionWindow.transform.GetChild(i).gameObject.SetActive(true);
-            }
-
-            return false;
-        }
 
         ItemCraftData recept = FindRecept(tool, itemOnTabe, craftType, craftTable);
 
@@ -88,6 +76,25 @@ public class CraftController : MonoBehaviour
         }
 
         Item craftResult = recept.recept.craftResult;
+
+        // TODO
+        if (itemOnTabe.itemOptionData.actionWindowTag != string.Empty) 
+        {
+            Item _itemOnTabe = Instantiate(itemOnTabe);
+
+            ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+            actionWindow.OpenActionWindow(itemOnTabe.itemOptionData.actionWindowTag);
+            actionWindow.InitActioWindow(itemOnTabe.itemOptionData.actionWindowTag, _itemOnTabe);
+
+
+            //GameObjOnTable.GetComponent<ItemCell>().item = _itemOnTabe;
+            //return false;
+
+            craftResult = Instantiate(craftResult);
+            craftResult.itemOptionData.text = _itemOnTabe.itemOptionData.text;
+
+        }
+
 
         GameObjOnTable.GetComponent<ItemCell>().item = craftResult;
         GameObjOnTable.GetComponent<SpriteRenderer>().sprite = craftResult.itemSprite;
@@ -147,7 +154,7 @@ public class CraftController : MonoBehaviour
                 sameTool.Add(cd);
             }
         }
-        Debug.Log(sameTool.Count);
+
         List<ItemCraftData> sameType = sameTool
                     .Where(r => r.craftType == craftType)
                     .Where(r => r.craftTable == craftTable).ToList();
