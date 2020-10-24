@@ -14,7 +14,8 @@ public class CommandDB : MonoBehaviour
     Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
         { "test",  new CommonCommand(new List<string>() { "test terminal" })},
-        { "help", new HelpCommand() }
+        { "help", new HelpCommand() },
+        { "exit", new ExitCommand() }
     };
 
     Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
@@ -48,6 +49,29 @@ public interface ICommandAction
     Dictionary<string, string> GetParams();
     List<string> GetActionStatus(string[] param);
     string GetDescription();
+}
+
+public class ExitCommand : ICommandAction
+{
+    public List<string> GetActionStatus(string[] param)
+    {
+        ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+
+        actionWindow.CloseActionWindow("awpc");
+
+        return new List<string>() { "exit status 0" };
+        
+    }
+
+    public string GetDescription()
+    {
+        return "cause the shell to exit";
+    }
+
+    public Dictionary<string, string> GetParams()
+    {
+        return null;
+    }
 }
 public class CommonCommand : ICommandAction
 {

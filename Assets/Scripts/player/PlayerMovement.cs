@@ -36,8 +36,11 @@ public class PlayerMovement : MonoBehaviour
     public Sprite left_hair;
     public Sprite right_hair;
 
+    ActionWindowController actionWindow;
+
     void Awake()
     {
+        actionWindow = Global.Component.GetActionWindowController();
         //spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
 
@@ -56,16 +59,20 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.y = Input.GetAxisRaw("Vertical");
+        if (!actionWindow.isOpen) 
+        { 
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
 
-        Vector3 direction = input.normalized;
+            Vector3 direction = input.normalized;
 
-        SetSprite(direction);
+            SetSprite(direction);
 
-        Vector3 movement = direction * speed * Time.fixedDeltaTime;
+            Vector3 movement = direction * speed * Time.fixedDeltaTime;
 
-        rigidBody.MovePosition(transform.position + movement);
+            rigidBody.MovePosition(transform.position + movement);
+        
+        }
     }
 
     void SetSprite(Vector2 dir) 

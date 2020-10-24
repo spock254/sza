@@ -49,6 +49,7 @@ public class PCController : MonoBehaviour
 
         ActionWindowController actionWindow = Global.Component.GetActionWindowController();
         actionWindow.OpenActionWindow("awpc");
+        Global.Component.GetTerminalController().isOpen = true;
     }
 
     public void Close() 
@@ -58,5 +59,6 @@ public class PCController : MonoBehaviour
 
         ActionWindowController actionWindow = Global.Component.GetActionWindowController();
         actionWindow.CloseActionWindow("awpc");
+        Global.Component.GetTerminalController().isOpen = false;
     }
 }

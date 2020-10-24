@@ -14,9 +14,19 @@ public class PaperController : MonoBehaviour
     Item item;
     Item resultItem;
 
+    bool isOpen = false;
+
     void Awake()
     {
         actionWindow = Global.Component.GetActionWindowController();    
+    }
+
+    void OnGUI()
+    {
+        if (isOpen && Event.current.keyCode == KeyCode.Backspace && (Event.current.type == EventType.KeyUp || Event.current.type == EventType.KeyDown))
+        {
+            Event.current.Use();
+        }
     }
 
     public void OnClose() 
@@ -35,6 +45,7 @@ public class PaperController : MonoBehaviour
         goOnTable.GetComponent<ItemCell>().item.itemOptionData.text = input.text;
         
         actionWindow.CloseActionWindow(this.gameObject.tag);
+        isOpen = false;
     }
 
     public void Init(GameObject goOnTable, Item item, Item resultItem) 
@@ -46,6 +57,6 @@ public class PaperController : MonoBehaviour
         this.resultItem = resultItem;
 
         input.text = item.itemOptionData.text;
-
+        isOpen = true;
     }
 }

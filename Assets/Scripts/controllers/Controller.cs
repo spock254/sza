@@ -60,8 +60,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public EventController eventController;
     public CraftController craftController;
 
+    ActionWindowController actionWindow;
     void Start()
     {
+        // еслт какое-то окно активно, запретить управление
+        actionWindow = Global.Component.GetActionWindowController();
+
         InitCells();
         InitItemInInventory();
         currentHand = left_hand_btn;
@@ -71,175 +75,178 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.mouseScrollDelta.y != 0)
-        {
-            currentHand = SwapActiveHand();
-            currentHand.GetComponentInChildren<Text>().text = "*";
-        }
-
-        if (Input.GetMouseButtonDown(1)) 
-        {
-            eventController.OnMouseClickEvent.Invoke();
-
-            mousePosRight = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePosRight.x, mousePosRight.y);
-            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
-
-            foreach (var hit in hits)
+        if (!actionWindow.isOpen) 
+        { 
+            if (Input.mouseScrollDelta.y != 0 )
             {
-
-                if (hit.collider.gameObject.tag == "table") 
-                {
-                    bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand), 
-                                                                        CraftType.Cooking, 
-                                                                        CraftTable.Table);
-
-                    if (removeTool) 
-                    {
-                        SetDefaultItem(currentHand);
-                    }
-
-                    return;
-                }
-
-                if (hit.collider.gameObject.tag == "microwave")
-                {
-                    MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
-
-                    craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
-                                                               CraftType.Cooking, 
-                                                               CraftTable.Microwave);
-
-                    eventController.OnEnvChangeShapeEvent.Invoke();
-
-                    return;
-                }
-                
-                if (hit.collider.gameObject.tag == "oven")
-                {
-                    MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
-
-                    craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
-                                                               CraftType.Cooking, 
-                                                               CraftTable.Oven);
-
-                    eventController.OnEnvChangeShapeEvent.Invoke();
-
-                    return;
-                }
+                currentHand = SwapActiveHand();
+                currentHand.GetComponentInChildren<Text>().text = "*";
             }
 
-            eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
-
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            eventController.OnMouseClickEvent.Invoke();
-
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
-
-            if (IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
+            if (Input.GetMouseButtonDown(1)) 
             {
-                Item itemInHand = GetItemInHand(currentHand);
-                itemInHand.itemUseData.use.Use_On_Env(hits, mousePos, currentHand, GetAnotherHand());
-            }
+                eventController.OnMouseClickEvent.Invoke();
 
-            foreach (var hit in hits)
-            {
+                mousePosRight = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos2D = new Vector2(mousePosRight.x, mousePosRight.y);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
 
-                if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
+                foreach (var hit in hits)
                 {
-
-                    // ели на полу айтем и в руках не чего нет
-                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
-                    && IsEmpty(currentHand))
-                    {
-                        GameObject itemGo = hit.collider.gameObject;
-                        ItemPickUp(itemGo);
-                        return; // приоритет что бы не взять айтем и не положить его потом на стол если он был уже на столе
-                    }
-
-                    if (hit.collider.gameObject.tag == "player")
-                    {
-                        Item item = currentHand.GetComponent<ItemCell>().item;
-                        item.itemUseData.use.Use_On_Player(statInit.stats, item);
-
-
-                        if (item.isDestroyOnPlayerUse) 
-                        { 
-                            SetDefaultItem(currentHand);
-                        }
-                    }
-
-                    if (hit.collider.gameObject.tag == "tapWater")
-                    {
-                        TabWaterController tabWaterController = hit.collider.GetComponent<TabWaterController>();
-                        Button btn_itemInHand = IsEmpty(currentHand) ? null : currentHand;
-                        tabWaterController.OnWaterTap_Click(btn_itemInHand);
-                    }
-
-                    if (hit.collider.gameObject.tag == "pc") 
-                    {
-                        PCController pcController = hit.collider.GetComponent<PCController>();
-                        Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
-                        pcController.OnPc_ClicK(itemInHand, mousePos);
-                    }
-
-                    if (hit.collider.gameObject.tag == "microwave" || hit.collider.gameObject.tag == "oven") 
-                    {
-                        Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
-                        MicrowaveController microwaveController = hit.collider.GetComponent<MicrowaveController>();
-
-                        MicrowaveController.MicrowaveStatus status = microwaveController.OnMicrowaveClick(itemInHand, mousePos);
-
-                        if (status == MicrowaveController.MicrowaveStatus.PutItem) 
-                        {
-                            SetDefaultItem(currentHand);
-                        }
-                        else if (status == MicrowaveController.MicrowaveStatus.TakeItem) 
-                        {
-                            DressCell(currentHand, microwaveController.itemInside);
-                            microwaveController.itemInside = null;
-                        }
-
-                        eventController.OnEnvChangeShapeEvent.Invoke();
-                    }
-
-                    if (hit.collider.gameObject.tag == "door") 
-                    {
-                        Item itemInHand = GetItemInHand(currentHand);
-                        // использовать айтем как ключ
-                        //eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
-                        hit.collider.GetComponent<DoorController>().OnDoorClick(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
-                        itemInHand.itemUseData.use.Use_To_Open(statInit.stats, itemInHand);
-                    }
-
-                    if (hit.collider.gameObject.tag == "case")
-                    {
-                        CaseItem caseItem = hit.collider.GetComponent<CaseItem>();
-                        Transform casePosition = hit.collider.transform;
-
-                        // важно соблюдать очередность, сначало открывается сундук потом панэль
-                        hit.collider.GetComponent<CaseController>().OnCaseCloseOpen(casePosition.position);
-                        eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
-
-                        eventController.OnEnvChangeShapeEvent.Invoke();
-                    }
-
 
                     if (hit.collider.gameObject.tag == "table") 
                     {
-                        //Debug.Log("table");
-                        hit.collider.GetComponent<TableController>().OnTableClick(hit.transform.position,
-                            IsEmpty(currentHand) ? null : GetItemInHand(currentHand));
+                        bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand), 
+                                                                            CraftType.Cooking, 
+                                                                            CraftTable.Table);
+
+                        if (removeTool) 
+                        {
+                            SetDefaultItem(currentHand);
+                        }
+
+                        return;
                     }
 
+                    if (hit.collider.gameObject.tag == "microwave")
+                    {
+                        MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
+
+                        craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
+                                                                   CraftType.Cooking, 
+                                                                   CraftTable.Microwave);
+
+                        eventController.OnEnvChangeShapeEvent.Invoke();
+
+                        return;
+                    }
+                
+                    if (hit.collider.gameObject.tag == "oven")
+                    {
+                        MicrowaveController microwave = hit.collider.GetComponent<MicrowaveController>();
+
+                        craftController.Craft_Microwave(microwave, GetItemInHand(currentHand), 
+                                                                   CraftType.Cooking, 
+                                                                   CraftTable.Oven);
+
+                        eventController.OnEnvChangeShapeEvent.Invoke();
+
+                        return;
+                    }
+                }
+
+                eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
+
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                eventController.OnMouseClickEvent.Invoke();
+
+                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+                RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
+
+                if (IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
+                {
+                    Item itemInHand = GetItemInHand(currentHand);
+                    itemInHand.itemUseData.use.Use_On_Env(hits, mousePos, currentHand, GetAnotherHand());
+                }
+
+                foreach (var hit in hits)
+                {
+
+                    if (hit.collider != null && IsInActionRadius(mousePos, player.position, actioPlayerRadius))
+                    {
+
+                        // ели на полу айтем и в руках не чего нет
+                        if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX)
+                        && IsEmpty(currentHand))
+                        {
+                            GameObject itemGo = hit.collider.gameObject;
+                            ItemPickUp(itemGo);
+                            return; // приоритет что бы не взять айтем и не положить его потом на стол если он был уже на столе
+                        }
+
+                        if (hit.collider.gameObject.tag == "player")
+                        {
+                            Item item = currentHand.GetComponent<ItemCell>().item;
+                            item.itemUseData.use.Use_On_Player(statInit.stats, item);
+
+
+                            if (item.isDestroyOnPlayerUse) 
+                            { 
+                                SetDefaultItem(currentHand);
+                            }
+                        }
+
+                        if (hit.collider.gameObject.tag == "tapWater")
+                        {
+                            TabWaterController tabWaterController = hit.collider.GetComponent<TabWaterController>();
+                            Button btn_itemInHand = IsEmpty(currentHand) ? null : currentHand;
+                            tabWaterController.OnWaterTap_Click(btn_itemInHand);
+                        }
+
+                        if (hit.collider.gameObject.tag == "pc") 
+                        {
+                            PCController pcController = hit.collider.GetComponent<PCController>();
+                            Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
+                            pcController.OnPc_ClicK(itemInHand, mousePos);
+                        }
+
+                        if (hit.collider.gameObject.tag == "microwave" || hit.collider.gameObject.tag == "oven") 
+                        {
+                            Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
+                            MicrowaveController microwaveController = hit.collider.GetComponent<MicrowaveController>();
+
+                            MicrowaveController.MicrowaveStatus status = microwaveController.OnMicrowaveClick(itemInHand, mousePos);
+
+                            if (status == MicrowaveController.MicrowaveStatus.PutItem) 
+                            {
+                                SetDefaultItem(currentHand);
+                            }
+                            else if (status == MicrowaveController.MicrowaveStatus.TakeItem) 
+                            {
+                                DressCell(currentHand, microwaveController.itemInside);
+                                microwaveController.itemInside = null;
+                            }
+
+                            eventController.OnEnvChangeShapeEvent.Invoke();
+                        }
+
+                        if (hit.collider.gameObject.tag == "door") 
+                        {
+                            Item itemInHand = GetItemInHand(currentHand);
+                            // использовать айтем как ключ
+                            //eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
+                            hit.collider.GetComponent<DoorController>().OnDoorClick(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
+                            itemInHand.itemUseData.use.Use_To_Open(statInit.stats, itemInHand);
+                        }
+
+                        if (hit.collider.gameObject.tag == "case")
+                        {
+                            CaseItem caseItem = hit.collider.GetComponent<CaseItem>();
+                            Transform casePosition = hit.collider.transform;
+
+                            // важно соблюдать очередность, сначало открывается сундук потом панэль
+                            hit.collider.GetComponent<CaseController>().OnCaseCloseOpen(casePosition.position);
+                            eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
+
+                            eventController.OnEnvChangeShapeEvent.Invoke();
+                        }
+
+
+                        if (hit.collider.gameObject.tag == "table") 
+                        {
+                            //Debug.Log("table");
+                            hit.collider.GetComponent<TableController>().OnTableClick(hit.transform.position,
+                                IsEmpty(currentHand) ? null : GetItemInHand(currentHand));
+                        }
+
+                    }
                 }
             }
+        
         }
     }
 
