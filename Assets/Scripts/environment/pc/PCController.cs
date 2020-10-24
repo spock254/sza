@@ -7,7 +7,7 @@ public enum AcessLvL { USER }
 
 public class PCController : MonoBehaviour
 {
-    public Tilemap tilemap;
+    Tilemap tilemap;
     public Tile open_tile;
     public Tile acess_enterTile;
 
@@ -15,25 +15,48 @@ public class PCController : MonoBehaviour
     bool isOpen;
     bool isLock;
     Vector3Int currentCell;
+
+    private void Awake()
+    {
+        tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+    }
+
     public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
     {
         currentCell = tilemap.WorldToCell(mousePosition);
-        if (isOpen == false) 
-        { 
+        
+        if (isOpen == false)
+        {
             Open();
-            return;
+        }
+        else 
+        {
+            Close();
         }
 
-        if (itemsToUnlock.Contains(itemInHand) && !isLock && isOpen) 
-        {
-            tilemap.SetTile(currentCell, acess_enterTile);
-            isLock = true;
-        }
+        return;
+        //if (itemsToUnlock.Contains(itemInHand) && !isLock && isOpen) 
+        //{
+        //    tilemap.SetTile(currentCell, acess_enterTile);
+        //    isLock = true;
+        //}
     }
 
     public void Open()
     {
         tilemap.SetTile(currentCell, open_tile);
         isOpen = true;
+
+        ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+        actionWindow.OpenActionWindow("awpc");
+    }
+
+    public void Close() 
+    {
+        tilemap.SetTile(currentCell, null);
+        isOpen = false;
+
+        ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+        actionWindow.CloseActionWindow("awpc");
     }
 }

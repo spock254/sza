@@ -70,6 +70,7 @@ public static class Global
         { 
             return GameObject.FindGameObjectWithTag("awPaperHand").GetComponent<PaperReviewController>();
         }
+
     }
 
     public static class UIElement 
@@ -77,6 +78,11 @@ public static class Global
         public static GameObject GetDialogWindow() 
         {
             return GameObject.FindGameObjectWithTag("dialogWindow");
+        }
+
+        public static GameObject GetTerminalWindow() 
+        {
+            return GameObject.FindGameObjectWithTag("awpc");
         }
     }
 
