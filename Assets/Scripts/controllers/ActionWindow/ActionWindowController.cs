@@ -18,14 +18,16 @@ public class ActionWindowController : MonoBehaviour
         isOpen = true;
     }
 
-    public void InitActioWindow(string tag, Item item) 
+    public void InitActioWindow(string tag, GameObject go, Item item, Item resultItem) 
     {
             
         if (tag == "awPaper")
         {
-            Global.Component.GetPaperController().Init(item);
+            Global.Component.GetPaperController().Init(go, item, resultItem);
         }
     }
+
+
 
     public void CloseActionWindow(string tag) 
     {

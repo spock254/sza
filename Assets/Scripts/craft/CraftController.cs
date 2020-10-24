@@ -81,23 +81,23 @@ public class CraftController : MonoBehaviour
         if (itemOnTabe.itemOptionData.actionWindowTag != string.Empty) 
         {
             Item _itemOnTabe = Instantiate(itemOnTabe);
+            Item _craftResult = Instantiate(craftResult);
 
             ActionWindowController actionWindow = Global.Component.GetActionWindowController();
             actionWindow.OpenActionWindow(itemOnTabe.itemOptionData.actionWindowTag);
-            actionWindow.InitActioWindow(itemOnTabe.itemOptionData.actionWindowTag, _itemOnTabe);
+            actionWindow.InitActioWindow(itemOnTabe.itemOptionData.actionWindowTag, 
+                                         GameObjOnTable, 
+                                         _itemOnTabe, 
+                                         _craftResult);
 
 
-            //GameObjOnTable.GetComponent<ItemCell>().item = _itemOnTabe;
-            //return false;
+            //UpdateGameObjItem(GameObjOnTable, craftResult);
 
-            craftResult = Instantiate(craftResult);
-            craftResult.itemOptionData.text = _itemOnTabe.itemOptionData.text;
-
+            return recept.removeTool;
         }
 
 
-        GameObjOnTable.GetComponent<ItemCell>().item = craftResult;
-        GameObjOnTable.GetComponent<SpriteRenderer>().sprite = craftResult.itemSprite;
+        UpdateGameObjItem(GameObjOnTable, craftResult);
 
         AddExpReward(recept);
 
@@ -190,5 +190,11 @@ public class CraftController : MonoBehaviour
         }
 
         return false;
+    }
+
+    void UpdateGameObjItem(GameObject GameObjOnTable, Item craftResult) 
+    {
+        GameObjOnTable.GetComponent<ItemCell>().item = craftResult;
+        GameObjOnTable.GetComponent<SpriteRenderer>().sprite = craftResult.itemSprite;
     }
 }

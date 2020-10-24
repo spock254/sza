@@ -9,8 +9,10 @@ public class PaperController : MonoBehaviour
     ActionWindowController actionWindow;
 
     public TMP_InputField input;
-    public Button closeBtn;
-    public Item item;
+
+    GameObject goOnTable;
+    Item item;
+    Item resultItem;
 
     void Awake()
     {
@@ -19,17 +21,41 @@ public class PaperController : MonoBehaviour
 
     public void OnClose() 
     {
+        //if (resultItem) 
+        //{
+        //    resultItem.itemOptionData.text = input.text;
+        //}
 
-        item.itemOptionData.text = input.text;
+        //if (input.text.Length == 0) 
+        //{
+        //    resultItem = item;
+        //}
+        //item.itemOptionData.text = input.text;
 
+        if (input.text.Length == 0)
+        {
+            goOnTable.GetComponent<ItemCell>().item = item;
+            goOnTable.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
+        }
+        else 
+        {
+            goOnTable.GetComponent<ItemCell>().item = resultItem;
+            goOnTable.GetComponent<SpriteRenderer>().sprite = resultItem.itemSprite;
+        }
+
+        goOnTable.GetComponent<ItemCell>().item.itemOptionData.text = input.text;
+        
         actionWindow.CloseActionWindow(this.gameObject.tag);
     }
 
-    public void Init(Item item) 
+    public void Init(GameObject goOnTable, Item item, Item resultItem) 
     {
         //this.item = Instantiate(item);
 
+        this.goOnTable = goOnTable;
         this.item = item;
+        this.resultItem = resultItem;
+
         input.text = item.itemOptionData.text;
 
     }
