@@ -50,27 +50,26 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("eventSystem").GetComponent<EventController>();
         }
-
         public static CasePanelController GetCasePanelController()
         {
             return GameObject.FindGameObjectWithTag("ui").GetComponent<CasePanelController>();
         }
-
         public static ActionPanelController GetActionPanelController() 
         { 
             return GameObject.FindGameObjectWithTag("ui").GetComponent<ActionPanelController>();
         }
-
         public static ActionWindowController GetActionWindowController() 
         {
             return GameObject.FindGameObjectWithTag("actionWindow").GetComponent<ActionWindowController>();
         }
-
         public static PaperController GetPaperController() 
         {
             return GameObject.FindGameObjectWithTag("awPaper").GetComponent<PaperController>();
         }
-
+        public static PaperReviewController GetPaperReviewController() 
+        { 
+            return GameObject.FindGameObjectWithTag("awPaperHand").GetComponent<PaperReviewController>();
+        }
     }
 
     public static class UIElement 

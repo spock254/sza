@@ -20,10 +20,14 @@ public class ActionWindowController : MonoBehaviour
 
     public void InitActioWindow(string tag, GameObject go, Item item, Item resultItem) 
     {
-            
+
         if (tag == "awPaper")
         {
             Global.Component.GetPaperController().Init(go, item, resultItem);
+        }
+        else if (tag == "awPaperHand") 
+        {
+            Global.Component.GetPaperReviewController().Init(item);
         }
     }
 

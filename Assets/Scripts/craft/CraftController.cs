@@ -15,18 +15,20 @@ public class CraftController : MonoBehaviour
         
     }
 
-    //private void Start()
-    //{
-    //    foreach (var i in itemCraftData)
-    //    {
-    //        Debug.Log(i.craftTable.ToString());
-    //    }
-    //}
 
     public void Craft_Hands(GameObject itemInHand, GameObject toolGO) 
     {
         Item tool = toolGO.GetComponent<ItemCell>().item;
         Item item = itemInHand.GetComponent<ItemCell>().item;
+
+        if (item.itemOptionData.actionWindowTag != string.Empty) 
+        {
+            string tagWithPrefix = item.itemOptionData.actionWindowTag + "Hand";
+
+            ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+            actionWindow.OpenActionWindow(tagWithPrefix);
+            actionWindow.InitActioWindow(tagWithPrefix, null, item, null);
+        }
 
         ItemCraftData recept = FindRecept(tool, item, CraftType.Cooking, CraftTable.Hands);
 
@@ -43,7 +45,8 @@ public class CraftController : MonoBehaviour
         }
 
         Item craftResult = recept.recept.craftResult;
-        Debug.Log(craftResult.itemName);
+
+
         itemInHand.GetComponent<ItemCell>().item = craftResult;
         itemInHand.GetComponent<Image>().sprite = craftResult.itemSprite;
     }
@@ -77,7 +80,7 @@ public class CraftController : MonoBehaviour
 
         Item craftResult = recept.recept.craftResult;
 
-        // TODO
+        // для вызова actionWindow
         if (itemOnTabe.itemOptionData.actionWindowTag != string.Empty) 
         {
             Item _itemOnTabe = Instantiate(itemOnTabe);

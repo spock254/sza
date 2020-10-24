@@ -21,6 +21,11 @@ public class DialogueManager : MonoBehaviour
         eventController.OnStartDialogEvent.AddListener(OnDialogeActivate);
     }
 
+    public bool isLastPart() 
+    {
+        return currentPart == dialogParts.Count - 1;
+    }
+
     List<string> SplitDialoge(string dialoge) 
     {
         return dialoge.Split('^').ToList();

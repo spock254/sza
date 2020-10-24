@@ -16,6 +16,14 @@ public class Quest : ScriptableObject
     public int currentEventIndex = 0;
     public int currentDialogeIndex = 0;
 
+    QuestDialog currentQuestDialog = null;
+
+    public QuestDialog GetCurrentQuestDialog() 
+    {
+        currentQuestDialog = questDialogs[currentDialogeIndex];
+
+        return currentQuestDialog;
+    }
 
     public QuestEvent NextQuestEvent()
     {
@@ -32,15 +40,14 @@ public class Quest : ScriptableObject
 
     public QuestDialog NextDialog() 
     {
-        QuestDialog dialogToReturn = null;
 
         if (currentDialogeIndex < questDialogs.Count)
         {
-            dialogToReturn = questDialogs[currentDialogeIndex];
+            currentQuestDialog = questDialogs[currentDialogeIndex];
             currentDialogeIndex++;
         }
 
-        return dialogToReturn;
+        return currentQuestDialog;
     }
 
     // QUEST LINES
@@ -52,10 +59,10 @@ public class Quest : ScriptableObject
         if (dialogue.speaker == speaker) 
         { 
             dialogue.SetDialog(questDialog.dialog);
-            return true;
+
         }
 
-        return false;
+        return dialogue.isLastPart();
     }
 
     public bool Gather(Item item, GameObject gatherPoint, int count = -1)

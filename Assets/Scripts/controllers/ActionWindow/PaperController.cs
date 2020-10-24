@@ -21,17 +21,6 @@ public class PaperController : MonoBehaviour
 
     public void OnClose() 
     {
-        //if (resultItem) 
-        //{
-        //    resultItem.itemOptionData.text = input.text;
-        //}
-
-        //if (input.text.Length == 0) 
-        //{
-        //    resultItem = item;
-        //}
-        //item.itemOptionData.text = input.text;
-
         if (input.text.Length == 0)
         {
             goOnTable.GetComponent<ItemCell>().item = item;

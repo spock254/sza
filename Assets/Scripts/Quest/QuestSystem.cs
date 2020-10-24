@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class QuestSystem : MonoBehaviour
 {
@@ -39,13 +40,12 @@ public class QuestSystem : MonoBehaviour
         StartCoroutine("QuestEventControll");
     }
 
-    
 
     IEnumerator QuestEventControll() 
     {
         while (true) 
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
 
             if (currentQuestEvent.questType == QuestType.Gather)
             {
@@ -58,9 +58,9 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Syntax)
             {
-                if (quests.Peek().StartDialog(quests.Peek().NextDialog(), currentQuestEvent.questData.arg))
+                if (quests.Peek().StartDialog(quests.Peek().GetCurrentQuestDialog(), currentQuestEvent.questData.arg))
                 {
-
+                    quests.Peek().NextDialog();
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();
                 }
