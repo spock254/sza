@@ -11,13 +11,20 @@ public class PCController : MonoBehaviour
     public Tile open_tile;
     public Tile acess_enterTile;
 
-    // pc inner data
-    public List<GameObject> peripherals;
-
+    // pc inner data----------------------------------------------------------------
+    public List<GameObject> peripherals;                                         
+                                                                                 
     [SerializeField]
-    DocData[] docDatas;
-    public Dictionary<string, Item> docs = new Dictionary<string, Item>(); 
-
+    DocData[] docDatas = null;
+    public Dictionary<string, Item> docs = new Dictionary<string, Item>();
+    
+    public CommandDB.UserMode userMode = CommandDB.UserMode.Guest;
+    
+    public Dictionary<string, string> accounts = new Dictionary<string, string>() 
+    { 
+        { "spock43", "254u" } 
+    };
+    //-----------------------------------------------------------------------------
     public List<Item> itemsToUnlock;
 
     bool isOpen;

@@ -25,6 +25,12 @@ public static class Global
         public const string QUESTS_DIALOGS = "scriptableObjects/Quest";
     }
 
+    public static class TerminalResponce 
+    {
+        public static string COMMAND_NOT_FOUND = "Command not found.";
+        public static string INCORRECT_ARG = "Incorrect argument.";
+    }
+
     public static class TileMaps
     {
         public const string BASE = "base";
@@ -74,7 +80,11 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("awpc").GetComponent<TerminalController>();
         }
-        
+        public static CommandDB GetCommandDB()
+        {
+            return GameObject.FindGameObjectWithTag("awpc").GetComponent<CommandDB>();
+        }
+
     }
 
     public static class UIElement 

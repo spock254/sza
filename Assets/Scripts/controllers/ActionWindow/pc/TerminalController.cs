@@ -24,13 +24,13 @@ public class TerminalController : MonoBehaviour
 
     void Start()
     {
-        interpreter = GetComponent<Interpreter>();    
+        interpreter = GetComponent<Interpreter>();
     }
 
     private void OnGUI()
     {
         if (isOpen) 
-        { 
+        {
             terminalInput.ActivateInputField();
             terminalInput.Select();
         }

@@ -8,19 +8,20 @@ public class CommandDB : MonoBehaviour
 {
     public enum UserMode { Guest, User, Admin }
 
-    public UserMode userMode;
+    //public UserMode userMode;
 
     Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
         { "test",  new CommonCommand(new List<string>() { "test terminal" })},
         { "help", new HelpCommand() },
         { "exit", new ExitCommand() },
-        { "printer", new PrinterCommand() }
+        { "chuser", new ChUserCommand() }
     };
 
     Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
     {
-        { "test2",  new CommonCommand(new List<string>() { "test2 terminal" })}
+        { "test2",  new CommonCommand(new List<string>() { "test2 terminal" }) },
+        { "printer", new PrinterCommand() }
     };
 
     Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -30,11 +31,14 @@ public class CommandDB : MonoBehaviour
 
     public Dictionary<string, ICommandAction> GetCommands() 
     {
-        if (userMode == UserMode.Guest)
+        TerminalController terminal = GetComponent<TerminalController>();
+
+
+        if (terminal.GetCurrentPc().userMode == UserMode.Guest)
         {
             return guest;
         }
-        else if (userMode == UserMode.User) 
+        else if (terminal.GetCurrentPc().userMode == UserMode.User) 
         {
             return guest.Union(user).ToDictionary(k => k.Key, v => v.Value);
         }
@@ -58,7 +62,9 @@ namespace commands
         public List<string> GetActionStatus(string[] param)
         {
             ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+            TerminalController terminalController = Global.Component.GetTerminalController();
 
+            terminalController.GetCurrentPc().Close();
             actionWindow.CloseActionWindow("awpc");
 
             return new List<string>() { "exit status 0" };
@@ -107,7 +113,9 @@ namespace commands
             return new Dictionary<string, string>() 
             {
                 { "-all", "shoes description of all command flags" },
-                { "-f", "shoes flags of all commands" }
+                { "-f", "shoes flags of all commands" },
+                { "-s [command]", "description of the selected command" },
+                { "-sf [command]", "description and flags of the selected command" }
             };
         }
     
@@ -173,6 +181,51 @@ namespace commands
             {
                 return new List<string>(commandDB.GetCommands().Keys);
             }
+            else if (param.Length == 3) 
+            {
+                if (param[1] == "-s")
+                {
+                    CommandDB commandDb = Global.Component.GetCommandDB();
+
+                    Dictionary<string, ICommandAction> commands = commandDb.GetCommands();
+
+                    if (commands.ContainsKey(param[2]))
+                    {
+                        return new List<string>() { param[2] + ": " + commands[param[2]].GetDescription() };
+                    }
+                    else
+                    {
+                        return new List<string> { "Command not found" };
+                    }
+                }
+
+                if (param[1] == "-sf") 
+                {
+                    CommandDB commandDb = Global.Component.GetCommandDB();
+
+                    Dictionary<string, ICommandAction> commands = commandDb.GetCommands();
+
+                    if (commands.ContainsKey(param[2]))
+                    {
+                        List<string> resp = new List<string>() { param[2] + ": " + commands[param[2]].GetDescription() };
+                        
+                        List<string> temp = new List<string>();
+
+                        foreach (var item in commands[param[2]].GetParams())
+                        {
+                            temp.Add(item.Key + " " + item.Value);
+                        }
+
+                        resp.AddRange(temp);
+
+                        return resp;
+                    }
+                    else
+                    {
+                        return new List<string> { "Command not found" };
+                    }
+                }
+            }
 
             return null;
         }
@@ -182,7 +235,6 @@ namespace commands
             return "description of commands";
         }
     }
-
     public class PrinterCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
@@ -227,7 +279,7 @@ namespace commands
                     
                     if (param.Length == 2)
                     {
-                        return new List<string>() { "document not selected", "use: printer -s [ docname ]" };
+                        return new List<string>() { "Document not selected.", "use: printer -s [ docname ]" };
                     }
                     else if (param.Length == 3)
                     {
@@ -239,11 +291,11 @@ namespace commands
                                 PrinterController printerController = GetPrinterFromPeref(peripherals);
                                 printerController.itemToPrint = item;
 
-                                return new List<string>() { "document uploaded successfully" };
+                                return new List<string>() { "Document uploaded successfully." };
                             }
                             else
                             {
-                                return new List<string>() { "incorect document name" };
+                                return new List<string>() { "Incorect document name." };
                             }
                         }
                         else 
@@ -329,4 +381,51 @@ namespace commands
         }
     }
 
+    public class ChUserCommand : ICommandAction
+    {
+        public List<string> GetActionStatus(string[] param)
+        {
+            if (param.Length == 4)
+            {
+                if (param[1] == "-l") 
+                { 
+                    PCController pcController = Global.Component.GetTerminalController().GetCurrentPc();
+
+                    Dictionary<string, string> accaunts = pcController.accounts;
+
+                    if (accaunts.ContainsKey(param[2]) && accaunts.ContainsValue(param[3]))
+                    {
+                        pcController.userMode = CommandDB.UserMode.User;
+
+                        return new List<string>() { "Welcome " + param[2] };
+                    }
+                    else 
+                    {
+                        return new List<string>() { "User name or password incorrect" };
+                    }
+                
+                }
+            }
+            else 
+            {
+                return null;
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "login or logout";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "-l [username] [password]" , "login" }
+
+            };
+        }
+    }
 }
