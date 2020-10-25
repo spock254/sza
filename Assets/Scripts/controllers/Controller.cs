@@ -133,6 +133,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                         return;
                     }
+
+                    if (hit.collider.gameObject.tag == "printer") 
+                    { 
+                        PrinterController printerController = hit.collider.GetComponent<PrinterController>();
+
+                        printerController.OnPrinterClick();
+                    }
                 }
 
                 eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
@@ -223,7 +230,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             itemInHand.itemUseData.use.Use_To_Open(statInit.stats, itemInHand);
                         }
 
-                        if (hit.collider.gameObject.tag == "case")
+                        if (hit.collider.gameObject.tag == "case" || hit.collider.gameObject.tag == "printer")
                         {
                             CaseItem caseItem = hit.collider.GetComponent<CaseItem>();
                             Transform casePosition = hit.collider.transform;

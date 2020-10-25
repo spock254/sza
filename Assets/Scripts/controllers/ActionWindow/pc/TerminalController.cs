@@ -20,6 +20,8 @@ public class TerminalController : MonoBehaviour
     Interpreter interpreter;
     public bool isOpen = false;
 
+    PCController pcController;
+
     void Start()
     {
         interpreter = GetComponent<Interpreter>();    
@@ -137,4 +139,13 @@ public class TerminalController : MonoBehaviour
         //}
     }
 
+    public void SetCurrentPc(PCController pcController) 
+    {
+        this.pcController = pcController;
+    }
+
+    public PCController GetCurrentPc() 
+    {
+        return pcController;
+    }
 }

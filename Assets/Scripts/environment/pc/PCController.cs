@@ -11,14 +11,30 @@ public class PCController : MonoBehaviour
     public Tile open_tile;
     public Tile acess_enterTile;
 
+    // pc inner data
+    public List<GameObject> peripherals;
+
+    [SerializeField]
+    DocData[] docDatas;
+    public Dictionary<string, Item> docs = new Dictionary<string, Item>(); 
+
     public List<Item> itemsToUnlock;
+
     bool isOpen;
     bool isLock;
     Vector3Int currentCell;
 
+    ActionWindowController actionWindow;
+    TerminalController terminalController;
+
     private void Awake()
     {
         tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+
+        actionWindow = Global.Component.GetActionWindowController();
+        terminalController = Global.Component.GetTerminalController();
+
+        DocsInit();
     }
 
     public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
@@ -47,9 +63,10 @@ public class PCController : MonoBehaviour
         tilemap.SetTile(currentCell, open_tile);
         isOpen = true;
 
-        ActionWindowController actionWindow = Global.Component.GetActionWindowController();
         actionWindow.OpenActionWindow("awpc");
-        Global.Component.GetTerminalController().isOpen = true;
+
+        terminalController.isOpen = true;
+        terminalController.SetCurrentPc(this);
     }
 
     public void Close() 
@@ -57,8 +74,25 @@ public class PCController : MonoBehaviour
         tilemap.SetTile(currentCell, null);
         isOpen = false;
 
-        ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+
         actionWindow.CloseActionWindow("awpc");
-        Global.Component.GetTerminalController().isOpen = false;
+
+        terminalController.isOpen = false;
+        terminalController.SetCurrentPc(null);
     }
+
+    void DocsInit() 
+    {
+        foreach (var item in docDatas)
+        {
+            docs.Add(item.docName, item.item);
+        }
+    }
+}
+
+[System.Serializable]
+public struct DocData
+{
+    public string docName;
+    public Item item;
 }

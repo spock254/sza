@@ -70,11 +70,11 @@ public static class Global
         { 
             return GameObject.FindGameObjectWithTag("awPaperHand").GetComponent<PaperReviewController>();
         }
-
         public static TerminalController GetTerminalController() 
         {
             return GameObject.FindGameObjectWithTag("awpc").GetComponent<TerminalController>();
         }
+        
     }
 
     public static class UIElement 
