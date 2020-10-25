@@ -35,7 +35,7 @@ public class Interpreter : MonoBehaviour
                 return new List<string>() { "Incorrect argument." };
             }
 
-            return commands[args[0]].GetActionStatus(args);
+            return res;
         }
 
         return new List<string>() { "Command not found." };

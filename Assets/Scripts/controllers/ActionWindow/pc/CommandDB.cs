@@ -224,6 +224,7 @@ namespace commands
             
                 if (param[1] == "-s") 
                 {
+                    
                     if (param.Length == 2)
                     {
                         return new List<string>() { "document not selected", "use: printer -s [ docname ]" };
@@ -261,7 +262,6 @@ namespace commands
                     if (isPrinterPresent(peripherals))
                     {
                         PrinterController printerController = GetPrinterFromPeref(peripherals);
-
 
                         if (printerController.itemToPrint)
                         {
