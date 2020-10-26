@@ -27,6 +27,11 @@ public class TerminalController : MonoBehaviour
         interpreter = GetComponent<Interpreter>();
     }
 
+    //private void OnEnable()
+    //{
+    //    GameObject res = Instantiate(responceLine, msgList.transform);
+    //    res.GetComponentInChildren<Text>().text = "<b>Welcome "+ pcController.currentMemory.userName +"</b>";
+    //}
     private void OnGUI()
     {
         if (isOpen) 

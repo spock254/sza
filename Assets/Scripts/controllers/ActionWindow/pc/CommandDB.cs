@@ -12,15 +12,14 @@ public class CommandDB : MonoBehaviour
 
     Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
-        { "test",  new CommonCommand(new List<string>() { "test terminal" })},
         { "help", new HelpCommand() },
         { "exit", new ExitCommand() },
-        { "chuser", new ChUserCommand() }
+        { "chuser", new ChUserCommand() },
+        { "whoami", new WhoamiCommand() }
     };
 
     Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
     {
-        { "test2",  new CommonCommand(new List<string>() { "test2 terminal" }) },
         { "printer", new PrinterCommand() }
     };
 
@@ -33,12 +32,13 @@ public class CommandDB : MonoBehaviour
     {
         TerminalController terminal = GetComponent<TerminalController>();
 
+        UserMode userMode = terminal.GetCurrentPc().currentMemory.userMode;
 
-        if (terminal.GetCurrentPc().userMode == UserMode.Guest)
+        if (userMode == UserMode.Guest)
         {
             return guest;
         }
-        else if (terminal.GetCurrentPc().userMode == UserMode.User) 
+        else if (userMode == UserMode.User) 
         {
             return guest.Union(user).ToDictionary(k => k.Key, v => v.Value);
         }
@@ -285,9 +285,9 @@ namespace commands
                     {
                         if (isPrinterPresent(peripherals))
                         {
-                            if (pcController.docs.ContainsKey(param[2]))
+                            if (pcController.currentMemory.docs.ContainsKey(param[2]))
                             {
-                                Item item = pcController.docs[param[2]];
+                                Item item = pcController.currentMemory.docs[param[2]];
                                 PrinterController printerController = GetPrinterFromPeref(peripherals);
                                 printerController.itemToPrint = item;
 
@@ -380,33 +380,53 @@ namespace commands
             };
         }
     }
-
     public class ChUserCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
         {
+            PCController pcController = Global.Component.GetTerminalController().GetCurrentPc();
+            List<PCMempryContent> mempryContents = pcController.memoryContents;
+            
             if (param.Length == 4)
             {
-                if (param[1] == "-l") 
-                { 
-                    PCController pcController = Global.Component.GetTerminalController().GetCurrentPc();
+                if (param[1] == "-login")
+                {
 
-                    Dictionary<string, string> accaunts = pcController.accounts;
-
-                    if (accaunts.ContainsKey(param[2]) && accaunts.ContainsValue(param[3]))
+                    foreach (var item in mempryContents)
                     {
-                        pcController.userMode = CommandDB.UserMode.User;
+                        if (item.userName == param[2] && item.password == param[3])
+                        {
+                            pcController.currentMemory = item;
 
-                        return new List<string>() { "Welcome " + param[2] };
+                            return new List<string>() { "Welcome " + param[2] };
+                        }
+
+                    }
+
+                    return new List<string>() { "User name or password incorrect" };
+
+                }
+
+            }
+            else if (param.Length == 2) 
+            {
+                if (param[1] == "-logout")
+                {
+                    if (pcController.currentMemory.userMode != CommandDB.UserMode.Guest)
+                    {
+                        PCMempryContent guestMemoryContent = mempryContents.Where(x => x.userMode == CommandDB.UserMode.Guest)
+                                                                      .FirstOrDefault();
+                        pcController.currentMemory = guestMemoryContent;
+
+                        return new List<string>() { "Your user mode status is guest" };
                     }
                     else 
                     {
-                        return new List<string>() { "User name or password incorrect" };
+                        return new List<string>() { "You are already a guest" };
                     }
-                
                 }
             }
-            else 
+            else
             {
                 return null;
             }
@@ -423,9 +443,34 @@ namespace commands
         {
             return new Dictionary<string, string>()
             {
-                { "-l [username] [password]" , "login" }
+                { "-login [username] [password]" , "login as user" },
+                { "-logout", "turn to guest mode" }
 
             };
+        }
+    }
+    public class WhoamiCommand : ICommandAction
+    {
+        public List<string> GetActionStatus(string[] param)
+        {
+            if (param.Length == 1) 
+            {
+                TerminalController terminal = Global.Component.GetTerminalController();
+                return new List<string>() { "You are logged in as " + terminal.GetCurrentPc().currentMemory.userName, 
+                                            "User mode " + terminal.GetCurrentPc().currentMemory.userMode.ToString() };
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "shows you user name and user mode";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
 }

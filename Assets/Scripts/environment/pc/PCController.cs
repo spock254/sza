@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,18 +13,9 @@ public class PCController : MonoBehaviour
     public Tile acess_enterTile;
 
     // pc inner data----------------------------------------------------------------
-    public List<GameObject> peripherals;                                         
-                                                                                 
-    [SerializeField]
-    DocData[] docDatas = null;
-    public Dictionary<string, Item> docs = new Dictionary<string, Item>();
-    
-    public CommandDB.UserMode userMode = CommandDB.UserMode.Guest;
-    
-    public Dictionary<string, string> accounts = new Dictionary<string, string>() 
-    { 
-        { "spock43", "254u" } 
-    };
+    public List<GameObject> peripherals;
+    public List<PCMempryContent> memoryContents;
+    public PCMempryContent currentMemory;
     //-----------------------------------------------------------------------------
     public List<Item> itemsToUnlock;
 
@@ -41,7 +33,12 @@ public class PCController : MonoBehaviour
         actionWindow = Global.Component.GetActionWindowController();
         terminalController = Global.Component.GetTerminalController();
 
-        DocsInit();
+        currentMemory = memoryContents.Where(i => i.userMode == CommandDB.UserMode.Guest).FirstOrDefault();
+
+        foreach (var item in memoryContents)
+        {
+            item.DocsInit();
+        }
     }
 
     public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
@@ -56,13 +53,6 @@ public class PCController : MonoBehaviour
         {
             Close();
         }
-
-        return;
-        //if (itemsToUnlock.Contains(itemInHand) && !isLock && isOpen) 
-        //{
-        //    tilemap.SetTile(currentCell, acess_enterTile);
-        //    isLock = true;
-        //}
     }
 
     public void Open()
@@ -88,7 +78,21 @@ public class PCController : MonoBehaviour
         terminalController.SetCurrentPc(null);
     }
 
-    void DocsInit() 
+}
+
+[System.Serializable]
+public class PCMempryContent 
+{
+    public string userName;
+    public string password;
+
+    public CommandDB.UserMode userMode = CommandDB.UserMode.Guest;
+
+    [SerializeField]
+    DocData[] docDatas = null;
+    public Dictionary<string, Item> docs = new Dictionary<string, Item>();
+
+    public void DocsInit()
     {
         foreach (var item in docDatas)
         {
@@ -96,7 +100,6 @@ public class PCController : MonoBehaviour
         }
     }
 }
-
 [System.Serializable]
 public struct DocData
 {

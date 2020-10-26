@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
 	private Vector3 velocity = Vector3.zero;
 	private float cameraZ = 0;
 
-	private Camera camera;
+	private Camera camera = null;
 
 	void Start()
 	{

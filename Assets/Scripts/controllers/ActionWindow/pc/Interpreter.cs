@@ -26,6 +26,7 @@ public class Interpreter : MonoBehaviour
 
         string[] args = userInput.Split();
 
+
         commands = commandDB.GetCommands();
 
         if (commands.ContainsKey(args[0]))
