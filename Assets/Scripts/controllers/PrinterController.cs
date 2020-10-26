@@ -24,17 +24,12 @@ public class PrinterController : MonoBehaviour
 
         if (itemToPrint && isPaperInside()) 
         {
+            GameObject staticItemPan = Global.UIElement.GetStaticItemPanel();
+            if (staticItemPan) 
+            {
+                staticItemPan.SetActive(false);
+            }
             StartCoroutine(Print());
-            //Debug.Log("print");
-
-            //caseItem.items.Remove(paper);
-            //itemPref.GetComponent<ItemCell>().item = itemToPrint;
-            //itemPref.GetComponent<SpriteRenderer>().sprite = itemToPrint.itemSprite;
-            //itemPref.name = "item_" + itemPref.name;
-
-            //Instantiate(itemPref, transform.position, Quaternion.identity);
-
-            ////itemToPrint = null;
         }
     }
 
@@ -48,6 +43,8 @@ public class PrinterController : MonoBehaviour
         Tilemap tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         Vector3Int cell = tilemap.WorldToCell(transform.position);
 
+        caseItem.items.Remove(paper);
+
         foreach (var tile in printsTiles)
         {
             tilemap.SetTile(cell, tile);
@@ -55,12 +52,12 @@ public class PrinterController : MonoBehaviour
             yield return new WaitForSeconds(printsWorkUnit);
         }
 
-        caseItem.items.Remove(paper);
         itemPref.GetComponent<ItemCell>().item = itemToPrint;
         itemPref.GetComponent<SpriteRenderer>().sprite = itemToPrint.itemSprite;
         itemPref.name = "item_" + itemPref.name;
 
         Instantiate(itemPref, transform.position, Quaternion.identity);
 
+        
     }
 }

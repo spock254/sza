@@ -98,9 +98,9 @@ public class TerminalController : MonoBehaviour
 
     void ScrallToButtom(int lines) 
     {
-        if (lines > 7)
+        if (lines > 4)
         {
-            sr.velocity = new Vector2(0, 150);
+            sr.velocity = new Vector2(0, 450);
         }
         else 
         {

@@ -15,7 +15,8 @@ public class CommandDB : MonoBehaviour
         { "help", new HelpCommand() },
         { "exit", new ExitCommand() },
         { "chuser", new ChUserCommand() },
-        { "whoami", new WhoamiCommand() }
+        { "whoami", new WhoamiCommand() },
+        { "docs", new DocsCommand() }
     };
 
     Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
@@ -375,7 +376,7 @@ namespace commands
             return new Dictionary<string, string>
             {
                 { "-status", "shows printer status" },
-                { "-s [ docname ]", "set up document for\n\tprinting" },
+                { "-s [docname]", "set up document for printing" },
                 { "-r", "run the printer" }
             };
         }
@@ -466,6 +467,45 @@ namespace commands
         public string GetDescription()
         {
             return "shows you user name and user mode";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
+        }
+    }
+
+    public class DocsCommand : ICommandAction
+    {
+
+        public List<string> GetActionStatus(string[] param)
+        {
+            if (param.Length == 1) 
+            { 
+                TerminalController terminal = Global.Component.GetTerminalController();
+                Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
+
+                List<string> res = new List<string>();
+
+                foreach (var item in docs)
+                {
+                    res.Add(item.Key);
+                }
+
+                if (res.Count == 0) 
+                {
+                    return new List<string>() { "Documents not found" };
+                }
+
+                return res;
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "prints all documents";
         }
 
         public Dictionary<string, string> GetParams()

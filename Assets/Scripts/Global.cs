@@ -98,6 +98,11 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("awpc");
         }
+
+        public static GameObject GetStaticItemPanel() 
+        {
+            return GameObject.FindGameObjectWithTag("staticItemPanel");
+        }
     }
 
 }
