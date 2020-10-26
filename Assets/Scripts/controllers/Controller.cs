@@ -201,6 +201,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             pcController.OnPc_ClicK(itemInHand, mousePos);
                         }
 
+                        if (hit.collider.gameObject.tag == "tv") 
+                        { 
+                            TVController tVController = hit.collider.GetComponent<TVController>();
+                            tVController.OnTvClick();
+                        }
+
                         if (hit.collider.gameObject.tag == "microwave" || hit.collider.gameObject.tag == "oven") 
                         {
                             Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);

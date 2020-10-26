@@ -22,16 +22,65 @@ public class TerminalController : MonoBehaviour
 
     PCController pcController;
 
+    public List<string> history = new List<string>();
+
     void Start()
     {
         interpreter = GetComponent<Interpreter>();
     }
 
-    //private void OnEnable()
-    //{
-    //    GameObject res = Instantiate(responceLine, msgList.transform);
-    //    res.GetComponentInChildren<Text>().text = "<b>Welcome "+ pcController.currentMemory.userName +"</b>";
-    //}
+    string ScrollHistory(string input) 
+    {
+        int index = 0;
+
+        if (history.Count > 0) 
+        { 
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                index++;
+
+                if (index > history.Count) 
+                {
+                    index = history.Count - 1;
+                    
+                }
+
+                return history[index];
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow)) 
+            {
+                index--;
+            
+                if (index < 0) 
+                {
+                    index = 0;
+                    return string.Empty;
+                }
+                
+                return history[index];
+            }
+        }
+
+        Debug.Log(index);
+        return input;
+    }
+
+    void AddToHistory(string command) 
+    {
+        if (history.Count == 100)
+        {
+            history.RemoveAt(99);
+        }
+        else if (history.Contains(command))
+        {
+            history.Remove(command);
+        }
+
+        history.Add(command);
+    }
+
+    
+
     private void OnGUI()
     {
         if (isOpen) 
@@ -40,11 +89,16 @@ public class TerminalController : MonoBehaviour
             terminalInput.Select();
         }
 
+        //terminalInput.text = ScrollHistory(terminalInput.text);
+        
+
 
         if (terminalInput.isFocused && terminalInput.text != "" && Input.GetKeyDown(KeyCode.Return)) 
         {
             string userInput = terminalInput.text;
-            
+
+            AddToHistory(userInput);
+
             ClearInputField();
             AddDirectoryLine(userInput);
 

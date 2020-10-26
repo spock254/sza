@@ -25,6 +25,7 @@ public class PCController : MonoBehaviour
 
     ActionWindowController actionWindow;
     TerminalController terminalController;
+    EventController eventController;
 
     private void Awake()
     {
@@ -32,13 +33,11 @@ public class PCController : MonoBehaviour
 
         actionWindow = Global.Component.GetActionWindowController();
         terminalController = Global.Component.GetTerminalController();
+        eventController = Global.Component.GetEventController();
 
         currentMemory = memoryContents.Where(i => i.userMode == CommandDB.UserMode.Guest).FirstOrDefault();
 
-        foreach (var item in memoryContents)
-        {
-            item.DocsInit();
-        }
+        InitAllDocs();
     }
 
     public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
@@ -48,10 +47,14 @@ public class PCController : MonoBehaviour
         if (isOpen == false)
         {
             Open();
+
+            eventController.OnTerminalOpen.Invoke();
         }
         else 
         {
             Close();
+
+            eventController.OnTerminalClose.Invoke();
         }
     }
 
@@ -78,6 +81,13 @@ public class PCController : MonoBehaviour
         terminalController.SetCurrentPc(null);
     }
 
+    void InitAllDocs() 
+    {
+        foreach (var item in memoryContents)
+        {
+            item.DocsInit();
+        }
+    }
 }
 
 [System.Serializable]

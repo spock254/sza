@@ -421,10 +421,28 @@ namespace commands
 
                         return new List<string>() { "Your user mode status is guest" };
                     }
-                    else 
+                    else
                     {
                         return new List<string>() { "You are already a guest" };
                     }
+                }
+                else if (param[1] == "-l") 
+                {
+                    List<string> allUsers = new List<string>();
+
+                    foreach (var item in pcController.memoryContents)
+                    {
+                        if (pcController.currentMemory.userName == item.userName)
+                        {
+                            allUsers.Add(item.userName + ": " + item.userMode + "*");
+                        }
+                        else 
+                        { 
+                            allUsers.Add(item.userName + ": " + item.userMode);
+                        }
+                    }
+
+                    return allUsers;
                 }
             }
             else
@@ -445,7 +463,8 @@ namespace commands
             return new Dictionary<string, string>()
             {
                 { "-login [username] [password]" , "login as user" },
-                { "-logout", "turn to guest mode" }
+                { "-logout", "turn to guest mode" },
+                { "-l", "list all registered users" }
 
             };
         }

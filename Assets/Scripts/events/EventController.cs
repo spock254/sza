@@ -25,10 +25,15 @@ public class EventController : MonoBehaviour
     [HideInInspector]
     public StartDialogEvent OnStartDialogEvent;
 
+    /* TERMINAL EVENTS  */
+    [HideInInspector]
+    public TerminalEvent OnTerminalOpen;
+    [HideInInspector]
+    public TerminalEvent OnTerminalClose;
+
     public CasePanelController casePanelController;
     public RightButtonClickController rightButtonClickController;
-    //public DoorController doorController;
-    //public CaseController caseController;
+
 
     void Awake()
     {
@@ -45,6 +50,9 @@ public class EventController : MonoBehaviour
         //OnDialogEvent = new QuestDialogEvent();
         OnUseOnPlayerEvent = new UseOnPlayerEvent();
         OnStartDialogEvent = new StartDialogEvent();
+
+        OnTerminalOpen = new TerminalEvent();
+        OnTerminalClose = new TerminalEvent();
     }
 
     private void OnEnable()
