@@ -125,21 +125,15 @@ public class FormController : MonoBehaviour
             if (item.EndsWith(INPUT_PREFIX))
             {
                 string origin = item.Substring(0, item.Length - INPUT_PREFIX.Length);
-                Debug.Log(origin);
-      //          if (item != string.Empty) 
-        //        { 
-                    input.Add(origin);
-          //      }
+
+                input.Add(origin);
 
             }
             else if (item.EndsWith(DDOWN_PREFIX)) 
             {
                 string origin = item.Substring(0, item.Length - DDOWN_PREFIX.Length);
-                Debug.Log(origin);
-//                if (item != string.Empty) 
-  //              { 
-                    ddown.Add(origin);
-    //            }
+
+                 ddown.Add(origin);
 
             }
         }
@@ -165,7 +159,7 @@ public class FormController : MonoBehaviour
         this.resultItem = resultItem;
 
         FillFormFromItemData(SplitString(item.itemOptionData.text));
-        //input.text = item.itemOptionData.text;
+
         isOpen = true;
     }
 }

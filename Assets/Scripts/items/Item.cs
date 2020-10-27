@@ -134,7 +134,10 @@ public class Item : ScriptableObject
 
     public bool IsSameItems(Item item) 
     {
-        return this.id == item.id;
+        return this.id == item.id 
+            && this.itemName == item.itemName 
+            && this.itemDescription == item.itemDescription 
+            && this.itemPrice == item.itemPrice;
     }
 
 }
