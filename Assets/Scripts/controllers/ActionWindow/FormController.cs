@@ -77,7 +77,7 @@ public class FormController : MonoBehaviour
 
         foreach (var item in dropdowns)
         {
-            item.value = 0;
+            item.captionText.text = string.Empty;
         }
     }
 
@@ -85,15 +85,16 @@ public class FormController : MonoBehaviour
     {
         string toReturn = string.Empty;
 
-
         foreach (var item in inputFields)
         {
             toReturn += item.text + INPUT_PREFIX + "\n";
+        
         }
 
         foreach (var item in dropdowns)
         {
             toReturn += item.captionText.text + DDOWN_PREFIX + "\n";
+        
         }
 
         return toReturn;
@@ -101,11 +102,21 @@ public class FormController : MonoBehaviour
 
     List<string> SplitString(string data) 
     {
+        if (data == string.Empty) 
+        {
+            return null;
+        }
+
         return data.Split('\n').ToList();
     }
 
     void FillFormFromItemData(List<string> data) 
     {
+        if (data == null) 
+        {
+            return;
+        }
+
         List<string> input = new List<string>();
         List<string> ddown = new List<string>();
 
@@ -113,12 +124,36 @@ public class FormController : MonoBehaviour
         {
             if (item.EndsWith(INPUT_PREFIX))
             {
-                input.Add(item.Substring(item.Length - INPUT_PREFIX.Length));
+                string origin = item.Substring(0, item.Length - INPUT_PREFIX.Length);
+                Debug.Log(origin);
+      //          if (item != string.Empty) 
+        //        { 
+                    input.Add(origin);
+          //      }
+
             }
-            else 
+            else if (item.EndsWith(DDOWN_PREFIX)) 
             {
-                ddown.Add(item.Substring(item.Length - DDOWN_PREFIX.Length));
+                string origin = item.Substring(0, item.Length - DDOWN_PREFIX.Length);
+                Debug.Log(origin);
+//                if (item != string.Empty) 
+  //              { 
+                    ddown.Add(origin);
+    //            }
+
             }
+        }
+
+        
+
+        for (int i = 0; i < inputFields.Count; i++)
+        {
+            inputFields[i].text = input[i];
+        }
+
+        for (int i = 0; i < dropdowns.Count; i++)
+        {
+            dropdowns[i].captionText.text = ddown[i];
         }
     }
 
@@ -129,6 +164,7 @@ public class FormController : MonoBehaviour
         this.item = item;
         this.resultItem = resultItem;
 
+        FillFormFromItemData(SplitString(item.itemOptionData.text));
         //input.text = item.itemOptionData.text;
         isOpen = true;
     }
