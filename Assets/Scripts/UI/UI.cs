@@ -21,7 +21,6 @@ public class UI : MonoBehaviour
     public FightStatsInit fightStats;
     public ExpInit exp;
     public GoldInit gold;
-    public ShopManager shop;
 
     public Texture2D progressBarEmpty;
     public Texture2D progressBarFull;

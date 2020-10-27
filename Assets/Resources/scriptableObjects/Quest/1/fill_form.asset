@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335dffd30dacdda4480840c523c6d917, type: 3}
-  m_Name: fillList
+  m_Name: fill_form
   m_EditorClassIdentifier: 
-  questEventDescription: fill list
+  questEventDescription: fill space station form
   questType: 3
   questData:
-    necessaryItems: []
+    necessaryItems:
+    - {fileID: 11400000, guid: 57861c4518bc1e34187854045107c42e, type: 2}
     arg: 
     rewards: []

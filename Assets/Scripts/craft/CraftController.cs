@@ -79,7 +79,7 @@ public class CraftController : MonoBehaviour
         }
 
         Item craftResult = recept.recept.craftResult;
-
+        
         // для вызова actionWindow
         if (itemOnTabe.itemOptionData.actionWindowTag != string.Empty) 
         {
