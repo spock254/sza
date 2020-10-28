@@ -52,6 +52,14 @@ public static class Global
 
     public static class Component 
     {
+        public static Controller GetController() 
+        {
+            return GameObject.FindGameObjectWithTag("ui").GetComponent<Controller>();
+        }
+        public static PlayerInfo GetPlayerInfo() 
+        {
+            return GameObject.FindGameObjectWithTag("player").GetComponent<PlayerInfo>();
+        }
         public static EventController GetEventController() 
         {
             return GameObject.FindGameObjectWithTag("eventSystem").GetComponent<EventController>();

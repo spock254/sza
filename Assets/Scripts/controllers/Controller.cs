@@ -140,6 +140,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                         printerController.OnPrinterClick();
                     }
+
+                    if (hit.collider.gameObject.tag == "pc") 
+                    { 
+                        PCController pcController = hit.collider.GetComponent<PCController>();
+
+                        pcController.OnPc_Disck(currentHand);
+                    }
                 }
 
                 eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);

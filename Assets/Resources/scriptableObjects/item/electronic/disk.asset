@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
+  m_Name: disk
+  m_EditorClassIdentifier: 
+  id: -31530893
+  itemName: disk
+  itemDescription: disk
+  itemPrice: 200
+  itemSprite: {fileID: -8572460971912414593, guid: db074c080037dc24aa03aae3d9692859,
+    type: 3}
+  stats:
+    playerStats: 5
+    value: 0
+    duration: 0
+    time: 0
+  ItemFightStats:
+    attack: 0
+    defence: 0
+  itemUseData:
+    itemSize: 0
+    use:
+      id: 0
+    itemTypes: 0800000007000000
+  itemOptionData:
+    awPrefab: {fileID: 0}
+    text: 
+    actionWindowTag: 
+  capacity: 0
+  innerItems: []
+  isDestroyOnPlayerUse: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: PhoneUse, ns: , asm: Assembly-CSharp}

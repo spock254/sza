@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public enum AcessLvL { USER }
 
@@ -18,6 +19,7 @@ public class PCController : MonoBehaviour
     public PCMempryContent currentMemory;
     //-----------------------------------------------------------------------------
     public List<Item> itemsToUnlock;
+    public Item disk;
 
     bool isOpen;
     bool isLock;
@@ -58,6 +60,33 @@ public class PCController : MonoBehaviour
         }
     }
 
+    public void OnPc_Disck(Button btnHand) 
+    {
+        Item itemInHand = null;
+        Controller controller = Global.Component.GetController();
+
+        if (!controller.IsEmpty(btnHand)) 
+        { 
+            itemInHand = btnHand.GetComponent<ItemCell>().item;
+        }
+
+        if (controller.IsEmpty(btnHand) && disk == null) 
+        {
+            return;
+        }
+
+        if (controller.IsEmpty(btnHand) && disk != null) 
+        {
+            controller.DressCell(btnHand, disk);
+            disk = null;
+        }
+        else if (itemInHand.itemName.Contains("disk") && !disk)
+        {
+            Global.Component.GetController().SetDefaultItem(btnHand);
+            disk = itemInHand;
+        }
+    }
+     
     public void Open()
     {
         tilemap.SetTile(currentCell, open_tile);

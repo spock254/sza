@@ -14,7 +14,7 @@ public class TVController : MonoBehaviour
     public float tvFrameTime = 0.1f;
 
     public GameObject screenLight;
-    Light2D light;
+    Light2D tvLight;
     
     Tilemap tilemap;
     Vector3Int currentCell;
@@ -27,8 +27,8 @@ public class TVController : MonoBehaviour
         
         tilemap.SetTile(currentCell, tvOff);
         screenLight.SetActive(false);
-        light = screenLight.GetComponent<Light2D>();
-        light.color = errorColors[0];
+        tvLight = screenLight.GetComponent<Light2D>();
+        tvLight.color = errorColors[0];
     }
 
     public void OnTvClick() 
@@ -56,7 +56,7 @@ public class TVController : MonoBehaviour
         while (isOpen) 
         { 
             tilemap.SetTile(currentCell, chanel[index]);
-            light.color = errorColors[index];
+            tvLight.color = errorColors[index];
             yield return new WaitForSeconds(tvFrameTime);
             
             index++;

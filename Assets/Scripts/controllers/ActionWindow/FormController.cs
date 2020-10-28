@@ -18,7 +18,7 @@ public class FormController : MonoBehaviour
     Item item;
     Item resultItem;
 
-    bool isOpen = false;
+    //bool isOpen = false;
 
     void Awake()
     {
@@ -41,7 +41,7 @@ public class FormController : MonoBehaviour
         goOnTable.GetComponent<ItemCell>().item.itemOptionData.text = ParseToString();
 
         actionWindow.CloseActionWindow(this.gameObject.tag);
-        isOpen = false;
+        //isOpen = false;
 
         CleanFields();
     }
@@ -160,6 +160,6 @@ public class FormController : MonoBehaviour
 
         FillFormFromItemData(SplitString(item.itemOptionData.text));
 
-        isOpen = true;
+        //isOpen = true;
     }
 }
