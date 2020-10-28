@@ -29,9 +29,13 @@ public class ActionWindowController : MonoBehaviour
         {
             Global.Component.GetPaperReviewController().Init(item);
         }
-        else if (tag == "awssForm") 
+        else if (tag == "awssForm")
         {
             Global.Component.GetFormController().Init(go, item, resultItem);
+        }
+        else if (tag == "awssFormHand") 
+        {
+            Global.Component.GetFormReviewController().Init(item);
         }
     }
 
