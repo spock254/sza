@@ -84,6 +84,10 @@ public static class Global
         { 
             return GameObject.FindGameObjectWithTag("awssFormHand").GetComponent<FormReviewControlle>();
         }
+        public static ItemReviewController GetItemReviewController() 
+        { 
+            return GameObject.FindGameObjectWithTag("awitemHand").GetComponent<ItemReviewController>();
+        }
         public static TerminalController GetTerminalController() 
         {
             return GameObject.FindGameObjectWithTag("awpc").GetComponent<TerminalController>();
