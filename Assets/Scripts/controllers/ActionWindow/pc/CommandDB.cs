@@ -21,7 +21,8 @@ public class CommandDB : MonoBehaviour
 
     Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
     {
-        { "printer", new PrinterCommand() }
+        { "printer", new PrinterCommand() },
+        { "disk", new DiskCommand() }
     };
 
     Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -493,7 +494,6 @@ namespace commands
             return null;
         }
     }
-
     public class DocsCommand : ICommandAction
     {
 
@@ -530,6 +530,68 @@ namespace commands
         public Dictionary<string, string> GetParams()
         {
             return null;
+        }
+    }
+    public class DiskCommand : ICommandAction
+    {
+        public List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            
+            if (param.Length == 2) 
+            {
+                if (param[1] == "-status")
+                {
+
+                    if (pcController.disk != null)
+                    {
+                        return new List<string>() { "disk status ( enabled )", pcController.disk.itemDescription };
+                    }
+                    else
+                    {
+                        return new List<string>() { "disk status ( disabled )" };
+                    }
+                }
+                else if (param[1] == "-out") 
+                {
+                    if (pcController.disk != null)
+                    {
+                        PrefbDB prefbDB = Global.Component.GetPrefbDB();
+                        GameObject itemPref = prefbDB.GetItemPrefab();
+                        string discDescription = pcController.disk.itemDescription;
+
+                        itemPref.GetComponent<ItemCell>().item = pcController.disk;
+                        itemPref.GetComponent<SpriteRenderer>().sprite = pcController.disk.itemSprite;
+                        prefbDB.InstantiateItemPref(pcController.transform.position);
+
+                        
+                        pcController.disk = null;
+
+                        return new List<string>() { "disk "+ discDescription + " logged out successfully" };
+                    }
+                    else
+                    {
+                        return new List<string>() { "disk status ( disabled )" };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "working with the disk";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "-status", "shows disk status" },
+                { "-out", "plug out disk" }
+            };
         }
     }
 }

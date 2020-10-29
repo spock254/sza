@@ -104,7 +104,10 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("awpc").GetComponent<CommandDB>();
         }
-
+        public static PrefbDB GetPrefbDB() 
+        { 
+            return GameObject.FindGameObjectWithTag("itemManager").GetComponent<PrefbDB>();
+        }
     }
 
     public static class UIElement 
