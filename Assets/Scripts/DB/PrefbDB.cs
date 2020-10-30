@@ -5,7 +5,7 @@ using UnityEngine;
 public class PrefbDB : MonoBehaviour
 {
     [SerializeField]
-    GameObject itemPrefab;
+    GameObject itemPrefab = null;
 
     public GameObject GetItemPrefab() 
     {
