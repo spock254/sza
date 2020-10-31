@@ -10,17 +10,33 @@ public class PlayerAnimation : MonoBehaviour
 {
     Animator anim;
     PlayerMovement movement;
+
     SpriteRenderer rendererBase;
     SpriteRenderer rendererEyes;
+    SpriteRenderer rendererHair;
+    SpriteRenderer rendererSute;
+    SpriteRenderer rendererHat;
+
 
     public string baseSpriteSheet = "ch_base";
-    public string eyesSpriteSheet = "eyes";
+    public string eyesSpriteSheet = "eyes2";
+    public string hairSpriteSheet = "hair";
+    public string suteSpriteSheet = "sute";
+    public string hatSpriteSheet = "hat";
 
     [Header("Body Parts")]
     public GameObject eyesGo;
+    public GameObject hairsGo;
+    public GameObject suteGo;
+    public GameObject hatGo;
+
 
     Sprite[] baseSprites;
     Sprite[] eyeSprites;
+    Sprite[] hairSprites;
+    Sprite[] suteSprites;
+    Sprite[] hatSprites;
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -28,9 +44,16 @@ public class PlayerAnimation : MonoBehaviour
 
         rendererBase = GetComponent<SpriteRenderer>();
         rendererEyes = eyesGo.GetComponent<SpriteRenderer>();
+        rendererHair = hairsGo.GetComponent<SpriteRenderer>();
+        rendererSute = suteGo.GetComponent<SpriteRenderer>();
+        rendererHat = hatGo.GetComponent<SpriteRenderer>();
+        
 
         baseSprites = Resources.LoadAll<Sprite>("Images/player/base/" + baseSpriteSheet);
         eyeSprites = Resources.LoadAll<Sprite>("Images/player/eyes/" + eyesSpriteSheet);
+        hairSprites = Resources.LoadAll<Sprite>("Images/player/hair/" + hairSpriteSheet);
+        suteSprites = Resources.LoadAll<Sprite>("Images/player/sute/" + suteSpriteSheet);
+        hatSprites = Resources.LoadAll<Sprite>("Images/player/hat/" + hatSpriteSheet);
 
     }
 
@@ -39,7 +62,6 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (movement.input.x > 0)
         {
-            
             anim.Play("walk_right");
         }
         else if (movement.input.x < 0)
@@ -66,6 +88,9 @@ public class PlayerAnimation : MonoBehaviour
 
         var newBaseSprite = Array.Find(baseSprites, i => i.name == spriteName);
         var newEyesSprite = Array.Find(eyeSprites, i => i.name == spriteName);
+        var newHairSprite = Array.Find(hairSprites, i => i.name == spriteName);
+        var newSuteSprite = Array.Find(suteSprites, i => i.name == spriteName);
+        var newHatSprite = Array.Find(hatSprites, i => i.name == spriteName);
 
         if (newBaseSprite) 
         {
@@ -75,6 +100,19 @@ public class PlayerAnimation : MonoBehaviour
         if (newEyesSprite) 
         {
             rendererEyes.sprite = newEyesSprite;
+        }
+
+        if (newHairSprite) 
+        {
+            rendererHair.sprite = newHairSprite;
+        }
+        if (newSuteSprite) 
+        {
+            rendererSute.sprite = newSuteSprite;
+        }
+        if (newHatSprite) 
+        {
+            rendererHat.sprite = newHatSprite;
         }
         
     }
