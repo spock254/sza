@@ -564,13 +564,58 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         if (isDressing)
         {
+            //TODO
+            string bodyPart = dressOn.gameObject.tag.Remove(dressOn.gameObject.tag.Length - "_cell".Length);
+            if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), bodyPart)) 
+            {
+                eventController.OnChangeSpriteEvent.Invoke(item.itemSprite.name, ParseStringToPrt(bodyPart));
+            }
+
             item.itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, item);
         }
         else 
         {
+            string bodyPart = takeOff.gameObject.tag.Remove(takeOff.gameObject.tag.Length - "_cell".Length);
+            
+            if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), bodyPart))
+            {
+                eventController.OnChangeSpriteEvent.Invoke(string.Empty, ParseStringToPrt(bodyPart));
+            }
+
             item.itemUseData.use.Use_To_TakeOff(fightStatsInit.fightStats, statInit.stats, item);
         }
     }
+
+    PlayerAnimation.SpritePart ParseStringToPrt(string part) 
+    {
+        if (part == PlayerAnimation.SpritePart.body.ToString()) 
+        {
+            return PlayerAnimation.SpritePart.body;
+        }
+        if (part == PlayerAnimation.SpritePart.lags.ToString()) 
+        {
+            return PlayerAnimation.SpritePart.lags;
+        }
+        if (part == PlayerAnimation.SpritePart.face.ToString()) 
+        {
+            return PlayerAnimation.SpritePart.face;
+        }
+        if (part == PlayerAnimation.SpritePart.head.ToString()) 
+        {
+            return PlayerAnimation.SpritePart.head;
+        }
+        if (part == PlayerAnimation.SpritePart.bag.ToString())
+        {
+            return PlayerAnimation.SpritePart.bag;
+        }
+        if (part == PlayerAnimation.SpritePart.arm.ToString())
+        {
+            return PlayerAnimation.SpritePart.arm;
+        }
+
+        return PlayerAnimation.SpritePart.None;
+    }
+
     public bool IsEmpty(Button button) 
     {
         return button.GetComponent<ItemCell>().item == inventoryInit.inventoryDefaultDB[button.name.ToLower()];

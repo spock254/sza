@@ -31,9 +31,12 @@ public class EventController : MonoBehaviour
     [HideInInspector]
     public TerminalEvent OnTerminalClose;
 
+    [HideInInspector]
+    public ChangeSpriteEvent OnChangeSpriteEvent;
+
     public CasePanelController casePanelController;
     public RightButtonClickController rightButtonClickController;
-
+    
 
     void Awake()
     {
@@ -53,6 +56,8 @@ public class EventController : MonoBehaviour
 
         OnTerminalOpen = new TerminalEvent();
         OnTerminalClose = new TerminalEvent();
+
+        OnChangeSpriteEvent = new ChangeSpriteEvent();
     }
 
     private void OnEnable()
