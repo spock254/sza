@@ -15,7 +15,7 @@ public class DialogueManager : MonoBehaviour
     public Text text;
 
     int currentPart = -1;
-
+    public bool isOpen = false;
     void Start()
     {
         eventController.OnStartDialogEvent.AddListener(OnDialogeActivate);
@@ -41,6 +41,7 @@ public class DialogueManager : MonoBehaviour
         this.speaker = speaker;
         DialogPanel.SetActive(true);
         text.text = initDialg;
+        isOpen = true;
     }
 
     public void NextDialogPart() 
@@ -57,6 +58,7 @@ public class DialogueManager : MonoBehaviour
             currentPart = 0;
             dialogParts = new List<string>();
             DialogPanel.SetActive(false);
+            isOpen = false;
         }
     }
 }

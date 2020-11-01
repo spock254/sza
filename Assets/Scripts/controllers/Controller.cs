@@ -61,10 +61,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public CraftController craftController;
 
     ActionWindowController actionWindow;
+    DialogueManager dialogWindow;
     void Start()
     {
         // еслт какое-то окно активно, запретить управление
         actionWindow = Global.Component.GetActionWindowController();
+        dialogWindow = Global.Component.GetDialogueManager();
 
         InitCells();
         InitItemInInventory();
@@ -75,7 +77,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        if (!actionWindow.isOpen) 
+        if (!actionWindow.isOpen && !dialogWindow.isOpen) 
         { 
             if (Input.mouseScrollDelta.y != 0 )
             {

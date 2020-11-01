@@ -6,7 +6,7 @@ using System;
 [CreateAssetMenu(fileName = "Data", menuName = "Quest/QuestDialog")]
 public class QuestDialog : ScriptableObject
 {
-    [TextArea]
+    [TextArea(1, 100)]
     public string dialog;
 
 }

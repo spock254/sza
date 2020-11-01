@@ -108,6 +108,10 @@ public static class Global
         { 
             return GameObject.FindGameObjectWithTag("itemManager").GetComponent<PrefbDB>();
         }
+        public static DialogueManager GetDialogueManager() 
+        {
+            return GameObject.FindGameObjectWithTag("dialogWindow").GetComponent<DialogueManager>();
+        }
     }
 
     public static class UIElement 

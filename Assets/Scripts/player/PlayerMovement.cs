@@ -38,10 +38,11 @@ public class PlayerMovement : MonoBehaviour
     //public Sprite right_hair;
 
     ActionWindowController actionWindow;
-
+    DialogueManager dialogWindow;
     void Awake()
     {
         actionWindow = Global.Component.GetActionWindowController();
+        dialogWindow = Global.Component.GetDialogueManager();
         //spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody = GetComponent<Rigidbody2D>();
 
@@ -60,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!actionWindow.isOpen) 
+        if (!actionWindow.isOpen && !dialogWindow.isOpen) 
         { 
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");

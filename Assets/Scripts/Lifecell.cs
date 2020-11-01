@@ -76,23 +76,23 @@ public class Lifecell : MonoBehaviour
             dead.Invoke();
         }
 
-        //Test
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            StatModify.AddValue(stats.Hunger, 30);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            StatModify.AddValue(stats.Sleep, 30);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StatModify.AddValue(stats.Happiness, 30);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            exp.exp.Current_exp += 100;
-        }
+        ////Test
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    StatModify.AddValue(stats.Hunger, 30);
+        //}
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    StatModify.AddValue(stats.Sleep, 30);
+        //}
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{
+        //    StatModify.AddValue(stats.Happiness, 30);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    exp.exp.Current_exp += 100;
+        //}
 
     }
 
