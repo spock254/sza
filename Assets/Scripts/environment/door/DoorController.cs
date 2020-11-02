@@ -10,7 +10,7 @@ public class DoorController : MonoBehaviour
     public List<Item> itemsToUnlockDoor;
     
     public bool isLocked;
-    bool isOpen = false;
+    public bool isOpen = false;
 
     //public Tile openDoorTile;
     //public Tile closeDoorTile;
