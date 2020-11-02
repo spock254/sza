@@ -149,6 +149,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                         pcController.OnPc_Disck(currentHand);
                     }
+
+                    if (hit.collider.gameObject.tag == "tv") 
+                    {
+                        TVController tvController = hit.collider.GetComponent<TVController>();
+
+                        tvController.NextChanel();
+                    }
                 }
 
                 eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
