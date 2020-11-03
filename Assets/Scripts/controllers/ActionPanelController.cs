@@ -72,16 +72,6 @@ public class ActionPanelController : MonoBehaviour
 
     public void SpawnItem(Transform prefab, Vector3 position, Item item) 
     {
-        //Item prefabItem = prefab.GetComponent<ItemCell>().item;
-
-        //prefabItem = item;
-        //prefabItem.itemUseData = item.itemUseData;
-        //prefabItem.itemUseData = new ItemUseData(item.itemUseData.itemSize, item.itemUseData.use, item.itemUseData.itemTypes);
-        //prefabItem.ItemFightStats.Attack = item.ItemFightStats.Attack;
-        //prefabItem.ItemFightStats.Defence = item.ItemFightStats.Defence;
-        //prefabItem.itemUseData.use = item.itemUseData.use;
-        //prefabItem.stats = item.stats;
-
         prefab.GetComponent<ItemCell>().item = item;
         prefab.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
         prefab.name = Global.DROPED_ITEM_PREFIX + item.itemName;
@@ -91,17 +81,6 @@ public class ActionPanelController : MonoBehaviour
 
         uiContrall.SetDefaultItem(uiContrall.currentHand);
     }
-    //void DropItem(Transform prefab, Transform player, Item item) 
-    //{
-    //    prefab.GetComponent<ItemCell>().item = item;
-    //    prefab.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
-    //    prefab.name = Global.DROPED_ITEM_PREFIX + item.itemName;
-
-    //    Instantiate(prefab, player.position, Quaternion.identity);
-
-    //    uiContrall.SetDefaultItem(uiContrall.currentHand);
-    //}
-
 
 
     float ThrowDistance(Item item) 
