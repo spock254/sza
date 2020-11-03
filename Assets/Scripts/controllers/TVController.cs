@@ -7,13 +7,11 @@ using UnityEngine.Tilemaps;
 public class TVController : MonoBehaviour
 {
     public Tile tvOff;
-
-    //public List<Tile> errorChanel;
-    //public List<Color> errorColors;
+    public List<TvChanelData> chanels;
+    DialogueManager dialogueManager;
 
     public float tvFrameTime = 0.1f;
 
-    public List<TvChanelData> chanels;
 
     int currentChanelIndex = 0;
 
@@ -26,6 +24,8 @@ public class TVController : MonoBehaviour
 
     void Awake()
     {
+        dialogueManager = Global.Component.GetDialogueManager();
+
         tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         currentCell = tilemap.WorldToCell(transform.position);
         
@@ -60,10 +60,17 @@ public class TVController : MonoBehaviour
         {
             
             StopCoroutine(Work(chanels));
+
             currentChanelIndex++;
             if (currentChanelIndex >= chanels.Count) 
             {
                 currentChanelIndex = 0;
+            }
+
+            if (chanels[currentChanelIndex].Dialog.Length > 0) 
+            {
+                dialogueManager.SetDialog(chanels[currentChanelIndex].Dialog);
+                Global.Component.GetEventController().OnStartDialogEvent.Invoke("tv", string.Empty);
             }
             
             StartCoroutine(Work(chanels));
@@ -97,17 +104,21 @@ public class TvChanelData
     [SerializeReference]
     List<Color> chanelFramesColor;
     [SerializeField]
-    bool isDialog;
-    //string и вызывать диалг менеджер
-
-    public TvChanelData(List<Tile> chanelFrames, List<Color> chanelFramesColor, bool isDialog)
+    bool isSkipable;
+    [TextArea(1,25)]
+    [SerializeField]
+    string dialog;
+    
+    public TvChanelData(List<Tile> chanelFrames, List<Color> chanelFramesColor, bool isSkipable, string dialog)
     {
         this.chanelFrames = chanelFrames;
         this.chanelFramesColor = chanelFramesColor;
-        this.isDialog = isDialog;
+        this.isSkipable = isSkipable;
+        this.dialog = dialog;
     }
 
     public List<Tile> ChanelFrames { get => chanelFrames; set => chanelFrames = value; }
     public List<Color> ChanelFramesColor { get => chanelFramesColor; set => chanelFramesColor = value; }
-    public bool IsDialog { get => isDialog; set => isDialog = value; }
+    public bool IsSkipable { get => isSkipable; set => isSkipable = value; }
+    public string Dialog { get => dialog; set => dialog = value; }
 }

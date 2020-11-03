@@ -67,7 +67,7 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Use)
             {
-                if (quests.Peek().Use())
+                if (quests.Peek().Use(currentQuestEvent.questData.arg))
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();

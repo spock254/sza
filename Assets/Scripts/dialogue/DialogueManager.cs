@@ -40,7 +40,14 @@ public class DialogueManager : MonoBehaviour
     {
         this.speaker = speaker;
         DialogPanel.SetActive(true);
-        text.text = initDialg;
+        if (initDialg != string.Empty)
+        {
+            text.text = initDialg;
+        }
+        else 
+        {
+            text.text = speaker;
+        }
         isOpen = true;
     }
 
@@ -54,11 +61,16 @@ public class DialogueManager : MonoBehaviour
         }
         else 
         {
-            speaker = string.Empty;
-            currentPart = 0;
-            dialogParts = new List<string>();
-            DialogPanel.SetActive(false);
-            isOpen = false;
+            DisableDialog();
         }
+    }
+
+    public void DisableDialog() 
+    {
+        speaker = string.Empty;
+        currentPart = -1;
+        dialogParts = new List<string>();
+        DialogPanel.SetActive(false);
+        isOpen = false;
     }
 }

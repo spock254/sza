@@ -73,12 +73,19 @@ public class Quest : ScriptableObject
         
     }
 
-    public bool Use() 
+    public bool Use(string arg) 
     {
         //return false;
         //Item itemInHand = gatherPoint.GetComponent<ItemCell>().item;
         //if (itemInHand.IsSameItems(item)) 
-        return (GameObject.FindGameObjectWithTag("dialogText"));
+        GameObject dt = GameObject.FindGameObjectWithTag("dialogText");
+        if (dt == null) 
+        {
+            return false;
+        }
+
+        
+        return dt.GetComponent<Text>().text == arg;
         
     }
 }
