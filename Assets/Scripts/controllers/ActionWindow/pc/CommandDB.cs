@@ -538,8 +538,8 @@ namespace commands
         {
             TerminalController terminal = Global.Component.GetTerminalController();
             PCController pcController = terminal.GetCurrentPc();
-            
-            if (param.Length == 2) 
+
+            if (param.Length == 2)
             {
                 if (param[1] == "-status")
                 {
@@ -553,7 +553,7 @@ namespace commands
                         return new List<string>() { "disk status ( disabled )" };
                     }
                 }
-                else if (param[1] == "-out") 
+                else if (param[1] == "-out")
                 {
                     if (pcController.disk != null)
                     {
@@ -565,10 +565,64 @@ namespace commands
                         itemPref.GetComponent<SpriteRenderer>().sprite = pcController.disk.itemSprite;
                         prefbDB.InstantiateItemPref(pcController.transform.position);
 
-                        
+
                         pcController.disk = null;
 
-                        return new List<string>() { "disk "+ discDescription + " logged out successfully" };
+                        return new List<string>() { "disk " + discDescription + " logged out successfully" };
+                    }
+                    else
+                    {
+                        return new List<string>() { "disk status ( disabled )" };
+                    }
+                }
+                else if (param[1] == "-c")
+                {
+                    if (pcController.disk != null)
+                    {
+                        List<string> docsName = new List<string>();
+                        foreach (var item in pcController.disk.innerItems)
+                        {
+                            docsName.Add(item.itemDescription);
+                        }
+
+                        if (docsName.Count == 0)
+                        {
+                            return new List<string>() { "Disk is empty" };
+                        }
+
+                        return docsName;
+                    }
+                    else
+                    {
+                        return new List<string>() { "disk status ( disabled )" };
+                    }
+                }
+            }
+            else if (param.Length == 3) 
+            {
+                if (param[1] == "-d")
+                {
+                        Debug.Log("herre");
+                    if (pcController.disk != null)
+                    {
+                        foreach (var item in pcController.disk.innerItems)
+                        {
+                            if (item.itemDescription == param[2])
+                            {
+                                //если на компе есть тот же документ
+                                foreach (var pcItem in pcController.currentMemory.docs)
+                                {
+                                    if (item.itemDescription == pcItem.Key)
+                                    {
+                                        return new List<string>() { item.itemDescription + " is already exist" };
+                                    }
+                                }
+
+                                pcController.currentMemory.docs.Add(item.itemDescription, item);
+
+                                return new List<string>() { item.itemDescription + "copied successfully" };
+                            }
+                        }
                     }
                     else
                     {
@@ -590,7 +644,9 @@ namespace commands
             return new Dictionary<string, string>()
             {
                 { "-status", "shows disk status" },
-                { "-out", "plug out disk" }
+                { "-out", "plug out disk" },
+                { "-c", "shows disk content" },
+                { "-d [docName]", "copies selected document" }
             };
         }
     }

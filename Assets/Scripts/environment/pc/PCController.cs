@@ -36,8 +36,8 @@ public class PCController : MonoBehaviour
         actionWindow = Global.Component.GetActionWindowController();
         terminalController = Global.Component.GetTerminalController();
         eventController = Global.Component.GetEventController();
-
-        currentMemory = memoryContents.Where(i => i.userMode == CommandDB.UserMode.Guest).FirstOrDefault();
+                                                                                 // USER MODE FOR TESTING
+        currentMemory = memoryContents.Where(i => i.userMode == CommandDB.UserMode.User).FirstOrDefault();
 
         InitAllDocs();
     }

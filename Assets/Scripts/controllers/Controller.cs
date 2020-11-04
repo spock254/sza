@@ -570,13 +570,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
     void UpdateAllEqupment() 
     {
-        //        public Button head_btn;
-        //public Button face_btn;
-        //public Button body_btn;
-        //public Button arm_btn;
-        //public Button lags_btn;
-        //public Button bag_btn;
         List<Button> equpItems = new List<Button>();
+
         equpItems.Add(head_btn);
         equpItems.Add(face_btn);
         equpItems.Add(body_btn);
@@ -594,29 +589,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 eventController.OnChangeSpriteEvent.Invoke(_itemName, ParseStringToPrt(_tag));
             }
         }
-        //string head_tag = GetCleanTag(head_btn);
-        //string head_itemName = head_btn.GetComponent<ItemCell>().item.itemSprite.name;
-
-        //string body_tag = GetCleanTag(body_btn);
-        //string body_itemName = body_btn.GetComponent<ItemCell>().item.itemSprite.name;
-
-
-        //if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), head_tag))
-        //{
-        //    eventController.OnChangeSpriteEvent.Invoke(head_itemName, ParseStringToPrt(head_tag));
-        //}
-
-        //if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), body_tag))
-        //{
-        //    eventController.OnChangeSpriteEvent.Invoke(body_itemName, ParseStringToPrt(body_tag));
-        //}
-
     }
 
     string GetCleanTag(Button part) 
     {
         return part.gameObject.tag.Remove(part.gameObject.tag.Length - "_cell".Length);
     }
+
     void DressOrTakeOff(Button dressOn, Button takeOff, Item item, bool isDressing) 
     {
         DressCell(dressOn, item);

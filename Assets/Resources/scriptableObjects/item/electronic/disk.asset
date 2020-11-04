@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
   m_Name: disk
   m_EditorClassIdentifier: 
-  id: -31530893
+  id: 325350650
   itemName: disk
   itemDescription: 4267
   itemPrice: 200
@@ -37,9 +37,10 @@ MonoBehaviour:
     text: 
     actionWindowTag: awitem
   capacity: 0
-  innerItems: []
+  innerItems:
+  - {fileID: 11400000, guid: e2cfc0bd92a84a446bf6d30d6f3d7c5f, type: 2}
   isDestroyOnPlayerUse: 0
   references:
     version: 1
     00000000:
-      type: {class: PhoneUse, ns: , asm: Assembly-CSharp}
+      type: {class: EquipmentUse, ns: , asm: Assembly-CSharp}

@@ -166,14 +166,17 @@ public class PlayerAnimation : MonoBehaviour
         {
             rendererHair.sprite = newHairSprite;
         }
+
         if (newSuteSprite)
         {
             rendererSute.sprite = newSuteSprite;
         }
+
         if (newHatSprite)
         {
             rendererHat.sprite = newHatSprite;
         }
+
         if (newShoesSprite)
         {
             rendererShoes.sprite = newShoesSprite;

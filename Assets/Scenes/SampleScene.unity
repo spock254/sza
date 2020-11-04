@@ -16785,7 +16785,7 @@ PrefabInstance:
     - target: {fileID: 569967996978344536, guid: 82942b799436d274698ab1c4afe2e47c,
         type: 3}
       propertyPath: memoryContents.Array.data[1].docDatas.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 569967996978344536, guid: 82942b799436d274698ab1c4afe2e47c,
         type: 3}
@@ -16831,14 +16831,13 @@ PrefabInstance:
     - target: {fileID: 569967996978344536, guid: 82942b799436d274698ab1c4afe2e47c,
         type: 3}
       propertyPath: memoryContents.Array.data[1].docDatas.Array.data[0].docName
-      value: space_station_form.txt
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 569967996978344536, guid: 82942b799436d274698ab1c4afe2e47c,
         type: 3}
       propertyPath: memoryContents.Array.data[1].docDatas.Array.data[0].item
       value: 
-      objectReference: {fileID: 11400000, guid: e2cfc0bd92a84a446bf6d30d6f3d7c5f,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 2746143587749754058, guid: 82942b799436d274698ab1c4afe2e47c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -28508,7 +28507,7 @@ MonoBehaviour:
   arm: {fileID: 0}
   lags: {fileID: 11400000, guid: a0a02a34ebdf3b94bbb5728f9709783e, type: 2}
   bag: {fileID: 11400000, guid: 3ae9cc66fcb873143844a486d1cf5ec4, type: 2}
-  left_hand: {fileID: 0}
+  left_hand: {fileID: 11400000, guid: 2c69fd8453bdc3140b810d9470907fb8, type: 2}
   right_hand: {fileID: 0}
   left_pack: {fileID: 0}
   right_pack: {fileID: 11400000, guid: 16ad646e852432f47a4f142c9cec8a6d, type: 2}
