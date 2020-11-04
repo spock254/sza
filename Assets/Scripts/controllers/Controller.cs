@@ -71,6 +71,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         InitCells();
         InitItemInInventory();
         currentHand = left_hand_btn;
+
+        // отресовка всех одетых вещей
+        UpdateAllEqupment();
     }
 
 
@@ -565,6 +568,55 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         cellToDress.GetComponent<Image>().sprite = item.itemSprite;
     }
 
+    void UpdateAllEqupment() 
+    {
+        //        public Button head_btn;
+        //public Button face_btn;
+        //public Button body_btn;
+        //public Button arm_btn;
+        //public Button lags_btn;
+        //public Button bag_btn;
+        List<Button> equpItems = new List<Button>();
+        equpItems.Add(head_btn);
+        equpItems.Add(face_btn);
+        equpItems.Add(body_btn);
+        equpItems.Add(arm_btn);
+        equpItems.Add(lags_btn);
+        equpItems.Add(bag_btn);
+
+        foreach (var item in equpItems)
+        {
+            string _tag = GetCleanTag(item);
+            string _itemName = item.GetComponent<ItemCell>().item.itemSprite.name;
+
+            if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), _tag))
+            {
+                eventController.OnChangeSpriteEvent.Invoke(_itemName, ParseStringToPrt(_tag));
+            }
+        }
+        //string head_tag = GetCleanTag(head_btn);
+        //string head_itemName = head_btn.GetComponent<ItemCell>().item.itemSprite.name;
+
+        //string body_tag = GetCleanTag(body_btn);
+        //string body_itemName = body_btn.GetComponent<ItemCell>().item.itemSprite.name;
+
+
+        //if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), head_tag))
+        //{
+        //    eventController.OnChangeSpriteEvent.Invoke(head_itemName, ParseStringToPrt(head_tag));
+        //}
+
+        //if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), body_tag))
+        //{
+        //    eventController.OnChangeSpriteEvent.Invoke(body_itemName, ParseStringToPrt(body_tag));
+        //}
+
+    }
+
+    string GetCleanTag(Button part) 
+    {
+        return part.gameObject.tag.Remove(part.gameObject.tag.Length - "_cell".Length);
+    }
     void DressOrTakeOff(Button dressOn, Button takeOff, Item item, bool isDressing) 
     {
         DressCell(dressOn, item);
@@ -574,7 +626,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         if (isDressing)
         {
             //TODO
-            string bodyPart = dressOn.gameObject.tag.Remove(dressOn.gameObject.tag.Length - "_cell".Length);
+            string bodyPart = GetCleanTag(dressOn);
             if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), bodyPart)) 
             {
                 eventController.OnChangeSpriteEvent.Invoke(item.itemSprite.name, ParseStringToPrt(bodyPart));
@@ -584,7 +636,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         }
         else 
         {
-            string bodyPart = takeOff.gameObject.tag.Remove(takeOff.gameObject.tag.Length - "_cell".Length);
+            string bodyPart = GetCleanTag(takeOff);
             
             if (Enum.IsDefined(typeof(PlayerAnimation.SpritePart), bodyPart))
             {

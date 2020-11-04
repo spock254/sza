@@ -17,8 +17,9 @@ public class QuestData
 
     [SerializeReference]
     public List<Item> necessaryItems;
+    [Header("option event data")]
     public string arg;
-
+    public GameObject pref;
     [Header("Rewards")]
     [SerializeReference]
     public List<Item> rewards;

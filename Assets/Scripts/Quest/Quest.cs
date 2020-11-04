@@ -75,17 +75,26 @@ public class Quest : ScriptableObject
 
     public bool Use(string arg) 
     {
-        //return false;
-        //Item itemInHand = gatherPoint.GetComponent<ItemCell>().item;
-        //if (itemInHand.IsSameItems(item)) 
         GameObject dt = GameObject.FindGameObjectWithTag("dialogText");
         if (dt == null) 
         {
             return false;
         }
 
-        
         return dt.GetComponent<Text>().text == arg;
-        
+    }
+
+    public bool Spawn(GameObject spawnController) 
+    {
+        Instantiate(spawnController, new Vector3(0, 0, 0), Quaternion.identity);
+        ISpawn spawn = spawnController.gameObject.GetComponent<ISpawn>();
+
+        if (spawn != null)
+        {
+            spawn.Spawn();
+            return true;
+        }
+
+        return false;
     }
 }

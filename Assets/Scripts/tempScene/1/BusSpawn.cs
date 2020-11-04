@@ -15,7 +15,7 @@ public class BusSpawn : MonoBehaviour, ISpawn
     [SerializeField]
     Tile tileBlack;
     // Start is called before the first frame update
-    void Start()
+    void Init()
     {
         base4 = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_4);
         upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
@@ -23,6 +23,8 @@ public class BusSpawn : MonoBehaviour, ISpawn
 
     public void Spawn()
     {
+        Init();
+
         for (int i = 0; i < transforms.Length; i++)
         {
             upper.SetTile(upper.WorldToCell(transforms[i].position), tiles[i]);

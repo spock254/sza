@@ -72,6 +72,9 @@ public class PlayerAnimation : MonoBehaviour
         spritesDict.Add(SpritePart.body, null);
         spritesDict.Add(SpritePart.head, null);
         spritesDict.Add(SpritePart.lags, null);
+
+
+        //UpdateSprites();
     }
 
     public void OnSpriteChange(string spriteSheet, SpritePart spritePart) 
@@ -86,7 +89,7 @@ public class PlayerAnimation : MonoBehaviour
 
         spritesDict[spritePart] = Resources.LoadAll<Sprite>("Images/player/"+ 
                                   spritePart.ToString().ToLower() +"/" + spriteSheet);
-        
+
     }
 
     void Update()
@@ -115,6 +118,11 @@ public class PlayerAnimation : MonoBehaviour
 
     void LateUpdate()
     {
+        UpdateSprites();
+    }
+
+    void UpdateSprites() 
+    {
         string spriteName = rendererBase.sprite.name;
 
         Sprite newBaseSprite = null;
@@ -127,49 +135,49 @@ public class PlayerAnimation : MonoBehaviour
         newBaseSprite = Array.Find(spritesDict[SpritePart.Base], i => i.name == spriteName);
         newEyesSprite = Array.Find(spritesDict[SpritePart.Eyes], i => i.name == spriteName);
         newHairSprite = Array.Find(spritesDict[SpritePart.Hair], i => i.name == spriteName);
-        
-        if (spritesDict[SpritePart.body] != null) 
-        { 
+
+        if (spritesDict[SpritePart.body] != null)
+        {
             newSuteSprite = Array.Find(spritesDict[SpritePart.body], i => i.name == spriteName);
-        
+
         }
-        if (spritesDict[SpritePart.head] != null) 
-        { 
+        if (spritesDict[SpritePart.head] != null)
+        {
             newHatSprite = Array.Find(spritesDict[SpritePart.head], i => i.name == spriteName);
-        
+
         }
-        if (spritesDict[SpritePart.lags] != null) 
+        if (spritesDict[SpritePart.lags] != null)
         {
             newShoesSprite = Array.Find(spritesDict[SpritePart.lags], i => i.name == spriteName);
-        
+
         }
 
-        if (newBaseSprite) 
+        if (newBaseSprite)
         {
             rendererBase.sprite = newBaseSprite;
         }
 
-        if (newEyesSprite) 
+        if (newEyesSprite)
         {
             rendererEyes.sprite = newEyesSprite;
         }
 
-        if (newHairSprite) 
+        if (newHairSprite)
         {
             rendererHair.sprite = newHairSprite;
         }
-        if (newSuteSprite) 
+        if (newSuteSprite)
         {
             rendererSute.sprite = newSuteSprite;
         }
-        if (newHatSprite) 
+        if (newHatSprite)
         {
             rendererHat.sprite = newHatSprite;
         }
-        if (newShoesSprite) 
+        if (newShoesSprite)
         {
             rendererShoes.sprite = newShoesSprite;
         }
-        
+
     }
 }

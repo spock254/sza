@@ -73,6 +73,14 @@ public class QuestSystem : MonoBehaviour
                     eventController.OnNextQuestEvent.Invoke();
                 }
             }
+            else if (currentQuestEvent.questType == QuestType.Spawn) 
+            {
+                if (quests.Peek().Spawn(currentQuestEvent.questData.pref)) 
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
         }
     }
 
