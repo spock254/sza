@@ -112,6 +112,10 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("dialogWindow").GetComponent<DialogueManager>();
         }
+        public static AccauntController GetAccauntController() 
+        {
+            return GameObject.FindGameObjectWithTag("accauntManager").GetComponent<AccauntController>();
+        }
     }
 
     public static class UIElement 

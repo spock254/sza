@@ -22,7 +22,8 @@ public class CommandDB : MonoBehaviour
     Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
     {
         { "printer", new PrinterCommand() },
-        { "disk", new DiskCommand() }
+        { "disk", new DiskCommand() },
+        { "accaunt", new AccauntCommand() }
     };
 
     Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -600,9 +601,8 @@ namespace commands
             }
             else if (param.Length == 3) 
             {
-                if (param[1] == "-d")
+                if (param[1] == "-cpy")
                 {
-                        Debug.Log("herre");
                     if (pcController.disk != null)
                     {
                         foreach (var item in pcController.disk.innerItems)
@@ -646,7 +646,80 @@ namespace commands
                 { "-status", "shows disk status" },
                 { "-out", "plug out disk" },
                 { "-c", "shows disk content" },
-                { "-d [docName]", "copies selected document" }
+                { "-cpy [docName]", "copies selected document" }
+            };
+        }
+    }
+
+    public class AccauntCommand : ICommandAction
+    {
+
+        public List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            PlayerInfo playerInfo = Global.Component.GetPlayerInfo();
+            AccauntController accaunt = Global.Component.GetAccauntController();
+
+
+            if (param.Length == 4) 
+            {
+                if (param[1] == "-login") 
+                {
+                    if (pcController.currentMemory.isInAccauntEntered) 
+                    {
+                        return new List<string>() { "already logged in" };
+                    }
+
+                    Debug.Log(playerInfo.accauntID == param[2]);
+                    Debug.Log(playerInfo.accauntPass == param[3]);
+                    if (playerInfo.accauntID == param[2] && playerInfo.accauntPass == param[3]) 
+                    {
+                        pcController.currentMemory.isInAccauntEntered = true;
+                        return new List<string>() { "logged in successfully" };
+                    }
+                    else 
+                    {
+                        return new List<string>() { "incorrect accaunt id or password" };
+                    }
+                }
+            }
+            if (param.Length == 2) 
+            {
+                if (pcController.currentMemory.isInAccauntEntered)
+                {
+                    if (param[1] == "-b")
+                    {
+                        return new List<string>() { "accaunt balance [ " + accaunt.GetAccautBalance() + " ]" };
+                    }
+                    else if (param[1] == "-logout") 
+                    {
+                        pcController.currentMemory.isInAccauntEntered = false;
+
+                        return new List<string>() { "logged out successfully" };
+                    }
+                }
+                else 
+                {
+                    return new List<string>() { "not logged in", "use -login [accauntID] [pass]" };
+                }
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "bank account info";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "-login [accauntID] [pass]", "login to bank accaunt" },
+                { "-logout", "logout bank accaunt" },
+                { "-b", "get accaunt balance" }
             };
         }
     }

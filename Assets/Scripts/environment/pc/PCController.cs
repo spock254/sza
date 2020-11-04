@@ -124,9 +124,9 @@ public class PCMempryContent
 {
     public string userName;
     public string password;
+    public bool isInAccauntEntered = false;
 
     public CommandDB.UserMode userMode = CommandDB.UserMode.Guest;
-
     [SerializeField]
     DocData[] docDatas = null;
     public Dictionary<string, Item> docs = new Dictionary<string, Item>();
