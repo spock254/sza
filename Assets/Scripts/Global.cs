@@ -134,6 +134,11 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("staticItemPanel");
         }
+
+        public static GameObject GetEnvWindow() 
+        { 
+            return GameObject.FindGameObjectWithTag("envWindow");
+        }
     }
 
 }

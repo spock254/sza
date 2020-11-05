@@ -213,6 +213,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             tabWaterController.OnWaterTap_Click(btn_itemInHand);
                         }
 
+                        if (hit.collider.gameObject.tag == "envObj") 
+                        { 
+                            BaseActionWindowConntroller baseAction = hit.collider.GetComponent<BaseActionWindowConntroller>();
+                            baseAction.Open();
+                        }
+
                         if (hit.collider.gameObject.tag == "pc") 
                         {
                             PCController pcController = hit.collider.GetComponent<PCController>();
