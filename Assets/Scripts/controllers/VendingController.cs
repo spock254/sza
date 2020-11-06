@@ -11,11 +11,8 @@ public class VendingController : BaseActionWindowConntroller
 
     void Awake()
     {
-        base.Awake();
+        base.Init();
         upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         upper.SetTile(upper.WorldToCell(transform.position), venderBody);
     }
-
-
-
 }

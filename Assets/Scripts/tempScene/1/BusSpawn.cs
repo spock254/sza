@@ -9,11 +9,11 @@ public class BusSpawn : MonoBehaviour, ISpawn
     Tilemap upper;
 
     [SerializeField]
-    Transform[] transforms;
+    Transform[] transforms = null;
     [SerializeField]
-    Tile[] tiles;
+    Tile[] tiles = null;
     [SerializeField]
-    Tile tileBlack;
+    Tile tileBlack = null;
     // Start is called before the first frame update
     void Init()
     {
