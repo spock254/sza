@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class PCController : MonoBehaviour
     Tilemap tilemap;
     public Tile open_tile;
     public Tile acess_enterTile;
+    public Light2D light2D;
 
     // pc inner data----------------------------------------------------------------
     public List<GameObject> peripherals;
@@ -96,6 +98,7 @@ public class PCController : MonoBehaviour
 
         terminalController.isOpen = true;
         terminalController.SetCurrentPc(this);
+        light2D.enabled = true;
     }
 
     public void Close() 
@@ -108,6 +111,7 @@ public class PCController : MonoBehaviour
 
         terminalController.isOpen = false;
         terminalController.SetCurrentPc(null);
+        light2D.enabled = false;
     }
 
     void InitAllDocs() 

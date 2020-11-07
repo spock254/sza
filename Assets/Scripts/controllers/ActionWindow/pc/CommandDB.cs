@@ -620,7 +620,7 @@ namespace commands
 
                                 pcController.currentMemory.docs.Add(item.itemDescription, item);
 
-                                return new List<string>() { item.itemDescription + "copied successfully" };
+                                return new List<string>() { item.itemDescription + " copied successfully" };
                             }
                         }
                     }
