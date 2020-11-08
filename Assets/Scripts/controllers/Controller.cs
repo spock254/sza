@@ -71,11 +71,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         InitCells();
         InitItemInInventory();
         currentHand = left_hand_btn;
-
+        
+        SetHandColor();
         // отресовка всех одетых вещей
         UpdateAllEqupment();
     }
 
+    void SetHandColor() 
+    {
+        currentHand.GetComponent<Image>().color = Color.green;
+        currentHand.GetComponentInChildren<Image>().color = Color.green;
+
+        GetAnotherHand().GetComponent<Image>().color = Color.white;
+        GetAnotherHand().GetComponentInChildren<Image>().color = Color.white;
+    }
 
     // Update is called once per frame
     void Update()
@@ -85,7 +94,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             if (Input.mouseScrollDelta.y != 0 )
             {
                 currentHand = SwapActiveHand();
-                currentHand.GetComponentInChildren<Text>().text = "*";
+                SetHandColor();
+                //currentHand.GetComponentInChildren<Text>().text = "*";
             }
 
             if (Input.GetMouseButtonDown(1)) 
@@ -699,7 +709,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     Button SwapActiveHand() 
     {
         isLeftHand = !isLeftHand;
-        currentHand.GetComponentInChildren<Text>().text = " ";
+        //currentHand.GetComponentInChildren<Text>().text = " ";
         return isLeftHand ? left_hand_btn : right_hand_btn;
     }
 

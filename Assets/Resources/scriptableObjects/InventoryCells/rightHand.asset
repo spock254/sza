@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   itemName: rightHand
+  itemDescription: 
   itemPrice: 0
-  itemSprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  itemSprite: {fileID: -1815913857471336778, guid: ec104ed1ab9d7bb4a973762543bdad4b,
+    type: 3}
   stats:
     playerStats: 5
     value: 0
@@ -29,8 +31,13 @@ MonoBehaviour:
     use:
       id: 0
     itemTypes: 10000000
+  itemOptionData:
+    awPrefab: {fileID: 0}
+    text: 
+    actionWindowTag: 
   capacity: 0
   innerItems: []
+  isDestroyOnPlayerUse: 0
   references:
     version: 1
     00000000:

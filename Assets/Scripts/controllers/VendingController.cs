@@ -6,8 +6,9 @@ using UnityEngine.Tilemaps;
 public class VendingController : BaseActionWindowConntroller
 {
     [SerializeField]
-    Tile venderBody;
-    Tilemap upper;
+    Tile venderBody = null;
+
+    Tilemap upper = null;
 
     void Awake()
     {
