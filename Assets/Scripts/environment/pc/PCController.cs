@@ -10,9 +10,11 @@ public enum AcessLvL { USER }
 
 public class PCController : MonoBehaviour
 {
-    Tilemap tilemap;
+    Tilemap upper_2;
+    Tilemap upper;
     public Tile open_tile;
     public Tile acess_enterTile;
+    public Tile pc_body;
     public Light2D light2D;
 
     // pc inner data----------------------------------------------------------------
@@ -33,7 +35,10 @@ public class PCController : MonoBehaviour
 
     private void Awake()
     {
-        tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+        upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+        upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
+
+        upper.SetTile(upper.WorldToCell(transform.position), pc_body);
 
         actionWindow = Global.Component.GetActionWindowController();
         terminalController = Global.Component.GetTerminalController();
@@ -46,7 +51,7 @@ public class PCController : MonoBehaviour
 
     public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
     {
-        currentCell = tilemap.WorldToCell(mousePosition);
+        currentCell = upper_2.WorldToCell(mousePosition);
         
         if (isOpen == false)
         {
@@ -91,7 +96,7 @@ public class PCController : MonoBehaviour
      
     public void Open()
     {
-        tilemap.SetTile(currentCell, open_tile);
+        upper_2.SetTile(currentCell, open_tile);
         isOpen = true;
 
         actionWindow.OpenActionWindow("awpc");
@@ -103,7 +108,7 @@ public class PCController : MonoBehaviour
 
     public void Close() 
     {
-        tilemap.SetTile(currentCell, null);
+        upper_2.SetTile(currentCell, null);
         isOpen = false;
 
 
