@@ -14,7 +14,7 @@ public class BaseActionWindowConntroller : MonoBehaviour
         envWindow = Global.UIElement.GetEnvWindow();
         //actionWindow = Global.Component.GetActionWindowController();
     }
-    public void Open() 
+    public void Open(GameObject envObj) 
     {
         // только 1 окно
         if (window != null) 
@@ -27,6 +27,6 @@ public class BaseActionWindowConntroller : MonoBehaviour
         window.transform.SetAsFirstSibling();
 
         IEWInit init = window.GetComponent<IEWInit>();
-        init.Init(window);
+        init.Init(window, envObj);
     }
 }

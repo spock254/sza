@@ -84,9 +84,9 @@ public class Quest : ScriptableObject
         return dt.GetComponent<Text>().text == arg;
     }
 
-    public bool Spawn(GameObject spawnController) 
+    public bool Spawn(GameObject spawnController, Vector2 spawnPosition) 
     {
-        Instantiate(spawnController, new Vector3(0, 0, 0), Quaternion.identity);
+        Instantiate(spawnController, new Vector3(spawnPosition.x, spawnPosition.y, 0), Quaternion.identity);
         ISpawn spawn = spawnController.gameObject.GetComponent<ISpawn>();
 
         if (spawn != null)

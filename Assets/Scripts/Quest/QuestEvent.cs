@@ -17,14 +17,6 @@ public class QuestEvent : ScriptableObject
     [SerializeField]
     public QuestData questData;
 
-    //public QuestEvent(QuestData questData) 
-    //{
-    //    this.id = Guid.NewGuid().ToString();
-    //    this.questData = questData;
-    //}
-
-    //public string GetId() 
-    //{
-    //    return id;
-    //}
+    //[Header("Optional Data")]
+    //public Vector2 position;
 }

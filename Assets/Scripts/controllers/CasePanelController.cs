@@ -86,7 +86,7 @@ public class CasePanelController : MonoBehaviour
 
     public bool IsInActionRadius() 
     {
-        return Vector2.Distance(casePosition.position, controller.player.position) < controller.actioPlayerRadius;
+        return Vector2.Distance(casePosition.position, controller.player.position) < controller.GetActioPlayerRadius();
     }
 
     public bool OpenWithKey() 

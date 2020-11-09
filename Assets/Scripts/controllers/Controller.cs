@@ -48,7 +48,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button currentHand;
 
     [Header("Player data")]
-    public float actioPlayerRadius;
+    [SerializeField]
+    float actioPlayerRadius = 0;
     public Transform player;
 
     [HideInInspector]
@@ -80,10 +81,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     void SetHandColor() 
     {
         currentHand.GetComponent<Image>().color = Color.green;
-        currentHand.GetComponentInChildren<Image>().color = Color.green;
+        //currentHand.GetComponentInChildren<Image>().color = Color.green;
 
         GetAnotherHand().GetComponent<Image>().color = Color.white;
-        GetAnotherHand().GetComponentInChildren<Image>().color = Color.white;
+        //GetAnotherHand().GetComponentInChildren<Image>().color = Color.white;
     }
 
     // Update is called once per frame
@@ -169,6 +170,18 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                         tvController.NextChanel();
                     }
+
+                    /*                  */
+                    /*      QUESTS      */
+                    /*                  */
+
+                    if (hit.collider.gameObject.name.Contains("bus_spawn"))
+                    {
+                        Debug.Log("bus");
+                        BusController bus = hit.collider.GetComponent<BusController>();
+                        bus.GiveTicket(currentHand);
+                        return;
+                    }
                 }
 
                 eventController.OnRightButtonClickEvent.Invoke(hits, mousePos2D);
@@ -209,7 +222,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             Item item = currentHand.GetComponent<ItemCell>().item;
                             item.itemUseData.use.Use_On_Player(statInit.stats, item);
 
-
                             if (item.isDestroyOnPlayerUse) 
                             { 
                                 SetDefaultItem(currentHand);
@@ -226,7 +238,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         if (hit.collider.gameObject.tag == "envObj") 
                         { 
                             BaseActionWindowConntroller baseAction = hit.collider.GetComponent<BaseActionWindowConntroller>();
-                            baseAction.Open();
+                            baseAction.Open(hit.collider.gameObject);
                         }
 
                         if (hit.collider.gameObject.tag == "pc") 
@@ -283,18 +295,25 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             eventController.OnEnvChangeShapeEvent.Invoke();
                         }
 
-
                         if (hit.collider.gameObject.tag == "table") 
                         {
-                            //Debug.Log("table");
                             hit.collider.GetComponent<TableController>().OnTableClick(hit.transform.position,
                                 IsEmpty(currentHand) ? null : GetItemInHand(currentHand));
                         }
 
+                        /*                  */
+                        /*      QUESTS      */
+                        /*                  */
+                        if (hit.collider.gameObject.name.Contains("bus_spawn")) 
+                        {
+                            Debug.Log("bus");
+                            BusController bus = hit.collider.GetComponent<BusController>();
+                            bus.Activate();
+                            return;
+                        }
                     }
                 }
             }
-        
         }
     }
 
@@ -754,5 +773,10 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Item GetItemInHand(Button hand) 
     {
         return hand.GetComponent<ItemCell>().item;
+    }
+
+    public float GetActioPlayerRadius() 
+    {
+        return actioPlayerRadius;
     }
 }

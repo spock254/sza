@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IEWInit
 {
-    void Init(GameObject window);
+    void Init(GameObject window, GameObject envObj);
 }

@@ -75,7 +75,7 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Spawn) 
             {
-                if (quests.Peek().Spawn(currentQuestEvent.questData.pref)) 
+                if (quests.Peek().Spawn(currentQuestEvent.questData.pref, currentQuestEvent.questData.pref.transform.position)) 
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();

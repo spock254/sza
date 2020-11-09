@@ -3,25 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEditor.UI;
 
 public class CraftController : MonoBehaviour
 {
     List<ItemCraftData> itemCraftData;
     public SkillsInit skillsInit;
 
+    Controller controller;              /*   IsEmpty()   */
+
     void Awake()
     {
         itemCraftData = Resources.LoadAll<ItemCraftData>(Global.Path.RECEPT).ToList();
-        
+        controller = Global.Component.GetController();
     }
-
 
     public void Craft_Hands(GameObject itemInHand, GameObject toolGO) 
     {
         Item tool = toolGO.GetComponent<ItemCell>().item;
         Item item = itemInHand.GetComponent<ItemCell>().item;
 
-        if (item.itemOptionData.actionWindowTag != string.Empty) 
+        // если активная рука пустая и айтес имеет функционал для открытия окна
+        if (item.itemOptionData.actionWindowTag != string.Empty && controller.IsEmpty(toolGO.GetComponent<Button>())) 
         {
             string tagWithPrefix = item.itemOptionData.actionWindowTag + "Hand";
 

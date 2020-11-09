@@ -141,4 +141,11 @@ public static class Global
         }
     }
 
+    public static class Obj 
+    {
+        public static GameObject GetPlayerGameObject() 
+        {
+            return GameObject.FindGameObjectWithTag("player");
+        }
+    }
 }
