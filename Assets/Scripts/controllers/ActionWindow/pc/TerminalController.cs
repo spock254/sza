@@ -24,6 +24,7 @@ public class TerminalController : MonoBehaviour
 
     public List<string> history = new List<string>();
 
+    bool isInit = false;
     void Start()
     {
         interpreter = GetComponent<Interpreter>();
@@ -87,6 +88,45 @@ public class TerminalController : MonoBehaviour
         {
             terminalInput.ActivateInputField();
             terminalInput.Select();
+            
+            if (!isInit) 
+            {
+                isInit = true;
+
+                //string userInput = "help -all";
+
+                //AddToHistory(userInput);
+
+                ClearInputField();
+                //AddDirectoryLine(userInput);
+
+                int lines = AddInterpriterLines(new List<string>() 
+                {
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "\t\tWelcome " + pcController.currentMemory.userName + " to <color=#FFFFFF>SYSTEM_32s</color>.",
+                    " ",
+                    "to familiarize yourself with the system use",
+                    "help -sf help",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                });
+
+                ScrallToButtom(lines);
+
+                userInputLine.transform.SetAsLastSibling();
+            }
+        }
+        else 
+        {
+            isInit = false;
+            
         }
 
         //terminalInput.text = ScrollHistory(terminalInput.text);

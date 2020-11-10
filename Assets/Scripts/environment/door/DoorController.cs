@@ -46,9 +46,7 @@ public class DoorController : MonoBehaviour
             {
                 if (itemInHand.IsSameItems(item))
                 {
-                    Debug.Log(isLocked);
                     StartCoroutine(CloseOpenDoor(mousePosition, collider));
-                    //OpenCloseDoor(mousePosition, collider);
                     return;
                 }
             }

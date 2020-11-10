@@ -17,8 +17,8 @@ public class ItemsInHandDraw : MonoBehaviour
     SpriteRenderer left;
     SpriteRenderer right;
 
-    Vector2 up_down_left_position = new Vector2(-0.122f, -0.113f);
-    Vector2 up_down_right_position = new Vector2(0.142f, -0.113f);
+    Vector2 up_down_left_position = new Vector2(-0.122f, -0.120f);
+    Vector2 up_down_right_position = new Vector2(0.142f, -0.120f);
     //Vector2 right_left_position = new Vector2(0, -0.113f);
 
     void Awake()
