@@ -116,6 +116,10 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("accauntManager").GetComponent<AccauntController>();
         }
+        public static QuestSystem GetQuestSystem() 
+        {
+            return GameObject.FindGameObjectWithTag("questSystem").GetComponent<QuestSystem>();
+        }
     }
 
     public static class UIElement 

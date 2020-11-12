@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Data", menuName = "Quest/Quest")]
@@ -96,5 +97,25 @@ public class Quest : ScriptableObject
         }
 
         return false;
+    }
+
+    public bool EndQuest() 
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        return true;
+    }
+
+    public bool Dialogue(string speacker) 
+    {
+        DialogueManager dialogue = GameObject.FindGameObjectWithTag("dialogWindow").GetComponent<DialogueManager>();
+        
+        if (!dialogue.isOpen) 
+        {
+            return false;
+        }
+
+        return dialogue.speaker == speacker && dialogue.isLastPart();
+        
     }
 }

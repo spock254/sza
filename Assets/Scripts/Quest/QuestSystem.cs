@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
 public class QuestSystem : MonoBehaviour
 {
-    [SerializeField]
     Controller controller = null;
 
-    [SerializeField]
     EventController eventController = null;
 
     QuestEvent currentQuestEvent;
@@ -29,6 +27,11 @@ public class QuestSystem : MonoBehaviour
 
     void Awake()
     {
+        controller = Global.Component.GetController();
+        eventController = Global.Component.GetEventController();
+
+        DontDestroyOnLoad(transform.gameObject);
+
         LoadQuests();
         //SortQuestEvents();
 
@@ -58,6 +61,7 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Syntax)
             {
+                
                 if (quests.Peek().StartDialog(quests.Peek().GetCurrentQuestDialog(), currentQuestEvent.questData.arg))
                 {
                     quests.Peek().NextDialog();
@@ -67,15 +71,35 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Use)
             {
+                Debug.Log("answer");
                 if (quests.Peek().Use(currentQuestEvent.questData.arg))
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();
                 }
             }
-            else if (currentQuestEvent.questType == QuestType.Spawn) 
+            else if (currentQuestEvent.questType == QuestType.Spawn)
             {
-                if (quests.Peek().Spawn(currentQuestEvent.questData.pref, currentQuestEvent.questData.pref.transform.position)) 
+                if (quests.Peek().Spawn(currentQuestEvent.questData.pref, currentQuestEvent.questData.pref.transform.position))
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.EndQuest)
+            {
+                if (quests.Peek().EndQuest())
+                {
+                    quests.Dequeue();
+                    Quest nextQuest = quests.Peek();
+                    Debug.Log(nextQuest.questName + " : " + nextQuest.currentEventIndex);
+                    currentQuestEvent = nextQuest.NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.Dialogue) 
+            { 
+                if (quests.Peek().Dialogue(currentQuestEvent.questData.arg)) 
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();
@@ -84,41 +108,28 @@ public class QuestSystem : MonoBehaviour
         }
     }
 
-    //private void LateUpdate()
-    //{
-    //    if (currentQuestEvent.questType == QuestType.Gather)
-    //    {
-    //        if (quests.Peek().Gather(currentQuestEvent.questData.necessaryItems[0],
-    //                                controller.currentHand.gameObject))
-    //        {
-    //            currentQuestEvent = quests.Peek().NextQuestEvent();
-    //            eventController.OnNextQuestEvent.Invoke();
-    //        }
-    //    }
-    //    else if (currentQuestEvent.questType == QuestType.Syntax)
-    //    {
-    //        if (quests.Peek().StartDialog(quests.Peek().NextDialog())) 
-    //        {
-
-    //            currentQuestEvent = quests.Peek().NextQuestEvent();
-    //            eventController.OnNextQuestEvent.Invoke();
-    //        }
-    //    }
-    //    else if (currentQuestEvent.questType == QuestType.Use) 
-    //    {
-    //        if (quests.Peek().Use()) 
-    //        {
-    //            currentQuestEvent = quests.Peek().NextQuestEvent();
-    //            eventController.OnNextQuestEvent.Invoke();
-    //        }
-    //    }
-
-    //}
-
     private void OnApplicationQuit()
     {
         // для тест что бы не менять скр обдж поле
         quests.Peek().currentEventIndex = 0;
         quests.Peek().currentDialogeIndex = 0;
+    }
+
+    void OnEnable()
+    {
+        //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }
+
+    void OnDisable()
+    {
+        //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        controller = Global.Component.GetController();
+        eventController = Global.Component.GetEventController();
     }
 }

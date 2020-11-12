@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c69165311a092ac41be5a549187d4be0, type: 3}
   m_Name: _2
   m_EditorClassIdentifier: 
-  questName: 
-  questDescription: 
-  questEvents: []
+  questName: bye earth
+  questDescription: 'pass '
+  questEvents:
+  - {fileID: 11400000, guid: fd2b254d57bf58f49b909dbbf1469b05, type: 2}
+  questDialogs: []
+  currentEventIndex: 0
+  currentDialogeIndex: 0

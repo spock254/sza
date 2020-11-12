@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335dffd30dacdda4480840c523c6d917, type: 3}
-  m_Name: bus_spawn
+  m_Name: pass
   m_EditorClassIdentifier: 
-  questEventDescription: wait for the bus to arrive
-  questType: 9
+  questEventDescription: qwe
+  questType: 3
   questData:
-    necessaryItems: []
+    necessaryItems:
+    - {fileID: 11400000, guid: ef1ad2613d878cd47a19a9add5075a67, type: 2}
     arg: 
-    pref: {fileID: 6193142820577260390, guid: 831271fb8eb373d4eadddfdad10eec95, type: 3}
+    pref: {fileID: 0}
     rewards: []

@@ -17,6 +17,8 @@ public class QuestUI : MonoBehaviour
 
     void Start()
     {
+        eventController = Global.Component.GetEventController();
+        questSystem = Global.Component.GetQuestSystem();
         eventController.OnNextQuestEvent.AddListener(RefreshQuest);
 
         RefreshQuest();

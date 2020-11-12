@@ -39,7 +39,9 @@ public class DialogueManager : MonoBehaviour
     void OnDialogeActivate(string speaker, string initDialg) 
     {
         this.speaker = speaker;
+
         DialogPanel.SetActive(true);
+
         if (initDialg != string.Empty)
         {
             text.text = initDialg;
@@ -48,6 +50,7 @@ public class DialogueManager : MonoBehaviour
         {
             text.text = speaker;
         }
+
         isOpen = true;
     }
 

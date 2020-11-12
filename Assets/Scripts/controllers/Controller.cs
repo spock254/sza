@@ -65,6 +65,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     DialogueManager dialogWindow;
     void Start()
     {
+        //DontDestroyOnLoad(transform.gameObject);
         // еслт какое-то окно активно, запретить управление
         actionWindow = Global.Component.GetActionWindowController();
         dialogWindow = Global.Component.GetDialogueManager();

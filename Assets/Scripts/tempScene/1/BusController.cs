@@ -27,14 +27,15 @@ public class BusController : MonoBehaviour
         if (ticket == null) 
         {
             dialogue.SetDialog(noTicketDialogue);
+            Global.Component.GetEventController().OnStartDialogEvent.Invoke("*bus driver*", string.Empty);
             
         }
-        else 
-        { 
+        else
+        {
             dialogue.SetDialog(ticketDialogue);
+            Global.Component.GetEventController().OnStartDialogEvent.Invoke("*happy bus driver*", string.Empty);
         }
 
-        Global.Component.GetEventController().OnStartDialogEvent.Invoke("bus", string.Empty);
     }
     public void GiveTicket(Button ticketBtn) 
     {
