@@ -5,18 +5,7 @@ using UnityEngine.Tilemaps;
 
 public class GeneralTest : MonoBehaviour
 {
-    //public InventoryInit inventory;
-    //public ItemInit item;
 
-    public FightStatsInit stats;
-    public SkillsInit skillsInit;
-    //public Tile tileA;
-    //public Tilemap tilemap;
-    //public Tilemap tilemap_upper;
-    //public Vector3Int previous;
-    //public Transform player;
-    //public Tile opened_door;
-    //// Start is called before the first frame update
     void Start()
     {
         
@@ -26,9 +15,9 @@ public class GeneralTest : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Home))
         {
-            skillsInit.cooking.AddExp(250);
+            //skillsInit.cooking.AddExp(250);
 
         }
     }

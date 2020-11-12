@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
-using UnityEditor.UI;
 
 public class CraftController : MonoBehaviour
 {
