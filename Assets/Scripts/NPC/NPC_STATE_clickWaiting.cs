@@ -2,19 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC_STATE_clickWaiting : ByTheTale.StateMachine.State
+public class NPC_STATE_clickWaiting : BaseState
 {
-    string npcName;
-    float playerActionRadius = 0;
-    Transform playerTransform = null;
     public override void Enter()
     {
-        npcName = machine.name;
-        playerActionRadius = Global.Component.GetController().GetActioPlayerRadius();
-        playerTransform = Global.Obj.GetPlayerGameObject().GetComponent<Transform>();
-
-        // увиличить радиус на 20% (не может одстать больше чем 1 тайл радиус)
-        playerActionRadius += playerActionRadius / 100 * 20;
+        base.Enter();
     }
     public override void Execute()
     {
@@ -28,9 +20,9 @@ public class NPC_STATE_clickWaiting : ByTheTale.StateMachine.State
             {
                 if (hit.collider.name == npcName) 
                 {
-                    if (Vector2.Distance(playerTransform.position, hit.transform.position) <= playerActionRadius) 
-                    { 
-                        Debug.Log(npcName + " clicked");
+                    if (IsInNpcRadius(hit.transform.position)) 
+                    {
+                        machine.ChangeState<NPC_STATE_itemRequier>();
                         return;
                     }
                 }
