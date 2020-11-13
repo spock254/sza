@@ -14,13 +14,18 @@ public class SwitchLight : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        StartCoroutine(FadeUp());
+        if (collision.tag == "player") 
+        { 
+            StartCoroutine(FadeUp());
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        StartCoroutine(FadeDown());
-        
+        if (collision.tag == "player")
+        {
+            StartCoroutine(FadeDown());
+        }
     }
 
     void Awake()
