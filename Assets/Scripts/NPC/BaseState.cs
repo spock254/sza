@@ -12,6 +12,7 @@ public class BaseState : ByTheTale.StateMachine.State
 
     public override void Enter()
     {
+        Debug.Log("current state " + this.ToString());
         npcName = machine.name;
         data = GameObject.Find(npcName).GetComponent<NPC_Data>();
         playerActionRadius = Global.Component.GetController().GetActioPlayerRadius();

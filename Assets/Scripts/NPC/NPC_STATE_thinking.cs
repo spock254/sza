@@ -15,6 +15,7 @@ public class NPC_STATE_thinking : BaseState
         dialogueManager.SetDialog(data.GetNextDialog(StateTypes.NPC_STATE_thinking));
         eventController.OnStartDialogEvent.Invoke(data.npcName, "*" + data.npcName + "*");
 
+
     }
 
 }

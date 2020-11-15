@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class NPC_STATE_itemRequier : BaseState
 
         if (data.isLastRequierdItem()) 
         {
-            machine.ChangeState<NPC_STATE_thinking>();
+            machine.ChangeState(data.GetNextStateType(data.NextState_itemRequier));
             return;
         }
 

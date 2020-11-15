@@ -22,7 +22,7 @@ public class NPC_STATE_clickWaiting : BaseState
                 {
                     if (IsInNpcRadius(hit.transform.position)) 
                     {
-                        machine.ChangeState<NPC_STATE_itemRequier>();
+                        machine.ChangeState(data.GetNextStateType(data.NextState_clickWaiting));
                         return;
                     }
                 }

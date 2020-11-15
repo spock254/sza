@@ -7,21 +7,21 @@ public enum StateTypes
 {
     NPC_STATE_clickWaiting,
     NPC_STATE_itemRequier,
-    NPC_STATE_thinking
+    NPC_STATE_thinking,
+    NPC_STATE_tableItemCheck
 }
 
-public class NPC_SM_bagCheck : MachineBehaviour
+public class NPC_StateMashine : MachineBehaviour
 {
-    public List<StateTypes> stateTypes;
+    public List<StateTypes> stateList;
 
     public override void AddStates()
     {
-        foreach (var st in stateTypes)
+        foreach (var st in stateList)
         {
             AddState(Type.GetType(st.ToString()));
-            Debug.Log(st.GetType().ToString());
         }
 
-        SetInitialState(Type.GetType(stateTypes[0].ToString()));
+        SetInitialState(Type.GetType(stateList[0].ToString()));
     }
 }
