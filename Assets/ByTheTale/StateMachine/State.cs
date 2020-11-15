@@ -1,6 +1,8 @@
 ﻿// COMMENT TO SILENCE
 #define BYTHETALE_STATEMACHINE_VERBOSE
 
+using UnityEngine;
+
 namespace ByTheTale.StateMachine
 {
     [System.Serializable]

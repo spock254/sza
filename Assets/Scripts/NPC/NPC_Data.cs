@@ -1,53 +1,89 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ByTheTale.StateMachine;
 
 public class NPC_Data : MonoBehaviour
 {
     public string npcName = null;
 
+    StateMachineBehaviour stateMachine;
+
     [SerializeField]
     List<Item> items = null;
 
-    [Header("dialog lists")]
+    [Header("NPC_STATE_itemRequier")]
+    #region NPC_STATE_itemRequier
+
     [SerializeField]
     [TextArea(3,10)]
-    List<string> dialogs;
+    List<string> dialogs_itemRequier;
 
     [SerializeField]
     [TextArea(3, 10)]
-    List<string> optionDialog;
+    List<string> optionDialog_itemRequier;
 
     [HideInInspector]
     public List<Item> savedItems = new List<Item>();
 
-    int dialogIndex = 0;
-    int optionDialogIndex = 0;
+    int dialogIndex_itemRequier = 0;
+    int optionDialogIndex_itemRequier = 0;
     int itemIndex = 0;
-    public string GetNextDialog() 
+    #endregion
+
+    #region NPC_STATE_itemRequier
+    [Header("NPC_STATE_thinking")]
+    [SerializeField]
+    [TextArea(3, 10)]
+    string dialog_thinking;
+    #endregion
+
+    void Start()
     {
-        string toReturn = null;
-
-        if (dialogs.Count > dialogIndex) 
-        {
-            toReturn = dialogs[dialogIndex];
-            dialogIndex++;
-        }
-
-        return toReturn;
+        
+        //stateMachine = GetComponent<StateMachineBehaviour>();    
     }
 
-    public string GetNextOptionDialog()
-    {
-        string toReturn = null;
+    //public string GetNextDialog() 
+    //{
+    //    string toReturn = null;
 
-        if (optionDialog.Count > optionDialogIndex)
+    //    if (dialogs.Count > dialogIndex) 
+    //    {
+    //        toReturn = dialogs[dialogIndex];
+    //        dialogIndex++;
+    //    }
+
+    //    return toReturn;
+    //}
+
+    string NextDialog(List<string> dialog, ref int index) 
+    {
+        string lineToReturn = null;
+
+        if (dialog.Count > index) 
         {
-            toReturn = optionDialog[optionDialogIndex];
-            optionDialogIndex++;
+            lineToReturn = dialog[index];
+            index++;
         }
 
-        return toReturn;
+        return lineToReturn;
+    }
+
+
+    public string GetNextDialog(StateTypes stateTypes, bool isOption = false)
+    {
+        if (stateTypes == StateTypes.NPC_STATE_itemRequier) 
+        { 
+            return (isOption == false) ? NextDialog(dialogs_itemRequier, ref dialogIndex_itemRequier) 
+                                       : NextDialog(optionDialog_itemRequier, ref optionDialogIndex_itemRequier);
+        }
+        else if (stateTypes == StateTypes.NPC_STATE_thinking) 
+        {
+            return dialog_thinking;
+        }
+
+        return null;
     }
 
     public Item GetNextItem() 
@@ -63,10 +99,10 @@ public class NPC_Data : MonoBehaviour
         return toReturn;
     }
 
-    public bool isLastOptionDialog() 
-    {
-        return optionDialogIndex == optionDialog.Count;
-    }
+    //public bool isLastOptionDialog() 
+    //{
+    //    return optionDialogIndex == optionDialog.Count;
+    //}
 
     public bool isLastRequierdItem()
     {

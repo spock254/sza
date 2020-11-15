@@ -9,11 +9,10 @@ public class NPC_STATE_thinking : BaseState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Thinking");
         eventController = Global.Component.GetEventController();
         dialogueManager = Global.Component.GetDialogueManager();
         
-        dialogueManager.SetDialog(data.GetNextDialog());
+        dialogueManager.SetDialog(data.GetNextDialog(StateTypes.NPC_STATE_thinking));
         eventController.OnStartDialogEvent.Invoke(data.npcName, "*" + data.npcName + "*");
 
     }

@@ -25,10 +25,11 @@ public class NPC_STATE_itemRequier : BaseState
         }
 
         requieredItem = data.GetNextItem();
-        rejectDialog = data.GetNextOptionDialog();
+        // option dialog
+        rejectDialog = data.GetNextDialog(StateTypes.NPC_STATE_itemRequier, true);
 
 
-        dialogueManager.SetDialog(data.GetNextDialog());
+        dialogueManager.SetDialog(data.GetNextDialog(StateTypes.NPC_STATE_itemRequier));
         eventController.OnStartDialogEvent.Invoke(data.npcName, "*" + data.npcName + "*");
 
     }

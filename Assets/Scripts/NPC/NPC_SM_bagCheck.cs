@@ -1,15 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class NPC_SM_bagCheck : ByTheTale.StateMachine.MachineBehaviour
+using ByTheTale.StateMachine;
+using System;
+public enum StateTypes 
 {
+    NPC_STATE_clickWaiting,
+    NPC_STATE_itemRequier,
+    NPC_STATE_thinking
+}
+
+public class NPC_SM_bagCheck : MachineBehaviour
+{
+    public List<StateTypes> stateTypes;
+
     public override void AddStates()
     {
-        AddState<NPC_STATE_clickWaiting>();
-        AddState<NPC_STATE_itemRequier>();
-        AddState<NPC_STATE_thinking>();
+        foreach (var st in stateTypes)
+        {
+            AddState(Type.GetType(st.ToString()));
+            Debug.Log(st.GetType().ToString());
+        }
 
-        SetInitialState<NPC_STATE_clickWaiting>();
+        SetInitialState(Type.GetType(stateTypes[0].ToString()));
     }
 }
