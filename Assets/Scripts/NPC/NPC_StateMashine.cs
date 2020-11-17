@@ -8,7 +8,8 @@ public enum StateTypes
     NPC_STATE_clickWaiting,
     NPC_STATE_itemRequier,
     NPC_STATE_thinking,
-    NPC_STATE_tableItemCheck
+    NPC_STATE_tableItemCheck,
+    NPC_STATE_itemReturn
 }
 
 public class NPC_StateMashine : MachineBehaviour

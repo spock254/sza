@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class NPC_STATE_clickWaiting : BaseState
 {
+    NPC_DATA_clickWaiting data;
     public override void Enter()
     {
         base.Enter();
+        data = GetData<NPC_DATA_clickWaiting>();
     }
     public override void Execute()
     {
@@ -22,7 +24,7 @@ public class NPC_STATE_clickWaiting : BaseState
                 {
                     if (IsInNpcRadius(hit.transform.position)) 
                     {
-                        machine.ChangeState(data.GetNextStateType(data.NextState_clickWaiting));
+                        machine.ChangeState(data.GetNextStateType(data.nextState));
                         return;
                     }
                 }

@@ -9,16 +9,22 @@ public class NPC_STATE_tableItemCheck : BaseState
     EventController eventController;
     Controller controller;
 
+    NPC_DATA_tableItemCheck data;
+    NPC_Info info;
+
     public override void Enter()
     {
         base.Enter();
-        
+
+        data = GetData<NPC_DATA_tableItemCheck>();
+        info = GetInfo();
+
         eventController = Global.Component.GetEventController();
         dialogueManager = Global.Component.GetDialogueManager();
         controller = Global.Component.GetController();
 
-        dialogueManager.SetDialog(data.GetNextDialog(StateTypes.NPC_STATE_tableItemCheck));
-        eventController.OnStartDialogEvent.Invoke(data.npcName, "*" + data.npcName + "*");
+        dialogueManager.SetDialog(data.GetNextDialog());
+        eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
     }
 
     public override void Execute()
@@ -33,20 +39,21 @@ public class NPC_STATE_tableItemCheck : BaseState
             {
                 if (hit.collider.name == npcName)
                 {
-                    RaycastHit2D[] onTableHits = Physics2D.RaycastAll(data.table_tableItemCheck.position, Vector2.zero)
+                    RaycastHit2D[] onTableHits = Physics2D.RaycastAll(data.table.position, Vector2.zero)
                         .Where(i => i.collider.name.Contains(Global.DROPED_ITEM_PREFIX)).ToArray();
                     
                     foreach (var itemHit in onTableHits)
                     {
                         Debug.Log(itemHit.collider.name);
                         
-                        foreach (var restrictItem in data.restrictItems_tableItemCheck)
+                        foreach (var restrictItem in data.restrictItems)
                         {
                             Item itemOnTable = itemHit.collider.GetComponent<ItemCell>().item;
+
                             if (restrictItem.IsSameItems(itemOnTable))
                             {
-                                dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 5));
-                                eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                                dialogueManager.SetDialog(data.GetOptionalDialogByIndex(5));
+                                eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                                 return;
                             }
                             else 
@@ -57,8 +64,8 @@ public class NPC_STATE_tableItemCheck : BaseState
                                     {
                                         if (restrictItem.IsSameItems(innerItem)) 
                                         {
-                                            dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 6));
-                                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(6));
+                                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                                             return;
                                         }
                                     }
@@ -74,28 +81,28 @@ public class NPC_STATE_tableItemCheck : BaseState
 
                         if (!controller.IsEmpty(controller.left_hand_btn))
                         {
-                            dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 0));
-                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(0));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                         }
                         else if (!controller.IsEmpty(controller.right_hand_btn))
                         {
-                            dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 1));
-                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(1));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                         }
                         else if (!controller.IsEmpty(controller.left_pack_btn))
                         {
-                            dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 2));
-                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(2));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                         }
                         else if (!controller.IsEmpty(controller.right_pack_btn))
                         {
-                            dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 3));
-                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(3));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                         }
                         else if (bag_item.innerItems.Count > 0)
                         {
-                            dialogueManager.SetDialog(data.GetDialogByIndex(StateTypes.NPC_STATE_tableItemCheck, 4));
-                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*angry " + data.npcName + "*");
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(4));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                         }
 
                     }

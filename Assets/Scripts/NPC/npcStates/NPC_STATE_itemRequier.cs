@@ -9,11 +9,17 @@ public class NPC_STATE_itemRequier : BaseState
     DialogueManager dialogueManager;
     EventController eventController;
 
+    NPC_DATA_itemRequier data;
+    NPC_Info info;
+
     Item requieredItem;
     string rejectDialog = null;
     public override void Enter()
     {
         base.Enter();
+
+        data = GetData<NPC_DATA_itemRequier>();
+        info = GetInfo();
 
         controller = Global.Component.GetController();
         dialogueManager = Global.Component.GetDialogueManager();
@@ -21,17 +27,17 @@ public class NPC_STATE_itemRequier : BaseState
 
         if (data.isLastRequierdItem()) 
         {
-            machine.ChangeState(data.GetNextStateType(data.NextState_itemRequier));
+            machine.ChangeState(data.GetNextStateType(data.nextState));
             return;
         }
 
         requieredItem = data.GetNextItem();
         // option dialog
-        rejectDialog = data.GetNextDialog(StateTypes.NPC_STATE_itemRequier, true);
+        rejectDialog = data.GetNextOptionalDialog();
 
 
-        dialogueManager.SetDialog(data.GetNextDialog(StateTypes.NPC_STATE_itemRequier));
-        eventController.OnStartDialogEvent.Invoke(data.npcName, "*" + data.npcName + "*");
+        dialogueManager.SetDialog(data.GetNextDialog());
+        eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
 
     }
 
@@ -61,7 +67,7 @@ public class NPC_STATE_itemRequier : BaseState
                         else 
                         { 
                             dialogueManager.SetDialog(rejectDialog);
-                            eventController.OnStartDialogEvent.Invoke(data.npcName, "*disgruntled " + data.npcName + "*");
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*disgruntled " + info.npcName + "*");
                         }
                         return;
                     }

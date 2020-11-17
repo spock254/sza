@@ -6,7 +6,7 @@ public class BaseState : ByTheTale.StateMachine.State
 {
     protected string npcName;
     protected float playerActionRadius = 0;
-    protected NPC_Data data;
+    //protected NPC_Data data;
     
     Transform playerTransform = null;
 
@@ -14,7 +14,7 @@ public class BaseState : ByTheTale.StateMachine.State
     {
         Debug.Log("current state " + this.ToString());
         npcName = machine.name;
-        data = GameObject.Find(npcName).GetComponent<NPC_Data>();
+        //data = GameObject.Find(npcName).GetComponent<NPC_Data>();
         playerActionRadius = Global.Component.GetController().GetActioPlayerRadius();
         playerTransform = Global.Obj.GetPlayerGameObject().GetComponent<Transform>();
 
@@ -25,5 +25,15 @@ public class BaseState : ByTheTale.StateMachine.State
     protected bool IsInNpcRadius(Vector2 npcPosition)
     {
         return Vector2.Distance(playerTransform.position, npcPosition) <= playerActionRadius;
+    }
+
+    public T GetData<T>() 
+    { 
+        return GameObject.Find(npcName).GetComponent<T>();
+    }
+
+    public NPC_Info GetInfo()
+    {
+        return GameObject.Find(npcName).GetComponent<NPC_Info>();
     }
 }
