@@ -52,10 +52,24 @@ public class NPC_STATE_tableItemCheck : BaseState
 
                     foreach (var itemHit in onTableHits)
                     {
-                        
+                        Item itemOnTable = itemHit.collider.GetComponent<ItemCell>().item;
+
+                        if (itemOnTable.itemUseData.itemTypes.Contains(ItemUseData.ItemType.Body))
+                        {
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(8));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*stunning " + info.npcName + "*");
+                            return;
+                        }
+
+                        if (IsEqupmentOnTable(itemHit))
+                        {
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(9));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*stunning " + info.npcName + "*");
+                            return;
+                        }
+
                         foreach (var restrictItem in data.restrictItems)
                         {
-                            Item itemOnTable = itemHit.collider.GetComponent<ItemCell>().item;
 
                             if (restrictItem.IsSameItems(itemOnTable))
                             {
@@ -76,8 +90,6 @@ public class NPC_STATE_tableItemCheck : BaseState
                                     
                                     foreach (var innerItem in itemOnTable.innerItems)
                                     {
-                                        itemCountOnTable++;
-
                                         if (restrictItem.IsSameItems(innerItem)) 
                                         {
                                             dialogueManager.SetDialog(data.GetOptionalDialogByIndex(6));
@@ -93,6 +105,11 @@ public class NPC_STATE_tableItemCheck : BaseState
                                     }
                                 }
                             }
+                        }
+
+                        if (itemOnTable.itemUseData.itemTypes.Contains(ItemUseData.ItemType.Openable)) 
+                        {
+                            itemCountOnTable += itemOnTable.innerItems.Count;
                         }
                     }
                     Debug.Log(itemCountOnTable);
@@ -151,5 +168,16 @@ public class NPC_STATE_tableItemCheck : BaseState
             
             }
         }
+    }
+
+    bool IsEqupmentOnTable(RaycastHit2D hit) 
+    {
+        Item item = hit.collider.GetComponent<ItemCell>().item;
+        ItemUseData.ItemType[] itemTypes = item.itemUseData.itemTypes;
+
+        return (itemTypes.Contains(ItemUseData.ItemType.Lags)
+                || itemTypes.Contains(ItemUseData.ItemType.Arm)
+                || itemTypes.Contains(ItemUseData.ItemType.Face)
+                || itemTypes.Contains(ItemUseData.ItemType.Head));
     }
 }
