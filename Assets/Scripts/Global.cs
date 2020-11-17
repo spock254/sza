@@ -8,6 +8,8 @@ public static class Global
     public static int MAX_LVL = 100;
     public const string DROPED_ITEM_PREFIX = "item_";
     public const string REPLACE_CHAR = "|";
+    public const string UNPICKABLE_ITEM = "unpick_";
+
 
     public static class Item 
     {

@@ -39,6 +39,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell9;
     public Button bagCell10;
 
+    public List<Button> bagCellList = new List<Button>();
+
     public GameObject bag_panel;
     
     public bool isBagOpen = false;
@@ -77,6 +79,17 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         SetHandColor();
         // отресовка всех одетых вещей
         UpdateAllEqupment();
+
+        bagCellList.Add(bagCell1);
+        bagCellList.Add(bagCell2);
+        bagCellList.Add(bagCell3);
+        bagCellList.Add(bagCell4);
+        bagCellList.Add(bagCell5);
+        bagCellList.Add(bagCell6);
+        bagCellList.Add(bagCell7);
+        bagCellList.Add(bagCell8);
+        bagCellList.Add(bagCell9);
+        bagCellList.Add(bagCell10);
     }
 
     void SetHandColor() 

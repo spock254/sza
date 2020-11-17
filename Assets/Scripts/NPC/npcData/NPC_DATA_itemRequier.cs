@@ -29,4 +29,8 @@ public class NPC_DATA_itemRequier : NPC_BaseData
     {
         return itemIndex == items.Count;
     }
+
+    //public void MoveAndRejectItem(Item item, Vector3 position) 
+    //{ 
+    //}
 }
