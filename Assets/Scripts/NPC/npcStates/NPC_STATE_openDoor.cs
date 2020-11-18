@@ -7,9 +7,9 @@ public class NPC_STATE_openDoor : BaseState<NPC_DATA_openDoor>
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("DOOOOOOOOOOOOOOOOOOOOOOR");
+        
         data.OpenDoor();
-    }
 
-    
+        machine.ChangeState(data.GetNextStateType(data.nextState));
+    }
 }

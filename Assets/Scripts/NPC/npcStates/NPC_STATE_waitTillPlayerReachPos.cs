@@ -14,10 +14,10 @@ public class NPC_STATE_waitTillPlayerReachPos : BaseState<NPC_DATA_waitTillPlaye
 
     public override void Execute()
     {
-        Debug.Log(playerTransform.position.y + " : " + data.point.position.y);
         if (data.IsOnPosition(playerTransform.position)) 
         {
-            Debug.Log("GETTTTT");
+            machine.ChangeState(data.GetNextStateType(data.nextState));
         }
+
     }
 }

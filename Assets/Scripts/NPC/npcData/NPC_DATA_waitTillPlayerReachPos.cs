@@ -16,6 +16,8 @@ public class NPC_DATA_waitTillPlayerReachPos : NPC_BaseData
     [SerializeField]
     public Sign sign;
 
+    public bool onPosition = false;
+
     public bool IsOnPosition(Vector2 position) 
     {
         if (diraction == Diraction.X)
