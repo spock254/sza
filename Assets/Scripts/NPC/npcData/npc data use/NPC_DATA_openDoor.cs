@@ -6,8 +6,6 @@ public class NPC_DATA_openDoor : NPC_BaseData
 {
     [SerializeField]
     GameObject doorGo;
-    [SerializeField]
-    public bool open;
     public void OpenDoor() 
     {
         DoorController doorController = doorGo.GetComponent<DoorController>();
