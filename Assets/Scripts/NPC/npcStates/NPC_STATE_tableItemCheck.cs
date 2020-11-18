@@ -139,6 +139,12 @@ public class NPC_STATE_tableItemCheck : BaseState<NPC_DATA_tableItemCheck>
                             eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
                             return;
                         }
+                        else if(!controller.IsEmpty(controller.bag_btn))
+                        {
+                            dialogueManager.SetDialog(data.GetOptionalDialogByIndex(10));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*angry " + info.npcName + "*");
+                            return;
+                        }
 
                         if (itemCountOnTable < itemCount) 
                         {
