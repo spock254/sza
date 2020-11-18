@@ -2,15 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class NPC_STATE_itemRequier : BaseState
+public class NPC_STATE_itemRequier : BaseState<NPC_DATA_itemRequier>
 {
     Controller controller;
-    DialogueManager dialogueManager;
-    EventController eventController;
-
-    NPC_DATA_itemRequier data;
-    NPC_Info info;
 
     Item requieredItem;
     string rejectDialog = null;
@@ -18,12 +14,7 @@ public class NPC_STATE_itemRequier : BaseState
     {
         base.Enter();
 
-        data = GetData<NPC_DATA_itemRequier>();
-        info = GetInfo();
-
         controller = Global.Component.GetController();
-        dialogueManager = Global.Component.GetDialogueManager();
-        eventController = Global.Component.GetEventController();
 
         if (data.isLastRequierdItem()) 
         {
@@ -43,6 +34,45 @@ public class NPC_STATE_itemRequier : BaseState
 
     public override void Execute()
     {
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
+
+            foreach (var hit in hits)
+            {
+                if (hit.collider.name == npcName)
+                {
+                    if (IsInNpcRadius(hit.transform.position))
+                    {
+                        RaycastHit2D[] onTableHits = Physics2D.RaycastAll(data.table.position, Vector2.zero)
+                                                .Where(i => i.collider.name
+                                                .Contains(Global.DROPED_ITEM_PREFIX))
+                                                .ToArray();
+
+                        foreach (var itemHit in onTableHits)
+                        {
+                            Item itemOnTable = itemHit.collider.GetComponent<ItemCell>().item;
+
+                            if (requieredItem.IsSameItems(itemOnTable))
+                            {
+                                data.savedItems.Add(itemOnTable);
+                                data.DestroyItem(itemHit.collider.gameObject);
+                                machine.ChangeState<NPC_STATE_itemRequier>();
+                            }
+                        }
+
+                        if (!dialogueManager.isOpen)
+                        {
+                            dialogueManager.SetDialog(rejectDialog);
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*disgruntled " + info.npcName + "*");
+                        }
+                    }
+                }
+            }
+        }
+
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

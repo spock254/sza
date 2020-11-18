@@ -35,7 +35,13 @@ public class ItemCounDetection : MonoBehaviour
         if (!controller.IsEmpty(invCell)) 
         {
             Item item = invCell.GetComponent<ItemCell>().item;
-            
+
+            //так как айди все равно надо будет отдать
+            if (item.itemUseData.itemTypes.Contains(ItemUseData.ItemType.Card)) 
+            {
+                return;
+            }
+
             itemCount++;
 
             if (item.itemUseData.itemTypes.Contains(ItemUseData.ItemType.Openable)) 

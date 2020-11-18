@@ -4,14 +4,10 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
-public class NPC_STATE_tableItemCheck : BaseState
+public class NPC_STATE_tableItemCheck : BaseState<NPC_DATA_tableItemCheck>
 {
-    DialogueManager dialogueManager;
-    EventController eventController;
     Controller controller;
 
-    NPC_DATA_tableItemCheck data;
-    NPC_Info info;
     ItemCounDetection itemCounDetection;
     int itemCount = 0;
     int itemCountOnTable = 0;
@@ -19,14 +15,9 @@ public class NPC_STATE_tableItemCheck : BaseState
     {
         base.Enter();
 
-        data = GetData<NPC_DATA_tableItemCheck>();
-        info = GetInfo();
-        
         itemCounDetection = GameObject.Find("icd").GetComponent<ItemCounDetection>();
         itemCount = itemCounDetection.itemCount;
 
-        eventController = Global.Component.GetEventController();
-        dialogueManager = Global.Component.GetDialogueManager();
         controller = Global.Component.GetController();
 
         dialogueManager.SetDialog(data.GetNextDialog());
@@ -112,7 +103,7 @@ public class NPC_STATE_tableItemCheck : BaseState
                             itemCountOnTable += itemOnTable.innerItems.Count;
                         }
                     }
-                    Debug.Log(itemCountOnTable);
+                    
                     if (!dialogueManager.isOpen)
                     {
 
@@ -156,9 +147,6 @@ public class NPC_STATE_tableItemCheck : BaseState
                         }
                         else 
                         { 
-                            dialogueManager.SetDialog(data.GetNextDialog());
-                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*happy " + info.npcName + "*");
-
                             machine.ChangeState(data.GetNextStateType(data.nextState));
                         }
                     }

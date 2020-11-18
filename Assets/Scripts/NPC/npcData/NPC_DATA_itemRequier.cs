@@ -12,6 +12,8 @@ public class NPC_DATA_itemRequier : NPC_BaseData
     [HideInInspector]
     public List<Item> savedItems = new List<Item>();
 
+    public Transform table;
+
     public Item GetNextItem() 
     {
         Item itemToReturn = null;
@@ -30,6 +32,10 @@ public class NPC_DATA_itemRequier : NPC_BaseData
         return itemIndex == items.Count;
     }
 
+    public void DestroyItem(GameObject itemGo) 
+    {
+        Destroy(itemGo);
+    }
     //public void MoveAndRejectItem(Item item, Vector3 position) 
     //{ 
     //}

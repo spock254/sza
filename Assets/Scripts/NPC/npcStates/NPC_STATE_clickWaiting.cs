@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC_STATE_clickWaiting : BaseState
+public class NPC_STATE_clickWaiting : BaseState<NPC_DATA_clickWaiting>
 {
-    NPC_DATA_clickWaiting data;
     public override void Enter()
     {
         base.Enter();
-        data = GetData<NPC_DATA_clickWaiting>();
     }
     public override void Execute()
     {
