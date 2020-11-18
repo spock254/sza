@@ -10,7 +10,9 @@ public enum StateTypes
     NPC_STATE_thinking,
     NPC_STATE_tableItemCheck,
     NPC_STATE_itemReturn,
-    NPC_STATE_walkTill
+    NPC_STATE_walkTill,
+    NPC_STATE_openDoor,
+    NPC_STATE_waitTillPlayerReachPos
 }
 
 public class NPC_StateMashine : MachineBehaviour

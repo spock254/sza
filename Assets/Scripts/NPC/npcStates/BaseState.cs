@@ -45,8 +45,8 @@ public class BaseState<T> : ByTheTale.StateMachine.State
     //    return GameObject.Find(npcName).GetComponent<T>();
     //}
 
-    public NPC_Info GetInfo()
-    {
-        return GameObject.Find(npcName).GetComponent<NPC_Info>();
-    }
+    //NPC_Info GetInfo()
+    //{
+    //    return GameObject.Find(npcName).GetComponent<NPC_Info>();
+    //}
 }
