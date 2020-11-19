@@ -7,7 +7,15 @@ public class NPC_DATA_walkTill : NPC_BaseData
     public List<Transform> points;
     public float walkSpeed;
 
+    [HideInInspector]
+    public NPC_AnimationController animationController;
+
     int pointIndex = 0;
+
+    private void Start()
+    {
+        animationController = GetComponent<NPC_AnimationController>();
+    }
 
     public Transform GetNextPoint() 
     {
