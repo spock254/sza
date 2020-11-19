@@ -18,6 +18,5 @@ public class NPC_STATE_waitTillPlayerReachPos : BaseState<NPC_DATA_waitTillPlaye
         {
             machine.ChangeState(data.GetNextStateType(data.nextState));
         }
-
     }
 }

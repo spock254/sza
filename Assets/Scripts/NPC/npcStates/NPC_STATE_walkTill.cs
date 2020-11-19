@@ -37,4 +37,11 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
         //                                                  data.walkSpeed * Time.deltaTime);
         //}
     }
+
+    public override void OnAnimatorIK(int layerIndex)
+    {
+        base.OnAnimatorIK(layerIndex);
+
+        Debug.Log("qwe");
+    }
 }
