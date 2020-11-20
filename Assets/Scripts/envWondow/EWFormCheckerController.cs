@@ -14,7 +14,7 @@ public class EWFormCheckerController : EWBase, IEWInit
     [SerializeField]
     Text statusText = null;
 
-    List<Item> savedItems = new List<Item>();
+    List<Item> savedItems = null;
 
     public GameObject prefToSpawn;
 
@@ -71,19 +71,6 @@ public class EWFormCheckerController : EWBase, IEWInit
                     }
                     
                     return;
-                    //if (id.IsSameItems(controller.GetItemInHand(controller.currentHand)))
-                    //foreach (var item in reqItems)
-                    //{
-                    //    if (item.IsSameItems(controller.GetItemInHand(controller.currentHand))) 
-                    //    {
-                    //        if (!savedItems.Contains(item)) 
-                    //        {
-                    //            savedItems.Add(item);
-                    //            controller.SetDefaultItem(controller.currentHand);
-
-                    //        }
-                    //    }
-                    //}
                 }
             }
         }
@@ -91,6 +78,9 @@ public class EWFormCheckerController : EWBase, IEWInit
     public void Init(GameObject window, GameObject envObj)
     {
         BaseInit(window, envObj);
+
+        savedItems = envObj.GetComponent<VendingController>().savedItems;
+        InitWindow(savedItems);
     }
 
     public void OnPullOutClick(bool isId) 
@@ -102,7 +92,7 @@ public class EWFormCheckerController : EWBase, IEWInit
 
             Item idClone = Instantiate(id);
             prefToSpawn.GetComponent<ItemCell>().item = idClone;
-            prefToSpawn = Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
+            Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
         }
         else if (!isId && savedItems.Contains(form)) 
@@ -112,7 +102,7 @@ public class EWFormCheckerController : EWBase, IEWInit
 
             Item formClone = Instantiate(form);
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
-            prefToSpawn = Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
+            Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
         }
     }
@@ -120,5 +110,11 @@ public class EWFormCheckerController : EWBase, IEWInit
     public void OnCheckClick() 
     { 
         
+    }
+
+    void InitWindow(List<Item> savedItems) 
+    {
+        idText.text = (savedItems.Contains(id)) ? idPresent : idNotPresent;
+        formText.text = (savedItems.Contains(form)) ? formPresent : formNotPresent;
     }
 }
