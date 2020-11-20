@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,8 @@ public class EWFormCheckerController : EWBase, IEWInit
 
     const string idPresent = "ID present";
     const string formPresent = "Form present";
+
+    string formData = null;
 
     void Update()
     {
@@ -63,6 +66,8 @@ public class EWFormCheckerController : EWBase, IEWInit
                     {
                         if (!savedItems.Contains(form))
                         {
+                            formData = itemInHand.itemOptionData.text;
+
                             savedItems.Add(form);
                             formText.text = formPresent;
                             controller.SetDefaultItem(controller.currentHand);
@@ -100,7 +105,10 @@ public class EWFormCheckerController : EWBase, IEWInit
             savedItems.Remove(form);
             formText.text = formNotPresent;
 
+            // без потерь полей
+            //form.itemOptionData.text = formData;
             Item formClone = Instantiate(form);
+            formClone.itemOptionData.text = formData;
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
@@ -108,8 +116,23 @@ public class EWFormCheckerController : EWBase, IEWInit
     }
 
     public void OnCheckClick() 
-    { 
-        
+    {
+        if (savedItems.Contains(form) && savedItems.Contains(id))
+        {
+            Debug.Log(form.itemOptionData.text);
+        }
+        else if (savedItems.Contains(form) && !savedItems.Contains(id))
+        {
+            statusText.text = "please put id";
+        }
+        else if (!savedItems.Contains(form) && savedItems.Contains(id))
+        {
+            statusText.text = "please put form";
+        }
+        else 
+        {
+            statusText.text = "please put id and form";
+        }
     }
 
     void InitWindow(List<Item> savedItems) 
