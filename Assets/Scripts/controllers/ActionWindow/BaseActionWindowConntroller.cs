@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class BaseActionWindowConntroller : MonoBehaviour
 {
-    //ActionWindowController actionWindow;
     public GameObject windowPref;
 
     GameObject envWindow;
     GameObject window = null;
+
+    [HideInInspector]
+    public List<Item> savedItems = new List<Item>();
+
     protected void Init()
     {
         envWindow = Global.UIElement.GetEnvWindow();

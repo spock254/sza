@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class EWVendingController : MonoBehaviour, IEWInit
+public class EWVendingController : EWBase, IEWInit
 {
-    GameObject vendingwindow = null;
-    Controller controller = null;
+    //GameObject vendingwindow = null;
+    //Controller controller = null;
     AccauntController accaunt = null;
     ActionWindowController actionWindow = null;
 
@@ -29,25 +29,26 @@ public class EWVendingController : MonoBehaviour, IEWInit
     readonly int[] prices = new int[4] { 15, 20, 10, 15 };
 
     Vector2 vendorPosition;
-    Transform player = null;
-    float actioPlayerRadius = 0;
+    //Transform player = null;
+    //float actioPlayerRadius = 0;
     public void Init(GameObject vendingwindow, GameObject envObj) 
     {
-        controller = Global.Component.GetController();
+        BaseInit(vendingwindow, envObj);
+        //controller = Global.Component.GetController();
         accaunt = Global.Component.GetAccauntController();
         actionWindow = Global.Component.GetActionWindowController();
 
-        this.vendingwindow = vendingwindow;
+        //this.vendingwindow = vendingwindow;
         dropdown.onValueChanged.AddListener(OnDDValueChange);
         dropdown.onValueChanged.Invoke(dropdown.value);
 
-        vendorPosition = envObj.transform.position;
-        player = controller.player;
-        actioPlayerRadius = controller.GetActioPlayerRadius();
+        //vendorPosition = envObj.transform.position;
+        // player = controller.player;
+        //actioPlayerRadius = controller.GetActioPlayerRadius();
     }
     void Update()
     {
-        if (Vector2.Distance(player.position, vendorPosition) > actioPlayerRadius) 
+        if (IsPlayerInEWindowRadius() == false) 
         {
             Close();
         }
@@ -78,13 +79,13 @@ public class EWVendingController : MonoBehaviour, IEWInit
             }
         }
     }
-    public void Close() 
-    {
-        // разблочить движение
-        //actionWindow.isOpen = false;
+    //public void Close() 
+    //{
+    //    // разблочить движение
+    //    //actionWindow.isOpen = false;
 
-        Destroy(this.vendingwindow);
-    }
+    //    Destroy(this.vendingwindow);
+    //}
 
     public void Pay() 
     {

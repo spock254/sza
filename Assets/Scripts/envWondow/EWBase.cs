@@ -9,7 +9,7 @@ public class EWBase : MonoBehaviour
     protected Controller controller = null;
 
     protected float actioPlayerRadius = 0;
-    protected Vector2 ewindowPosition;
+    protected Vector2 vendorPosition;
     protected Transform player = null;
 
     protected void BaseInit(GameObject window, GameObject envObj) 
@@ -18,13 +18,13 @@ public class EWBase : MonoBehaviour
         player = controller.player;
 
         this.window = window;
-        ewindowPosition = envObj.transform.position;
+        vendorPosition = envObj.transform.position;
         actioPlayerRadius = controller.GetActioPlayerRadius();
     }
 
     protected bool IsPlayerInEWindowRadius() 
     {
-        return Vector2.Distance(player.position, ewindowPosition) < actioPlayerRadius;
+        return Vector2.Distance(player.position, vendorPosition) < actioPlayerRadius;
     }
 
     public void Close()
