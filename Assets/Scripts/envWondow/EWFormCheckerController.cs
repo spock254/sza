@@ -69,6 +69,7 @@ public class EWFormCheckerController : EWBase, IEWInit
                         if (!savedItems.Contains(form))
                         {
                             formData = itemInHand.itemOptionData.text;
+                            isGranted = itemInHand.itemOptionData.isModified;
 
                             savedItems.Add(form);
                             formText.text = formPresent;
@@ -89,6 +90,8 @@ public class EWFormCheckerController : EWBase, IEWInit
         savedItems = envObj.GetComponent<VendingController>().savedItems;
         InitWindow(savedItems);
         playerInfo = Global.Component.GetPlayerInfo();
+
+        InitStatus();
     }
 
     public void OnPullOutClick(bool isId) 
@@ -108,7 +111,6 @@ public class EWFormCheckerController : EWBase, IEWInit
             savedItems.Remove(form);
             formText.text = formNotPresent;
 
-            //Debug.Log(formData);
 
             Item formClone = Instantiate(form);
 
@@ -118,6 +120,9 @@ public class EWFormCheckerController : EWBase, IEWInit
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
+
+            isGranted = false;
+            formData = string.Empty;
         }
     }
 
@@ -144,6 +149,26 @@ public class EWFormCheckerController : EWBase, IEWInit
             statusText.text = SetTextColor("Please put form", TextColor.Red);
         }
         else 
+        {
+            statusText.text = SetTextColor("Please put id and form", TextColor.Red);
+        }
+    }
+
+    void InitStatus() 
+    {
+        if (savedItems.Contains(form) && savedItems.Contains(id)) 
+        {
+            statusText.text = SetTextColor("Ready to validate", TextColor.Green);
+        }
+        else if (savedItems.Contains(form) && !savedItems.Contains(id))
+        {
+            statusText.text = SetTextColor("Please put id", TextColor.Red);
+        }
+        else if (!savedItems.Contains(form) && savedItems.Contains(id))
+        {
+            statusText.text = SetTextColor("Please put form", TextColor.Red);
+        }
+        else
         {
             statusText.text = SetTextColor("Please put id and form", TextColor.Red);
         }
