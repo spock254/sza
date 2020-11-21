@@ -40,8 +40,6 @@ public class EWFormCheckerController : EWBase, IEWInit
             Close();
         }
 
-
-
         if (Input.GetMouseButtonDown(1))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -66,18 +64,36 @@ public class EWFormCheckerController : EWBase, IEWInit
                     }
                     else if (form.IsSameItems(itemInHand)) 
                     {
-                        if (!savedItems.Contains(form))
+                        if (!savedItems.Find(f => f.IsSameItems(form)))
                         {
                             formData = itemInHand.itemOptionData.text;
                             isGranted = itemInHand.itemOptionData.isModified;
 
-                            savedItems.Add(form);
+                            Item formCpy = Instantiate(form);
+                            formCpy.itemOptionData.text = itemInHand.itemOptionData.text;
+                            formCpy.itemOptionData.isModified = itemInHand.itemOptionData.isModified;
+                            savedItems.Add(formCpy);
+                            //savedItems.Add(form);
+
+                            // в сохраненные айтемы сохранить также текст формы
+                            //foreach (var item in savedItems)
+                            //{
+                            //    if (item.IsSameItems(form))
+                            //    {
+                            //        item.itemOptionData.text = itemInHand.itemOptionData.text;
+                            //        item.itemOptionData.isModified = itemInHand.itemOptionData.isModified;
+                            //        break;
+                            //    }
+                            //}
+
                             formText.text = formPresent;
                             controller.SetDefaultItem(controller.currentHand);
                         }
 
                     }
-                    
+
+                    InitStatus();
+
                     return;
                 }
             }
@@ -91,11 +107,23 @@ public class EWFormCheckerController : EWBase, IEWInit
         InitWindow(savedItems);
         playerInfo = Global.Component.GetPlayerInfo();
 
+        
+        foreach (var item in savedItems)
+        {
+            if (item.IsSameItems(form))
+            {
+                formData = item.itemOptionData.text;
+                break;
+            }
+        }
+
         InitStatus();
     }
 
     public void OnPullOutClick(bool isId) 
     {
+        Item to_remove = null;
+
         if (isId && savedItems.Contains(id))
         {
             savedItems.Remove(id);
@@ -106,9 +134,11 @@ public class EWFormCheckerController : EWBase, IEWInit
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
         }
-        else if (!isId && savedItems.Contains(form)) 
+        else if (!isId && (to_remove = savedItems.Find(f => f.IsSameItems(form)))) 
         {
-            savedItems.Remove(form);
+            savedItems.Remove(to_remove);
+
+
             formText.text = formNotPresent;
 
 
@@ -124,12 +154,14 @@ public class EWFormCheckerController : EWBase, IEWInit
             isGranted = false;
             formData = string.Empty;
         }
+
+        InitStatus();
     }
 
 
     public void OnCheckClick() 
     {
-        if (savedItems.Contains(form) && savedItems.Contains(id))
+        if (savedItems.Find(f => f.IsSameItems(form)) && savedItems.Contains(id))
         {
             string checkStatus = CheckForm();
 
@@ -140,11 +172,11 @@ public class EWFormCheckerController : EWBase, IEWInit
 
             statusText.text = checkStatus;
         }
-        else if (savedItems.Contains(form) && !savedItems.Contains(id))
+        else if (savedItems.Find(f => f.IsSameItems(form)) && !savedItems.Contains(id))
         {
             statusText.text = SetTextColor("Please put id", TextColor.Red);
         }
-        else if (!savedItems.Contains(form) && savedItems.Contains(id))
+        else if (!savedItems.Find(f => f.IsSameItems(form)) && savedItems.Contains(id))
         {
             statusText.text = SetTextColor("Please put form", TextColor.Red);
         }
@@ -156,15 +188,15 @@ public class EWFormCheckerController : EWBase, IEWInit
 
     void InitStatus() 
     {
-        if (savedItems.Contains(form) && savedItems.Contains(id)) 
+        if (savedItems.Find(f => f.IsSameItems(form)) && savedItems.Contains(id)) 
         {
             statusText.text = SetTextColor("Ready to validate", TextColor.Green);
         }
-        else if (savedItems.Contains(form) && !savedItems.Contains(id))
+        else if (savedItems.Find(f => f.IsSameItems(form)) && !savedItems.Contains(id))
         {
             statusText.text = SetTextColor("Please put id", TextColor.Red);
         }
-        else if (!savedItems.Contains(form) && savedItems.Contains(id))
+        else if (!savedItems.Find(f => f.IsSameItems(form)) && savedItems.Contains(id))
         {
             statusText.text = SetTextColor("Please put form", TextColor.Red);
         }
@@ -177,7 +209,7 @@ public class EWFormCheckerController : EWBase, IEWInit
     void InitWindow(List<Item> savedItems) 
     {
         idText.text = (savedItems.Contains(id)) ? idPresent : idNotPresent;
-        formText.text = (savedItems.Contains(form)) ? formPresent : formNotPresent;
+        formText.text = (savedItems.Find(f => f.IsSameItems(form))) ? formPresent : formNotPresent;
     }
 
     string CheckForm() 
