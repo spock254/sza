@@ -28,7 +28,7 @@ public class EWVendingController : EWBase, IEWInit
 
     readonly int[] prices = new int[4] { 15, 20, 10, 15 };
 
-    Vector2 vendorPosition;
+    //Vector2 vendorPosition;
     //Transform player = null;
     //float actioPlayerRadius = 0;
     public void Init(GameObject vendingwindow, GameObject envObj) 

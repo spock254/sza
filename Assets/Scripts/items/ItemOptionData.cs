@@ -7,4 +7,5 @@ public class ItemOptionData
     public GameObject awPrefab;
     public string text;
     public string actionWindowTag;
+    public bool isModified;
 }

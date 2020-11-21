@@ -10,7 +10,7 @@ public class FormReviewControlle : MonoBehaviour
     const string DDOWN_PREFIX = "_ddown";
 
     public List<Text> texts;
-
+    public Image granted;
     ActionWindowController actionWindow;
     void Awake()
     {
@@ -19,7 +19,20 @@ public class FormReviewControlle : MonoBehaviour
 
     public void Init(Item item)
     {
+        // добавляет печать на форму если форма проваледированна
+        granted.gameObject.SetActive(item.itemOptionData.isModified);
+        // если открыть чистый бланк, сначало надо удалить инфу с заполненого 
+        CleanForm();
+
         FillFormFromItemData(SplitString(item.itemOptionData.text));
+    }
+
+    void CleanForm() 
+    {
+        foreach (var text in texts)
+        {
+            text.text = string.Empty;
+        }
     }
 
     public void OnClose()

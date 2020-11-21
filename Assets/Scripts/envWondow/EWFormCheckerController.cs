@@ -28,8 +28,10 @@ public class EWFormCheckerController : EWBase, IEWInit
     const string formNotPresent = "Form not present";
     const string idPresent = "ID present";
     const string formPresent = "Form present";
+    const string correctStatus = "Valid form";
 
     string formData = null;
+    bool isGranted = false;
 
     void Update()
     {
@@ -109,30 +111,41 @@ public class EWFormCheckerController : EWBase, IEWInit
             //Debug.Log(formData);
 
             Item formClone = Instantiate(form);
+
             formClone.itemOptionData.text = formData;
+            formClone.itemOptionData.isModified = isGranted;
+
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
         }
     }
 
+
     public void OnCheckClick() 
     {
         if (savedItems.Contains(form) && savedItems.Contains(id))
         {
-            statusText.text = CheckForm();
+            string checkStatus = CheckForm();
+
+            if (checkStatus.Contains(correctStatus)) 
+            {
+                isGranted = true;
+            }
+
+            statusText.text = checkStatus;
         }
         else if (savedItems.Contains(form) && !savedItems.Contains(id))
         {
-            statusText.text = "please put id";
+            statusText.text = SetTextColor("Please put id", TextColor.Red);
         }
         else if (!savedItems.Contains(form) && savedItems.Contains(id))
         {
-            statusText.text = "please put form";
+            statusText.text = SetTextColor("Please put form", TextColor.Red);
         }
         else 
         {
-            statusText.text = "please put id and form";
+            statusText.text = SetTextColor("Please put id and form", TextColor.Red);
         }
     }
 
@@ -145,9 +158,6 @@ public class EWFormCheckerController : EWBase, IEWInit
     string CheckForm() 
     {
         List<string> lines = formData.Split('\n').ToList();
-        string[] fullName = lines[1].Split('_');
-
-
 
         string ssNumber = lines[0].Split('_')[0];
         string playerName = lines[1].Split('_')[0];
@@ -160,47 +170,45 @@ public class EWFormCheckerController : EWBase, IEWInit
 
         if (ssNumber != "213") 
         {
-            return "space station #" + ssNumber + " invalid";
+            return SetTextColor("Space station #" + ssNumber + " invalid", TextColor.Red);
         }
 
-        if (playerName.ToLower() != playerInfo.playerName.ToLower()) 
+        if (playerName.ToLower().Trim() != playerInfo.playerName.ToLower()) 
         {
-            Debug.Log(playerName.ToLower());
-            Debug.Log(playerInfo.playerName.ToLower());
-            return "incorrect name";
+            return SetTextColor("Invalid name", TextColor.Red);
         }
 
         if (id != playerInfo.ID) 
         {
-            return "incorrect ID";
+            return SetTextColor("Invalid ID", TextColor.Red);
         }
 
         // TODO
         if (age != "23") 
         {
-            return "incorrect age";
+            return SetTextColor("Invalid age", TextColor.Red);
         }
 
         if (race.ToLower() != "human") 
         {
-            return "incorrect race";
+            return SetTextColor("Invalid race", TextColor.Red);
         }
 
-        if (planet.ToLower() != playerInfo.planetOfOrigin)
+        if (planet.ToLower() != playerInfo.planetOfOrigin.ToLower())
         {
-            return "incorrect planet";
+            return SetTextColor("Invalid planet of origin", TextColor.Red);
         }
 
         if (ocupation.ToLower() != "service") 
         {
-            return "no free ocupation";
+            return SetTextColor("No free ocupation", TextColor.Red);
         }
 
-        if (sign.ToLower() != playerInfo.signature)
+        if (sign.ToLower().Trim() != playerInfo.signature)
         {
-            return "no free signature";
+            return SetTextColor("Invalid signature", TextColor.Red);
         }
 
-        return "ok";
+        return SetTextColor(correctStatus, TextColor.Green); ;
     }
 }
