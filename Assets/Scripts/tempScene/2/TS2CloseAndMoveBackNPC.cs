@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class TS2CloseAndMoveBackNPC : MonoBehaviour
 {
-    [SerializeField] List<Transform> points;
-    [SerializeField] Transform npcTransform;
+    //[SerializeField] List<Transform> points = null;
+    //[SerializeField] Transform npcTransform = null;
     
-    [SerializeField] DoorController doorController;
-    [SerializeField] Transform playerTransform;
+    [SerializeField] DoorController doorController = null;
+    [SerializeField] Transform playerTransform = null;
 
     bool closed = false;
-    int pointIndex = 0;
+    //int pointIndex = 0;
     void Update()
     {
         if (playerTransform.position.y > transform.position.y && !closed) 

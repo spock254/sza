@@ -7,11 +7,11 @@ public class NPC_BaseData : MonoBehaviour
 {
     [SerializeField]
     [TextArea(3, 10)]
-    List<string> dialog;
+    List<string> dialog = null;
 
     [SerializeField]
     [TextArea(3, 10)]
-    List<string> optionDialog;
+    List<string> optionDialog = null;
 
     int dialogIndex = 0;
     int optionDialogIndex = 0;

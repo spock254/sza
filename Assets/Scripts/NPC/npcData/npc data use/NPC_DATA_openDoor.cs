@@ -5,7 +5,7 @@ using UnityEngine;
 public class NPC_DATA_openDoor : NPC_BaseData
 {
     [SerializeField]
-    GameObject doorGo;
+    GameObject doorGo = null;
     public void OpenDoor() 
     {
         DoorController doorController = doorGo.GetComponent<DoorController>();

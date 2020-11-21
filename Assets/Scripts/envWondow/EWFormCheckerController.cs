@@ -20,12 +20,12 @@ public class EWFormCheckerController : EWBase, IEWInit
     public GameObject prefToSpawn;
 
     public Item id = null;
-
     public Item form = null;
+
+    PlayerInfo playerInfo;
 
     const string idNotPresent = "ID not present";
     const string formNotPresent = "Form not present";
-
     const string idPresent = "ID present";
     const string formPresent = "Form present";
 
@@ -86,6 +86,7 @@ public class EWFormCheckerController : EWBase, IEWInit
 
         savedItems = envObj.GetComponent<VendingController>().savedItems;
         InitWindow(savedItems);
+        playerInfo = Global.Component.GetPlayerInfo();
     }
 
     public void OnPullOutClick(bool isId) 
@@ -105,8 +106,8 @@ public class EWFormCheckerController : EWBase, IEWInit
             savedItems.Remove(form);
             formText.text = formNotPresent;
 
-            // без потерь полей
-            //form.itemOptionData.text = formData;
+            //Debug.Log(formData);
+
             Item formClone = Instantiate(form);
             formClone.itemOptionData.text = formData;
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
@@ -119,7 +120,7 @@ public class EWFormCheckerController : EWBase, IEWInit
     {
         if (savedItems.Contains(form) && savedItems.Contains(id))
         {
-            Debug.Log(form.itemOptionData.text);
+            statusText.text = CheckForm();
         }
         else if (savedItems.Contains(form) && !savedItems.Contains(id))
         {
@@ -139,5 +140,67 @@ public class EWFormCheckerController : EWBase, IEWInit
     {
         idText.text = (savedItems.Contains(id)) ? idPresent : idNotPresent;
         formText.text = (savedItems.Contains(form)) ? formPresent : formNotPresent;
+    }
+
+    string CheckForm() 
+    {
+        List<string> lines = formData.Split('\n').ToList();
+        string[] fullName = lines[1].Split('_');
+
+
+
+        string ssNumber = lines[0].Split('_')[0];
+        string playerName = lines[1].Split('_')[0];
+        string age = lines[2].Split('_')[0];
+        string id = lines[3].Split('_')[0];
+        string sign = lines[4].Split('_')[0];
+        string race = lines[5].Split('_')[0];
+        string planet = lines[6].Split('_')[0];
+        string ocupation = lines[7].Split('_')[0];
+
+        if (ssNumber != "213") 
+        {
+            return "space station #" + ssNumber + " invalid";
+        }
+
+        if (playerName.ToLower() != playerInfo.playerName.ToLower()) 
+        {
+            Debug.Log(playerName.ToLower());
+            Debug.Log(playerInfo.playerName.ToLower());
+            return "incorrect name";
+        }
+
+        if (id != playerInfo.ID) 
+        {
+            return "incorrect ID";
+        }
+
+        // TODO
+        if (age != "23") 
+        {
+            return "incorrect age";
+        }
+
+        if (race.ToLower() != "human") 
+        {
+            return "incorrect race";
+        }
+
+        if (planet.ToLower() != playerInfo.planetOfOrigin)
+        {
+            return "incorrect planet";
+        }
+
+        if (ocupation.ToLower() != "service") 
+        {
+            return "no free ocupation";
+        }
+
+        if (sign.ToLower() != playerInfo.signature)
+        {
+            return "no free signature";
+        }
+
+        return "ok";
     }
 }

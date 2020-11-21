@@ -11,7 +11,7 @@ public class NPC_DATA_waitTillPlayerReachPos : NPC_BaseData
     public Transform point;
     
     [SerializeField]
-    Diraction diraction;
+    Diraction diraction = Diraction.X;
 
     [SerializeField]
     public Sign sign;
