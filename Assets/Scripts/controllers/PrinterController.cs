@@ -40,7 +40,7 @@ public class PrinterController : MonoBehaviour
 
     public IEnumerator Print() 
     {
-        Tilemap tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
+        Tilemap tilemap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
         Vector3Int cell = tilemap.WorldToCell(transform.position);
 
         caseItem.items.Remove(paper);

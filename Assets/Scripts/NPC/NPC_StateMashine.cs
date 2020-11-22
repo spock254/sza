@@ -6,6 +6,7 @@ using System;
 public enum StateTypes 
 {
     NPC_STATE_clickWaiting,
+    NPC_STATE_dialogue,
     NPC_STATE_itemRequier,
     NPC_STATE_thinking,
     NPC_STATE_tableItemCheck,
