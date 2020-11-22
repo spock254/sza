@@ -9,8 +9,7 @@ public class BaseActionWindowConntroller : MonoBehaviour
     GameObject envWindow;
     GameObject window = null;
 
-    [HideInInspector]
-    public List<Item> savedItems = new List<Item>();
+    public List<Item> savedItems;
 
     protected void Init()
     {
