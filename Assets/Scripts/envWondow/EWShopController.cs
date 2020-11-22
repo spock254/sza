@@ -15,6 +15,7 @@ public class EWShopController : EWBase, IEWInit
     public Transform itemViewer;
     public Text status;
     public Text balance;
+    public Text emtyShop;
 
     Dictionary<Item, int> itemsInShop = new Dictionary<Item, int>();
     AccauntController accauntController;
@@ -26,6 +27,15 @@ public class EWShopController : EWBase, IEWInit
 
         accauntController = Global.Component.GetAccauntController();
         savedItems = envObj.GetComponent<VendingController>().savedItems;
+
+        if (savedItems.Count == 0) 
+        {
+            emtyShop.gameObject.SetActive(true);
+            emtyShop.text = SetTextColor("Shop is empty", TextColor.Red);
+            return;
+        }
+
+        emtyShop.gameObject.SetActive(false);
 
         FillItemsInShop();
 
