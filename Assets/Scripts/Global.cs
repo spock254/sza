@@ -9,7 +9,7 @@ public static class Global
     public const string DROPED_ITEM_PREFIX = "item_";
     public const string REPLACE_CHAR = "|";
     public const string UNPICKABLE_ITEM = "unpick_";
-
+    public const string MONEY_SIGN = "$";
 
     public static class Item 
     {
