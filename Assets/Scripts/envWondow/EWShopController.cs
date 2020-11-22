@@ -8,13 +8,25 @@ public class EWShopController : EWBase, IEWInit
     public GameObject itemContentPref;
     public Transform itemList;
 
-    List<Item> savedItems;
+    Dictionary<Item, int> itemsInShop = new Dictionary<Item, int>();
 
     public void Init(GameObject window, GameObject envObj)
     {
         BaseInit(window, envObj);
 
-        savedItems = envObj.GetComponent<VendingController>().savedItems;
+        List<Item> savedItems = envObj.GetComponent<VendingController>().savedItems;
+
+        foreach (var item in savedItems)
+        {
+            if (itemsInShop.ContainsKey(item))
+            {
+                itemsInShop[item]++;
+            }
+            else 
+            {
+                itemsInShop.Add(item, 1);
+            }
+        }
 
         FillItemList();
     }
@@ -46,21 +58,28 @@ public class EWShopController : EWBase, IEWInit
 
     void FillItemList() 
     {
-        for (int i = 0; i < savedItems.Count; i++)
+        int index = 0;
+        foreach (var itemPair in itemsInShop)
         {
-            // копирую и засовываю в контейнер
             GameObject itemContentCpy = Instantiate(itemContentPref, itemList);
+            FillItemContent(itemContentCpy, itemPair.Key, itemPair.Value, index);
             
-            FillItemContent(itemContentCpy, savedItems[i], i);
-            
-            //itemContentCpy.gameObject.transform.SetParent(itemList.transform);
-            //itemContentCpy.transform.SetAsLastSibling();
+            index++;
         }
+        //for (int i = 0; i < itemsInShop.Count; i++)
+        //{
+        //    // копирую и засовываю в контейнер
+        //    GameObject itemContentCpy = Instantiate(itemContentPref, itemList);
+            
+        //    FillItemContent(itemContentCpy, itemsInShop, itemsInShop[i], i);
+            
+        //    //itemContentCpy.gameObject.transform.SetParent(itemList.transform);
+        //    //itemContentCpy.transform.SetAsLastSibling();
+        //}
     }
 
-    void FillItemContent(GameObject itemContentCpy, Item item, int index) 
+    void FillItemContent(GameObject itemContentCpy, Item item, int itemsCount, int index) 
     {
-        //GameObject itemContentCpy = Instantiate(itemContentPref);
         // image
         itemContentCpy.transform.GetChild(0).GetComponent<Image>().sprite = item.itemSprite;
         // item name
@@ -68,7 +87,7 @@ public class EWShopController : EWBase, IEWInit
         // item price
         itemContentCpy.transform.GetChild(2).GetComponent<Text>().text = item.itemPrice.ToString();
         // item count
-        itemContentCpy.transform.GetChild(3).GetComponent<Text>().text = "TODO";
+        itemContentCpy.transform.GetChild(3).GetComponent<Text>().text = itemsCount.ToString();
         // button
         itemContentCpy.transform.GetChild(4).GetComponent<Button>()
             .onClick.AddListener(() => ClickOnChoose(index));
