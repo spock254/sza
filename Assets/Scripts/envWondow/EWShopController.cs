@@ -21,6 +21,11 @@ public class EWShopController : EWBase, IEWInit
     AccauntController accauntController;
     Item itemToPay = null;
     List<Item> savedItems;
+
+    const string emptyShopStr = "Shop is empty";
+    const string noMoney = "Not enough money";
+    const string readyToPay = "Ready to pay?";
+
     public void Init(GameObject window, GameObject envObj)
     {
         BaseInit(window, envObj);
@@ -31,7 +36,7 @@ public class EWShopController : EWBase, IEWInit
         if (savedItems.Count == 0) 
         {
             emtyShop.gameObject.SetActive(true);
-            emtyShop.text = SetTextColor("Shop is empty", TextColor.Red);
+            emtyShop.text = SetTextColor(emptyShopStr, TextColor.Red);
             return;
         }
 
@@ -65,7 +70,7 @@ public class EWShopController : EWBase, IEWInit
                     if (isItemViewrActive() && card.IsSameItems(controller.GetItemInHand(controller.currentHand))) 
                     {
                         balance.text = accauntController.GetAccautBalance().ToString() + " " + Global.MONEY_SIGN;
-                        status.text = SetTextColor("Ready to pay?", TextColor.Green);
+                        status.text = SetTextColor(readyToPay, TextColor.Green);
                         payBtn.gameObject.SetActive(true);
                     }
                 }
@@ -98,7 +103,6 @@ public class EWShopController : EWBase, IEWInit
         {
             GameObject itemContentCpy = Instantiate(itemContentPref, itemList);
             FillItemContent(itemContentCpy, itemPair.Key, itemPair.Value);
-            
         }
     }
 
@@ -109,7 +113,7 @@ public class EWShopController : EWBase, IEWInit
         // item name
         itemContentCpy.transform.GetChild(1).GetComponent<Text>().text = item.itemName;
         // item price
-        itemContentCpy.transform.GetChild(2).GetComponent<Text>().text = item.itemPrice.ToString();
+        itemContentCpy.transform.GetChild(2).GetComponent<Text>().text = item.itemPrice.ToString() + Global.MONEY_SIGN;
         // item count
         itemContentCpy.transform.GetChild(3).GetComponent<Text>().text = itemsCount.ToString();
         // button
@@ -124,7 +128,7 @@ public class EWShopController : EWBase, IEWInit
 
         itemViewer.GetChild(1).GetComponent<Text>().text = choosedItem.itemName;
         itemViewer.GetChild(2).GetComponent<Image>().sprite = choosedItem.itemSprite;
-        itemViewer.GetChild(3).GetComponent<Text>().text = choosedItem.itemPrice.ToString();
+        itemViewer.GetChild(3).GetComponent<Text>().text = choosedItem.itemPrice.ToString() + Global.MONEY_SIGN;
 
     }
 
@@ -132,6 +136,8 @@ public class EWShopController : EWBase, IEWInit
     {
         contentViewer.gameObject.SetActive(false);
         itemViewer.gameObject.SetActive(true);
+        status.text = string.Empty;
+        balance.text = string.Empty;
     }
 
     void MoveToContentViewer() 
@@ -139,6 +145,12 @@ public class EWShopController : EWBase, IEWInit
         itemViewer.gameObject.SetActive(false);
         contentViewer.gameObject.SetActive(true);
         payBtn.gameObject.SetActive(false);
+
+        if (savedItems.Count == 0)
+        {
+            emtyShop.gameObject.SetActive(true);
+            emtyShop.text = SetTextColor(emptyShopStr, TextColor.Red);
+        }
     }
 
     bool isItemViewrActive() 
@@ -152,14 +164,11 @@ public class EWShopController : EWBase, IEWInit
         {
             accauntController.Remove(itemToPay.itemPrice);
             savedItems.Remove(itemToPay);
-            //RemoveShopItem(itemToPay);
 
             Item itemToPayClone = Instantiate(itemToPay);
             prefToSpawn.GetComponent<ItemCell>().item = itemToPayClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
-
-            MoveToContentViewer();
 
             CleanItemsInShop();
             FillItemsInShop();
@@ -167,11 +176,13 @@ public class EWShopController : EWBase, IEWInit
             CleanItemList();
             FillItemList();
 
+            MoveToContentViewer();
+
             itemToPay = null;
         }
         else 
         {
-            status.text = SetTextColor("not enough money", TextColor.Red);
+            status.text = SetTextColor(noMoney, TextColor.Red);
         }
     }
 
@@ -180,18 +191,6 @@ public class EWShopController : EWBase, IEWInit
         foreach (Transform child in itemList.transform)
         {
             GameObject.Destroy(child.gameObject);
-        }
-    }
-
-    void RemoveShopItem(Item item) 
-    {
-        if (itemsInShop[item] > 1)
-        {
-            itemsInShop[item]--;
-        }
-        else 
-        {
-            itemsInShop.Remove(item);
         }
     }
 }

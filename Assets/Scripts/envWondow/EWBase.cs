@@ -17,6 +17,7 @@ public class EWBase : MonoBehaviour
     protected Vector2 vendorPosition;
     protected Transform player = null;
 
+    CameraFollow cameraFollow;
     protected void BaseInit(GameObject window, GameObject envObj) 
     {
         controller = Global.Component.GetController();
@@ -25,6 +26,10 @@ public class EWBase : MonoBehaviour
         this.window = window;
         vendorPosition = envObj.transform.position;
         actioPlayerRadius = controller.GetActioPlayerRadius();
+
+        cameraFollow = Global.Component.GetCameraFollow();
+        cameraFollow.SetCameraTarger(envObj.gameObject);
+        cameraFollow.ZoomCamera(false, 0.01f, 4.5f);
     }
 
     protected bool IsPlayerInEWindowRadius() 
@@ -34,6 +39,8 @@ public class EWBase : MonoBehaviour
 
     public void Close()
     {
+        cameraFollow.SetCameraTarger(player.gameObject);
+        cameraFollow.ZoomCamera(true, 0.01f);
         Destroy(this.window);
     }
 
@@ -50,5 +57,4 @@ public class EWBase : MonoBehaviour
 
         return text;
     }
-
 }

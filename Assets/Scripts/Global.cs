@@ -123,6 +123,11 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("questSystem").GetComponent<QuestSystem>();
         }
+
+        public static CameraFollow GetCameraFollow() 
+        {
+            return GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        }
     }
 
     public static class UIElement 

@@ -12,6 +12,8 @@ public class CameraFollow : MonoBehaviour
 
 	private Camera cam = null;
 
+	const float CAM_VIEW_SIZE = 5;
+
 	void Start()
 	{
 		cameraZ = transform.position.z;
@@ -27,5 +29,42 @@ public class CameraFollow : MonoBehaviour
 			destination.z = cameraZ;
 			transform.position = Vector3.SmoothDamp(transform.position, destination, ref velocity, dampTime);
 		}
+	}
+
+	public void SetCameraTarger(GameObject target)
+	{
+		followTarget = target;
+	}
+
+	public void ZoomCamera(bool isZoomOut, float zoomStep, float maxZoom = CAM_VIEW_SIZE) 
+	{
+		if (isZoomOut == false)
+		{
+			StartCoroutine(ZoomIn(maxZoom, zoomStep));
+		}
+		else 
+		{
+			StartCoroutine(ZoomOut(maxZoom, zoomStep));
+		}
+	}
+
+	IEnumerator ZoomIn(float maxZoom, float zoomStep) 
+	{
+		while (cam.orthographicSize > maxZoom) 
+		{
+			cam.orthographicSize -= zoomStep;
+			yield return new WaitForSeconds(0.01f);
+		}
+		//cam.orthographicSize = maxZoom;
+	}
+
+	IEnumerator ZoomOut(float maxZoom, float zoomStep)
+	{
+		while (cam.orthographicSize < maxZoom)
+		{
+			cam.orthographicSize += zoomStep;
+			yield return new WaitForSeconds(0.01f);
+		}
+		cam.orthographicSize = maxZoom;
 	}
 }
