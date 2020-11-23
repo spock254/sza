@@ -5,17 +5,23 @@ using UnityEngine.Tilemaps;
 
 public static class Global
 {
-    public static int MAX_LVL = 100;
+    public const int MAX_LVL = 100;
     public const string DROPED_ITEM_PREFIX = "item_";
     public const string REPLACE_CHAR = "|";
     public const string UNPICKABLE_ITEM = "unpick_";
     public const string MONEY_SIGN = "$";
 
+    public static class Timeflow 
+    {
+        public const int MAX_TICS = 60;
+        public const int MAX_HOURS = 24;
+    }
+
     public static class Item 
     {
-        public static int BIG_SIZE = 5;
-        public static int MIDDLE_SIZE = 3;
-        public static int SMALL_SIZE = 1;
+        public const int BIG_SIZE = 5;
+        public const int MIDDLE_SIZE = 3;
+        public const int SMALL_SIZE = 1;
     }
 
     public static class Path

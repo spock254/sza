@@ -29,7 +29,7 @@ public class EWBase : MonoBehaviour
 
         cameraFollow = Global.Component.GetCameraFollow();
         cameraFollow.SetCameraTarger(envObj.gameObject);
-        cameraFollow.ZoomCamera(false, 0.01f, 4.5f);
+        cameraFollow.ZoomCamera(false, 0.01f, 4.7f);
     }
 
     protected bool IsPlayerInEWindowRadius() 
