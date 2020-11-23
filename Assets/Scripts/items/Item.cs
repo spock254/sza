@@ -17,6 +17,7 @@ public class Item : ScriptableObject
     public ItemStats stats;
     public ItemFightStats ItemFightStats;
     public ItemUseData itemUseData;
+    public ItemAnimationData itemAnimationData;
     public ItemOptionData itemOptionData;
     //public ItemCraftData itemCraftData;
 
@@ -139,5 +140,4 @@ public class Item : ScriptableObject
             && this.itemDescription == item.itemDescription
             && this.itemPrice == item.itemPrice;
     }
-
 }

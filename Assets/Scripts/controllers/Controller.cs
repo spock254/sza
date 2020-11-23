@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Controller : MonoBehaviour //, IPointerClickHandler
 {
@@ -40,6 +41,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell10;
 
     public List<Button> bagCellList = new List<Button>();
+    public List<Button> cellList = new List<Button>();
 
     public GameObject bag_panel;
     
@@ -80,6 +82,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         // отресовка всех одетых вещей
         UpdateAllEqupment();
 
+        SetBagCellList();
+        SetSellList();
+
+        StartCoroutine(AnimateCells(bagCellList.Concat(cellList).ToList()));
+    }
+
+    void SetBagCellList() 
+    {
         bagCellList.Add(bagCell1);
         bagCellList.Add(bagCell2);
         bagCellList.Add(bagCell3);
@@ -91,7 +101,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCellList.Add(bagCell9);
         bagCellList.Add(bagCell10);
     }
-
+    void SetSellList() 
+    {
+        cellList.Add(head_btn);
+        cellList.Add(face_btn);
+        cellList.Add(body_btn);
+        cellList.Add(arm_btn);
+        cellList.Add(lags_btn);
+        cellList.Add(bag_btn);
+        cellList.Add(left_hand_btn);
+        cellList.Add(right_hand_btn);
+        cellList.Add(left_pack_btn);
+        cellList.Add(right_pack_btn);
+        cellList.Add(card_btn);
+    }
     void SetHandColor() 
     {
         currentHand.GetComponent<Image>().color = Color.green;
@@ -615,6 +638,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     {
         cellToDress.GetComponent<ItemCell>().item = item;
         cellToDress.GetComponent<Image>().sprite = item.itemSprite;
+
+        //AnimateItem(cellToDress, item);
     }
 
     void UpdateAllEqupment() 
@@ -793,4 +818,66 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     {
         return actioPlayerRadius;
     }
+
+    IEnumerator AnimateCells(List<Button> cells) 
+    {
+        while (true) 
+        {
+
+            for (int i = 0; i < cells.Count; i++)
+            {
+                Item itemToAnimate = cells[i].GetComponent<ItemCell>().item;
+                Image cellImg = cells[i].GetComponent<Image>();
+
+                if (itemToAnimate.itemAnimationData.itemSpriteFrames.Count == 0) 
+                {
+                    cellImg.sprite = itemToAnimate.itemSprite;
+                }
+                else 
+                {
+                    cellImg.sprite = itemToAnimate.itemAnimationData.GetNextFrameSprite();
+                }
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    //#region ItemAnimation
+    //void AnimateItem(Button cell, Item itemToAnimate) 
+    //{
+    //    if (itemToAnimate.itemAnimationData.itemSpriteFrames.Count > 0)
+    //    {
+    //        StartCoroutine(RunItemAnim(cell, itemToAnimate));
+    //    }
+    //}
+
+    IEnumerator RunItemAnim(Button cell, Item itemToAnimate)
+    {
+        int frameIndex = 0;
+        int frameCount = itemToAnimate.itemAnimationData.itemSpriteFrames.Count;
+
+        List<Sprite> frames = itemToAnimate.itemAnimationData.itemSpriteFrames;
+        Image cellImg = cell.GetComponent<Image>();
+
+        while (true)
+        {
+            //if (cell.GetComponent<ItemCell>().item.IsSameItems(itemToAnimate) == false) 
+            //{
+            //    StopCoroutine(RunItemAnim(cell, itemToAnimate));
+            //}
+
+            if (frameIndex == frameCount)
+            {
+                frameIndex = 0;
+            }
+
+
+            cellImg.sprite = frames[frameIndex];
+            frameIndex++;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    //#endregion
 }
