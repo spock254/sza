@@ -154,7 +154,7 @@ public class CraftController : MonoBehaviour
         
         foreach (var cd in itemCraftData)
         {
-            if (cd.recept.craftTool.Contains(tool))
+            if (cd.recept.craftTool.Find(c => c.IsSameItems(tool)))
             {
                 sameTool.Add(cd);
             }

@@ -509,8 +509,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public void ItemPickUp(GameObject itemGo) 
     {
         Item item = itemGo.GetComponent<ItemCell>().item;
-
-        DressCell(currentHand, item);
+        
+        DressCell(currentHand, Instantiate(item));
 
         Destroy(itemGo);
     }
@@ -552,57 +552,57 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     {
         if (itemInInventoryInit.head != null) 
         {
-            DressCell(head_btn, itemInInventoryInit.head);
+            DressCell(head_btn, Instantiate(itemInInventoryInit.head));
         }
 
         if (itemInInventoryInit.arm != null)
         {
-            DressCell(arm_btn, itemInInventoryInit.arm);
+            DressCell(arm_btn, Instantiate(itemInInventoryInit.arm));
         }
 
         if (itemInInventoryInit.face != null)
         {
-            DressCell(face_btn, itemInInventoryInit.face);
+            DressCell(face_btn, Instantiate(itemInInventoryInit.face));
         }
 
         if (itemInInventoryInit.lags != null)
         {
-            DressCell(lags_btn, itemInInventoryInit.lags);
+            DressCell(lags_btn, Instantiate(itemInInventoryInit.lags));
         }
 
         if (itemInInventoryInit.bag != null)
         {
-            DressCell(bag_btn, itemInInventoryInit.bag);
+            DressCell(bag_btn, Instantiate(itemInInventoryInit.bag));
         }
 
         if (itemInInventoryInit.body != null)
         {
-            DressCell(body_btn, itemInInventoryInit.body);
+            DressCell(body_btn, Instantiate(itemInInventoryInit.body));
         }
 
         if (itemInInventoryInit.left_hand != null)
         {
-            DressCell(left_hand_btn, itemInInventoryInit.left_hand);
+            DressCell(left_hand_btn, Instantiate(itemInInventoryInit.left_hand));
         }
 
         if (itemInInventoryInit.right_hand != null)
         {
-            DressCell(right_hand_btn, itemInInventoryInit.right_hand);
+            DressCell(right_hand_btn, Instantiate(itemInInventoryInit.right_hand));
         }
 
         if (itemInInventoryInit.left_pack != null)
         {
-            DressCell(left_pack_btn, itemInInventoryInit.left_pack);
+            DressCell(left_pack_btn, Instantiate(itemInInventoryInit.left_pack));
         }
 
         if (itemInInventoryInit.right_pack != null)
         {
-            DressCell(right_pack_btn, itemInInventoryInit.right_pack);
+            DressCell(right_pack_btn, Instantiate(itemInInventoryInit.right_pack));
         }
 
         if (itemInInventoryInit.card != null)
         {
-            DressCell(card_btn, itemInInventoryInit.card);
+            DressCell(card_btn, Instantiate(itemInInventoryInit.card));
         }
     }
 

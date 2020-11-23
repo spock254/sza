@@ -22,6 +22,8 @@ public class TimeController : MonoBehaviour
         {
 
             tics++;
+            eventController.OnNewTicEvent.Invoke();
+
             yield return new WaitForSeconds(1f);
             
             if (tics == Global.Timeflow.MAX_TICS) 
@@ -38,11 +40,6 @@ public class TimeController : MonoBehaviour
 
             //Debug.Log("Hour " + hour + " tic " + tics);
         }
-    }
-
-    public bool Wait() 
-    {
-        return false;
     }
 
     public int GetTic() 
