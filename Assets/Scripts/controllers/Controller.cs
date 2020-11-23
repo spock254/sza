@@ -15,7 +15,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public InventoryInit inventoryInit;
     public ItemInInventoryInit itemInInventoryInit;
 
-    [Header("Buttons")]
+    [Header("Eq cells")]
     public Button head_btn;
     public Button face_btn;
     public Button body_btn;
@@ -40,7 +40,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button bagCell9;
     public Button bagCell10;
 
+    [Header("Inv cells")]
+    public Button invCell1;
+    public Button invCell2;
+    public Button invCell3;
+    public Button invCell4;
+    public Button invCell5;
+    public Button invCell6;
+    public Button invCell7;
+    public Button invCell8;
+    public Button invCell9;
+    public Button invCell10;
+
     public List<Button> bagCellList = new List<Button>();
+    public List<Button> invCellList = new List<Button>();
     public List<Button> cellList = new List<Button>();
 
     public GameObject bag_panel;
@@ -84,8 +97,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         SetBagCellList();
         SetSellList();
+        SetInvCellList();
 
-        StartCoroutine(AnimateCells(bagCellList.Concat(cellList).ToList()));
+        StartCoroutine(AnimateCells(bagCellList
+            .Concat(cellList)
+            .Concat(invCellList)
+            .ToList()));
     }
 
     void SetBagCellList() 
@@ -100,6 +117,20 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCellList.Add(bagCell8);
         bagCellList.Add(bagCell9);
         bagCellList.Add(bagCell10);
+    }
+
+    void SetInvCellList()
+    {
+        invCellList.Add(invCell1);
+        invCellList.Add(invCell2);
+        invCellList.Add(invCell3);
+        invCellList.Add(invCell4);
+        invCellList.Add(invCell5);
+        invCellList.Add(invCell6);
+        invCellList.Add(invCell7);
+        invCellList.Add(invCell8);
+        invCellList.Add(invCell9);
+        invCellList.Add(invCell10);
     }
     void SetSellList() 
     {
@@ -829,6 +860,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 Item itemToAnimate = cells[i].GetComponent<ItemCell>().item;
                 Image cellImg = cells[i].GetComponent<Image>();
 
+                if (itemToAnimate == null) 
+                {
+                    continue;
+                }
+
                 if (itemToAnimate.itemAnimationData.itemSpriteFrames.Count == 0) 
                 {
                     cellImg.sprite = itemToAnimate.itemSprite;
@@ -839,7 +875,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 }
             }
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
     }
 
