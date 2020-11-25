@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class MobUse : IUse
 {
-    public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
+    public void Use_DressedUp(Button cellToDress, Item item)
     {
         
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UseArm : UseMassage, IUse
 {
-    public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
+    public void Use_DressedUp(Button cellToDress, Item item)
     {
         
     }

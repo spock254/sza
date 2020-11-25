@@ -33,25 +33,6 @@ public class ItemCell : MonoBehaviour
     {
         while (true) 
         {
-
-            //Image cellImg = cells[i].GetComponent<Image>();
-
-            //if (item.itemAnimationData.itemSpriteFrames.Count == 0)
-            //{
-            //    continue;
-            //    //Image cellImg = GetComponent<Image>();
-                
-            //    //if (cellImg != null) 
-            //    //{ 
-            //    //    cellImg.sprite = item.itemSprite;
-            //    //}
-            //    //else 
-            //    //{
-            //    //    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            //    //    spriteRenderer.sprite = item.itemSprite;
-            //    //}
-                
-            //}
             if (item != null && item.itemAnimationData.itemSpriteFrames.Count > 0)
             {
                 Sprite itemFrame = item.itemAnimationData.GetNextFrameSprite();
@@ -67,7 +48,6 @@ public class ItemCell : MonoBehaviour
                 }
             }
             
-
             yield return new WaitForSeconds(0.3f);
         }
     }

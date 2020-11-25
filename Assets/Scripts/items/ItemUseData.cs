@@ -12,6 +12,8 @@ public class ItemUseData
     public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, Packet_left, Packet_right,
                            Unwearable, Untakable, Dragable, HandUsable, HandCraftable, Openable, Upgrate, Upgradable, NONE }
 
+    //public enum ItemPosition { Outside, InCell, Head, Face, Body, Arm, Lags, Card, Packets, Hands, None }
+
     public ItemSize itemSize;
 
     //[SerializeReference]
@@ -26,12 +28,11 @@ public class ItemUseData
     [SerializeReference]
     public ItemType[] itemTypes;
 
-    public override string ToString()
-    {
-        return "\n\t\titemSize " + itemSize.ToString()+
-               "\n\t\t use" + ((use == null) ? " - " : use.ToString()) +
-               "\n\t\t itemTypes" + ((itemTypes == null) ? " - " : itemTypes.ToString());
-    }
+    //[HideInInspector]
+    //public ItemPosition itemPosition;
+
+    //[SerializeField]
+    //public ItemPosition[] effectsWorksOn;
 
     public ItemUseData(ItemSize itemSize, IUse use, ItemType[] itemTypes)
     {
@@ -44,5 +45,11 @@ public class ItemUseData
     {
         this.use = use;
         this.itemTypes = new ItemType[] { ItemType.NONE };
+    }
+    public override string ToString()
+    {
+        return "\n\t\titemSize " + itemSize.ToString()+
+               "\n\t\t use" + ((use == null) ? " - " : use.ToString()) +
+               "\n\t\t itemTypes" + ((itemTypes == null) ? " - " : itemTypes.ToString());
     }
 }

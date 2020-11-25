@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class EquipmentUse : UseMassage, IUse
 {
-    public void Use_DressedUp(FightStats fightStats, Stats stats, Item item)
+    public void Use_DressedUp(Button cellToDress, Item item)
     {
         
+        //Debug.Log(item.name);
+        //Debug.Log(cellToDress.gameObject.tag);
+        //Debug.Log(cellToDress.gameObject.name);
     }
 
     public void Use_In_Hands(Stats stats, Item item)
     {
+       // Debug.Log("Use In Habds" + item.itemName);
         
     }
 
@@ -27,7 +31,11 @@ public class EquipmentUse : UseMassage, IUse
 
     public void Use_To_Drop(Transform prefab, Transform position, Item item)
     {
-        
+        //Debug.Log("Drop");
+        //if (item.itemEffect != null) 
+        //{
+        //    item.itemEffect.transform.position = position.position;
+        //}
     }
 
     public void Use_To_Open(Stats stats, Item item)
@@ -43,7 +51,7 @@ public class EquipmentUse : UseMassage, IUse
 
     public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
     {
-        Debug.Log(item.ToString());
+        //Debug.Log(item.ToString());
 
         fightStats.Attack += item.ItemFightStats.Attack;
         fightStats.Defence += item.ItemFightStats.Defence;
@@ -51,6 +59,6 @@ public class EquipmentUse : UseMassage, IUse
 
     public void Use_When_Ware(FightStats fightStats, Stats stats, Item item)
     {
-        
+        //Debug.Log("WARERERE " + item.itemName);
     }
 }

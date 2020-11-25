@@ -20,15 +20,15 @@ public class Item : ScriptableObject
     public ItemAnimationData itemAnimationData;
     public ItemTimeflowModify itemTimeflowModify;
     public ItemOptionData itemOptionData;
-    //public ItemCraftData itemCraftData;
 
     public int capacity;
     [SerializeReference]
     public List<Item> innerItems;
-    //public int transformationTime;
+
     public bool isDestroyOnPlayerUse;
-    //[HideInInspector]
-    //EventController eventController;
+    
+
+    public GameObject itemEffect;
     public override string ToString()
     {
         return "id " + id.ToString() +
