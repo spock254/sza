@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class TimeflowModifyController : MonoBehaviour
 {
@@ -19,25 +20,34 @@ public class TimeflowModifyController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
     //    eventController.OnNewTicEvent.AddListener(FindMutableItems);
-        eventController.OnNewTicEvent.AddListener(ModifyItems);
+        //eventController.OnNewTicEvent.AddListener(ModifyItems);
 
     }
-    List<Item> mutableItems = new List<Item>();
     
     void ModifyItems() 
     {
-        Item item = controller.GetItemInHand(controller.currentHand);
-        
-        if (item.itemTimeflowModify.IsTimeFlowModifiable() && item.itemTimeflowModify.tics == 0) 
-        {
-            item = Instantiate(item.itemTimeflowModify.modifiedItem);
-            //item = Object.Instantiate(item.itemTimeflowModify.modifiedItem) as Item;
+        List<Button> mutableItems = new List<Button>();
+        mutableItems.Concat(controller.bagCellList)
+                    .Concat(controller.cellList)
+                    .Concat(controller.invCellList);
 
-            controller.currentHand.GetComponent<ItemCell>().item = item;
-            controller.currentHand.GetComponent<Image>().sprite = item.itemSprite;
-            return;
+        foreach (var cell in mutableItems)
+        {
+            Item item = cell.GetComponent<ItemCell>().item;
+        
+            if (item.itemTimeflowModify.IsTimeFlowModifiable() && item.itemTimeflowModify.tics == 0) 
+            {
+                item = Instantiate(item.itemTimeflowModify.modifiedItem);
+                //item = Object.Instantiate(item.itemTimeflowModify.modifiedItem) as Item;
+
+                controller.currentHand.GetComponent<ItemCell>().item = item;
+                controller.currentHand.GetComponent<Image>().sprite = item.itemSprite;
+                return;
+            }
+
+            item.itemTimeflowModify.tics--;
+
         }
 
-        item.itemTimeflowModify.tics--;
     }
 }
