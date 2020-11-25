@@ -8,15 +8,4 @@ public class ItemTimeflowModify
     {
         return modifiedItem != null;
     }
-
-    //public void OnTicCountAndModif() 
-    //{
-    //    if (tics == 0) 
-    //    { 
-    //        // заменть
-    //        // отписатся
-    //    }
-
-    //    tics--;
-    //}
 }

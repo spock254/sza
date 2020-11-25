@@ -7,10 +7,12 @@ public class EquipmentUse : UseMassage, IUse
 {
     public void Use_DressedUp(Button cellToDress, Item item)
     {
-        
-        //Debug.Log(item.name);
-        //Debug.Log(cellToDress.gameObject.tag);
-        //Debug.Log(cellToDress.gameObject.name);
+        //if (item.itemEffect.effect != null) 
+        //{
+        //    GameObject effectList = Global.Obj.GetEffectListObject();
+        //    GameObject effect = item.InstEffect(effectList.transform);
+        //    effect.transform.position = effectList.transform.position;
+        //}
     }
 
     public void Use_In_Hands(Stats stats, Item item)

@@ -165,5 +165,9 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("player");
         }
+        public static GameObject GetEffectListObject() 
+        {
+            return GetPlayerGameObject().transform.Find("effectList").gameObject;
+        }
     }
 }

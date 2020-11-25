@@ -666,6 +666,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         cellToDress.GetComponent<ItemCell>().item = item;
         cellToDress.GetComponent<Image>().sprite = item.itemSprite;
         item.itemUseData.use.Use_DressedUp(cellToDress, item);
+        item.itemEffect.currentCell = cellToDress;
         //AnimateItem(cellToDress, item);
     }
 

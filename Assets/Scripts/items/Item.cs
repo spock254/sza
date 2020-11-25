@@ -19,6 +19,7 @@ public class Item : ScriptableObject
     public ItemUseData itemUseData;
     public ItemAnimationData itemAnimationData;
     public ItemTimeflowModify itemTimeflowModify;
+    public ItemEffect itemEffect;
     public ItemOptionData itemOptionData;
 
     public int capacity;
@@ -26,9 +27,7 @@ public class Item : ScriptableObject
     public List<Item> innerItems;
 
     public bool isDestroyOnPlayerUse;
-    
 
-    public GameObject itemEffect;
     public override string ToString()
     {
         return "id " + id.ToString() +
@@ -166,5 +165,10 @@ public class Item : ScriptableObject
             && this.itemName == item.itemName
             && this.itemDescription == item.itemDescription
             && this.itemPrice == item.itemPrice;
+    }
+
+    public GameObject InstEffect(Transform parent) 
+    { 
+        return Instantiate(itemEffect.effect, parent);
     }
 }

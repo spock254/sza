@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class ItemCell : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class ItemCell : MonoBehaviour
         }
 
         StartCoroutine(ItemAnimate());
+        StartCoroutine(UpdateEffect());
         StartCoroutine(LateStart(1));
     }
 
@@ -74,13 +76,29 @@ public class ItemCell : MonoBehaviour
             }
 
             item = modItem;
-            //item = Object.Instantiate(item.itemTimeflowModify.modifiedItem) as Item;
-
-            //controller.currentHand.GetComponent<ItemCell>().item = item;
-            //controller.currentHand.GetComponent<Image>().sprite = item.itemSprite;
             return;
         }
 
         item.itemTimeflowModify.tics--;
+    }
+
+    IEnumerator UpdateEffect() 
+    {
+        GameObject effectList = Global.Obj.GetEffectListObject();
+        
+        while (true) 
+        {
+            if (item.itemEffect.effect != null && item.itemEffect.effectCells.Contains(item.itemEffect.currentCell)) 
+            { 
+                if (!effectList.transform.Find(item.itemEffect.effect.name)) 
+                {
+                    GameObject newEffect = Instantiate(item.itemEffect.effect, effectList.transform);
+                    newEffect.transform.position = effectList.transform.position;
+                }
+            
+            }
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
