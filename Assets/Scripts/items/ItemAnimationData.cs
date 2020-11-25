@@ -9,14 +9,8 @@ public class ItemAnimationData
     int frameIndex = 0;
     public Sprite GetNextFrameSprite() 
     {
-        frameIndex++; // increment index
-        frameIndex %= itemSpriteFrames.Count; // clip index (turns to 0 if index == items.Count)
-        //if (frameIndex == itemSpriteFrames.Count) 
-        //{
-        //    frameIndex = -1;
-        //}
-
-        //frameIndex++;
+        frameIndex++; 
+        frameIndex %= itemSpriteFrames.Count;
 
         return itemSpriteFrames[frameIndex];
     }

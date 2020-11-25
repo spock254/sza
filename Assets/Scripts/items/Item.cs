@@ -18,6 +18,7 @@ public class Item : ScriptableObject
     public ItemFightStats ItemFightStats;
     public ItemUseData itemUseData;
     public ItemAnimationData itemAnimationData;
+    public ItemTimeflowModify itemTimeflowModify;
     public ItemOptionData itemOptionData;
     //public ItemCraftData itemCraftData;
 
@@ -26,6 +27,8 @@ public class Item : ScriptableObject
     public List<Item> innerItems;
     //public int transformationTime;
     public bool isDestroyOnPlayerUse;
+    //[HideInInspector]
+    //EventController eventController;
     public override string ToString()
     {
         return "id " + id.ToString() +
@@ -85,6 +88,25 @@ public class Item : ScriptableObject
 
     #endregion
 
+    void OnEnable()
+    {
+        //if (eventController == null) 
+        //{ 
+        //    eventController = Global.Component.GetEventController();
+        //}
+
+        //eventController.OnNewTicEvent.AddListener(this.itemTimeflowModify.OnTicCountAndModif);
+        //if (innerItems.Count > 0)
+        //{
+        //    for (int i = 0; i < innerItems.Count; i++)
+        //    {
+        //        innerItems[i] = Instantiate(innerItems[i]);
+        //    }
+        //}
+    }
+
+
+
     public int GenerateId() 
     {
 
@@ -132,6 +154,11 @@ public class Item : ScriptableObject
 
         return innerCapacity;
     }
+
+    //public Item CloneItem() 
+    //{
+    //    Item clonedItem = Instantiate(this);
+    //}
 
     public bool IsSameItems(Item item) 
     {

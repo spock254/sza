@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: machLitUp
   m_EditorClassIdentifier: 
   id: 762134937
-  itemName: mach
-  itemDescription: mach
-  itemPrice: 1
+  itemName: mach lit up
+  itemDescription: mach lit up
+  itemPrice: 0
   itemSprite: {fileID: -925318033670926360, guid: 95142db17ae5a9041a9c967230d0b1d7,
     type: 3}
   stats:
@@ -36,6 +36,9 @@ MonoBehaviour:
     - {fileID: -925318033670926360, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
     - {fileID: -29406300394247456, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
     - {fileID: -3619410832971414150, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
+  itemTimeflowModify:
+    tics: 5
+    modifiedItem: {fileID: 11400000, guid: 0e39fa3a52fc74348af462b2a0f34fae, type: 2}
   itemOptionData:
     awPrefab: {fileID: 0}
     text: 

@@ -46,7 +46,7 @@ public class CraftController : MonoBehaviour
             return;
         }
 
-        Item craftResult = recept.recept.craftResult;
+        Item craftResult = Instantiate(recept.recept.craftResult);
 
 
         itemInHand.GetComponent<ItemCell>().item = craftResult;
