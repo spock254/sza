@@ -99,10 +99,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         SetSellList();
         SetInvCellList();
 
-        StartCoroutine(AnimateCells(bagCellList
-            .Concat(cellList)
-            .Concat(invCellList)
-            .ToList()));
     }
 
     void SetBagCellList() 
@@ -878,42 +874,4 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             yield return new WaitForSeconds(0.3f);
         }
     }
-
-    //#region ItemAnimation
-    //void AnimateItem(Button cell, Item itemToAnimate) 
-    //{
-    //    if (itemToAnimate.itemAnimationData.itemSpriteFrames.Count > 0)
-    //    {
-    //        StartCoroutine(RunItemAnim(cell, itemToAnimate));
-    //    }
-    //}
-
-    IEnumerator RunItemAnim(Button cell, Item itemToAnimate)
-    {
-        int frameIndex = 0;
-        int frameCount = itemToAnimate.itemAnimationData.itemSpriteFrames.Count;
-
-        List<Sprite> frames = itemToAnimate.itemAnimationData.itemSpriteFrames;
-        Image cellImg = cell.GetComponent<Image>();
-
-        while (true)
-        {
-            //if (cell.GetComponent<ItemCell>().item.IsSameItems(itemToAnimate) == false) 
-            //{
-            //    StopCoroutine(RunItemAnim(cell, itemToAnimate));
-            //}
-
-            if (frameIndex == frameCount)
-            {
-                frameIndex = 0;
-            }
-
-
-            cellImg.sprite = frames[frameIndex];
-            frameIndex++;
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
-    //#endregion
 }

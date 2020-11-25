@@ -17,6 +17,7 @@ public class ItemCell : MonoBehaviour
            spriteRenderer.sprite = item.itemSprite;
         }
 
+        StartCoroutine(ItemAnimate());
         StartCoroutine(LateStart(1));
     }
 
@@ -26,6 +27,49 @@ public class ItemCell : MonoBehaviour
 
         EventController eventController = Global.Component.GetEventController();
         eventController.OnNewTicEvent.AddListener(ModifyItems);
+    }
+
+    IEnumerator ItemAnimate()
+    {
+        while (true) 
+        {
+
+            //Image cellImg = cells[i].GetComponent<Image>();
+
+            //if (item.itemAnimationData.itemSpriteFrames.Count == 0)
+            //{
+            //    continue;
+            //    //Image cellImg = GetComponent<Image>();
+                
+            //    //if (cellImg != null) 
+            //    //{ 
+            //    //    cellImg.sprite = item.itemSprite;
+            //    //}
+            //    //else 
+            //    //{
+            //    //    SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            //    //    spriteRenderer.sprite = item.itemSprite;
+            //    //}
+                
+            //}
+            if (item != null && item.itemAnimationData.itemSpriteFrames.Count > 0)
+            {
+                Sprite itemFrame = item.itemAnimationData.GetNextFrameSprite();
+                Image cellImg = GetComponent<Image>();
+
+                if (cellImg != null)
+                {
+                    cellImg.sprite = itemFrame;
+                }
+                else 
+                {
+                    GetComponent<SpriteRenderer>().sprite = itemFrame;
+                }
+            }
+            
+
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 
     void ModifyItems()
