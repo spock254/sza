@@ -20,6 +20,7 @@ public class TS2CloseAndMoveBackNPC : MonoBehaviour
                 doorController.gameObject.GetComponent<Collider2D>(), false);
             Destroy(this.gameObject);
             closed = true;
+            doorController.isLocked = false;
         }
 
         //if (closed) 

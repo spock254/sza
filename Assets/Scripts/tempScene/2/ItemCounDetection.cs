@@ -8,6 +8,7 @@ public class ItemCounDetection : MonoBehaviour
 {
     public int itemCount;
     Controller controller;
+    public DoorController doorController;
     void Start()
     {
         controller = Global.Component.GetController();
@@ -27,6 +28,16 @@ public class ItemCounDetection : MonoBehaviour
                 itemCount++;
                 itemCount += controller.bag_btn.GetComponent<ItemCell>().item.innerItems.Count;
             }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (doorController != null) 
+        {
+            doorController.OnDoorClick(null, doorController.transform.position,
+                           doorController.gameObject.GetComponent<Collider2D>(), false);
+            doorController.isLocked = true;
         }
     }
 
