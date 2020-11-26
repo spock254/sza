@@ -25,11 +25,6 @@ public class ItemCell : MonoBehaviour
         StartCoroutine(UpdateEffect());
         StartCoroutine(LateStart(1));
     }
-    private void OnEnable()
-    {
-        
-        Debug.Log("ENABLED");
-    }
     void OnDestroy()
     {
         if (effectToDestroy != null) 
@@ -96,7 +91,10 @@ public class ItemCell : MonoBehaviour
             return;
         }
 
-        item.itemTimeflowModify.tics--;
+        if (item.itemTimeflowModify.IsTimeFlowModifiable()) 
+        { 
+            item.itemTimeflowModify.tics--;
+        }
     }
 
     IEnumerator UpdateEffect() 

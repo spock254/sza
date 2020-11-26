@@ -40,7 +40,8 @@ MonoBehaviour:
     tics: 25
     modifiedItem: {fileID: 11400000, guid: 0e39fa3a52fc74348af462b2a0f34fae, type: 2}
   itemEffect:
-    effect: {fileID: 757403547803771031, guid: b37b088082a832b43aeabca8110c7623, type: 3}
+    effect: {fileID: 3943283034921721977, guid: b37b088082a832b43aeabca8110c7623,
+      type: 3}
     effectCells: 020000000100000000000000
     envPosition: {x: 0, y: 0, z: 0}
     currentCell: {fileID: 0}
@@ -50,7 +51,8 @@ MonoBehaviour:
     actionWindowTag: 
     isModified: 0
   capacity: 0
-  innerItems: []
+  innerItems:
+  - {fileID: 11400000, guid: 0e39fa3a52fc74348af462b2a0f34fae, type: 2}
   isDestroyOnPlayerUse: 0
   references:
     version: 1

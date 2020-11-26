@@ -48,6 +48,8 @@ public class ItemEffect
     {
         GameObject effectList = Global.Obj.GetEffectListObject();
 
+        if (effect == null) { return null; }
+
         foreach (Transform child in effectList.transform)
         {
             if (child.name.Contains(effect.name) && child.name.Contains((currentCell == null) ? 

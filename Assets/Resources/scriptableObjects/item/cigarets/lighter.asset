@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
-  m_Name: mach
+  m_Name: lighter
   m_EditorClassIdentifier: 
   id: 762134937
-  itemName: mach
-  itemDescription: mach
-  itemPrice: 2
-  itemSprite: {fileID: 7646510790278175400, guid: 95142db17ae5a9041a9c967230d0b1d7,
+  itemName: lighter
+  itemDescription: lighter
+  itemPrice: 20
+  itemSprite: {fileID: 3523647394620921619, guid: 95142db17ae5a9041a9c967230d0b1d7,
     type: 3}
   stats:
     playerStats: 5
@@ -34,7 +34,7 @@ MonoBehaviour:
   itemAnimationData:
     itemSpriteFrames: []
   itemTimeflowModify:
-    tics: 0
+    tics: 10
     modifiedItem: {fileID: 0}
   itemEffect:
     effect: {fileID: 0}
@@ -47,7 +47,8 @@ MonoBehaviour:
     actionWindowTag: 
     isModified: 0
   capacity: 0
-  innerItems: []
+  innerItems:
+  - {fileID: 11400000, guid: b8b77f001981a26498679c858509b3b4, type: 2}
   isDestroyOnPlayerUse: 0
   references:
     version: 1

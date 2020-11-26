@@ -135,6 +135,20 @@ public class CraftController : MonoBehaviour
         }
     }
 
+    public void Craft_OneHand(Button cell, Item item) 
+    {
+        if (item != null && item.innerItems.Count > 0 && !item.itemUseData.itemTypes.Contains(ItemUseData.ItemType.Openable)) 
+        { 
+            Item craftedItem = Instantiate(item.innerItems[0]);
+
+            craftedItem.itemTimeflowModify.tics = item.itemTimeflowModify.tics;
+
+            craftedItem.itemEffect.currentCell = cell;
+            cell.GetComponent<ItemCell>().item = craftedItem;
+            cell.GetComponent<Image>().sprite = craftedItem.itemSprite;
+        }
+    }
+
     GameObject GetGameObjOnTable(RaycastHit2D[] hits) 
     {
         foreach (var hit in hits)

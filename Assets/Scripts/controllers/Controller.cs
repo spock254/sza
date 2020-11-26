@@ -435,8 +435,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
     }
 
-    public void OnInvButtonClick(string itemType) 
-    { 
+    public void OnInvButtonClick(string itemType)
+    {
         GameObject cellGo = GameObject.FindGameObjectWithTag(itemType.ToString()
                                     .ToLower() + "_cell");
 
@@ -446,6 +446,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         if (!IsEmpty(currentHand)) //если в руке что то есть
         {
             Item itemInHand = currentHand.GetComponent<ItemCell>().item;
+
+            if (currentHand == cell) 
+            { 
+                craftController.Craft_OneHand(cell, itemInHand);
+            }
 
             if (IsEmpty(cell))  //если не чего не надето
             {

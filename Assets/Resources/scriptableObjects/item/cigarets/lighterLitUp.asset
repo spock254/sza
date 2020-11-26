@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
-  m_Name: mach
+  m_Name: lighterLitUp
   m_EditorClassIdentifier: 
   id: 762134937
-  itemName: mach
-  itemDescription: mach
-  itemPrice: 2
-  itemSprite: {fileID: 7646510790278175400, guid: 95142db17ae5a9041a9c967230d0b1d7,
+  itemName: lighter lit up
+  itemDescription: lighter lit up
+  itemPrice: 20
+  itemSprite: {fileID: 7977806884364464876, guid: 95142db17ae5a9041a9c967230d0b1d7,
     type: 3}
   stats:
     playerStats: 5
@@ -32,13 +32,18 @@ MonoBehaviour:
       id: 0
     itemTypes: 08000000070000000d000000
   itemAnimationData:
-    itemSpriteFrames: []
+    itemSpriteFrames:
+    - {fileID: 7977806884364464876, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
+    - {fileID: -7372061317660755479, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
+    - {fileID: -1836487143750233936, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
+    - {fileID: -3825129987166671878, guid: 95142db17ae5a9041a9c967230d0b1d7, type: 3}
   itemTimeflowModify:
-    tics: 0
-    modifiedItem: {fileID: 0}
+    tics: 5
+    modifiedItem: {fileID: 11400000, guid: eccca6217df609248837039a001c2da1, type: 2}
   itemEffect:
-    effect: {fileID: 0}
-    effectCells: 
+    effect: {fileID: 3943283034921721977, guid: b37b088082a832b43aeabca8110c7623,
+      type: 3}
+    effectCells: 010000000200000000000000
     envPosition: {x: 0, y: 0, z: 0}
     currentCell: {fileID: 0}
   itemOptionData:
@@ -47,7 +52,8 @@ MonoBehaviour:
     actionWindowTag: 
     isModified: 0
   capacity: 0
-  innerItems: []
+  innerItems:
+  - {fileID: 11400000, guid: eccca6217df609248837039a001c2da1, type: 2}
   isDestroyOnPlayerUse: 0
   references:
     version: 1
