@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd46816619a34dd4bb1b19a88b1cef1a, type: 3}
+  m_Name: litUp_lighter
+  m_EditorClassIdentifier: 
+  recept:
+    ingredients:
+    - {fileID: 11400000, guid: eccca6217df609248837039a001c2da1, type: 2}
+    craftTool:
+    - {fileID: 11400000, guid: f842d9f7be7ff8e4484aedba8f5a97bc, type: 2}
+    - {fileID: 11400000, guid: 43c33ad1ff034be4da2389947735714d, type: 2}
+    craftResult: {fileID: 11400000, guid: b8b77f001981a26498679c858509b3b4, type: 2}
+  craftComplexety: 0
+  craftType: 1
+  craftTable: 1
+  craftMinLVL: 0
+  removeTool: 0
+  expReward: 1

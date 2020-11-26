@@ -88,6 +88,8 @@ public class ItemCell : MonoBehaviour
             }
 
             item = modItem;
+            item.itemTimeflowModify.tics = 0;
+
             return;
         }
 

@@ -48,6 +48,12 @@ public class CraftController : MonoBehaviour
 
         Item craftResult = Instantiate(recept.recept.craftResult);
 
+        // для передачи таков между айтемами (оригинальным и результатом)
+        if (item.itemTimeflowModify.ticsTransition == true) 
+        { 
+            craftResult.itemTimeflowModify.tics = item.itemTimeflowModify.tics;
+        }
+
         craftResult.itemEffect.currentCell = itemInHand.GetComponent<Button>();
         itemInHand.GetComponent<ItemCell>().item = craftResult;
         itemInHand.GetComponent<Image>().sprite = craftResult.itemSprite;
