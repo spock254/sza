@@ -31,9 +31,13 @@ MonoBehaviour:
       id: 0
     itemTypes: 08000000070000000d00000001000000
   itemAnimationData:
-    itemSpriteFrames: []
+    itemSpriteFrames:
+    - {fileID: 21300000, guid: c3fe4baf43bd0d940851dcb31fee5deb, type: 3}
+    - {fileID: 21300000, guid: 8e2f8847db5ec5640a6da11eb8c31aac, type: 3}
+    - {fileID: 21300000, guid: 01113997cfd146e45af4ed9cd6dd3b3e, type: 3}
+    - {fileID: 21300000, guid: 352fffd471a685e4892b4b28be8f34f9, type: 3}
   itemTimeflowModify:
-    tics: 10
+    tics: 60
     modifiedItem: {fileID: 11400000, guid: 2a2ab6e124894fb45ab7331c2cb4c647, type: 2}
     ticsTransition: 0
   itemEffect:

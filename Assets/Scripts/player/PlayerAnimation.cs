@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     SpriteRenderer rendererSute;
     SpriteRenderer rendererHat;
     SpriteRenderer rendererShoes;
-
+    SpriteRenderer rendererFace;
 
     public string baseSpriteSheet = "ch_base";
     public string eyesSpriteSheet = "eyes2";
@@ -28,6 +28,7 @@ public class PlayerAnimation : MonoBehaviour
     public string suteSpriteSheet = "sute";
     public string hatSpriteSheet = "";
     public string shoesSpriteSheet = "";
+    public string faceSpriteSheet = "";
 
     [Header("Body Parts")]
     public GameObject eyesGo;
@@ -35,6 +36,7 @@ public class PlayerAnimation : MonoBehaviour
     public GameObject suteGo;
     public GameObject hatGo;
     public GameObject shoesGo;
+    public GameObject faceGo;
 
     Dictionary<SpritePart, Sprite[]> spritesDict = new Dictionary<SpritePart, Sprite[]>();
     Dictionary<SpritePart, GameObject> partsGo = new Dictionary<SpritePart, GameObject>();
@@ -52,6 +54,7 @@ public class PlayerAnimation : MonoBehaviour
         rendererSute = suteGo.GetComponent<SpriteRenderer>();
         rendererHat = hatGo.GetComponent<SpriteRenderer>();
         rendererShoes = shoesGo.GetComponent<SpriteRenderer>();
+        rendererFace = faceGo.GetComponent<SpriteRenderer>();
 
         partsGo.Add(SpritePart.Base, this.gameObject);
         partsGo.Add(SpritePart.Eyes, eyesGo);
@@ -59,6 +62,7 @@ public class PlayerAnimation : MonoBehaviour
         partsGo.Add(SpritePart.Hair, hairsGo);
         partsGo.Add(SpritePart.body, suteGo);
         partsGo.Add(SpritePart.lags, shoesGo);
+        partsGo.Add(SpritePart.face, faceGo);
 
         Sprite[] baseSprites = Resources.LoadAll<Sprite>("Images/player/base/" + baseSpriteSheet);
         Sprite[] eyeSprites = Resources.LoadAll<Sprite>("Images/player/eyes/" + eyesSpriteSheet);
@@ -72,6 +76,7 @@ public class PlayerAnimation : MonoBehaviour
         spritesDict.Add(SpritePart.body, null);
         spritesDict.Add(SpritePart.head, null);
         spritesDict.Add(SpritePart.lags, null);
+        spritesDict.Add(SpritePart.face, null);
 
 
         //UpdateSprites();
@@ -131,6 +136,7 @@ public class PlayerAnimation : MonoBehaviour
         Sprite newSuteSprite = null;
         Sprite newHatSprite = null;
         Sprite newShoesSprite = null;
+        Sprite newFaceSprite = null;
 
         newBaseSprite = Array.Find(spritesDict[SpritePart.Base], i => i.name == spriteName);
         newEyesSprite = Array.Find(spritesDict[SpritePart.Eyes], i => i.name == spriteName);
@@ -149,6 +155,11 @@ public class PlayerAnimation : MonoBehaviour
         if (spritesDict[SpritePart.lags] != null)
         {
             newShoesSprite = Array.Find(spritesDict[SpritePart.lags], i => i.name == spriteName);
+
+        }        
+        if (spritesDict[SpritePart.face] != null)
+        {
+            newFaceSprite = Array.Find(spritesDict[SpritePart.face], i => i.name == spriteName);
 
         }
 
@@ -180,6 +191,10 @@ public class PlayerAnimation : MonoBehaviour
         if (newShoesSprite)
         {
             rendererShoes.sprite = newShoesSprite;
+        }        
+        if (newFaceSprite)
+        {
+            rendererFace.sprite = newFaceSprite;
         }
 
     }
