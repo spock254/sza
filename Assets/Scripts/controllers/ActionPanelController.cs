@@ -72,9 +72,14 @@ public class ActionPanelController : MonoBehaviour
 
     public void SpawnItem(Transform prefab, Vector3 position, Item item) 
     {
-        prefab.GetComponent<ItemCell>().item = item;
-        prefab.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
-        prefab.name = Global.DROPED_ITEM_PREFIX + item.itemName;
+        Item itemToDrop = Instantiate(item);
+
+        itemToDrop.itemEffect.currentCell = null;
+        itemToDrop.itemEffect.envPosition = position;
+
+        prefab.GetComponent<ItemCell>().item = itemToDrop;
+        prefab.GetComponent<SpriteRenderer>().sprite = itemToDrop.itemSprite;
+        prefab.name = Global.DROPED_ITEM_PREFIX + itemToDrop.itemName;
         
 
         Instantiate(prefab, position, Quaternion.identity);

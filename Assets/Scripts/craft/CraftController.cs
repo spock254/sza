@@ -48,7 +48,7 @@ public class CraftController : MonoBehaviour
 
         Item craftResult = Instantiate(recept.recept.craftResult);
 
-
+        craftResult.itemEffect.currentCell = itemInHand.GetComponent<Button>();
         itemInHand.GetComponent<ItemCell>().item = craftResult;
         itemInHand.GetComponent<Image>().sprite = craftResult.itemSprite;
     }

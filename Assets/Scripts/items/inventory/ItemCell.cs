@@ -9,6 +9,7 @@ public class ItemCell : MonoBehaviour
     
     public Item item;
 
+    GameObject spawnedEffect;
     void Start()
     {
         SpriteRenderer spriteRenderer;
@@ -85,20 +86,64 @@ public class ItemCell : MonoBehaviour
     IEnumerator UpdateEffect() 
     {
         GameObject effectList = Global.Obj.GetEffectListObject();
-        
+        ItemEffect currentItemEffect = (item == null) ? null : item.itemEffect;
+        GameObject currentEfect = (currentItemEffect == null) ? null : currentItemEffect.effect;
+
         while (true) 
         {
-            if (item.itemEffect.effect != null && item.itemEffect.effectCells.Contains(item.itemEffect.currentCell)) 
-            { 
-                if (!effectList.transform.Find(item.itemEffect.effect.name)) 
+            if (item != null) 
+            {
+                if (item.itemEffect.effect == null)
                 {
-                    GameObject newEffect = Instantiate(item.itemEffect.effect, effectList.transform);
-                    newEffect.transform.position = effectList.transform.position;
+                    if (currentEfect != null) 
+                    {
+                        foreach (Transform childEffect in effectList.transform)
+                        {
+                            if (childEffect.name.Contains(currentEfect.name)) 
+                            {
+                                Destroy(childEffect.gameObject);
+                                currentEfect = null;
+                                break;
+                            }
+                        }
+                    }
                 }
-            
-            }
+                else 
+                {
+                    if (!item.itemEffect.IsEffectExist() && item.itemEffect.IsSamePlaceEffect())
+                    {
+                        currentEfect = item.itemEffect.effect;
+                        spawnedEffect = Instantiate(currentEfect, effectList.transform);
 
-            yield return new WaitForSeconds(0.5f);
+
+                        spawnedEffect.transform.position = (item.itemEffect.currentCell == null) ? 
+                                                        item.itemEffect.envPosition 
+                                                      : effectList.transform.position;
+                    }
+                    else if (item.itemEffect.IsEffectExist() && !item.itemEffect.IsSamePlaceEffect())
+                    {
+                        foreach (Transform childEffect in effectList.transform)
+                        {
+                            if (childEffect.name.Contains(item.itemEffect.effect.name))
+                            {
+                                Destroy(childEffect.gameObject);
+                                currentEfect = null;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.3f);
         }
+    }
+
+    void Update()
+    {
+        //if (spawnedEffect != null && item.itemEffect.effectCells.Contains(ItemEffect.EffectUsePlace.environment)
+        //    && item.itemEffect.currentCell == null) 
+        //{
+        //    spawnedEffect.transform.position = this.transform.position;
+        //}
     }
 }
