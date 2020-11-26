@@ -9,6 +9,8 @@ public class ItemCell : MonoBehaviour
     
     public Item item;
 
+    GameObject currentEfect;
+    Transform effectToDestroy;
     //GameObject spawnedEffect;
     void Start()
     {
@@ -23,6 +25,18 @@ public class ItemCell : MonoBehaviour
         StartCoroutine(UpdateEffect());
         StartCoroutine(LateStart(1));
     }
+    private void OnEnable()
+    {
+        
+        Debug.Log("ENABLED");
+    }
+    void OnDestroy()
+    {
+        if (effectToDestroy != null) 
+        {
+            Destroy(effectToDestroy.gameObject);
+        }
+    }
 
     IEnumerator LateStart(float waitTime)
     {
@@ -30,6 +44,8 @@ public class ItemCell : MonoBehaviour
 
         EventController eventController = Global.Component.GetEventController();
         eventController.OnNewTicEvent.AddListener(ModifyItems);
+
+        effectToDestroy = item.itemEffect.GetEffect();
     }
 
     IEnumerator ItemAnimate()
@@ -87,7 +103,7 @@ public class ItemCell : MonoBehaviour
     {
         GameObject effectList = Global.Obj.GetEffectListObject();
         ItemEffect currentItemEffect = (item == null) ? null : item.itemEffect;
-        GameObject currentEfect = (currentItemEffect == null) ? null : currentItemEffect.effect;
+        currentEfect = (currentItemEffect == null) ? null : currentItemEffect.effect;
 
         while (true) 
         {
@@ -111,16 +127,24 @@ public class ItemCell : MonoBehaviour
                 else 
                 {
                     Transform effectInList = item.itemEffect.GetEffect();
-
+                    
                     if (effectInList == null)
                     {
                         if (item.itemEffect.IsSamePlaceEffect()) 
                         {
-                            currentEfect = item.itemEffect.effect;
                             
-                            GameObject spawnedEffect = Instantiate(currentEfect, effectList.transform);
+                            GameObject spawnedEffect = Instantiate(item.itemEffect.effect, effectList.transform);
                             item.itemEffect.SetEffectName(spawnedEffect);
-                            spawnedEffect.transform.position = effectList.transform.position;
+                            currentEfect = spawnedEffect;
+
+                            if (item.itemEffect.currentCell == null)
+                            {
+                                StartCoroutine(UpdateEnvItemPosition(spawnedEffect, this.transform.position));
+                            }
+                            else 
+                            { 
+                                spawnedEffect.transform.position = effectList.transform.position;
+                            }
                         }
                     }
                     else 
@@ -132,64 +156,8 @@ public class ItemCell : MonoBehaviour
                         }
                     }
                 }
-                //if (item.itemEffect.effect == null)
-                //{
-                //    if (currentEfect != null) 
-                //    {
-                //        foreach (Transform childEffect in effectList.transform)
-                //        {
-                //            if (childEffect.name.Contains(item.itemEffect.effect.name))
-                //            {
-                //                Destroy(childEffect.gameObject);
-                //                currentEfect = null;
-                //                break;
-                //            }
-                //        }
-                //    }
-                //}
-                //else 
-                //{
-                //    if (!item.itemEffect.IsEffectExist() && item.itemEffect.IsSamePlaceEffect())
-                //    {
-                //        currentEfect = item.itemEffect.effect;
-                //        GameObject spawnedEffect = Instantiate(currentEfect, effectList.transform);
-
-                    //        // если айтем во внешном мире
-                    //        if (item.itemEffect.currentCell == null)
-                    //        {
-                    //            spawnedEffect.name += ItemEffect.EffectUsePlace.environment.ToString() + item.itemEffect.envPosition.ToString();
-                    //            StartCoroutine(UpdateEnvItemPosition(spawnedEffect, this.transform.position));
-                    //        }
-                    //        else 
-                    //        {
-                    //            spawnedEffect.name += item.itemEffect.currentCell.name;
-                    //            spawnedEffect.transform.position = effectList.transform.position;
-                    //        }
-
-                    //        //spawnedEffect.transform.position = (item.itemEffect.currentCell == null) ? 
-                    //        //                                item.itemEffect.envPosition 
-                    //        //                              : effectList.transform.position;
-                    //    }
-                    //    else if (item.itemEffect.IsEffectExist() && !item.itemEffect.IsSamePlaceEffect())
-                    //    {
-                    //        //foreach (Transform childEffect in effectList.transform)
-                    //        //{
-                    //        //    if (childEffect.name.Contains(item.itemEffect.effect.name) 
-                    //        //            && childEffect.name.Contains((item.itemEffect.currentCell == null) ? 
-                    //        //            ItemEffect.EffectUsePlace.environment.ToString() + item.itemEffect.envPosition.ToString() 
-                    //        //            : item.itemEffect.currentCell.ToString()))
-                    //        //    {
-                    //        //        Destroy(childEffect.gameObject);
-                    //        //        currentEfect = null;
-                    //        //        break;
-                    //        //    }
-                    //        //}
-                    //        Destroy(item.itemEffect.IsEffectExist().gameObject);
-                    //        currentEfect = null;
-
-                    //    }
-                    //}
             }
+
             yield return new WaitForSeconds(0.3f);
         }
     }
@@ -206,13 +174,5 @@ public class ItemCell : MonoBehaviour
 
             yield return new WaitForSeconds(0.01f);
         }
-    }
-    void Update()
-    {
-        //if (spawnedEffect != null && item.itemEffect.effectCells.Contains(ItemEffect.EffectUsePlace.environment)
-        //    && item.itemEffect.currentCell == null)
-        //{
-        //    spawnedEffect.transform.position = this.transform.position;
-        //}
     }
 }
