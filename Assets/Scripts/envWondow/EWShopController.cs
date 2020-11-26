@@ -167,8 +167,8 @@ public class EWShopController : EWBase, IEWInit
 
             Item itemToPayClone = Instantiate(itemToPay);
             prefToSpawn.GetComponent<ItemCell>().item = itemToPayClone;
-            Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
-            prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
+            GameObject spawnItem = Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
+            spawnItem.name = Global.DROPED_ITEM_PREFIX + itemToPay.itemName;
 
             CleanItemsInShop();
             FillItemsInShop();
