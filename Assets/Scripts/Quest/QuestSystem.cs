@@ -30,7 +30,7 @@ public class QuestSystem : MonoBehaviour
         controller = Global.Component.GetController();
         eventController = Global.Component.GetEventController();
 
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
 
         LoadQuests();
         //SortQuestEvents();

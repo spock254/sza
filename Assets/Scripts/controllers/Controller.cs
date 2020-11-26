@@ -174,7 +174,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 foreach (var hit in hits)
                 {
 
-                    if (hit.collider.gameObject.tag == "table") 
+                    if (hit.collider.gameObject.tag == "table" && hit.collider.GetComponent<TableController>().isCraftTable) 
                     {
                         bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand), 
                                                                             CraftType.Cooking, 

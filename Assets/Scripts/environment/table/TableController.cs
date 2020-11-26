@@ -5,7 +5,7 @@ using UnityEngine;
 public class TableController : MonoBehaviour
 {
     ActionPanelController actionPanelController;
-
+    public bool isCraftTable = true;
     void Start()
     {
         actionPanelController = Global.Component.GetActionPanelController();
