@@ -44,18 +44,25 @@ public class ItemEffect
         return false;
     }
 
-    public bool IsEffectExist() 
+    public Transform GetEffect() 
     {
         GameObject effectList = Global.Obj.GetEffectListObject();
 
         foreach (Transform child in effectList.transform)
         {
-            if (child.name.Contains(effect.name)) 
+            if (child.name.Contains(effect.name) && child.name.Contains((currentCell == null) ? 
+                                                      EffectUsePlace.environment.ToString() + envPosition.ToString()
+                                                    : currentCell.name)) 
             {
-                return true;
+                return child;
             }
         }
 
-        return false;
+        return null;
+    }
+
+    public void SetEffectName(GameObject effectToSet) 
+    {
+        effectToSet.name += (currentCell == null) ? EffectUsePlace.environment.ToString() + envPosition.ToString() : currentCell.name;
     }
 }

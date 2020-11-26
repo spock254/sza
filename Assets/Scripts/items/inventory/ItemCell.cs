@@ -9,7 +9,7 @@ public class ItemCell : MonoBehaviour
     
     public Item item;
 
-    GameObject spawnedEffect;
+    //GameObject spawnedEffect;
     void Start()
     {
         SpriteRenderer spriteRenderer;
@@ -93,13 +93,13 @@ public class ItemCell : MonoBehaviour
         {
             if (item != null) 
             {
-                if (item.itemEffect.effect == null)
+                if (item.itemEffect.effect == null) 
                 {
                     if (currentEfect != null) 
                     {
                         foreach (Transform childEffect in effectList.transform)
                         {
-                            if (childEffect.name.Contains(currentEfect.name)) 
+                            if (childEffect.name.Contains(currentEfect.name))
                             {
                                 Destroy(childEffect.gameObject);
                                 currentEfect = null;
@@ -110,38 +110,107 @@ public class ItemCell : MonoBehaviour
                 }
                 else 
                 {
-                    if (!item.itemEffect.IsEffectExist() && item.itemEffect.IsSamePlaceEffect())
-                    {
-                        currentEfect = item.itemEffect.effect;
-                        spawnedEffect = Instantiate(currentEfect, effectList.transform);
+                    Transform effectInList = item.itemEffect.GetEffect();
 
-
-                        spawnedEffect.transform.position = (item.itemEffect.currentCell == null) ? 
-                                                        item.itemEffect.envPosition 
-                                                      : effectList.transform.position;
-                    }
-                    else if (item.itemEffect.IsEffectExist() && !item.itemEffect.IsSamePlaceEffect())
+                    if (effectInList == null)
                     {
-                        foreach (Transform childEffect in effectList.transform)
+                        if (item.itemEffect.IsSamePlaceEffect()) 
                         {
-                            if (childEffect.name.Contains(item.itemEffect.effect.name))
-                            {
-                                Destroy(childEffect.gameObject);
-                                currentEfect = null;
-                                break;
-                            }
+                            currentEfect = item.itemEffect.effect;
+                            
+                            GameObject spawnedEffect = Instantiate(currentEfect, effectList.transform);
+                            item.itemEffect.SetEffectName(spawnedEffect);
+                            spawnedEffect.transform.position = effectList.transform.position;
+                        }
+                    }
+                    else 
+                    {
+                        if (!item.itemEffect.IsSamePlaceEffect()) 
+                        {
+                            Destroy(effectInList.gameObject);
+                            currentEfect = null;
                         }
                     }
                 }
+                //if (item.itemEffect.effect == null)
+                //{
+                //    if (currentEfect != null) 
+                //    {
+                //        foreach (Transform childEffect in effectList.transform)
+                //        {
+                //            if (childEffect.name.Contains(item.itemEffect.effect.name))
+                //            {
+                //                Destroy(childEffect.gameObject);
+                //                currentEfect = null;
+                //                break;
+                //            }
+                //        }
+                //    }
+                //}
+                //else 
+                //{
+                //    if (!item.itemEffect.IsEffectExist() && item.itemEffect.IsSamePlaceEffect())
+                //    {
+                //        currentEfect = item.itemEffect.effect;
+                //        GameObject spawnedEffect = Instantiate(currentEfect, effectList.transform);
+
+                    //        // если айтем во внешном мире
+                    //        if (item.itemEffect.currentCell == null)
+                    //        {
+                    //            spawnedEffect.name += ItemEffect.EffectUsePlace.environment.ToString() + item.itemEffect.envPosition.ToString();
+                    //            StartCoroutine(UpdateEnvItemPosition(spawnedEffect, this.transform.position));
+                    //        }
+                    //        else 
+                    //        {
+                    //            spawnedEffect.name += item.itemEffect.currentCell.name;
+                    //            spawnedEffect.transform.position = effectList.transform.position;
+                    //        }
+
+                    //        //spawnedEffect.transform.position = (item.itemEffect.currentCell == null) ? 
+                    //        //                                item.itemEffect.envPosition 
+                    //        //                              : effectList.transform.position;
+                    //    }
+                    //    else if (item.itemEffect.IsEffectExist() && !item.itemEffect.IsSamePlaceEffect())
+                    //    {
+                    //        //foreach (Transform childEffect in effectList.transform)
+                    //        //{
+                    //        //    if (childEffect.name.Contains(item.itemEffect.effect.name) 
+                    //        //            && childEffect.name.Contains((item.itemEffect.currentCell == null) ? 
+                    //        //            ItemEffect.EffectUsePlace.environment.ToString() + item.itemEffect.envPosition.ToString() 
+                    //        //            : item.itemEffect.currentCell.ToString()))
+                    //        //    {
+                    //        //        Destroy(childEffect.gameObject);
+                    //        //        currentEfect = null;
+                    //        //        break;
+                    //        //    }
+                    //        //}
+                    //        Destroy(item.itemEffect.IsEffectExist().gameObject);
+                    //        currentEfect = null;
+
+                    //    }
+                    //}
             }
             yield return new WaitForSeconds(0.3f);
         }
     }
 
+    IEnumerator UpdateEnvItemPosition(GameObject spawnItem, Vector3 position) 
+    {
+        while (true) 
+        {
+            if (spawnItem == null) 
+            {
+                break;
+            }
+            spawnItem.transform.position = position;
+
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
     void Update()
     {
         //if (spawnedEffect != null && item.itemEffect.effectCells.Contains(ItemEffect.EffectUsePlace.environment)
-        //    && item.itemEffect.currentCell == null) 
+        //    && item.itemEffect.currentCell == null)
         //{
         //    spawnedEffect.transform.position = this.transform.position;
         //}
