@@ -13,6 +13,8 @@ public class EWShopController : EWBase
     public Transform payBtn;
     public Transform contentViewer;
     public Transform itemViewer;
+
+    public Text header;
     public Text status;
     public Text balance;
     public Text emtyShop;
@@ -28,6 +30,7 @@ public class EWShopController : EWBase
 
     public override void Init(GameObject window, GameObject envObj)
     {
+        header.text = envObj.GetComponent<VendingController>().headerTitle;
         BaseInit(window, envObj);
 
         accauntController = Global.Component.GetAccauntController();

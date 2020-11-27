@@ -10,6 +10,8 @@ public class VendingController : BaseActionWindowConntroller
 
     Tilemap upper = null;
 
+    public string headerTitle;
+
     void Awake()
     {
         base.Init();
