@@ -132,7 +132,7 @@ public class EWFormCheckerController : EWBase, IEWInit
             Item idClone = Instantiate(id);
             prefToSpawn.GetComponent<ItemCell>().item = idClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
-            prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
+            prefToSpawn.name = Global.DROPED_ITEM_PREFIX + idClone.name;
         }
         else if (!isId && (to_remove = savedItems.Find(f => f.IsSameItems(form)))) 
         {
@@ -149,7 +149,7 @@ public class EWFormCheckerController : EWBase, IEWInit
 
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
-            prefToSpawn.name = Global.DROPED_ITEM_PREFIX + prefToSpawn.name;
+            prefToSpawn.name = Global.DROPED_ITEM_PREFIX + formClone.name;
 
             isGranted = false;
             formData = string.Empty;
