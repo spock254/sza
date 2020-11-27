@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EWBase : MonoBehaviour
+public class EWBase : MonoBehaviour, IEWInit
 {
     public enum TextColor { Green, Red, Default };
 
@@ -20,12 +20,21 @@ public class EWBase : MonoBehaviour
     CameraFollow cameraFollow;
     protected void BaseInit(GameObject window, GameObject envObj) 
     {
+        GameObject envWindow = Global.UIElement.GetEnvWindow();
+
+
         controller = Global.Component.GetController();
         player = controller.player;
 
         this.window = window;
         vendorPosition = envObj.transform.position;
         actioPlayerRadius = controller.GetActioPlayerRadius();
+
+        
+        if (envWindow.transform.childCount > 1) 
+        {
+            envWindow.transform.GetChild(1).GetComponent<IEWInit>().Close();
+        }
 
         cameraFollow = Global.Component.GetCameraFollow();
         cameraFollow.SetCameraTarger(envObj.gameObject);
@@ -56,5 +65,10 @@ public class EWBase : MonoBehaviour
         }
 
         return text;
+    }
+
+    public virtual void Init(GameObject window, GameObject envObj)
+    {
+        
     }
 }

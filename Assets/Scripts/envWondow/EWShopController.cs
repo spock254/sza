@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EWShopController : EWBase, IEWInit
+public class EWShopController : EWBase
 {
     public Item card;
     public GameObject itemContentPref;
@@ -26,7 +26,7 @@ public class EWShopController : EWBase, IEWInit
     const string noMoney = "Not enough money";
     const string readyToPay = "Ready to pay?";
 
-    public void Init(GameObject window, GameObject envObj)
+    public override void Init(GameObject window, GameObject envObj)
     {
         BaseInit(window, envObj);
 

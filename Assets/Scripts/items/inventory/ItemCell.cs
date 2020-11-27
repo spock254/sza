@@ -21,8 +21,6 @@ public class ItemCell : MonoBehaviour
            spriteRenderer.sprite = item.itemSprite;
         }
 
-        StartCoroutine(ItemAnimate());
-        StartCoroutine(UpdateEffect());
         StartCoroutine(LateStart(1));
     }
     void OnDestroy()
@@ -39,6 +37,9 @@ public class ItemCell : MonoBehaviour
 
         EventController eventController = Global.Component.GetEventController();
         eventController.OnNewTicEvent.AddListener(ModifyItems);
+
+        StartCoroutine(ItemAnimate());
+        StartCoroutine(UpdateEffect());
 
         effectToDestroy = item.itemEffect.GetEffect();
     }
