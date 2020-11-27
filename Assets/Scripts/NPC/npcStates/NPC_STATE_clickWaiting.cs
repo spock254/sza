@@ -7,6 +7,10 @@ public class NPC_STATE_clickWaiting : BaseState<NPC_DATA_clickWaiting>
     public override void Enter()
     {
         base.Enter();
+
+        data.animationController.ChangeAllSprites();
+        data.animationController.Turn(data.turnDiraction);
+
     }
     public override void Execute()
     {
@@ -28,5 +32,12 @@ public class NPC_STATE_clickWaiting : BaseState<NPC_DATA_clickWaiting>
                 }
             }
         }
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+
+        data.animationController.UpdateSprites();
     }
 }
