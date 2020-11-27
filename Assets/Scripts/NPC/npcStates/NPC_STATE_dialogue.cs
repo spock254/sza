@@ -8,6 +8,10 @@ public class NPC_STATE_dialogue : BaseState<NPC_DATA_dialogue>
     {
         base.Enter();
 
+        data.animationController.ChangeAllSprites();
+        data.animationController.Turn(data.GetNpcDiraction(data.playerPosition.position, data.transform.position));
+        //data.animationController.UpdateSprites();
+
         dialogueManager.SetDialog(data.GetDialogByIndex(0));
         eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
     }
@@ -18,5 +22,12 @@ public class NPC_STATE_dialogue : BaseState<NPC_DATA_dialogue>
         {
             machine.ChangeState(data.GetNextStateType(data.nextState));
         }
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+
+        data.animationController.UpdateSprites();
     }
 }

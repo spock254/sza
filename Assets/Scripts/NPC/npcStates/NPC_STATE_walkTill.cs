@@ -27,7 +27,7 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
                                                           point.position,
                                                           data.walkSpeed * Time.deltaTime);
             
-            diraction = GetNpcDiraction();
+            diraction = data.GetNpcDiraction(point.position, data.transform.position);
 
             data.animationController.ChangeAllSprites();
             
@@ -55,13 +55,4 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
 
     //    data.animationController.Play(diraction);
     //}
-
-    Vector2 GetNpcDiraction() 
-    {
-        Vector2 temp = point.position - data.transform.position;
-
-        return Mathf.Abs(temp.x) > Mathf.Abs(temp.y)
-                                      ? new Vector2(temp.x, 0)
-                                      : new Vector2(0, temp.y);
-    }
 }

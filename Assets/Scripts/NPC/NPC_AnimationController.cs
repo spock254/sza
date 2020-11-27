@@ -95,6 +95,30 @@ public class NPC_AnimationController : MonoBehaviour
         }
     }
 
+    public void Turn(Vector2 diraction) 
+    {
+        if (diraction.x > 0)
+        {
+            anim.Play("right");
+        }
+        else if (diraction.x < 0)
+        {
+            anim.Play("left");
+        }
+        else if (diraction.y > 0)
+        {
+            anim.Play("up");
+        }
+        else if (diraction.y < 0)
+        {
+            anim.Play("down");
+        }
+        else 
+        {
+            anim.Play("down");
+        }
+    }
+
     void OnSpriteChange(string spriteSheet, SpritePart spritePart)
     {
         if (spriteSheet == string.Empty)

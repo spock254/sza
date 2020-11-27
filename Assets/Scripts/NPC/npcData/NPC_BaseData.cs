@@ -57,4 +57,13 @@ public class NPC_BaseData : MonoBehaviour
     {
         return Type.GetType(stateTypes.ToString());
     }
+
+    public Vector2 GetNpcDiraction(Vector2 to, Vector2 from)
+    {
+        Vector2 temp = to - from;
+
+        return Mathf.Abs(temp.x) > Mathf.Abs(temp.y)
+                                      ? new Vector2(temp.x, 0)
+                                      : new Vector2(0, temp.y);
+    }
 }

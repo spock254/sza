@@ -13,7 +13,8 @@ public enum StateTypes
     NPC_STATE_itemReturn,
     NPC_STATE_walkTill,
     NPC_STATE_openDoor,
-    NPC_STATE_waitTillPlayerReachPos
+    NPC_STATE_waitTillPlayerReachPos,
+    NPC_STATE_walk
 }
 
 public class NPC_StateMashine : MachineBehaviour
