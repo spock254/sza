@@ -21,16 +21,16 @@ public class EWQueueOrder : EWBase, IEWInit
 
     public Item id = null;
     public Item form = null;
-
+    public Item queueTicket = null;
 
     const string idNotPresent = "ID not present";
     const string formNotPresent = "Form not present";
     const string idPresent = "ID present";
     const string formPresent = "Form present";
-    const string correctStatus = "Valid form";
+    //const string correctStatus = "Valid form";
 
-    //string formData = null;
-    //bool isGranted = false;
+    string formData = null;
+    bool isGranted = false;
 
     void Update()
     {
@@ -65,8 +65,8 @@ public class EWQueueOrder : EWBase, IEWInit
                     {
                         if (!savedItems.Find(f => f.IsSameItems(form)))
                         {
-                            //formData = itemInHand.itemOptionData.text;
-                            //isGranted = itemInHand.itemOptionData.isModified;
+                            formData = itemInHand.itemOptionData.text;
+                            isGranted = itemInHand.itemOptionData.isModified;
 
                             Item formCpy = Instantiate(form);
                             formCpy.itemOptionData.text = itemInHand.itemOptionData.text;
@@ -93,17 +93,6 @@ public class EWQueueOrder : EWBase, IEWInit
 
         savedItems = envObj.GetComponent<VendingController>().savedItems;
         InitWindow(savedItems);
-        //playerInfo = Global.Component.GetPlayerInfo();
-
-
-        //foreach (var item in savedItems)
-        //{
-        //    if (item.IsSameItems(form))
-        //    {
-        //        formData = item.itemOptionData.text;
-        //        break;
-        //    }
-        //}
 
         InitStatus();
     }
@@ -132,18 +121,43 @@ public class EWQueueOrder : EWBase, IEWInit
 
             Item formClone = Instantiate(form);
 
-            //formClone.itemOptionData.text = formData;
-            //formClone.itemOptionData.isModified = isGranted;
+            formClone.itemOptionData.text = formData;
+            formClone.itemOptionData.isModified = isGranted;
 
             prefToSpawn.GetComponent<ItemCell>().item = formClone;
             Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
             prefToSpawn.name = Global.DROPED_ITEM_PREFIX + formClone.name;
 
-            //isGranted = false;
-            //formData = string.Empty;
+            isGranted = false;
+            formData = string.Empty;
         }
 
         InitStatus();
+    }
+
+    public void OnOrderClick() 
+    {
+        if (savedItems.Count == 2) 
+        {
+            if (IsGranded())
+            {
+                Item queueTicketClone = Instantiate(queueTicket);
+
+                prefToSpawn.GetComponent<ItemCell>().item = queueTicketClone;
+                Instantiate(prefToSpawn, vendorPosition, Quaternion.identity);
+                prefToSpawn.name = Global.DROPED_ITEM_PREFIX + queueTicketClone.name;
+
+                statusText.text = SetTextColor("Your order in queue #13", TextColor.Green);
+            }
+            else 
+            {
+                statusText.text = SetTextColor("Invalid form", TextColor.Red);
+            }
+        }
+        else 
+        { 
+            InitStatus();
+        }
     }
 
     void InitStatus()
@@ -172,10 +186,15 @@ public class EWQueueOrder : EWBase, IEWInit
         formText.text = (savedItems.Find(f => f.IsSameItems(form))) ? formPresent : formNotPresent;
     }
 
-    string CheckForm()
+    bool IsGranded()
     {
-        List<string> lines = formData.Split('\n').ToList();
+        Item savedForm = savedItems.Find(f => f.IsSameItems(form));
 
-        return null;
+        if (savedForm == null) 
+        {
+            return false;
+        }
+
+        return savedForm.itemOptionData.isModified;
     }
 }
