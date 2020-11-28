@@ -18,7 +18,7 @@ public class NPC_BaseData : MonoBehaviour
 
     public StateTypes nextState;
 
-    public void ResetState() 
+    public virtual void ResetState() 
     {
         dialogIndex = 0;
         optionDialogIndex = 0;

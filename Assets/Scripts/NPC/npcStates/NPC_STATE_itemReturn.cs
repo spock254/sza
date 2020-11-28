@@ -7,13 +7,17 @@ public class NPC_STATE_itemReturn : BaseState<NPC_Data_itemReturn>
 {
     Controller controller;
     Item itemToReturn;
+    NPC_DATA_itemRequier data_ItemRequier;
     public override void Enter()
     {
         base.Enter();
 
+        data.ResetState();
+
         controller = Global.Component.GetController();
         // пока возврощает 1 айтем
-        itemToReturn = GameObject.Find(npcName).GetComponent<NPC_DATA_itemRequier>().savedItems[0];
+        data_ItemRequier = GameObject.Find(npcName).GetComponent<NPC_DATA_itemRequier>();
+        itemToReturn = data_ItemRequier.savedItems[0];
 
         controller.currentHand.GetComponent<ItemCell>().item = itemToReturn;
         controller.currentHand.GetComponent<Image>().sprite = itemToReturn.itemSprite;
@@ -26,6 +30,7 @@ public class NPC_STATE_itemReturn : BaseState<NPC_Data_itemReturn>
     {
         if (!dialogueManager.isOpen) 
         {
+            data_ItemRequier.ResetState();
             machine.ChangeState(data.GetNextStateType(data.nextState));
         }
     }

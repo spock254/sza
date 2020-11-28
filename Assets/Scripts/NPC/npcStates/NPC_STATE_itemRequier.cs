@@ -14,6 +14,8 @@ public class NPC_STATE_itemRequier : BaseState<NPC_DATA_itemRequier>
     {
         base.Enter();
 
+        //data.ResetState();
+
         controller = Global.Component.GetController();
 
         if (data.isLastRequierdItem()) 

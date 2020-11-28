@@ -62,4 +62,8 @@ public class TS2ScreenQueue : MonoBehaviour, IAction
         return frameIndex > screenPositions.Count + 1;
     }
 
+    public bool IsInAction()
+    {
+        return !IsLastFrame();
+    }
 }

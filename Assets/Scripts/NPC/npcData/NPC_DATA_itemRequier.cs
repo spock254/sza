@@ -14,6 +14,14 @@ public class NPC_DATA_itemRequier : NPC_BaseData
 
     public Transform table;
 
+    public override void ResetState()
+    {
+        base.ResetState();
+
+        savedItems.Clear();
+        itemIndex = 0;
+    }
+
     public Item GetNextItem() 
     {
         Item itemToReturn = null;
