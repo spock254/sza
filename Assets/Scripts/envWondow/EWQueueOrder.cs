@@ -32,6 +32,11 @@ public class EWQueueOrder : EWBase, IEWInit
     string formData = null;
     bool isGranted = false;
 
+    [Header("IAction optioanl")]
+    [SerializeField]
+    string actionGoName = string.Empty;
+    IAction action;
+
     void Update()
     {
         if (IsPlayerInEWindowRadius() == false)
@@ -95,6 +100,11 @@ public class EWQueueOrder : EWBase, IEWInit
         InitWindow(savedItems);
 
         InitStatus();
+
+        if (actionGoName != string.Empty) 
+        {
+            action = GameObject.Find(actionGoName).GetComponent<IAction>();
+        }
     }
 
     public void OnPullOutClick(bool isId)
@@ -148,6 +158,12 @@ public class EWQueueOrder : EWBase, IEWInit
                 prefToSpawn.name = Global.DROPED_ITEM_PREFIX + queueTicketClone.name;
 
                 statusText.text = SetTextColor("Your order in queue #13", TextColor.Green);
+
+                // option
+                if (action != null) 
+                {
+                    action.Action();
+                }
             }
             else 
             {

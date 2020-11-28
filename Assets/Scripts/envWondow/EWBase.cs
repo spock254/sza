@@ -22,7 +22,6 @@ public class EWBase : MonoBehaviour, IEWInit
     {
         GameObject envWindow = Global.UIElement.GetEnvWindow();
 
-
         controller = Global.Component.GetController();
         player = controller.player;
 

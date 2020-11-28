@@ -29,6 +29,7 @@ public class BaseActionWindowConntroller : MonoBehaviour
         window.transform.SetAsFirstSibling();
 
         IEWInit init = window.GetComponent<IEWInit>();
+        
         init.Init(window, envObj);
     }
 }
