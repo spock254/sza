@@ -36,41 +36,59 @@ public class NPC_STATE_itemRequier : BaseState<NPC_DATA_itemRequier>
     {
         if (Input.GetMouseButtonDown(0)) 
         {
+            
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
             RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
 
-            foreach (var hit in hits)
-            {
-                if (hit.collider.name == npcName)
+                foreach (var hit in hits)
                 {
-                    if (IsInNpcRadius(hit.transform.position))
+                    if (hit.collider.name == npcName)
                     {
-                        RaycastHit2D[] onTableHits = Physics2D.RaycastAll(data.table.position, Vector2.zero)
-                                                .Where(i => i.collider.name
-                                                .Contains(Global.DROPED_ITEM_PREFIX))
-                                                .ToArray();
-
-                        foreach (var itemHit in onTableHits)
+                        if (IsInNpcRadius(hit.transform.position) && data.table != null)
                         {
-                            Item itemOnTable = itemHit.collider.GetComponent<ItemCell>().item;
+                            RaycastHit2D[] onTableHits = Physics2D.RaycastAll(data.table.position, Vector2.zero)
+                                                    .Where(i => i.collider.name
+                                                    .Contains(Global.DROPED_ITEM_PREFIX))
+                                                    .ToArray();
 
-                            if (requieredItem.IsSameItems(itemOnTable))
+                            foreach (var itemHit in onTableHits)
                             {
-                                data.savedItems.Add(itemOnTable);
-                                data.DestroyItem(itemHit.collider.gameObject);
-                                machine.ChangeState<NPC_STATE_itemRequier>();
+                                Item itemOnTable = itemHit.collider.GetComponent<ItemCell>().item;
+
+                                if (requieredItem.IsSameItems(itemOnTable))
+                                {
+                                    data.savedItems.Add(itemOnTable);
+                                    data.DestroyItem(itemHit.collider.gameObject);
+                                    machine.ChangeState<NPC_STATE_itemRequier>();
+                                }
+                            }
+
+                            if (!dialogueManager.isOpen)
+                            {
+                                dialogueManager.SetDialog(rejectDialog);
+                                eventController.OnStartDialogEvent.Invoke(info.npcName, "*disgruntled " + info.npcName + "*");
                             }
                         }
-
-                        if (!dialogueManager.isOpen)
+                        else
                         {
-                            dialogueManager.SetDialog(rejectDialog);
-                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*disgruntled " + info.npcName + "*");
+                            //data.ResetState();
+
+                            dialogueManager.SetDialog(data.GetDialogByIndex(0));
+                            eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
+                            return;
                         }
-                    }
                 }
             }
+            
+            //else 
+            //{
+            //    //data.ResetState();
+
+            //    dialogueManager.SetDialog(data.GetDialogByIndex(0));
+            //    eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
+            //    return;
+            //}
         }
 
         if (Input.GetMouseButtonDown(1))

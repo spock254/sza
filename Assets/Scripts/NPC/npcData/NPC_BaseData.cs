@@ -18,6 +18,12 @@ public class NPC_BaseData : MonoBehaviour
 
     public StateTypes nextState;
 
+    public void ResetState() 
+    {
+        dialogIndex = 0;
+        optionDialogIndex = 0;
+    }
+
     public string GetNextDialog()
     {
         string lineToReturn = null;
