@@ -14,7 +14,7 @@ public class NPC_STATE_actionComplete : BaseState<NPC_DATA_actionComplete>
 
         if (!dialogueManager.isOpen) 
         { 
-            if (true)//!action.IsInAction())
+            if (!action.IsInAction())
             {
                 machine.ChangeState(data.GetNextStateType(data.actionCompleteState));
             }

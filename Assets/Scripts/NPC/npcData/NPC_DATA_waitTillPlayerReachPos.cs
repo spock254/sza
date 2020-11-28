@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum Diraction { X, Y }
 
 public class NPC_DATA_waitTillPlayerReachPos : NPC_BaseData
 {
-    public enum Diraction { X, Y }
     public enum Sign { Negative, Positive }
 
    // [SerializeField] 

@@ -9,16 +9,25 @@ public class TS2CloseAndMoveBackNPC : MonoBehaviour
     
     [SerializeField] DoorController doorController = null;
     [SerializeField] Transform playerTransform = null;
+    public Diraction diraction;
+    public bool isSelfDistroyable;
 
     bool closed = false;
     //int pointIndex = 0;
+
     void Update()
     {
-        if (playerTransform.position.y > transform.position.y && !closed) 
+        if (diraction == Diraction.Y ? playerTransform.position.y > transform.position.y 
+                        : playerTransform.position.x > transform.position.x && !closed) 
         {
             doorController.OnDoorClick(null, doorController.transform.position,
                 doorController.gameObject.GetComponent<Collider2D>(), false);
-            Destroy(this.gameObject);
+            
+            if (isSelfDistroyable == true) 
+            { 
+                Destroy(this.gameObject);
+            }
+
             closed = true;
             doorController.isLocked = false;
         }
