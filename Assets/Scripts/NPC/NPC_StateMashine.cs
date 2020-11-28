@@ -15,7 +15,8 @@ public enum StateTypes
     NPC_STATE_openDoor,
     NPC_STATE_waitTillPlayerReachPos,
     NPC_STATE_walk,
-    NPC_STATE_actionComplete
+    NPC_STATE_actionComplete,
+    NPC_STATE_stateTransitionModify
 }
 
 public class NPC_StateMashine : MachineBehaviour
