@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
   m_Name: glass_ofWater
   m_EditorClassIdentifier: 
-  id: -402694515
+  id: -402694509
   itemName: glass of water
   itemDescription: glass of water
   itemPrice: 5
   itemSprite: {fileID: -6455125778173566624, guid: 2b7538be778487b4dae94e89377a56df,
     type: 3}
   stats:
-    playerStats: 2
-    value: 15
+    playerStats: 3
+    value: 20
     duration: 0
     time: 0
   ItemFightStats:
@@ -55,4 +55,4 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: FoodUse, ns: , asm: Assembly-CSharp}
+      type: {class: DrinkUse, ns: , asm: Assembly-CSharp}

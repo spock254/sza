@@ -24,6 +24,7 @@ public class ItemEditor : Editor
         "BagUse", 
         "EquipmentUse", 
         "FoodUse",
+        "DrinkUse",
 
         "MobUse",
         "PhoneUse"
@@ -55,6 +56,7 @@ public class ItemEditor : Editor
         use.Add("BagUse", new BagUse());
         use.Add("EquipmentUse", new EquipmentUse());
         use.Add("FoodUse", new FoodUse());
+        use.Add("DrinkUse", new DrinkUse());
 
         use.Add("MobUse", new MobUse());
         use.Add("PhoneUse", new PhoneUse());

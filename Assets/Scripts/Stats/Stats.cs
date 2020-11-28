@@ -7,6 +7,7 @@ public enum PlayerStats
     AGE,
     HEALTH,
     HUNGER,
+    DEHYDRATION,
     SLEEP,
     HAPPINESS,
     NONE
@@ -18,15 +19,16 @@ public class Stats
 
     private StatsField health;
     private StatsField hunger;
+    private StatsField dehydration;
     private StatsField sleep;
     private StatsField happiness;
     private StatsField age;
 
-    // private List<StatsField> statsFieldsList;
-    public Stats(StatsField health, StatsField hunger, StatsField sleep, StatsField happiness, StatsField age)
+    public Stats(StatsField health, StatsField hunger, StatsField dehydration, StatsField sleep, StatsField happiness, StatsField age)
     {
         this.health = health;
         this.hunger = hunger;
+        this.dehydration = dehydration;
         this.sleep = sleep;
         this.happiness = happiness;
         this.Age = age;
@@ -35,6 +37,7 @@ public class Stats
 
     public StatsField Health { get => health; set { if (value.Value <= 0) health.Value = 0; } }
     public StatsField Hunger { get => hunger; set { if (value.Value <= 0) hunger.Value = 0; } }
+    public StatsField Dehydration { get => dehydration; set { if (value.Value <= 0) dehydration.Value = 0; } }
     public StatsField Sleep { get => sleep; set { if (value.Value <= 0) sleep.Value = 0; } }
     public StatsField Happiness { get => happiness; set { if (value.Value <= 0) happiness.Value = 0; } }
     public StatsField Age { get => age; set => age = value; }
@@ -56,7 +59,6 @@ public class StatsField
         {
             if (value >= this.MAX_VALUE) 
             {
-                //Debug.Log(MAX_VALUE);
                 this.value = MAX_VALUE;
                 return;
             }
@@ -69,11 +71,6 @@ public class StatsField
     public float TempDuration { 
         get 
         {
-            //if (BuffTime == 0)
-            //{
-            //    tempDuration = 0;
-            //}
-            //Debug.Log("wdwdw");
             return tempDuration;   
         }
         set 
@@ -89,8 +86,6 @@ public class StatsField
     public string Name => name;
 
     public bool IsEmpty { get => isEmpty; set => isEmpty = value; }
-
-    //public float MAX_VALUE => mAX_VALUE;
 
     public StatsField(float value, float duration, float MAX_TEMP_DURATION, string name, bool isEmpty, float MAX_VALUE)
     {

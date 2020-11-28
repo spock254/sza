@@ -14,6 +14,11 @@ public class StatInit : MonoBehaviour
     private float MaxHungerDur = 1;
 
     [SerializeField]
+    private float initDehydrationDur = 1;
+    [SerializeField]
+    private float MaxdehydrationDur = 1;
+
+    [SerializeField]
     private float initSleepDur = 1;
     [SerializeField]
     private float MaxSleepDur = 1;
@@ -31,6 +36,7 @@ public class StatInit : MonoBehaviour
     {
         stats = new Stats(new StatsField(100, float.MaxValue, float.MaxValue, "health", 150f),
             new StatsField(100, initHungerDur, MaxHungerDur, "hunger", 150f),
+            new StatsField(100, initDehydrationDur, MaxdehydrationDur, "dehydration", 150f),
             new StatsField(100, initSleepDur, MaxSleepDur, "sleep", 150f),
             new StatsField(100, initHappinessDur, MaxHappinessDur, "happiness", 150f),
             new StatsField(16, initAgeDur, MaxAgeDur, "age", 100));

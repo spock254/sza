@@ -14,6 +14,7 @@ public class Lifecell : MonoBehaviour
     UnityEvent dead;
 
     private float hungerDamage = 0.5f;
+    private float dehydrationDamage = 0.5f;
     private float sleepDamage = 0.5f;
     private float happinessDamage = 0.5f;
 
@@ -37,6 +38,53 @@ public class Lifecell : MonoBehaviour
         lvlUp.AddListener(FightStatsModify);
 
         dead.AddListener(Dead);
+
+        //StartCoroutine(UpdateStats());
+    }
+
+    IEnumerator UpdateStats() 
+    {
+        while (true) 
+        {
+            timeModify(stats.Age);
+            timeModify(stats.Health);
+            timeModify(stats.Hunger);
+            timeModify(stats.Dehydration);
+            timeModify(stats.Sleep);
+            timeModify(stats.Happiness);
+
+            // !!! BEFORE LvlCalculation !!!
+            if (exp.exp.isLvlUp())
+            {
+                lvlUp.Invoke();
+            }
+
+            LvlCalculation();
+
+            if ((stats.Hunger.IsEmpty || stats.Sleep.IsEmpty || stats.Happiness.IsEmpty || stats.Dehydration.IsEmpty) && !isGettingDamage)
+            {
+                stats.Health.Duration = Stats.healthDuration;
+                isGettingDamage = true;
+            }
+            else if (!stats.Hunger.IsEmpty && !stats.Sleep.IsEmpty && !stats.Happiness.IsEmpty && !stats.Dehydration.IsEmpty)
+            {
+                stats.Health.Duration = float.MaxValue;
+                isGettingDamage = false;
+            }
+
+            StatModify.HealthControll(stats.Health, stats.Hunger, hungerDamage);
+            StatModify.HealthControll(stats.Health, stats.Dehydration, dehydrationDamage);
+            StatModify.HealthControll(stats.Health, stats.Sleep, sleepDamage);
+            StatModify.HealthControll(stats.Health, stats.Happiness, happinessDamage);
+
+
+            if (!isAlife(statInit))
+            {
+                dead.Invoke();
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     void Update()
@@ -44,55 +92,39 @@ public class Lifecell : MonoBehaviour
         timeModify(stats.Age);
         timeModify(stats.Health);
         timeModify(stats.Hunger);
+        timeModify(stats.Dehydration);
         timeModify(stats.Sleep);
         timeModify(stats.Happiness);
 
         // !!! BEFORE LvlCalculation !!!
-        if (exp.exp.isLvlUp()) 
+        if (exp.exp.isLvlUp())
         {
             lvlUp.Invoke();
         }
 
         LvlCalculation();
 
-        if ((stats.Hunger.IsEmpty || stats.Sleep.IsEmpty || stats.Happiness.IsEmpty) && !isGettingDamage)
+        if ((stats.Hunger.IsEmpty || stats.Sleep.IsEmpty || stats.Happiness.IsEmpty || stats.Dehydration.IsEmpty) && !isGettingDamage)
         {
             stats.Health.Duration = Stats.healthDuration;
             isGettingDamage = true;
         }
-        else if (!stats.Hunger.IsEmpty && !stats.Sleep.IsEmpty && !stats.Happiness.IsEmpty)
+        else if (!stats.Hunger.IsEmpty && !stats.Sleep.IsEmpty && !stats.Happiness.IsEmpty && !stats.Dehydration.IsEmpty)
         {
             stats.Health.Duration = float.MaxValue;
             isGettingDamage = false;
         }
 
         StatModify.HealthControll(stats.Health, stats.Hunger, hungerDamage);
+        StatModify.HealthControll(stats.Health, stats.Dehydration, dehydrationDamage);
         StatModify.HealthControll(stats.Health, stats.Sleep, sleepDamage);
         StatModify.HealthControll(stats.Health, stats.Happiness, happinessDamage);
 
 
-        if (!isAlife(statInit)) 
+        if (!isAlife(statInit))
         {
             dead.Invoke();
         }
-
-        ////Test
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    StatModify.AddValue(stats.Hunger, 30);
-        //}
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    StatModify.AddValue(stats.Sleep, 30);
-        //}
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    StatModify.AddValue(stats.Happiness, 30);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    exp.exp.Current_exp += 100;
-        //}
 
     }
 

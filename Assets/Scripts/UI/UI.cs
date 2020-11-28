@@ -68,12 +68,13 @@ public class UI : MonoBehaviour
         DrawStatBar(stats.Age, 0);
         DrawStatBar(stats.Health, 1);
         DrawStatBar(stats.Hunger, 2);
-        DrawStatBar(stats.Sleep, 3);
-        DrawStatBar(stats.Happiness, 4);
-        DrawExpBar(5);
-        DrawFightStatBar(fightStats.fightStats.Attack, 6, "attack");
-        DrawFightStatBar(fightStats.fightStats.Defence, 7, "defence");
-        DrawCookingSkill(9);
+        DrawStatBar(stats.Dehydration, 3);
+        DrawStatBar(stats.Sleep, 4);
+        DrawStatBar(stats.Happiness, 5);
+        DrawExpBar(6);
+        DrawFightStatBar(fightStats.fightStats.Attack, 7, "attack");
+        DrawFightStatBar(fightStats.fightStats.Defence, 8, "defence");
+        DrawCookingSkill(10);
         // inv
         if (isInventoryOpen)
         {
