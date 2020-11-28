@@ -26,7 +26,10 @@ public class Item : ScriptableObject
     [SerializeReference]
     public List<Item> innerItems;
 
+    [Header("on player use settings")]
     public bool isDestroyOnPlayerUse;
+    public Item afterOnPlayerUseItem;
+    
 
     public override string ToString()
     {

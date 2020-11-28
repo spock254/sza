@@ -235,6 +235,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         tvController.NextChanel();
                     }
 
+                    if (hit.collider.gameObject.name.Contains(Global.ITEM_SWITCH_PREFIX)) 
+                    {
+                        ItemSwitchController itemSwitchController = hit.collider.GetComponent<ItemSwitchController>();
+
+                        itemSwitchController.SwitchItem(GetItemInHand(currentHand), currentHand);
+                    }
+
                     /*                  */
                     /*      QUESTS      */
                     /*                  */
@@ -289,6 +296,14 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             if (item.isDestroyOnPlayerUse) 
                             { 
                                 SetDefaultItem(currentHand);
+                            }
+                            else 
+                            {
+                                if (item.afterOnPlayerUseItem != null) 
+                                {
+                                    Item afterUseItemClone = Instantiate(item.afterOnPlayerUseItem);
+                                    DressCell(currentHand, afterUseItemClone);
+                                }
                             }
                         }
 

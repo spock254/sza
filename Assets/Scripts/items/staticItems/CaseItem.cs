@@ -13,6 +13,14 @@ public class CaseItem : MonoBehaviour
     public int caseCapacity;
     public bool isLocked = false;
 
+    void Start()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            items[i] = Instantiate(items[i]);
+        } 
+    }
+
     public int CountInnerCapacity()
     {
         int innerCapacity = 0;
