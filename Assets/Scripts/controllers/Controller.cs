@@ -466,6 +466,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 craftController.Craft_OneHand(cell, itemInHand);
             }
 
+            SwapItems(cell, itemType);
+
             if (IsEmpty(cell))  //если не чего не надето
             {
                 // если сумка открыта, тогда закрыть
@@ -488,8 +490,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 }
             }
             else //если одето 
-            { 
-            
+            {
+                
             }
 
             // если две руки заняты попробовать скрафтить
@@ -582,6 +584,35 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         DressCell(currentHand, Instantiate(item));
 
         Destroy(itemGo);
+    }
+
+    void SwapItems(Button cellToSwap, string itemType) 
+    {
+        Item itemInHand = GetItemInHand(currentHand);
+        
+        if (IsItemHasType(itemInHand, itemType) && !IsEmpty(cellToSwap)) 
+        { 
+            Item itemInCell = cellToSwap.GetComponent<ItemCell>().item;
+
+            DressCell(currentHand, itemInCell);
+            DressCell(cellToSwap, itemInHand);
+        }
+
+        UpdateAllEqupment();
+        //Debug.Log(IsItemHasType(itemInHand, itemType) + " " + itemType);
+    }
+
+    bool IsItemHasType(Item item, string itemType) 
+    {
+        foreach (var type in item.itemUseData.itemTypes)
+        {
+            if (isSameTypes(type.ToString(), itemType)) 
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     //когда не чего не надето
