@@ -6,5 +6,6 @@ public class NPC_DATA_tableLuggageCheck : NPC_BaseData
 {
     public Transform table;
     public Item card;
-
+    public GameObject actionGo;
+    public StateTypes withOutLaggadgeState;
 }

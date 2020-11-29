@@ -5,17 +5,31 @@ using System.Linq;
 
 public class NPC_STATE_tableLuggageCheck : BaseState<NPC_DATA_tableLuggageCheck>
 {
+    IAction action = null;
     public override void Enter()
     {
         base.Enter();
 
-        dialogueManager.SetDialog(data.GetDialogByIndex(0));
-        eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
+        action = data.actionGo.GetComponent<IAction>();
+
+        if (IsDialogOpen() == false && action.IsInAction())
+        {
+            dialogueManager.SetDialog(data.GetDialogByIndex(0));
+            eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
+        }
+        else 
+        {
+            dialogueManager.SetDialog(data.GetDialogByIndex(1));
+            eventController.OnStartDialogEvent.Invoke(info.npcName, "*" + info.npcName + "*");
+
+            machine.ChangeState(data.GetNextStateType(data.withOutLaggadgeState));
+        }
+
     }
 
     public override void Execute()
     {
-        if (Input.GetMouseButtonDown(0) && dialogueManager.isOpen == false)
+        if (Input.GetMouseButtonDown(0) && IsDialogOpen() == false)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
@@ -56,9 +70,13 @@ public class NPC_STATE_tableLuggageCheck : BaseState<NPC_DATA_tableLuggageCheck>
                         }
                     }
 
+                    if (data.savedItems.Count > 0)
+                    {
+                        machine.ChangeState(data.GetNextStateType(data.nextState));
+                    }
 
                 }
             }
         }
-                    }
+    }
 }

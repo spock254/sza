@@ -11,33 +11,37 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
         base.Enter();
 
         point = data.GetNextPoint();
-        Debug.Log(point.position.ToString());
+        
     }
 
     public override void Execute()
     {
-        if (data.IsLastPoint() && point.position == data.transform.position)
-        {
-            machine.ChangeState(data.GetNextStateType(data.nextState));    
-        }
+        if (IsDialogOpen() == false) 
+        { 
+            if (data.IsLastPoint() && point.position == data.transform.position)
+            {
+                machine.ChangeState(data.GetNextStateType(data.nextState));    
+            }
 
-        if (point.position != data.transform.position) 
-        {
-            data.transform.position = Vector3.MoveTowards(data.transform.position,
-                                                          point.position,
-                                                          data.walkSpeed * Time.deltaTime);
+            if (point.position != data.transform.position) 
+            {
+                data.transform.position = Vector3.MoveTowards(data.transform.position,
+                                                              point.position,
+                                                              data.walkSpeed * Time.deltaTime);
             
-            diraction = data.GetNpcDiraction(point.position, data.transform.position);
+                diraction = data.GetNpcDiraction(point.position, data.transform.position);
 
-            data.animationController.ChangeAllSprites();
+                data.animationController.ChangeAllSprites();
             
-            data.animationController.Play(diraction);
+                data.animationController.Play(diraction);
             
-            Debug.Log(diraction);
-        }
-        else 
-        {
-            point = data.GetNextPoint();
+                Debug.Log(diraction);
+            }
+            else 
+            {
+                point = data.GetNextPoint();
+            }
+        
         }
     }
 
