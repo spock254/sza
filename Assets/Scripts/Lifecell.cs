@@ -167,6 +167,6 @@ public class Lifecell : MonoBehaviour
 
     private void Dead() 
     {
-        Debug.Log("player dead");
+
     }
 }
