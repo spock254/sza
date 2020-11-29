@@ -93,7 +93,7 @@ public class NPC_STATE_itemRequier : BaseState<NPC_DATA_itemRequier>
             //}
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && IsDialogOpen() == false)
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
