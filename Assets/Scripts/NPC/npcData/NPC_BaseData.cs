@@ -18,6 +18,9 @@ public class NPC_BaseData : MonoBehaviour
 
     public StateTypes nextState;
 
+    [HideInInspector]
+    public List<Item> savedItems;
+
     public virtual void ResetState() 
     {
         dialogIndex = 0;
@@ -71,5 +74,10 @@ public class NPC_BaseData : MonoBehaviour
         return Mathf.Abs(temp.x) > Mathf.Abs(temp.y)
                                       ? new Vector2(temp.x, 0)
                                       : new Vector2(0, temp.y);
+    }
+
+    public void DestroyItem(GameObject itemGo)
+    {
+        Destroy(itemGo);
     }
 }

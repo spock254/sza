@@ -40,6 +40,10 @@ public class BaseState<T> : ByTheTale.StateMachine.State
         return Vector2.Distance(playerTransform.position, npcPosition) <= playerActionRadius;
     }
 
+    protected bool IsDialogOpen() 
+    {
+        return dialogueManager.isOpen;
+    }
     //public T GetData<T>() 
     //{ 
     //    return GameObject.Find(npcName).GetComponent<T>();

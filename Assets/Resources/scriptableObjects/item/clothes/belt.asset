@@ -31,8 +31,33 @@ MonoBehaviour:
     use:
       id: 0
     itemTypes: 050000000e000000
+  itemAnimationData:
+    itemSpriteFrames: []
+  itemTimeflowModify:
+    tics: 0
+    modifiedItem: {fileID: 0}
+    ticsTransition: 0
+  itemEffect:
+    effect: {fileID: 0}
+    effectCells: 
+    envPosition: {x: 0, y: 0, z: 0}
+    currentCell: {fileID: 0}
+  itemOptionData:
+    awPrefab: {fileID: 0}
+    text: 
+    actionWindowTag: 
+    isModified: 0
   capacity: 10
-  innerItems: []
+  innerItems:
+  - {fileID: 11400000, guid: 2c08da89511c00d49b7a82aedbe795b5, type: 2}
+  - {fileID: 11400000, guid: 0a0829c0c9174404fb880f42a4d955f1, type: 2}
+  - {fileID: 11400000, guid: 526918a5006dee94aa0a9f89b356392f, type: 2}
+  - {fileID: 11400000, guid: f48bdbd0b15db3943b57aa706aa85598, type: 2}
+  - {fileID: 11400000, guid: ad462d570f8776a40ba2642a479b13fd, type: 2}
+  - {fileID: 11400000, guid: 0a0829c0c9174404fb880f42a4d955f1, type: 2}
+  - {fileID: 11400000, guid: ef1ad2613d878cd47a19a9add5075a67, type: 2}
+  isDestroyOnPlayerUse: 0
+  afterOnPlayerUseItem: {fileID: 0}
   references:
     version: 1
     00000000:

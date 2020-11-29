@@ -8,6 +8,7 @@ public class NPC_STATE_thinking : BaseState<NPC_DATA_thinking>
 
     public override void Enter()
     {
+        Debug.Log("THINKING");
         base.Enter();
 
         dialogueManager.SetDialog(data.GetNextDialog());
