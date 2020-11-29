@@ -35,7 +35,6 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
             
                 data.animationController.Play(diraction);
             
-                Debug.Log(diraction);
             }
             else 
             {
