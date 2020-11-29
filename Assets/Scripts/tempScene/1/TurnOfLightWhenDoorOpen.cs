@@ -6,6 +6,7 @@ public class TurnOfLightWhenDoorOpen : MonoBehaviour
 {
     Light2D light2D;
     public float fading = 0.05f;
+    public bool isOriginalyInside = true;
 
     public List<Light2D> lightsInHouse;
 
@@ -13,6 +14,7 @@ public class TurnOfLightWhenDoorOpen : MonoBehaviour
     private void Awake()
     {
         light2D = GetComponent<Light2D>();
+
         foreach (var ligh in lightsInHouse)
         {
             houseLightInvencity.Add(ligh.intensity);
@@ -21,25 +23,42 @@ public class TurnOfLightWhenDoorOpen : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        StartCoroutine(FadeUp());
+        if (isOriginalyInside == true)
+        {
+            StartCoroutine(FadeUp());
+        }
+        else 
+        {
+            StartCoroutine(FadeDown());
+        }
 
     }
     void OnTriggerExit2D(Collider2D col)
     {
-        StartCoroutine(FadeDown());
+        if (isOriginalyInside == true)
+        {
+            StartCoroutine(FadeDown());
+        }
+        else
+        {
+            StartCoroutine(FadeUp());
+        }
 
     }
 
     IEnumerator FadeDown()
     {
-        for (float ft = 1f; ft >= 0; ft -= 0.1f)
-        {
-            light2D.intensity = ft;
+        if (light2D != null) 
+        { 
+            for (float ft = 1f; ft >= 0; ft -= 0.1f)
+            {
+                light2D.intensity = ft;
 
-            yield return new WaitForSeconds(fading);
+                yield return new WaitForSeconds(fading);
+            }
+
+            light2D.intensity = 0;
         }
-
-        light2D.intensity = 0;
 
         for (int i = 0; i < lightsInHouse.Count; i++)
         {
@@ -48,13 +67,16 @@ public class TurnOfLightWhenDoorOpen : MonoBehaviour
     }
     IEnumerator FadeUp()
     {
-        for (float ft = 0f; ft <= 1; ft += 0.1f)
-        {
-            light2D.intensity = ft;
-            yield return new WaitForSeconds(fading);
-        }
+        if (light2D != null) 
+        { 
+            for (float ft = 0f; ft <= 1; ft += 0.1f)
+            {
+                light2D.intensity = ft;
+                yield return new WaitForSeconds(fading);
+            }
 
-        light2D.intensity = 1;
+            light2D.intensity = 1;
+        }
 
         foreach (var ligh in lightsInHouse)
         {
