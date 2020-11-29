@@ -842,6 +842,13 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         isOpen = !isOpen;
         panel.SetActive(isOpen);
     }
+
+    public void CloseContainer() 
+    {
+        isBagOpen = false;
+        bag_panel.SetActive(false);
+    }
+
     Button SwapActiveHand() 
     {
         isLeftHand = !isLeftHand;
