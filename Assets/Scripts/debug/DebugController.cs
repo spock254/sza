@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class DebugController : MonoBehaviour
 {
@@ -11,6 +13,9 @@ public class DebugController : MonoBehaviour
     public static DebugCommand PLAYER_SPEED;
     public static DebugCommand FPS;
     public static DebugCommand SCENE_LOAD;
+    public static DebugCommand MOTION_BLUR;
+    public static DebugCommand MOTION_BLUR_INTENCITY;
+    public static DebugCommand MOTION_BLUR_CLAMP;
 
     public List<object> commandList;
 
@@ -43,11 +48,51 @@ public class DebugController : MonoBehaviour
             sceneLoader.LoadScene(int.Parse(arg));
         });
 
-        commandList = new List<object>
+        MOTION_BLUR = new DebugCommand("motion_blur", "change scene", "motion_blur <on/off>", (arg) =>
+        {
+            Volume volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+            MotionBlur motionBlur = null;
+            
+            volume.profile.TryGet(out motionBlur);
+
+            if (arg == "on")
+            {
+                motionBlur.active = true;
+            }
+            else if (arg == "off") 
+            {
+                motionBlur.active = false;
+            }
+        });
+
+        MOTION_BLUR_INTENCITY = new DebugCommand("motion_blur_intensity", "motion blure intencity", "motion_blur_intensity <int>", (arg) =>
+        {
+            Volume volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+            MotionBlur motionBlur = null;
+
+            volume.profile.TryGet(out motionBlur);
+
+            motionBlur.intensity.value = float.Parse(arg, CultureInfo.InvariantCulture.NumberFormat);
+        });
+
+        MOTION_BLUR_CLAMP = new DebugCommand("motion_blur_clamp", "motion blure clamp", "motion_blur_clamp <int>", (arg) =>
+        {
+            Volume volume = GameObject.Find("Global Volume").GetComponent<Volume>();
+            MotionBlur motionBlur = null;
+
+            volume.profile.TryGet(out motionBlur);
+
+            motionBlur.clamp.value = float.Parse(arg, CultureInfo.InvariantCulture.NumberFormat);
+        }); ;
+
+    commandList = new List<object>
         {
             PLAYER_SPEED,
             FPS,
-            SCENE_LOAD
+            SCENE_LOAD,
+            MOTION_BLUR,
+            MOTION_BLUR_INTENCITY,
+            MOTION_BLUR_CLAMP
         };
     }
 
