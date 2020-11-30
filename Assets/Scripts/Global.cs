@@ -130,10 +130,13 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("questSystem").GetComponent<QuestSystem>();
         }
-
         public static CameraFollow GetCameraFollow() 
         {
             return GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        }
+        public static ProgressSceneLoader GetProgressSceneLoader() 
+        {
+            return GameObject.FindGameObjectWithTag("screenLoader").GetComponent<ProgressSceneLoader>();
         }
     }
 
@@ -157,6 +160,11 @@ public static class Global
         public static GameObject GetEnvWindow() 
         { 
             return GameObject.FindGameObjectWithTag("envWindow");
+        }
+
+        public static GameObject GetScreenLoader() 
+        {
+            return GameObject.FindGameObjectWithTag("screenLoader");
         }
     }
 

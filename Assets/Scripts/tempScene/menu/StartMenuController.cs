@@ -7,7 +7,8 @@ public class StartMenuController : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        ProgressSceneLoader sceneLoader = Global.Component.GetProgressSceneLoader();
+        sceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void Exit() 

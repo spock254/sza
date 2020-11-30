@@ -102,7 +102,11 @@ public class Quest : ScriptableObject
     public bool EndQuest() 
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        ProgressSceneLoader sceneLoader = Global.Component.GetProgressSceneLoader();
+        sceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
         return true;
     }
 

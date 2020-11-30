@@ -10,6 +10,7 @@ public class DebugController : MonoBehaviour
 
     public static DebugCommand PLAYER_SPEED;
     public static DebugCommand FPS;
+    public static DebugCommand SCENE;
 
     public List<object> commandList;
 
@@ -30,6 +31,21 @@ public class DebugController : MonoBehaviour
                 fpsWindow.GetComponent<FPSCounter>().TurnFps(true);
             }
             else if (arg == "off") 
+            {
+                fpsWindow.GetComponent<FPSCounter>().TurnFps(false);
+            }
+
+        });
+
+        FPS = new DebugCommand("scene", "change scene", "scene <int>", (arg) =>
+        {
+            GameObject fpsWindow = GameObject.Find("fpsWindow").gameObject;
+
+            if (arg == "on")
+            {
+                fpsWindow.GetComponent<FPSCounter>().TurnFps(true);
+            }
+            else if (arg == "off")
             {
                 fpsWindow.GetComponent<FPSCounter>().TurnFps(false);
             }
