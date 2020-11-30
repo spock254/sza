@@ -10,7 +10,7 @@ public class DebugController : MonoBehaviour
 
     public static DebugCommand PLAYER_SPEED;
     public static DebugCommand FPS;
-    public static DebugCommand SCENE;
+    public static DebugCommand SCENE_LOAD;
 
     public List<object> commandList;
 
@@ -37,25 +37,17 @@ public class DebugController : MonoBehaviour
 
         });
 
-        FPS = new DebugCommand("scene", "change scene", "scene <int>", (arg) =>
+        SCENE_LOAD = new DebugCommand("scene", "change scene", "scene <int>", (arg) =>
         {
-            GameObject fpsWindow = GameObject.Find("fpsWindow").gameObject;
-
-            if (arg == "on")
-            {
-                fpsWindow.GetComponent<FPSCounter>().TurnFps(true);
-            }
-            else if (arg == "off")
-            {
-                fpsWindow.GetComponent<FPSCounter>().TurnFps(false);
-            }
-
+            ProgressSceneLoader sceneLoader = Global.Component.GetProgressSceneLoader();
+            sceneLoader.LoadScene(int.Parse(arg));
         });
 
         commandList = new List<object>
         {
             PLAYER_SPEED,
-            FPS
+            FPS,
+            SCENE_LOAD
         };
     }
 
