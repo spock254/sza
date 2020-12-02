@@ -176,4 +176,14 @@ public class ItemCell : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
     }
+
+    //void OnMouseOver()
+    //{
+    //    ToolTipController.Show(item.itemName, "interaction");    
+    //}
+
+    //void OnMouseExit()
+    //{
+    //    ToolTipController.Hide();
+    //}
 }

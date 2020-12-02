@@ -142,6 +142,11 @@ public static class Global
 
     public static class UIElement 
     {
+        public static GameObject GetUI()
+        {
+            return GameObject.FindGameObjectWithTag("ui");
+        }
+
         public static GameObject GetDialogWindow() 
         {
             return GameObject.FindGameObjectWithTag("dialogWindow");

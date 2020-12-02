@@ -151,7 +151,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         //GetAnotherHand().GetComponentInChildren<Image>().color = Color.white;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!actionWindow.isOpen && !dialogWindow.isOpen) 
