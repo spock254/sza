@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 
 public class CaseController : MonoBehaviour
 {
+    public string caseName;
+
     Tilemap caseTilemap_door;
     Tilemap caseTilemap_body;
 

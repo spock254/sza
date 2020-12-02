@@ -12,10 +12,30 @@ public static class Global
     public const string MONEY_SIGN = "$";
     public const string ITEM_SWITCH_PREFIX = "iswitch_";
 
-    public static class Timeflow 
+    public static class Timeflow
     {
         public const int MAX_TICS = 60;
         public const int MAX_HOURS = 24;
+    }
+
+    public static class Tooltip
+    {
+        public const string LM_OPEN = "LM to open";
+        public const string LM_CLOSE = "LM to close";
+        public const string LM_PICK_UP = "LM to pick up";
+        public const string LM_SWIPE = "LM to swipe";
+        public const string RM_GIVE = "RM to give";
+        public const string LM_PUT = "LM to put";
+        //public const string LM_TAKE = "LM to take";
+        public const string RM_CRAFT = "RM to craft";
+
+    }
+
+    public static class Color
+    {
+        public const string RED_COLOR_PREFIX = "<color=#8B3837>";
+        public const string GREEN_COLOR_PREFIX = "<color=#98B819>";
+        public const string END_COLOR_PREFIX = "</color>";
     }
 
     public static class Item 

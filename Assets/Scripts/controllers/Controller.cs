@@ -8,6 +8,8 @@ using System.Linq;
 
 public class Controller : MonoBehaviour //, IPointerClickHandler
 {
+    static Controller instance;
+
     [Header("Init")]
     public StatInit statInit;
     public FightStatsInit fightStatsInit;
@@ -82,6 +84,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     DialogueManager dialogWindow;
     void Start()
     {
+        instance = this;
         //DontDestroyOnLoad(transform.gameObject);
         // еслт какое-то окно активно, запретить управление
         actionWindow = Global.Component.GetActionWindowController();
@@ -831,6 +834,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         return Vector2.Distance(mousePos, player.position) < actioPlayerRadius;
     }
 
+
     bool isSameTypes(string t1, string t2) 
     {
         return t1.ToLower() == t2.ToLower();
@@ -931,4 +935,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             yield return new WaitForSeconds(0.3f);
         }
     }
+
+    /* STATIC */
+    public static float GetActioPlayerRadiusStatic() 
+    {
+        return instance.GetActioPlayerRadius();
+    }
+
 }
