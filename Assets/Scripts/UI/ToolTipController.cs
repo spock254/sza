@@ -25,7 +25,6 @@ public class ToolTipController : MonoBehaviour
     bool isTooltipOpen = false;
     float preferredHeight = 0;
 
-    Vector2 tooltipPosition = Vector2.zero;
     void Start()
     {
         bgImage = toolTip.transform.GetChild(0).GetComponent<Image>();
@@ -42,19 +41,20 @@ public class ToolTipController : MonoBehaviour
     }
 
     bool isdetected = false;
+    
+    
     void Update()
     {
-        if (isTooltipOpen == true) 
-        { 
-            Vector2 localPoint;
+        //if (isTooltipOpen == true) 
+        //{ 
+        //    Vector2 localPoint;
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(UIRectTransform,
-                Input.mousePosition, uiCamera, out localPoint);
+        //    RectTransformUtility.ScreenPointToLocalPointInRectangle(UIRectTransform,
+        //        tooltipPosition, uiCamera, out localPoint);
             
-
-            localPoint.y = localPoint.y + preferredHeight;
-            toolTip.transform.localPosition = localPoint;
-        }
+        //    localPoint.y = localPoint.y + preferredHeight * 2;
+        //    toolTip.transform.localPosition = localPoint;
+        //}
 
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
@@ -74,9 +74,11 @@ public class ToolTipController : MonoBehaviour
                 Item item = hit.collider.GetComponent<ItemCell>().item;
 
                 isdetected = true;
-                tooltipPosition = hit.collider.transform.position;
-                //tooltipPosition = uiCamera.WorldToViewportPoint(hit.collider.transform.position);
-                ShowToolTip(item.itemName, "qwe");
+                Vector2 tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+
+                ShowToolTip(item.itemName, "LM pick up");
+                TooltipLocate(tooltipPosition);
+
                 return;
             }
             else 
@@ -129,6 +131,17 @@ public class ToolTipController : MonoBehaviour
 
         toolTip.SetActive(false);
         isTooltipOpen = false;
+    }
+
+    void TooltipLocate(Vector2 pos) 
+    {
+        Vector2 localPoint;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(UIRectTransform,
+            pos, uiCamera, out localPoint);
+
+        localPoint.y = localPoint.y + preferredHeight * 2;
+        toolTip.transform.localPosition = localPoint;
     }
 
     public static void Show(string itemName, string itemInteraction) 
