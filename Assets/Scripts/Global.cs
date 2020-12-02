@@ -26,8 +26,11 @@ public static class Global
         public const string LM_SWIPE = "LM to swipe";
         public const string RM_GIVE = "RM to give";
         public const string LM_PUT = "LM to put";
-        //public const string LM_TAKE = "LM to take";
         public const string RM_CRAFT = "RM to craft";
+        public const string NO_ACTIONS = "no actions";
+        public const string LM_TURN_ON = "LM to turn on";
+        public const string LM_TURN_OFF = "LM to turn off";
+        public const string RM_NEXT_CHANNEL = "RM next channel";
 
     }
 

@@ -91,8 +91,12 @@ public class TVController : MonoBehaviour
             {
                 index = 0;
             }
-        }
-        
+        }   
+    }
+
+    public bool IsTvOpen() 
+    {
+        return isOpen;
     }
 }
 

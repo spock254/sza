@@ -7,6 +7,7 @@ public class TableController : MonoBehaviour
     ActionPanelController actionPanelController;
     Controller controller;
     public bool isCraftTable = true;
+    public string tableName = string.Empty;
     void Start()
     {
         actionPanelController = Global.Component.GetActionPanelController();

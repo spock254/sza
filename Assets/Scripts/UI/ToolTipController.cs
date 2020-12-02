@@ -69,15 +69,36 @@ public class ToolTipController : MonoBehaviour
             {
                 //Debug.Log(hit.collider.name);
 
-                if (hit.collider.tag == "table") 
+                if (hit.collider.tag == "table")
                 {
-
+                    TableController tableController = hit.collider.GetComponent<TableController>();
 
                     isdetected = true;
                     Vector2 tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
-                    ShowToolTip("rerer", "rererdd");
+                    if (IsCurrentHandEmpty() && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == false)
+                    {
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
+                                PrintRed(Global.Tooltip.NO_ACTIONS));
+                    }
+                    else if (IsCurrentHandEmpty() && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == true)
+                    {
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
+                                Global.Tooltip.LM_PICK_UP);
+                    }
+                    else if (IsCurrentHandEmpty() == false && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == true)
+                    {
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
+                                Global.Tooltip.LM_PUT + ((tableController.isCraftTable) ? " / " + Global.Tooltip.RM_CRAFT : string.Empty));
+                    }
+                    else
+                    {
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
+                                Global.Tooltip.LM_PUT);
+                    }
+
                     TooltipLocate(tooltipPosition);
+
                     return;
                 }
                 else if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX))
@@ -85,22 +106,22 @@ public class ToolTipController : MonoBehaviour
                     bool onTable = false;
                     foreach (var hitTable in hits)
                     {
-                        if (hitTable.collider.tag == "table") 
+                        if (hitTable.collider.tag == "table")
                         {
                             onTable = true;
                         }
                     }
 
-                    if (onTable == false) 
-                    { 
+                    if (onTable == false)
+                    {
 
                         Item item = hit.collider.GetComponent<ItemCell>().item;
 
                         isdetected = true;
                         Vector2 tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
-                        ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ? 
-                            Global.Tooltip.LM_PICK_UP : PrintRed("no actions"));
+                        ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ?
+                            Global.Tooltip.LM_PICK_UP : PrintRed(Global.Tooltip.NO_ACTIONS));
                         TooltipLocate(tooltipPosition);
 
                         return;
@@ -113,8 +134,21 @@ public class ToolTipController : MonoBehaviour
                     isdetected = true;
                     Vector2 tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
-                    ShowToolTip(caseController.caseName, (caseController.isOpen == false)
+                    ShowToolTip((caseController.caseName == string.Empty) ? "case" : caseController.caseName, (caseController.isOpen == false)
                                 ? Global.Tooltip.LM_OPEN : Global.Tooltip.LM_CLOSE);
+                    TooltipLocate(tooltipPosition);
+
+                    return;
+                }
+                else if (hit.collider.tag == "tv") 
+                {
+                    TVController tvController = hit.collider.GetComponent<TVController>();
+
+                    isdetected = true;
+                    Vector2 tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+
+                    ShowToolTip("tv", (tvController.IsTvOpen() == false)
+                                ? Global.Tooltip.LM_TURN_ON : Global.Tooltip.LM_TURN_OFF + " / " + Global.Tooltip.RM_NEXT_CHANNEL);
                     TooltipLocate(tooltipPosition);
 
                     return;
@@ -152,7 +186,15 @@ public class ToolTipController : MonoBehaviour
 
         Vector2 bgSize = Vector2.zero;
 
-        if (itemName.Length > itemInteraction.Length)
+        int itemInteractionLength = itemInteraction.Length;
+
+        // если текст цветной
+        if (itemInteraction.Contains(Global.Color.RED_COLOR_PREFIX)) 
+        {
+            itemInteractionLength -= Global.Color.RED_COLOR_PREFIX.Length + Global.Color.END_COLOR_PREFIX.Length;
+        }
+
+        if (itemName.Length >= itemInteractionLength)
         {
             bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize * 2,
                 (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
@@ -205,6 +247,37 @@ public class ToolTipController : MonoBehaviour
     string PrintRed(string str) 
     {
         return Global.Color.RED_COLOR_PREFIX + str + Global.Color.END_COLOR_PREFIX;
+    }
+
+    bool IsCurrentHandEmpty() 
+    {
+        return controller.IsEmpty(controller.currentHand);
+    }
+
+    bool IsObjectExist(RaycastHit2D[] hits, string objId, bool isTag) 
+    {
+        if (isTag == true)
+        {
+            foreach (var hit in hits)
+            {
+                if (hit.collider.tag == objId)
+                {
+                    return true;
+                }
+            }
+        }
+        else 
+        {
+            foreach (var hit in hits)
+            {
+                if (hit.collider.name.Contains(objId))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public static void Show(string itemName, string itemInteraction) 
