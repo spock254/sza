@@ -71,7 +71,6 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Use)
             {
-                Debug.Log("answer");
                 if (quests.Peek().Use(currentQuestEvent.questData.arg))
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();

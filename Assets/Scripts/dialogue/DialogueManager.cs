@@ -16,8 +16,11 @@ public class DialogueManager : MonoBehaviour
 
     int currentPart = -1;
     public bool isOpen = false;
+
+    TextPrintController printController;
     void Start()
     {
+        printController = new TextPrintController(text, this);
         eventController.OnStartDialogEvent.AddListener(OnDialogeActivate);
     }
 
@@ -45,6 +48,7 @@ public class DialogueManager : MonoBehaviour
         if (initDialg != string.Empty)
         {
             text.text = initDialg;
+            //printController.ProcessText(initDialg);
         }
         else 
         {
@@ -56,11 +60,24 @@ public class DialogueManager : MonoBehaviour
 
     public void NextDialogPart() 
     {
-        currentPart++;
+        if (printController.IsRunning() == false) 
+        { 
+            currentPart++;
+        }
 
         if (currentPart < dialogParts.Count)
         {
-            text.text = dialogParts[currentPart];
+            if (printController.IsRunning() == false)
+            {
+                text.text = string.Empty;
+                printController.ProcessText(dialogParts[currentPart]);
+            }
+            else 
+            {
+                printController.Stop();
+                printController.CompleteText(dialogParts[currentPart]);
+            }
+            //text.text = dialogParts[currentPart];
         }
         else 
         {
