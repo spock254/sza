@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 93717891}
   - component: {fileID: 93717890}
   m_Layer: 0
-  m_Name: base
+  m_Name: floor
   m_TagString: base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8172,7 +8172,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 674770919}
   m_CullTransparentMesh: 0
---- !u!43 &688743400
+--- !u!43 &699169902
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15163,6 +15163,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895130819253886643, guid: 16790a371b24d424f899f9f547758649,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.6886792
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895130819253886643, guid: 16790a371b24d424f899f9f547758649,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.1721698
+      objectReference: {fileID: 0}
+    - target: {fileID: 5895130819253886643, guid: 16790a371b24d424f899f9f547758649,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.1721698
       objectReference: {fileID: 0}
     - target: {fileID: 5895130819253886653, guid: 16790a371b24d424f899f9f547758649,
         type: 3}
