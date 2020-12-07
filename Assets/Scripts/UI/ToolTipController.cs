@@ -88,8 +88,16 @@ public class ToolTipController : MonoBehaviour
                     }
                     else if (IsCurrentHandEmpty() == false && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == true)
                     {
+                        Item tool = controller.GetItemInHand(controller.currentHand);
+                        RaycastHit2D ?itemOnTableHit = FindRaycast(hits, Global.DROPED_ITEM_PREFIX, false);
+                        Item temOnTable = itemOnTableHit.GetValueOrDefault().collider.GetComponent<ItemCell>().item;
+
+                        ItemCraftData craftData = CraftController.FindRecept_Static(tool, temOnTable, CraftType.Cooking, CraftTable.Table);
+
                         ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
-                                Global.Tooltip.LM_PUT + ((tableController.isCraftTable) ? " / " + Global.Tooltip.RM_CRAFT : string.Empty));
+                                Global.Tooltip.LM_PUT + ((tableController.isCraftTable) ? ((craftData != null) ? 
+                                " / " + Global.Tooltip.RM_CRAFT + " " + craftData.recept.craftResult.itemName : string.Empty) 
+                                : string.Empty));
                     }
                     else
                     {
@@ -278,6 +286,33 @@ public class ToolTipController : MonoBehaviour
         }
 
         return false;
+    }
+
+    RaycastHit2D? FindRaycast(RaycastHit2D[] hits, string objId, bool isTag) 
+    {
+        
+        if (isTag == true)
+        {
+            foreach (var hit in hits)
+            {
+                if (hit.collider.tag == objId)
+                {
+                    return hit;
+                }
+            }
+        }
+        else
+        {
+            foreach (var hit in hits)
+            {
+                if (hit.collider.name.Contains(objId))
+                {
+                    return hit;
+                }
+            }
+        }
+
+        return null;
     }
 
     public static void Show(string itemName, string itemInteraction) 

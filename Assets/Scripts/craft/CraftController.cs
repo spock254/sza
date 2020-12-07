@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class CraftController : MonoBehaviour
 {
+    static CraftController instance;
+
     List<ItemCraftData> itemCraftData;
     public SkillsInit skillsInit;
 
@@ -13,6 +15,7 @@ public class CraftController : MonoBehaviour
 
     void Awake()
     {
+        instance = this;
         itemCraftData = Resources.LoadAll<ItemCraftData>(Global.Path.RECEPT).ToList();
         controller = Global.Component.GetController();
     }
@@ -189,6 +192,11 @@ public class CraftController : MonoBehaviour
                     .FirstOrDefault();
 
         return recept;
+    }
+
+    public static ItemCraftData FindRecept_Static(Item tool, Item originItem, CraftType craftType, CraftTable craftTable) 
+    {
+        return instance.FindRecept(tool, originItem, craftType, craftTable);
     }
 
     void AddExpReward(ItemCraftData itemCraftData) 
