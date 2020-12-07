@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class EWBase : MonoBehaviour, IEWInit
 {
@@ -17,9 +18,14 @@ public class EWBase : MonoBehaviour, IEWInit
     protected Vector2 vendorPosition;
     protected Transform player = null;
 
-    CameraFollow cameraFollow;
+    //CameraFollow cameraFollow;
+    CinemachineVirtualCamera vcam;
+
+    //bool isOpen = false;
+
     protected void BaseInit(GameObject window, GameObject envObj) 
     {
+        //isOpen = true;
         GameObject envWindow = Global.UIElement.GetEnvWindow();
 
         controller = Global.Component.GetController();
@@ -35,9 +41,11 @@ public class EWBase : MonoBehaviour, IEWInit
             envWindow.transform.GetChild(1).GetComponent<IEWInit>().Close();
         }
 
-        cameraFollow = Global.Component.GetCameraFollow();
-        cameraFollow.SetCameraTarger(envObj.gameObject);
-        cameraFollow.ZoomCamera(false, 0.01f, 4.7f);
+        //cameraFollow = Global.Component.GetCameraFollow();
+        //cameraFollow.SetCameraTarger(envObj.gameObject);
+        //cameraFollow.ZoomCamera(false, 0.01f, 4.7f);
+        vcam = Global.Obj.GetVirtualCamera1().GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = envObj.gameObject.transform;
     }
 
     protected bool IsPlayerInEWindowRadius() 
@@ -47,8 +55,11 @@ public class EWBase : MonoBehaviour, IEWInit
 
     public void Close()
     {
-        cameraFollow.SetCameraTarger(player.gameObject);
-        cameraFollow.ZoomCamera(true, 0.01f);
+        //isOpen = false;
+        //cameraFollow.SetCameraTarger(player.gameObject);
+        //cameraFollow.ZoomCamera(true, 0.01f);
+        vcam.Follow = player.gameObject.transform;
+
         Destroy(this.window);
     }
 
@@ -70,4 +81,9 @@ public class EWBase : MonoBehaviour, IEWInit
     {
         
     }
+
+    //public bool IsOpen() 
+    //{
+    //    return isOpen;
+    //}
 }

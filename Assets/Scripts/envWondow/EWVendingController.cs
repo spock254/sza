@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 public class EWVendingController : EWBase, IEWInit
 {
-    //GameObject vendingwindow = null;
-    //Controller controller = null;
     AccauntController accaunt = null;
     ActionWindowController actionWindow = null;
 
@@ -28,23 +26,16 @@ public class EWVendingController : EWBase, IEWInit
 
     readonly int[] prices = new int[4] { 15, 20, 10, 15 };
 
-    //Vector2 vendorPosition;
-    //Transform player = null;
-    //float actioPlayerRadius = 0;
     public void Init(GameObject vendingwindow, GameObject envObj) 
     {
         BaseInit(vendingwindow, envObj);
-        //controller = Global.Component.GetController();
+
         accaunt = Global.Component.GetAccauntController();
         actionWindow = Global.Component.GetActionWindowController();
 
-        //this.vendingwindow = vendingwindow;
         dropdown.onValueChanged.AddListener(OnDDValueChange);
         dropdown.onValueChanged.Invoke(dropdown.value);
 
-        //vendorPosition = envObj.transform.position;
-        // player = controller.player;
-        //actioPlayerRadius = controller.GetActioPlayerRadius();
     }
     void Update()
     {
@@ -79,13 +70,6 @@ public class EWVendingController : EWBase, IEWInit
             }
         }
     }
-    //public void Close() 
-    //{
-    //    // разблочить движение
-    //    //actionWindow.isOpen = false;
-
-    //    Destroy(this.vendingwindow);
-    //}
 
     public void Pay() 
     {

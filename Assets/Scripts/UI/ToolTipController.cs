@@ -8,7 +8,7 @@ public class ToolTipController : MonoBehaviour
     static ToolTipController instance;
 
     [SerializeField]
-    Camera uiCamera;
+    Camera uiCamera = null;
 
     [SerializeField]
     GameObject toolTip = null;
@@ -89,14 +89,16 @@ public class ToolTipController : MonoBehaviour
                     else if (IsCurrentHandEmpty() == false && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == true)
                     {
                         Item tool = controller.GetItemInHand(controller.currentHand);
-                        RaycastHit2D ?itemOnTableHit = FindRaycast(hits, Global.DROPED_ITEM_PREFIX, false);
+                        RaycastHit2D? itemOnTableHit = FindRaycast(hits, Global.DROPED_ITEM_PREFIX, false);
                         Item temOnTable = itemOnTableHit.GetValueOrDefault().collider.GetComponent<ItemCell>().item;
 
-                        ItemCraftData craftData = CraftController.FindRecept_Static(tool, temOnTable, CraftType.Cooking, CraftTable.Table);
+                        ItemCraftData craftData = CraftController.FindRecept_Static(tool, temOnTable,
+                                                                                    CraftType.Cooking, /* TODO */
+                                                                                    CraftTable.Table);
 
                         ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
-                                Global.Tooltip.LM_PUT + ((tableController.isCraftTable) ? ((craftData != null) ? 
-                                " / " + Global.Tooltip.RM_CRAFT + " " + craftData.recept.craftResult.itemName : string.Empty) 
+                                Global.Tooltip.LM_PUT + ((tableController.isCraftTable) ? ((craftData != null) ?
+                                " / " + Global.Tooltip.RM_CRAFT + " " + craftData.recept.craftResult.itemName : string.Empty)
                                 : string.Empty));
                     }
                     else
@@ -148,7 +150,7 @@ public class ToolTipController : MonoBehaviour
 
                     return;
                 }
-                else if (hit.collider.tag == "tv") 
+                else if (hit.collider.tag == "tv")
                 {
                     TVController tvController = hit.collider.GetComponent<TVController>();
 
@@ -160,6 +162,21 @@ public class ToolTipController : MonoBehaviour
                     TooltipLocate(tooltipPosition);
 
                     return;
+                }
+                else if (hit.collider.tag == "envObj") 
+                {
+                    VendingController vending = hit.collider.GetComponent<VendingController>();
+
+                    isdetected = true;
+                    Vector2 tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position + 
+                                                                    Global.Tooltip.EnvObjOffset());
+
+                    ShowToolTip((vending.headerTitle == string.Empty) ? "vending" : vending.headerTitle.ToLower(), 
+                                                                            Global.Tooltip.LM_USE);
+                    TooltipLocate(tooltipPosition);
+
+                    return;
+                    
                 }
                 else
                 {

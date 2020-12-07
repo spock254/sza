@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class ProgressSceneLoader : MonoBehaviour
 {
     [SerializeField]
-    Text progressText;
+    Text progressText = null;
 
     [SerializeField]
-    GameObject loadingScreen;
+    GameObject loadingScreen = null;
     
     AsyncOperation operation;
 

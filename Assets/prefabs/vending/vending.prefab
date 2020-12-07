@@ -46,7 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   windowPref: {fileID: 2126208459954330164, guid: 484e2a5e2037f87418097d2396116030,
     type: 3}
+  savedItems: []
   venderBody: {fileID: 11400000, guid: 1a912c2696f5eff42aac8ae88f435d8b, type: 2}
+  headerTitle: 
 --- !u!61 &5874165361503193724
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60,7 +62,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.25, y: 0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

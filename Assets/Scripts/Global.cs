@@ -20,6 +20,7 @@ public static class Global
 
     public static class Tooltip
     {
+        public const string LM_USE = "LM to use";
         public const string LM_OPEN = "LM to open";
         public const string LM_CLOSE = "LM to close";
         public const string LM_PICK_UP = "LM to pick up";
@@ -32,6 +33,10 @@ public static class Global
         public const string LM_TURN_OFF = "LM to turn off";
         public const string RM_NEXT_CHANNEL = "RM next channel";
 
+        public static Vector3 EnvObjOffset() 
+        {
+            return new Vector3(0, 0.32f, 0);
+        }
     }
 
     public static class Color
@@ -205,6 +210,10 @@ public static class Global
         public static GameObject GetEffectListObject() 
         {
             return GetPlayerGameObject().transform.Find("effectList").gameObject;
+        }
+        public static GameObject GetVirtualCamera1() 
+        { 
+            return GameObject.FindGameObjectWithTag("vcam1");
         }
     }
 }

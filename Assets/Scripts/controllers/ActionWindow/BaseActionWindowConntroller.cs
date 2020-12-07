@@ -14,7 +14,6 @@ public class BaseActionWindowConntroller : MonoBehaviour
     protected void Init()
     {
         envWindow = Global.UIElement.GetEnvWindow();
-        //actionWindow = Global.Component.GetActionWindowController();
     }
     public void Open(GameObject envObj) 
     {
