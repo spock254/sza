@@ -14,7 +14,7 @@ public class ToolTipController : MonoBehaviour
     GameObject toolTip = null;
 
     [SerializeField]
-    float textPaddinSize = 4f;
+    float textPaddinSize = 0f;
 
     [SerializeField]
     float actionDistanceCof = 1f;
@@ -221,25 +221,34 @@ public class ToolTipController : MonoBehaviour
 
         if (itemName.Length >= itemInteractionLength)
         {
-            bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize * 2,
-                (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
+            //bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize * 2,
+            //    (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
 
-          //  textInteraction.alignment = TextAnchor.MiddleCenter;
+            bgSize = new Vector2(textItemName.preferredWidth,
+                (textInteraction.preferredHeight));
+
+            //  textInteraction.alignment = TextAnchor.MiddleCenter;
         }
         else 
         {
-            bgSize = new Vector2(textInteraction.preferredWidth + textPaddinSize * 2, 
-                (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
+            //bgSize = new Vector2(textInteraction.preferredWidth + textPaddinSize * 2, 
+            //    (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
 
-           // textItemName.alignment = TextAnchor.MiddleCenter;
+            bgSize = new Vector2(textInteraction.preferredWidth,
+                (textInteraction.preferredHeight));
+
+            // textItemName.alignment = TextAnchor.MiddleCenter;
         }
 
-        bgRectTransform.sizeDelta = bgSize;
+        //bgRectTransform.sizeDelta = bgSize;
 
-        bgSize.y = bgSize.y + preferredHeight / 2;
+        bgRectTransform.sizeDelta = new Vector2(bgSize.x, bgSize.y * 2);
+
+        //bgSize.y = bgSize.y + preferredHeight / 2;
 
 
-        bgImage.rectTransform.sizeDelta = bgSize;
+        //bgImage.rectTransform.sizeDelta = bgSize;
+        bgImage.rectTransform.sizeDelta = bgRectTransform.sizeDelta;
     }
 
     void HideToolTip() 
@@ -258,7 +267,7 @@ public class ToolTipController : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle(UIRectTransform,
             pos, uiCamera, out localPoint);
 
-        localPoint.y = localPoint.y + preferredHeight * 4;
+        localPoint.y = localPoint.y + 32;
         toolTip.transform.localPosition = localPoint;
     }
 
