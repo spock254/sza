@@ -156,7 +156,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
     void Update()
     {
-        if (!actionWindow.isOpen && !dialogWindow.isOpen) 
+        if (dialogWindow.isOpen == false) 
         { 
             if (Input.mouseScrollDelta.y != 0 )
             {

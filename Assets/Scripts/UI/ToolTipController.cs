@@ -361,7 +361,8 @@ public class ToolTipController : MonoBehaviour
             {
                 reviewWindow.SetActive(true);
 
-                Instantiate(item.itemReviewData.itemReviewPrefab, reviewWindow.transform);
+                GameObject itemReviewWindowPref = Instantiate(item.itemReviewData.itemReviewPrefab, reviewWindow.transform);
+                itemReviewWindowPref.GetComponent<IItemReview>().Init();
             }
         }
     }
@@ -370,7 +371,6 @@ public class ToolTipController : MonoBehaviour
     {
         if (reviewWindow.activeInHierarchy == true) 
         {
-            //delete chileds
             foreach (Transform child in reviewWindow.transform)
             {
                 Destroy(child.gameObject);
