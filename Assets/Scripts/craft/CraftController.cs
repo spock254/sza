@@ -25,15 +25,15 @@ public class CraftController : MonoBehaviour
         Item tool = toolGO.GetComponent<ItemCell>().item;
         Item item = itemInHand.GetComponent<ItemCell>().item;
 
-        // если активная рука пустая и айтес имеет функционал для открытия окна
-        if (item.itemOptionData.actionWindowTag != string.Empty && controller.IsEmpty(toolGO.GetComponent<Button>())) 
-        {
-            string tagWithPrefix = item.itemOptionData.actionWindowTag + "Hand";
+        //// если активная рука пустая и айтес имеет функционал для открытия окна
+        //if (item.itemOptionData.actionWindowTag != string.Empty && controller.IsEmpty(toolGO.GetComponent<Button>())) 
+        //{
+        //    string tagWithPrefix = item.itemOptionData.actionWindowTag + "Hand";
 
-            ActionWindowController actionWindow = Global.Component.GetActionWindowController();
-            actionWindow.OpenActionWindow(tagWithPrefix);
-            actionWindow.InitActioWindow(tagWithPrefix, null, item, null);
-        }
+        //    ActionWindowController actionWindow = Global.Component.GetActionWindowController();
+        //    actionWindow.OpenActionWindow(tagWithPrefix);
+        //    actionWindow.InitActioWindow(tagWithPrefix, null, item, null);
+        //}
 
         ItemCraftData recept = FindRecept(tool, item, CraftType.Cooking, CraftTable.Hands);
 

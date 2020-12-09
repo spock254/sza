@@ -21,6 +21,7 @@ public class Item : ScriptableObject
     public ItemTimeflowModify itemTimeflowModify;
     public ItemEffect itemEffect;
     public ItemOptionData itemOptionData;
+    public ItemReviewData itemReviewData;
 
     public int capacity;
     [SerializeReference]

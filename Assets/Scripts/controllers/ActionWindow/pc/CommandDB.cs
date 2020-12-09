@@ -251,7 +251,7 @@ namespace commands
                 if (param[1] == "-status") 
                 {
                 
-                    string enabledStatus = "printer status ( enabled )";
+                    string enabledStatus = "printer status ( disabled )";
                     string paperStatus = "";
                 
                     foreach (var item in peripherals)
@@ -267,10 +267,8 @@ namespace commands
                             {
                                 paperStatus = "paper status ( no paper )";
                             }
-                        }
-                        else 
-                        {
-                            return new List<string>() { "printer status ( enabled )" };
+
+                            enabledStatus = "printer status ( enabled )";
                         }
                     }
 

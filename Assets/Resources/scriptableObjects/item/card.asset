@@ -30,15 +30,31 @@ MonoBehaviour:
     itemSize: 0
     use:
       id: 0
-    itemTypes: 0600000007000000080000000d000000
+    itemTypes: 060000000700000008000000
+  itemAnimationData:
+    itemSpriteFrames: []
+  itemTimeflowModify:
+    tics: 0
+    modifiedItem: {fileID: 0}
+    ticsTransition: 0
+  itemEffect:
+    effect: {fileID: 0}
+    effectCells: 
+    envPosition: {x: 0, y: 0, z: 0}
+    currentCell: {fileID: 0}
   itemOptionData:
     awPrefab: {fileID: 4469112931704078295, guid: 5520135643e802c4aae8350be217cb5d,
       type: 3}
     text: 
     actionWindowTag: awitem
+    isModified: 0
+  itemReviewData:
+    itemReviewPrefab: {fileID: 5794949491011150157, guid: ba965308f8c37874f982ebdcca23c22d,
+      type: 3}
   capacity: 0
   innerItems: []
   isDestroyOnPlayerUse: 0
+  afterOnPlayerUseItem: {fileID: 0}
   references:
     version: 1
     00000000:

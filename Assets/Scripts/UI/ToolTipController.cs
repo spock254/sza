@@ -31,6 +31,10 @@ public class ToolTipController : MonoBehaviour
     bool isTooltipOpen = false;
     float preferredHeight = 0;
     Vector2 tooltipPosition;
+
+    [SerializeField]
+    GameObject reviewWindow = null;
+
     void Start()
     {
         bgImage = toolTip.transform.GetChild(0).GetComponent<Image>();
@@ -45,12 +49,12 @@ public class ToolTipController : MonoBehaviour
 
         preferredHeight = textItemName.preferredHeight;
 
+
         //ShowToolTip("qwe", "tretr");
         HideToolTip();
     }
 
     bool isdetected = false;
-
     void FixedUpdate()
     {
         if (IsInActionRadius() == true)
@@ -62,6 +66,11 @@ public class ToolTipController : MonoBehaviour
             if (hits.Length == 0)
             {
                 isdetected = false;
+            }
+
+            foreach (var hit in hits)
+            {
+                //CheckHands(hit);
             }
 
             foreach (var hit in hits)
@@ -193,6 +202,11 @@ public class ToolTipController : MonoBehaviour
                 HideToolTip();
             }
         }
+    }
+
+    void CheckHands(RaycastHit2D hit) 
+    {
+        Debug.Log(hit.collider.name);
     }
 
     void ShowToolTip(string itemName, string itemInteraction) 
@@ -337,6 +351,34 @@ public class ToolTipController : MonoBehaviour
         return null;
     }
 
+    public void ShowItemReview(string button_tag) 
+    {
+        Item item = GameObject.FindGameObjectWithTag(button_tag).GetComponent<ItemCell>().item;
+
+        if (item != null) 
+        {
+            if (item.itemReviewData.itemReviewPrefab != null) 
+            {
+                reviewWindow.SetActive(true);
+
+                Instantiate(item.itemReviewData.itemReviewPrefab, reviewWindow.transform);
+            }
+        }
+    }
+
+    public void HideItemReview() 
+    {
+        if (reviewWindow.activeInHierarchy == true) 
+        {
+            //delete chileds
+            foreach (Transform child in reviewWindow.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
+            reviewWindow.SetActive(false);
+        }
+    }
     public static void Show(string itemName, string itemInteraction) 
     {
         instance.ShowToolTip(itemName, itemInteraction);
@@ -346,4 +388,5 @@ public class ToolTipController : MonoBehaviour
     {
         instance.HideToolTip();
     }
+
 }
