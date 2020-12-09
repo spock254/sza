@@ -34,6 +34,10 @@ public class ToolTipController : MonoBehaviour
 
     [SerializeField]
     GameObject reviewWindow = null;
+    [SerializeField]
+    GameObject itemDescription = null;
+    [SerializeField]
+    Text descriptionText = null;
 
     void Start()
     {
@@ -353,16 +357,25 @@ public class ToolTipController : MonoBehaviour
 
     public void ShowItemReview(string button_tag) 
     {
-        Item item = GameObject.FindGameObjectWithTag(button_tag).GetComponent<ItemCell>().item;
+        Button cell = GameObject.FindGameObjectWithTag(button_tag).GetComponent<Button>();
+        Item item = cell.GetComponent<ItemCell>().item;
 
         if (item != null) 
         {
-            if (item.itemReviewData.itemReviewPrefab != null) 
+            if (item.itemReviewData.itemReviewPrefab != null)
             {
                 reviewWindow.SetActive(true);
 
                 GameObject itemReviewWindowPref = Instantiate(item.itemReviewData.itemReviewPrefab, reviewWindow.transform);
                 itemReviewWindowPref.GetComponent<IItemReview>().Init();
+            }
+            else 
+            {
+                if (controller.IsEmpty(cell) == false) 
+                { 
+                    itemDescription.SetActive(true);
+                    descriptionText.text = item.itemName;
+                }
             }
         }
     }
@@ -377,6 +390,11 @@ public class ToolTipController : MonoBehaviour
             }
 
             reviewWindow.SetActive(false);
+        }
+
+        if (itemDescription.activeInHierarchy == true) 
+        {
+            itemDescription.SetActive(false);
         }
     }
     public static void Show(string itemName, string itemInteraction) 
