@@ -35,8 +35,8 @@ public class PCController : MonoBehaviour
 
     private void Awake()
     {
-        upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
-        upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
+        upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_3);
+        upper = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_2);
 
         upper.SetTile(upper.WorldToCell(transform.position), pc_body);
 

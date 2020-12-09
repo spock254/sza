@@ -80,7 +80,7 @@ public static class Global
         public const string UPPER_2 = "upper2";
 
         public const string WALLS = "walls";
-        public const string DOORS = "doors";
+        public const string DOORS = "door";
         public const string DOORS_SIDE = "doorSide";
 
         public static Tilemap GetTileMap(string tag) 

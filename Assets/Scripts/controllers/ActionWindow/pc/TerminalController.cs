@@ -22,6 +22,7 @@ public class TerminalController : MonoBehaviour
 
     PCController pcController;
 
+    //public List<string> history = new List<string>();
     public List<string> history = new List<string>();
 
     bool isInit = false;
@@ -34,54 +35,81 @@ public class TerminalController : MonoBehaviour
     {
         int index = 0;
 
-        if (history.Count > 0) 
-        { 
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                index++;
+        if (history.Count == 0) 
+        {
+            return input;
+        }
 
-                if (index > history.Count) 
-                {
-                    index = history.Count - 1;
-                    
-                }
 
-                return history[index];
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow)) 
+        for (int i = 0; i < history.Count; i++)
+        {
+            if (input == history[i]) 
             {
-                index--;
-            
-                if (index < 0) 
-                {
-                    index = 0;
-                    return string.Empty;
-                }
-                
-                return history[index];
+                index = i;
+                break;
             }
         }
 
-        Debug.Log(index);
-        return input;
+        if (index + 1 == history.Count)
+        {
+            index = 0;
+        }
+        else 
+        {
+            index++;
+        }
+
+        return history[index];
+        //int index = 0;
+
+        //if (history.Count > 0) 
+        //{ 
+        //    if (Input.GetKeyDown(KeyCode.DownArrow))
+        //    {
+        //        index++;
+
+        //        if (index > history.Count) 
+        //        {
+        //            index = history.Count - 1;
+                    
+        //        }
+
+        //        return history[index];
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.UpArrow)) 
+        //    {
+        //        index--;
+            
+        //        if (index < 0) 
+        //        {
+        //            index = 0;
+        //            return string.Empty;
+        //        }
+                
+        //        return history[index];
+        //    }
+        //}
+
+        //Debug.Log(index);
+        //return input;
     }
 
     void AddToHistory(string command) 
     {
-        if (history.Count == 100)
-        {
-            history.RemoveAt(99);
-        }
-        else if (history.Contains(command))
-        {
-            history.Remove(command);
-        }
-
+        //if (history.Count == 100)
+        //{
+        //    history.RemoveAt(99);
+        //}
+        //else if (history.Contains(command))
+        //{
+        //    history.Remove(command);
+        //}
+        //Debug.Log("added");
         history.Add(command);
     }
 
-    
 
+    int index = 0;
     private void OnGUI()
     {
         if (isOpen) 
@@ -129,9 +157,31 @@ public class TerminalController : MonoBehaviour
             
         }
 
-        //terminalInput.text = ScrollHistory(terminalInput.text);
-        
 
+        //terminalInput.text = ScrollHistory(terminalInput.text);
+
+        //if (terminalInput.isFocused && Input.GetKeyDown(KeyCode.UpArrow) && history.Count > 0)
+        //{
+        //    if (index == history.Count || index == -1)
+        //    {
+        //        index = 0;
+        //    }
+
+        //    terminalInput.text = history[index];
+        //    StartCoroutine(ChangeCaretPosition());
+        //    index++;
+        //}
+        //else if (terminalInput.isFocused && Input.GetKeyDown(KeyCode.DownArrow) && history.Count > 0) 
+        //{
+        //    if (index == 0 || index > history.Count)
+        //    {
+        //        index = history.Count - 1;
+        //    }
+
+        //    terminalInput.text = history[index];
+        //    StartCoroutine(ChangeCaretPosition());
+        //    index--;
+        //}
 
         if (terminalInput.isFocused && terminalInput.text != "" && Input.GetKeyDown(KeyCode.Return)) 
         {
@@ -150,6 +200,13 @@ public class TerminalController : MonoBehaviour
             terminalInput.ActivateInputField();
             terminalInput.Select();
         }
+    }
+
+    IEnumerator ChangeCaretPosition() 
+    {
+        yield return new WaitForEndOfFrame();
+        terminalInput.caretPosition = terminalInput.text.Length;
+        terminalInput.ForceLabelUpdate();
     }
 
     void ClearInputField() 
