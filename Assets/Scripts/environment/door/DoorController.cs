@@ -13,15 +13,12 @@ public class DoorController : MonoBehaviour
     public bool isOpen = false;
     public bool isFrontDoor = true;
 
-    //public Tile openDoorTile;
-    //public Tile closeDoorTile;
     public List<Tile> doorTiles;
 
     Tilemap doorTilemap;
     public float doorSpeed = 0.1f;
 
-    //public EventController eventController;
-
+    bool doorInAction = false;
     void Start()
     {
         doorTilemap = (isFrontDoor == true) ? Global.TileMaps.GetTileMap(Global.TileMaps.DOORS) :
@@ -35,7 +32,7 @@ public class DoorController : MonoBehaviour
         {
             foreach (var item in itemsToUnlockDoor)
             {
-                if (itemInHand.IsSameItems(item))
+                if (itemInHand.IsSameItems(item) && doorInAction == false)
                 {
                     StartCoroutine(CloseOpenDoor(mousePosition, collider));
                     return;
@@ -44,21 +41,18 @@ public class DoorController : MonoBehaviour
         }
         else 
         {
-            StartCoroutine(CloseOpenDoor(mousePosition, collider));
-            //OpenCloseDoor(mousePosition, collider);
+            if (doorInAction == false) 
+            { 
+                StartCoroutine(CloseOpenDoor(mousePosition, collider));
+            }
         }
     }
 
-    //private void OpenCloseDoor(Vector3 mousePosition, Collider2D collider) 
-    //{
-    //    Vector3Int currentCell = doorTilemap.WorldToCell(mousePosition);
-    //    doorTilemap.SetTile(currentCell, (!isOpen) ? openDoorTile : closeDoorTile);
-    //    isOpen = !isOpen;
-    //    collider.isTrigger = isOpen;
-    //}
 
     IEnumerator CloseOpenDoor(Vector3 mousePosition, Collider2D collider) 
     {
+        doorInAction = true;
+
         Vector3Int currentCell = doorTilemap.WorldToCell(transform.position);
 
         if (isOpen)
@@ -83,5 +77,7 @@ public class DoorController : MonoBehaviour
 
         isOpen = !isOpen;
         collider.isTrigger = isOpen;
+
+        doorInAction = false;
     }
 }
