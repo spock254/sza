@@ -67,8 +67,6 @@ public class ToolTipController : MonoBehaviour
 
             foreach (var hit in hits)
             {
-                //Debug.Log(hit.collider.name);
-
                 if (hit.collider.tag == "table")
                 {
                     TableController tableController = hit.collider.GetComponent<TableController>();
@@ -225,7 +223,7 @@ public class ToolTipController : MonoBehaviour
             //    (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
 
             bgSize = new Vector2(textItemName.preferredWidth,
-                (textInteraction.preferredHeight));
+                (textInteraction.preferredHeight * 2));
 
             //  textInteraction.alignment = TextAnchor.MiddleCenter;
         }
@@ -235,14 +233,14 @@ public class ToolTipController : MonoBehaviour
             //    (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
 
             bgSize = new Vector2(textInteraction.preferredWidth,
-                (textInteraction.preferredHeight));
+                (textInteraction.preferredHeight * 2));
 
             // textItemName.alignment = TextAnchor.MiddleCenter;
         }
 
-        //bgRectTransform.sizeDelta = bgSize;
+        bgRectTransform.sizeDelta = bgSize;
 
-        bgRectTransform.sizeDelta = new Vector2(bgSize.x, bgSize.y * 2);
+        //bgRectTransform.sizeDelta = new Vector2(bgSize.x, bgSize.y * 2);
 
         //bgSize.y = bgSize.y + preferredHeight / 2;
 
