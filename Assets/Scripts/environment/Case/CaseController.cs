@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-
+//[ExecuteInEditMode]
 public class CaseController : MonoBehaviour
 {
     public string caseName;

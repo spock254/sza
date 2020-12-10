@@ -8,7 +8,6 @@ public interface ISkill
     CraftType GetCraftType();
     int GetSkillLvl();
     float GetSkillExp();
-
     float ExpToNextLvl();
     float GetMinCurrentLvlExp();
 }

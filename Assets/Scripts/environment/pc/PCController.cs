@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public enum AcessLvL { USER }
-
+//[ExecuteInEditMode]
 public class PCController : MonoBehaviour
 {
     Tilemap upper_2;

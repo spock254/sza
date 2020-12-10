@@ -99,25 +99,43 @@ public class PlayerAnimation : MonoBehaviour
 
     void Update()
     {
-        if (movement.input.x > 0)
+        if (movement.IsPlayerMoving() == true)
         {
-            anim.Play("walk_right");
-        }
-        else if (movement.input.x < 0)
-        {
-            anim.Play("walk_left");
-        }
-        else if (movement.input.y > 0)
-        {
-            anim.Play("walk_up");
-        }
-        else if (movement.input.y < 0)
-        {
-            anim.Play("walk_down");
+            if (movement.input.x > 0)
+            {
+                anim.Play("walk_right");
+            }
+            else if (movement.input.x < 0)
+            {
+                anim.Play("walk_left");
+            }
+            else if (movement.input.y > 0)
+            {
+                anim.Play("walk_up");
+            }
+            else
+            {
+                anim.Play("walk_down");
+            }
         }
         else 
-        { 
-            anim.Play("idle");
+        {
+            if (movement.GetTurnSide().x > 0)
+            {
+                anim.Play("right");
+            }
+            else if (movement.GetTurnSide().x < 0)
+            {
+                anim.Play("left");
+            }
+            else if (movement.GetTurnSide().y > 0)
+            {
+                anim.Play("up");
+            }
+            else 
+            {
+                anim.Play("down");
+            }
         }
     }
 
