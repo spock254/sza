@@ -162,29 +162,32 @@ public class TerminalController : MonoBehaviour
 
         //if (terminalInput.isFocused && Input.GetKeyDown(KeyCode.UpArrow) && history.Count > 0)
         //{
-        //    if (index == history.Count || index == -1)
-        //    {
-        //        index = 0;
-        //    }
-
-        //    terminalInput.text = history[index];
-        //    StartCoroutine(ChangeCaretPosition());
-        //    index++;
-        //}
-        //else if (terminalInput.isFocused && Input.GetKeyDown(KeyCode.DownArrow) && history.Count > 0) 
-        //{
-        //    if (index == 0 || index > history.Count)
+        //    if (index == history.Count)
         //    {
         //        index = history.Count - 1;
         //    }
 
         //    terminalInput.text = history[index];
         //    StartCoroutine(ChangeCaretPosition());
+        //    index++;
+        //    return;
+        //}
+        //else if (terminalInput.isFocused && Input.GetKeyDown(KeyCode.DownArrow) && history.Count > 0)
+        //{
+        //    if (index == -1)
+        //    {
+        //        index = 0;
+        //    }
+
+        //    terminalInput.text = history[index];
+        //    StartCoroutine(ChangeCaretPosition());
         //    index--;
+        //    return;
         //}
 
         if (terminalInput.isFocused && terminalInput.text != "" && Input.GetKeyDown(KeyCode.Return)) 
         {
+            
             string userInput = terminalInput.text;
 
             AddToHistory(userInput);

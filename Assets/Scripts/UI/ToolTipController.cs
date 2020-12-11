@@ -36,9 +36,17 @@ public class ToolTipController : MonoBehaviour
     GameObject reviewWindow = null;
     [SerializeField]
     GameObject itemDescription = null;
+
+    RectTransform rtItemDescription = null;
+
     [SerializeField]
     Text descriptionText = null;
 
+    Vector2 pos = Vector2.zero;
+
+    GameObject staticItemPanel = null;
+
+    bool isdetected = false;
     void Start()
     {
         bgImage = toolTip.transform.GetChild(0).GetComponent<Image>();
@@ -53,12 +61,17 @@ public class ToolTipController : MonoBehaviour
 
         preferredHeight = textItemName.preferredHeight;
 
-
-        //ShowToolTip("qwe", "tretr");
         HideToolTip();
+
+        pos = itemDescription.GetComponent<RectTransform>().anchoredPosition;
+        rtItemDescription = itemDescription.GetComponent<RectTransform>();
     }
 
-    bool isdetected = false;
+    private void LateUpdate()
+    {
+        UpdateItemDescriptionPosition();
+    }
+
     void FixedUpdate()
     {
         if (IsInActionRadius() == true)
@@ -355,27 +368,36 @@ public class ToolTipController : MonoBehaviour
         return null;
     }
 
+    void UpdateItemDescriptionPosition() 
+    {
+        if (controller.isBagOpen == true && staticItemPanel == null)
+        {
+            rtItemDescription.anchoredPosition = new Vector2(pos.x, pos.y + 32);
+        }
+        else if (controller.isBagOpen == true && staticItemPanel != null)
+        {
+            rtItemDescription.anchoredPosition = new Vector2(pos.x, pos.y + 64);
+        }
+        else
+        {
+            rtItemDescription.anchoredPosition = pos;
+        }
+    }
+
     public void ShowItemReview(string button_tag) 
     {
         Button cell = GameObject.FindGameObjectWithTag(button_tag).GetComponent<Button>();
         Item item = cell.GetComponent<ItemCell>().item;
 
+        staticItemPanel = Global.UIElement.GetStaticItemPanel();
+
         if (item != null) 
         {
-            if (item.itemReviewData.itemReviewPrefab != null)
-            {
-                reviewWindow.SetActive(true);
 
-                GameObject itemReviewWindowPref = Instantiate(item.itemReviewData.itemReviewPrefab, reviewWindow.transform);
-                itemReviewWindowPref.GetComponent<IItemReview>().Init();
-            }
-            else 
-            {
-                if (controller.IsEmpty(cell) == false) 
-                { 
-                    itemDescription.SetActive(true);
-                    descriptionText.text = item.itemName;
-                }
+            if (controller.IsEmpty(cell) == false) 
+            { 
+                itemDescription.SetActive(true);
+                descriptionText.text = item.itemName;
             }
         }
     }
