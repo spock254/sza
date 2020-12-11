@@ -14,11 +14,13 @@ public class CasePanelController : MonoBehaviour
     public Controller controller;
     public bool caseIsOpen;
 
+    EventController eventController = null;
+
     //public EventController eventController;
 
-    private void Start()
+    void Start()
     {
-        //eventController.OnCaseEvent.AddListener()
+        eventController = Global.Component.GetEventController();
     }
 
     public void ActivateStaticItemPanel(CaseItem caseItem, Transform casePosition) 
@@ -41,6 +43,11 @@ public class CasePanelController : MonoBehaviour
         if (caseIsOpen && !IsInActionRadius())
         {
             controller.CloseOpenContainer(staticItemPanel, ref caseIsOpen);
+
+            if (caseIsOpen == false) 
+            {
+                eventController.OnCaseCloseEvent.Invoke();
+            }
         }
     }
 

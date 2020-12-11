@@ -30,7 +30,8 @@ public class EventController : MonoBehaviour
     public TerminalEvent OnTerminalOpen;
     [HideInInspector]
     public TerminalEvent OnTerminalClose;
-
+    [HideInInspector]
+    public CaseCloseEvent OnCaseCloseEvent;
     [HideInInspector]
     public ChangeSpriteEvent OnChangeSpriteEvent;
 

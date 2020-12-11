@@ -7,6 +7,8 @@ public class ToolTipController : MonoBehaviour
 {
     static ToolTipController instance;
 
+    EventController eventController = null;
+
     [SerializeField]
     Camera uiCamera = null;
 
@@ -65,6 +67,9 @@ public class ToolTipController : MonoBehaviour
 
         pos = itemDescription.GetComponent<RectTransform>().anchoredPosition;
         rtItemDescription = itemDescription.GetComponent<RectTransform>();
+        
+        eventController = Global.Component.GetEventController();
+        eventController.OnCaseCloseEvent.AddListener(HideItemReview);
     }
 
     private void LateUpdate()
@@ -83,11 +88,6 @@ public class ToolTipController : MonoBehaviour
             if (hits.Length == 0)
             {
                 isdetected = false;
-            }
-
-            foreach (var hit in hits)
-            {
-                //CheckHands(hit);
             }
 
             foreach (var hit in hits)
@@ -219,11 +219,6 @@ public class ToolTipController : MonoBehaviour
                 HideToolTip();
             }
         }
-    }
-
-    void CheckHands(RaycastHit2D hit) 
-    {
-        Debug.Log(hit.collider.name);
     }
 
     void ShowToolTip(string itemName, string itemInteraction) 
@@ -391,19 +386,50 @@ public class ToolTipController : MonoBehaviour
 
         staticItemPanel = Global.UIElement.GetStaticItemPanel();
 
-        if (item != null) 
+        if (item != null)
         {
 
-            if (controller.IsEmpty(cell) == false) 
-            { 
+            if (controller.IsEmpty(cell) == false)
+            {
+                //StartCoroutine(SetItemDescription(item));
                 itemDescription.SetActive(true);
                 descriptionText.text = item.itemName;
+            }
+        }
+
+        StartCoroutine(UpdateItemDescription(cell));
+    }
+
+    IEnumerator UpdateItemDescription(Button cell)
+    {
+        while (true) 
+        { 
+            yield return new WaitForSeconds(0.1f);
+
+            Item item = cell.GetComponent<ItemCell>().item;
+
+            if (item != null)
+            {
+
+                if (controller.IsEmpty(cell) == false)
+                {
+                    //StartCoroutine(SetItemDescription(item));
+                    itemDescription.SetActive(true);
+                    descriptionText.text = item.itemName;
+                }
+                else 
+                {
+                    descriptionText.text = string.Empty;
+                    itemDescription.SetActive(false);
+                }
             }
         }
     }
 
     public void HideItemReview() 
     {
+        StopAllCoroutines();
+
         if (reviewWindow.activeInHierarchy == true) 
         {
             foreach (Transform child in reviewWindow.transform)
