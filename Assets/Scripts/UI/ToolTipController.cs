@@ -40,7 +40,8 @@ public class ToolTipController : MonoBehaviour
     GameObject itemDescription = null;
 
     RectTransform rtItemDescription = null;
-
+    [SerializeField]
+    RectTransform rtImage = null;
     [SerializeField]
     Text descriptionText = null;
 
@@ -394,6 +395,10 @@ public class ToolTipController : MonoBehaviour
                 //StartCoroutine(SetItemDescription(item));
                 itemDescription.SetActive(true);
                 descriptionText.text = item.itemName;
+                Vector2 contentSize = new Vector2(descriptionText.preferredWidth, rtItemDescription.rect.height);
+                
+                descriptionText.rectTransform.sizeDelta = contentSize;
+                rtImage.sizeDelta = new Vector2(contentSize.x + textPaddinSize * 2, contentSize.y);
             }
         }
 
