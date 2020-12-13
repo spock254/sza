@@ -27,4 +27,17 @@ public class ItemSubstitution
     {
         return prefToSubstitut != null;
     }
+
+    public bool IsUsable(Item item) 
+    {
+        return IsSubstituted() && IsItemToUseExist(item);
+    }
+
+    public GameObject Substitute(GameObject itemGo) 
+    {
+        GameObject substitudeClone = GameObject.Instantiate(prefToSubstitut, itemGo.transform.position, Quaternion.identity);
+        GameObject.Destroy(itemGo);
+
+        return substitudeClone;
+    }
 }

@@ -175,6 +175,18 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 foreach (var hit in hits)
                 {
+                    if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX) && IsInActionRadius(hit.transform.position, player.position, actioPlayerRadius)) 
+                    {
+                        Item itemInWorld = hit.collider.GetComponent<ItemCell>().item;
+                        if (itemInWorld.itemSubstitution.IsUsable(GetItemInHand(currentHand))) 
+                        {
+                            itemInWorld.itemSubstitution.Substitute(hit.collider.gameObject);
+
+                            return;
+                        }
+                            
+                    }
+
                     if (hit.collider.gameObject.tag == "table" && hit.collider.GetComponent<TableController>().isCraftTable) 
                     {
                         bool removeTool = craftController.Craft_Table(hits, GetItemInHand(currentHand), 
