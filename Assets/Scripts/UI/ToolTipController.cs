@@ -156,12 +156,16 @@ public class ToolTipController : MonoBehaviour
                     {
 
                         Item item = hit.collider.GetComponent<ItemCell>().item;
+                        Item itemInHand = controller.currentHand.GetComponent<ItemCell>().item;
 
                         isdetected = true;
                         tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
+                        string useInteraction = (item.itemSubstitution.IsSubstituted() == true && item.itemSubstitution.IsItemToUseExist(itemInHand)) ? " / " + Global.Tooltip.RM_TO_USE : string.Empty;
+
                         ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ?
-                            Global.Tooltip.LM_PICK_UP : PrintRed(Global.Tooltip.NO_ACTIONS));
+                            Global.Tooltip.LM_PICK_UP + useInteraction 
+                            : ((useInteraction == string.Empty) ? PrintRed(Global.Tooltip.NO_ACTIONS) : useInteraction.Substring(" / ".Length)));
                         TooltipLocate(tooltipPosition);
 
                         return;
@@ -246,7 +250,8 @@ public class ToolTipController : MonoBehaviour
             itemInteractionLength -= Global.Color.RED_COLOR_PREFIX.Length + Global.Color.END_COLOR_PREFIX.Length;
         }
 
-        if (itemName.Length >= itemInteractionLength)
+        //if (itemName.Length >= itemInteractionLength - 1)
+        if (textItemName.preferredWidth >= textInteraction.preferredWidth)
         {
             bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize * 2,
                 (textInteraction.preferredHeight * 2) + textPaddinSize * 2);

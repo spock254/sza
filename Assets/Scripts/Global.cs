@@ -26,6 +26,7 @@ public static class Global
         public const string LM_PICK_UP = "LM to pick up";
         public const string LM_SWIPE = "LM to swipe";
         public const string RM_GIVE = "RM to give";
+        public const string RM_TO_USE = "RM to use";
         public const string LM_PUT = "LM to put";
         public const string RM_CRAFT = "RM to craft";
         public const string NO_ACTIONS = "no actions";
