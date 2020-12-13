@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd46816619a34dd4bb1b19a88b1cef1a, type: 3}
+  m_Name: attached processor
+  m_EditorClassIdentifier: 
+  recept:
+    ingredients:
+    - {fileID: 11400000, guid: 9e74747d5b0aa724eb85e507363c30c8, type: 2}
+    craftTool:
+    - {fileID: 11400000, guid: a921f6bfb61d0264e95c0375b7ef24d8, type: 2}
+    craftResult: {fileID: 11400000, guid: fec0af52111adfe46a5e0edcc3cbf4bd, type: 2}
+  craftComplexety: 0
+  craftType: 1
+  craftTable: 2
+  craftMinLVL: 0
+  removeTool: 1
+  expReward: 0

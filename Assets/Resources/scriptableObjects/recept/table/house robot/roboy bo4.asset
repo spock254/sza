@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd46816619a34dd4bb1b19a88b1cef1a, type: 3}
+  m_Name: roboy bo4
+  m_EditorClassIdentifier: 
+  recept:
+    ingredients:
+    - {fileID: 11400000, guid: 7257dd02b218bc2488781bb292c67d67, type: 2}
+    craftTool:
+    - {fileID: 11400000, guid: 53472ffe729040c42b1d5995729dd0ad, type: 2}
+    - {fileID: 11400000, guid: 813d3b912c3230646b7c4583b1bd01a8, type: 2}
+    - {fileID: 11400000, guid: 7cb502cf0a40cf145941459954c488c5, type: 2}
+    - {fileID: 11400000, guid: b688a7c3c58c0cb4f94b0b865302635a, type: 2}
+    craftResult: {fileID: 11400000, guid: 1f7424af9a4fc314798990584fc55da2, type: 2}
+  craftComplexety: 0
+  craftType: 1
+  craftTable: 2
+  craftMinLVL: 0
+  removeTool: 0
+  expReward: 0

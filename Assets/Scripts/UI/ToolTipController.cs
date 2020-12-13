@@ -107,8 +107,12 @@ public class ToolTipController : MonoBehaviour
                     }
                     else if (IsCurrentHandEmpty() && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == true)
                     {
-                        ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
-                                Global.Tooltip.LM_PICK_UP);
+                        Item itemOnTable = FindRaycast(hits, Global.DROPED_ITEM_PREFIX, false)?.collider
+                                                                         .GetComponent<ItemCell>().item;
+
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" + " (" + itemOnTable.itemName + ")" 
+                                                              : tableController.tableName + " (" + itemOnTable.itemName + ")",
+                                                                Global.Tooltip.LM_PICK_UP);
                     }
                     else if (IsCurrentHandEmpty() == false && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == true)
                     {
@@ -120,7 +124,8 @@ public class ToolTipController : MonoBehaviour
                                                                                     CraftType.Cooking, /* TODO */
                                                                                     CraftTable.Table);
 
-                        ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" + " (" + temOnTable.itemName + ")"
+                                                              : tableController.tableName + " (" + temOnTable.itemName + ")",
                                 Global.Tooltip.LM_PUT + ((tableController.isCraftTable) ? ((craftData != null) ?
                                 " / " + Global.Tooltip.RM_CRAFT + " " + craftData.recept.craftResult.itemName : string.Empty)
                                 : string.Empty));
@@ -138,6 +143,7 @@ public class ToolTipController : MonoBehaviour
                 else if (hit.collider.name.Contains(Global.DROPED_ITEM_PREFIX))
                 {
                     bool onTable = false;
+
                     foreach (var hitTable in hits)
                     {
                         if (hitTable.collider.tag == "table")
@@ -339,7 +345,6 @@ public class ToolTipController : MonoBehaviour
 
     RaycastHit2D? FindRaycast(RaycastHit2D[] hits, string objId, bool isTag) 
     {
-        
         if (isTag == true)
         {
             foreach (var hit in hits)
