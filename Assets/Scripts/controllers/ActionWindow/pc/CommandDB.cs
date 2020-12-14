@@ -23,7 +23,8 @@ public class CommandDB : MonoBehaviour
     {
         { "printer", new PrinterCommand() },
         { "disk", new DiskCommand() },
-        { "accaunt", new AccauntCommand() }
+        { "accaunt", new AccauntCommand() },
+        { "per", new PeripheralCommand() }
     };
 
     Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -648,7 +649,6 @@ namespace commands
             };
         }
     }
-
     public class AccauntCommand : ICommandAction
     {
 
@@ -718,6 +718,50 @@ namespace commands
                 { "-login [accauntID] [pass]", "login to bank accaunt" },
                 { "-logout", "logout bank accaunt" },
                 { "-b", "get accaunt balance" }
+            };
+        }
+    }
+
+    public class PeripheralCommand : ICommandAction
+    {
+        public List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            
+            if (param.Length == 2) 
+            {
+                if (param[1] == "-l") 
+                {
+                    List<string> result = new List<string>();
+
+                    foreach (var dev in pcController.peripherals)
+                    {
+                        result.Add(dev.GetComponent<IPeripheral>().DeviseDescription());
+                    }
+
+                    if (result.Count == 0) 
+                    {
+                        return new List<string> { "Devices not detected" };
+                    }
+
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "show hardware, including peripherals";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return new Dictionary<string, string>
+            {
+                { "-l", "list of all mounted drives" }
             };
         }
     }

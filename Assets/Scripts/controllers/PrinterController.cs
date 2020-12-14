@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class PrinterController : MonoBehaviour
+public class PrinterController : MonoBehaviour, IPeripheral
 {
     public Item paper;
     public Item itemToPrint;
@@ -61,5 +61,10 @@ public class PrinterController : MonoBehaviour
         Instantiate(itemPref, transform.position, Quaternion.identity);
 
         
+    }
+
+    public string DeviseDescription()
+    {
+        return "printer 21s";
     }
 }
