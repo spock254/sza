@@ -21,18 +21,27 @@ public static class Global
     public static class Tooltip
     {
         public const string LM_USE = "LM to use";
+        public const string RM_USE = "RM to use";
+        
         public const string LM_OPEN = "LM to open";
         public const string LM_CLOSE = "LM to close";
+        
         public const string LM_PICK_UP = "LM to pick up";
         public const string LM_SWIPE = "LM to swipe";
         public const string RM_GIVE = "RM to give";
-        public const string RM_TO_USE = "RM to use";
         public const string LM_PUT = "LM to put";
         public const string RM_CRAFT = "RM to craft";
         public const string NO_ACTIONS = "no actions";
+        
         public const string LM_TURN_ON = "LM to turn on";
         public const string LM_TURN_OFF = "LM to turn off";
+        public const string RM_TURN_OFF = "RM to turn off";
+        public const string RM_TURN_ON = "RM to turn on";
+        
         public const string RM_NEXT_CHANNEL = "RM next channel";
+        public const string RM_CONNECT = "RM to connect";
+        public const string RM_DISCONNECT = "RM to disconnect";
+        public const string LM_INTERACT = "LM to interact";
 
         public static Vector3 EnvObjOffset() 
         {

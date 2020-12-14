@@ -86,7 +86,22 @@ public class ActionPanelController : MonoBehaviour
 
         uiContrall.SetDefaultItem(uiContrall.currentHand);
     }
+    public void SpawnItem(Vector3 position, Item item)
+    {
+        Item itemToDrop = Instantiate(item);
 
+        itemToDrop.itemEffect.currentCell = null;
+        itemToDrop.itemEffect.envPosition = position;
+
+        prefab.GetComponent<ItemCell>().item = itemToDrop;
+        prefab.GetComponent<SpriteRenderer>().sprite = itemToDrop.itemSprite;
+        prefab.name = Global.DROPED_ITEM_PREFIX + itemToDrop.itemName;
+
+
+        Instantiate(prefab, position, Quaternion.identity);
+
+        uiContrall.SetDefaultItem(uiContrall.currentHand);
+    }
 
     float ThrowDistance(Item item) 
     {

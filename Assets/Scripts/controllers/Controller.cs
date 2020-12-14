@@ -82,6 +82,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
     ActionWindowController actionWindow;
     DialogueManager dialogWindow;
+    ActionPanelController actionPanel;
     void Start()
     {
         instance = this;
@@ -89,6 +90,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         // еслт какое-то окно активно, запретить управление
         actionWindow = Global.Component.GetActionWindowController();
         dialogWindow = Global.Component.GetDialogueManager();
+        actionPanel = Global.Component.GetActionPanelController();
 
         InitCells();
         InitItemInInventory();
@@ -117,7 +119,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         bagCellList.Add(bagCell9);
         bagCellList.Add(bagCell10);
     }
-
     void SetInvCellList()
     {
         invCellList.Add(invCell1);
@@ -148,10 +149,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     void SetHandColor() 
     {
         currentHand.GetComponent<Image>().color = Color.green;
-        //currentHand.GetComponentInChildren<Image>().color = Color.green;
-
         GetAnotherHand().GetComponent<Image>().color = Color.white;
-        //GetAnotherHand().GetComponentInChildren<Image>().color = Color.white;
     }
 
     void Update()
@@ -185,6 +183,24 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             return;
                         }
                             
+                    }
+
+                    if (hit.collider.tag == "substitudeItem") 
+                    {
+                        BaseConection baseConection = hit.collider.GetComponent<BaseConection>();
+                        
+                        if (baseConection != null && baseConection.FindPcInRadius() != null) 
+                        {
+                            baseConection.ProcessConection();
+                        
+                            return;
+                        }
+
+                        Item itemToDrop = hit.collider.GetComponent<SubstitudeCell>().item;
+                        actionPanel.SpawnItem(hit.transform.position, itemToDrop);
+                        Destroy(hit.collider.gameObject);
+                        
+                        return;
                     }
 
                     if (hit.collider.gameObject.tag == "table" && hit.collider.GetComponent<TableController>().isCraftTable) 

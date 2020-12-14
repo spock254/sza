@@ -96,17 +96,24 @@ public class ToolTipController : MonoBehaviour
                 if (hit.collider.tag == "substitudeItem") 
                 {
                     BaseConection baseConection = hit.collider.GetComponent<BaseConection>();
+                    NPC_Info npcInfo = hit.collider.GetComponent<NPC_Info>();
                     PCController pcController = baseConection.FindPcInRadius();
-                    
+
+                    string interactionStr = Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_TURN_OFF;
+
                     if (pcController != null) 
                     {
-                        ShowToolTip("bo4", "connect");
-                        TooltipLocate(tooltipPosition);
+                        bool isConnected = pcController.peripherals.Contains(hit.collider.gameObject);
+                        interactionStr = (isConnected == true) ? Global.Tooltip.RM_DISCONNECT : Global.Tooltip.RM_CONNECT;
                     }
 
-                    return;
+                    isdetected = true;
+                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                    ShowToolTip(npcInfo == null ? "obj" : npcInfo.npcName, interactionStr);
+                    TooltipLocate(tooltipPosition);
+                    
                 }
-                if (hit.collider.tag == "table")
+                else if (hit.collider.tag == "table")
                 {
                     TableController tableController = hit.collider.GetComponent<TableController>();
 
@@ -174,7 +181,7 @@ public class ToolTipController : MonoBehaviour
                         isdetected = true;
                         tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
-                        string useInteraction = (item.itemSubstitution.IsSubstituted() == true && item.itemSubstitution.IsItemToUseExist(itemInHand)) ? " / " + Global.Tooltip.RM_TO_USE : string.Empty;
+                        string useInteraction = (item.itemSubstitution.IsSubstituted() == true && item.itemSubstitution.IsItemToUseExist(itemInHand)) ? " / " + Global.Tooltip.RM_TURN_ON : string.Empty;
 
                         ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ?
                             Global.Tooltip.LM_PICK_UP + useInteraction 

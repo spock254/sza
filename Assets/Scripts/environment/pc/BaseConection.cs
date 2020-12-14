@@ -10,9 +10,11 @@ public class BaseConection : MonoBehaviour
     float connectionRadius = 1f;
 
     Vector3[] diractions;
-
+    //EventController eventController;
     void Awake() 
     {
+        //eventController = Global.Component.GetEventController();
+
         diractions = new Vector3[] { new Vector3(0, connectionRadius, 0), 
                                      new Vector3(0, -connectionRadius, 0),
                                      new Vector3(connectionRadius, 0, 0),
@@ -20,13 +22,9 @@ public class BaseConection : MonoBehaviour
         };
     }
 
-    void Update()
+    public virtual void ProcessConection() 
     {
-        if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            PCController pcController = FindPcInRadius();
-            Debug.Log(pcController == null ? "Null" : "NOT NULL");
-        }    
+        Debug.Log("CONECT");
     }
 
     public PCController FindPcInRadius() 
