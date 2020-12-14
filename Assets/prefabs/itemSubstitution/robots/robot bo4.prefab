@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2131623077153338455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.25, y: 1.14, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children:
   - {fileID: 2067282492015212964}
   m_Father: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6654b9bb3be513468e07a6148170d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npcName: bo4
+  npcName: bo4 active
 --- !u!114 &1812004640913891536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!1 &5825296998909200320
 GameObject:

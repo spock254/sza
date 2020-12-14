@@ -104,13 +104,14 @@ public class ToolTipController : MonoBehaviour
                     if (pcController != null) 
                     {
                         bool isConnected = pcController.peripherals.Contains(hit.collider.gameObject);
-                        interactionStr = (isConnected == true) ? Global.Tooltip.RM_DISCONNECT : Global.Tooltip.RM_CONNECT;
+                        interactionStr = ((isConnected == true) ? Global.Tooltip.LM_DISCONNECT : Global.Tooltip.LM_CONNECT) + " / " + Global.Tooltip.RM_TURN_OFF;
                     }
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.transform.position);
                     ShowToolTip(npcInfo == null ? "obj" : npcInfo.npcName, interactionStr);
                     TooltipLocate(tooltipPosition);
+                    return;
                     
                 }
                 else if (hit.collider.tag == "table")

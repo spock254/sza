@@ -39,8 +39,8 @@ public static class Global
         public const string RM_TURN_ON = "RM to turn on";
         
         public const string RM_NEXT_CHANNEL = "RM next channel";
-        public const string RM_CONNECT = "RM to connect";
-        public const string RM_DISCONNECT = "RM to disconnect";
+        public const string LM_CONNECT = "LM to connect";
+        public const string LM_DISCONNECT = "LM to disconnect";
         public const string LM_INTERACT = "LM to interact";
 
         public static Vector3 EnvObjOffset() 

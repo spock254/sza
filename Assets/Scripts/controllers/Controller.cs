@@ -187,15 +187,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                     if (hit.collider.tag == "substitudeItem") 
                     {
-                        BaseConection baseConection = hit.collider.GetComponent<BaseConection>();
-                        
-                        if (baseConection != null && baseConection.FindPcInRadius() != null) 
-                        {
-                            baseConection.ProcessConection();
-                        
-                            return;
-                        }
-
                         Item itemToDrop = hit.collider.GetComponent<SubstitudeCell>().item;
                         actionPanel.SpawnItem(hit.transform.position, itemToDrop);
                         Destroy(hit.collider.gameObject);
@@ -333,6 +324,24 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                                     Item afterUseItemClone = Instantiate(item.afterOnPlayerUseItem);
                                     DressCell(currentHand, afterUseItemClone);
                                 }
+                            }
+                        }
+                       
+                        if (hit.collider.tag == "substitudeItem")
+                        {
+                            BaseConection baseConection = hit.collider.GetComponent<BaseConection>();
+
+                            if (baseConection != null)
+                            {
+                                PCController pcController = baseConection.FindPcInRadius();
+
+                                if (pcController != null) 
+                                { 
+                                    baseConection.ProcessConection(pcController);
+                                
+                                }
+
+                                return;
                             }
                         }
 

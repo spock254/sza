@@ -22,9 +22,17 @@ public class BaseConection : MonoBehaviour
         };
     }
 
-    public virtual void ProcessConection() 
+    public virtual void ProcessConection(PCController pcController) 
     {
-        Debug.Log("CONECT");
+        //this.connectedPc = pcController;
+        if (pcController.peripherals.Contains(this.gameObject) == true)
+        {
+            pcController.peripherals.Remove(this.gameObject);
+        }
+        else 
+        {
+            pcController.peripherals.Add(this.gameObject);
+        }
     }
 
     public PCController FindPcInRadius() 
