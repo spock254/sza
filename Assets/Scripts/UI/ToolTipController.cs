@@ -93,6 +93,19 @@ public class ToolTipController : MonoBehaviour
 
             foreach (var hit in hits)
             {
+                if (hit.collider.tag == "substitudeItem") 
+                {
+                    BaseConection baseConection = hit.collider.GetComponent<BaseConection>();
+                    PCController pcController = baseConection.FindPcInRadius();
+                    
+                    if (pcController != null) 
+                    {
+                        ShowToolTip("bo4", "connect");
+                        TooltipLocate(tooltipPosition);
+                    }
+
+                    return;
+                }
                 if (hit.collider.tag == "table")
                 {
                     TableController tableController = hit.collider.GetComponent<TableController>();

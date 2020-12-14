@@ -109,7 +109,7 @@ public class TerminalController : MonoBehaviour
     }
 
 
-    int index = 0;
+    //int index = 0;
     private void OnGUI()
     {
         if (isOpen) 

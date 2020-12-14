@@ -29,7 +29,7 @@ MonoBehaviour:
     itemSize: 1
     use:
       id: 0
-    itemTypes: 08000000070000000d000000
+    itemTypes: 0d000000
   itemAnimationData:
     itemSpriteFrames: []
   itemTimeflowModify:
@@ -48,6 +48,9 @@ MonoBehaviour:
     isModified: 0
   itemReviewData:
     itemReviewPrefab: {fileID: 0}
+  itemSubstitution:
+    prefToSubstitut: {fileID: 0}
+    itemsToUse: []
   capacity: 0
   innerItems: []
   isDestroyOnPlayerUse: 0

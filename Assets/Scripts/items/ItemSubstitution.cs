@@ -35,7 +35,9 @@ public class ItemSubstitution
 
     public GameObject Substitute(GameObject itemGo) 
     {
+        Item itemCpy = GameObject.Instantiate(itemGo.GetComponent<ItemCell>().item);
         GameObject substitudeClone = GameObject.Instantiate(prefToSubstitut, itemGo.transform.position, Quaternion.identity);
+        substitudeClone.GetComponent<SubstitudeCell>().item = itemCpy;
         GameObject.Destroy(itemGo);
 
         return substitudeClone;
