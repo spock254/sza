@@ -120,14 +120,12 @@ public class TerminalController : MonoBehaviour
             if (!isInit) 
             {
                 isInit = true;
-
-                //string userInput = "help -all";
-
                 //AddToHistory(userInput);
 
                 ClearInputField();
                 //AddDirectoryLine(userInput);
 
+            if (pcController == null) { Debug.Log("NULL"); }
                 int lines = AddInterpriterLines(new List<string>() 
                 {
                     " ",

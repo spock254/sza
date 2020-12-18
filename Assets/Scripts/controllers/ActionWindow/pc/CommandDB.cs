@@ -776,7 +776,8 @@ namespace commands
 
             NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
             mashine.ChangeState<NPC_STATE_stateTransitionModify>();
-
+            pcController.peripherals[0].GetComponent<SubstitudeCell>().item.itemOptionData.text = "upgrated";
+            
             return new List<string>() { "TODO" };
         }
 

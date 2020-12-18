@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class SubstitudeCell : MonoBehaviour
 {
-    [HideInInspector]
     public Item item;
 }

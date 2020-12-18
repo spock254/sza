@@ -99,10 +99,10 @@ public class PCController : MonoBehaviour
         upper_2.SetTile(currentCell, open_tile);
         isOpen = true;
 
+        terminalController.SetCurrentPc(this);
         actionWindow.OpenActionWindow("awpc");
 
         terminalController.isOpen = true;
-        terminalController.SetCurrentPc(this);
         light2D.enabled = true;
     }
 
@@ -111,11 +111,10 @@ public class PCController : MonoBehaviour
         upper_2.SetTile(currentCell, null);
         isOpen = false;
 
-
+        terminalController.SetCurrentPc(null);
         actionWindow.CloseActionWindow("awpc");
 
         terminalController.isOpen = false;
-        terminalController.SetCurrentPc(null);
         light2D.enabled = false;
     }
 

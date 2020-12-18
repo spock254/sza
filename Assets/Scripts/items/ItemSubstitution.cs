@@ -40,6 +40,11 @@ public class ItemSubstitution
         substitudeClone.GetComponent<SubstitudeCell>().item = itemCpy;
         GameObject.Destroy(itemGo);
 
+        if (itemCpy.itemOptionData.text == "upgrated") 
+        {
+            substitudeClone.GetComponent<NPC_StateMashine>().ChangeState<NPC_STATE_stateTransitionModify>();
+        }
+
         return substitudeClone;
     }
 }
