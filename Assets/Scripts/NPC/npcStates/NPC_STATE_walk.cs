@@ -53,8 +53,11 @@ public class NPC_STATE_walk : BaseState<NPC_DATA_walk>
 
             diraction = GetNpcDiraction();
 
-            data.animationController.ChangeAllSprites();
-            data.animationController.Play(diraction);
+            if (data.animationController != null) 
+            { 
+                data.animationController.ChangeAllSprites();
+                data.animationController.Play(diraction);
+            }
 
             //Debug.Log(diraction);
         }
@@ -68,7 +71,10 @@ public class NPC_STATE_walk : BaseState<NPC_DATA_walk>
     {
         base.PostExecute();
 
-        data.animationController.UpdateSprites();
+        if (data.animationController != null) 
+        { 
+            data.animationController.UpdateSprites();
+        }
     }
 
     Vector2 GetNpcDiraction()

@@ -12,7 +12,13 @@ GameObject:
   - component: {fileID: 6825416519695765372}
   - component: {fileID: 1812004640913891536}
   - component: {fileID: 4458132913642461077}
+  - component: {fileID: 7396670958920297992}
   - component: {fileID: 823809573349469283}
+  - component: {fileID: 2303160128514797625}
+  - component: {fileID: 1117177328779820343}
+  - component: {fileID: 5160718800612515068}
+  - component: {fileID: 2261443480622220363}
+  - component: {fileID: 4991559075804292905}
   m_Layer: 0
   m_Name: robot bo4
   m_TagString: substitudeItem
@@ -74,6 +80,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
+--- !u!114 &7396670958920297992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608569d4190393b4ab1f3da50b6334ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &823809573349469283
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -100,6 +118,101 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &2303160128514797625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c30fb623939d2c4fa2e0a9b7289a444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateList: 00000000010000000b00000009000000
+--- !u!114 &1117177328779820343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc29d15f6df47974cb16210b133753b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: []
+  optionDialog: []
+  nextState: 1
+  savedItems: []
+  animationController: {fileID: 0}
+  turnDiraction: {x: 0, y: 0}
+--- !u!114 &5160718800612515068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757746784b98600479da91b742da9653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog:
+  - "\u0423\u0441\u0442\u0430\u043D\u043E\u0432\u0438|\u043C\u043D\u0435|\u0434\u0440\u0430\u0439\u0432\u0435\u0440@"
+  - "\u041F\u043E\u0438\u0441\u043A \u043F\u0443\u0442\u0438@"
+  optionDialog: []
+  nextState: 0
+  savedItems: []
+  animationController: {fileID: 0}
+  playerPosition: {fileID: 0}
+  currentDialogIndex: 0
+--- !u!114 &2261443480622220363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711232820efe1bf429352cad72b15b73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: []
+  optionDialog: []
+  nextState: 0
+  savedItems: []
+  stateNodes:
+  - state: 0
+    transition: 1
+  - state: 1
+    transition: 9
+  newDialogIndex: 1
+  modifyDialog: 1
+--- !u!114 &4991559075804292905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb131b4bdaec5da4eb9ad51f734c123f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: []
+  optionDialog: []
+  nextState: 0
+  savedItems: []
+  findPoints: 1
+  points: []
+  walkSpeed: 1
+  animationController: {fileID: 0}
 --- !u!1 &5825296998909200320
 GameObject:
   m_ObjectHideFlags: 0

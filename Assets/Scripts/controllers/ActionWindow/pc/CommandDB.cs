@@ -24,7 +24,8 @@ public class CommandDB : MonoBehaviour
         { "printer", new PrinterCommand() },
         { "disk", new DiskCommand() },
         { "accaunt", new AccauntCommand() },
-        { "per", new PeripheralCommand() }
+        { "per", new PeripheralCommand() },
+        { "upgrade", new DeviceUpgrade() }
     };
 
     Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -762,6 +763,33 @@ namespace commands
             return new Dictionary<string, string>
             {
                 { "-l", "list of all mounted drives" }
+            };
+        }
+    }
+
+    public class DeviceUpgrade : ICommandAction
+    {
+        public List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+
+            NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
+            mashine.ChangeState<NPC_STATE_stateTransitionModify>();
+
+            return new List<string>() { "TODO" };
+        }
+
+        public string GetDescription()
+        {
+            return "TODO";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return new Dictionary<string, string>
+            {
+                { "-update [device]", "list of all mounted drives" }
             };
         }
     }

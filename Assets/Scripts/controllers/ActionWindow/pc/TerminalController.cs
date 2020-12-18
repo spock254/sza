@@ -298,7 +298,7 @@ public class TerminalController : MonoBehaviour
         //}
     }
 
-    public void SetCurrentPc(PCController pcController) 
+    public void SetCurrentPc(PCController pcController)
     {
         this.pcController = pcController;
     }

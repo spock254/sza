@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPC_DATA_walk : NPC_BaseData
 {
+    [Header("this.gameObject.name + \" walkpoints\"")]
+    public bool findPoints;
     public List<Transform> points;
     public float walkSpeed;
 
@@ -15,6 +17,15 @@ public class NPC_DATA_walk : NPC_BaseData
     private void Start()
     {
         animationController = GetComponent<NPC_AnimationController>();
+
+        if (findPoints == true && points.Count == 0) 
+        {
+            GameObject pointsInWorld = GameObject.Find(this.gameObject.name + " walkpoints");
+            foreach (Transform point in pointsInWorld.transform)
+            {
+                points.Add(point);
+            }
+        }
     }
 
     public Transform GetNextPoint()

@@ -8,6 +8,8 @@ public class NPC_DATA_dialogue : NPC_BaseData
     public NPC_AnimationController animationController;
     [HideInInspector]
     public Transform playerPosition;
+    [HideInInspector]
+    public int currentDialogIndex = 0;
 
     private void Start()
     {

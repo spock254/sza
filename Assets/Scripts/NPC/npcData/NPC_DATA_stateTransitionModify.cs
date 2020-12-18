@@ -7,6 +7,10 @@ public class NPC_DATA_stateTransitionModify : NPC_BaseData
     public StateNode[] stateNodes;
 
     public List<System.Type> types;
+
+    public int newDialogIndex = 0;
+    public bool modifyDialog = false;
+    
     public void ModifyStatesTransition() 
     {
         foreach (var state in stateNodes)
@@ -15,6 +19,15 @@ public class NPC_DATA_stateTransitionModify : NPC_BaseData
             com.nextState = state.transition;
         }
 
+        ModifyDialogIndex();
+    }
+
+    void ModifyDialogIndex() 
+    {
+        if (modifyDialog == true) 
+        {
+            GetComponent<NPC_DATA_dialogue>().currentDialogIndex = newDialogIndex;
+        }
     }
 }
 

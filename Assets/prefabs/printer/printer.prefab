@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1389246000173476765}
   - component: {fileID: 1389246000173476834}
   - component: {fileID: 1389246000173476832}
+  - component: {fileID: 5727028600726371379}
   m_Layer: 0
   m_Name: printer
   m_TagString: printer
@@ -88,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164dedf2b818a7c49bd34f6a18ab4ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  caseName: 
   caseBody: {fileID: 11400000, guid: 61e11f8fd3a5bb542b49d739ba9aae24, type: 2}
   caseOpen: {fileID: 0}
   caseClosed: {fileID: 11400000, guid: 61e11f8fd3a5bb542b49d739ba9aae24, type: 2}
@@ -129,3 +131,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 36bb86f407f05e84f8dd4ef91632fc11, type: 2}
   - {fileID: 11400000, guid: f770cb7ab9686084ba088f767fc3027f, type: 2}
   printsWorkUnit: 0.1
+--- !u!114 &5727028600726371379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389246000173476833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7dfe3f810d60a04ba99e2892acd54b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
