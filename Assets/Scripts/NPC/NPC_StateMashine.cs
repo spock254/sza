@@ -24,14 +24,27 @@ public enum StateTypes
 public class NPC_StateMashine : MachineBehaviour
 {
     public List<StateTypes> stateList;
+    StateTypes? initState = null;
 
     public override void AddStates()
     {
+        SubstitudeCell substitudeCell = GetComponent<SubstitudeCell>();
+
+        if (substitudeCell != null) 
+        {
+            initState = substitudeCell.item.itemSubstitution.initState;
+        }
+
+        if (initState == null) 
+        {
+            initState = stateList[0];
+        }
+
         foreach (var st in stateList)
         {
             AddState(Type.GetType(st.ToString()));
         }
 
-        SetInitialState(Type.GetType(stateList[0].ToString()));
+        SetInitialState(Type.GetType(initState.ToString()));
     }
 }

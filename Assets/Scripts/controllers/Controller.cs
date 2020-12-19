@@ -188,6 +188,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     if (hit.collider.tag == "substitudeItem") 
                     {
                         Item itemToDrop = hit.collider.GetComponent<SubstitudeCell>().item;
+                        
                         actionPanel.SpawnItem(hit.transform.position, itemToDrop);
                         Destroy(hit.collider.gameObject);
                         

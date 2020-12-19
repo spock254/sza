@@ -7,7 +7,7 @@ using System.Linq;
 public class ItemSubstitution
 {
     public GameObject prefToSubstitut;
-
+    public StateTypes initState = StateTypes.NPC_STATE_clickWaiting;
     public List<Item> itemsToUse;
 
     public bool IsItemToUseExist(Item item) 
@@ -40,10 +40,11 @@ public class ItemSubstitution
         substitudeClone.GetComponent<SubstitudeCell>().item = itemCpy;
         GameObject.Destroy(itemGo);
 
-        if (itemCpy.itemOptionData.text == "upgrated") 
-        {
-            substitudeClone.GetComponent<NPC_StateMashine>().ChangeState<NPC_STATE_stateTransitionModify>();
-        }
+        //if (itemCpy.itemOptionData.text == "upgrated") 
+        //{
+        //    Debug.Log("CHANGE STATE");
+        //    substitudeClone.GetComponent<NPC_StateMashine>().SetInitialState<NPC_STATE_stateTransitionModify>();
+        //}
 
         return substitudeClone;
     }

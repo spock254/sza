@@ -125,7 +125,6 @@ public class TerminalController : MonoBehaviour
                 ClearInputField();
                 //AddDirectoryLine(userInput);
 
-            if (pcController == null) { Debug.Log("NULL"); }
                 int lines = AddInterpriterLines(new List<string>() 
                 {
                     " ",

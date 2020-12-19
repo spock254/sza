@@ -44,7 +44,7 @@ public class PCController : MonoBehaviour
         terminalController = Global.Component.GetTerminalController();
         eventController = Global.Component.GetEventController();
                                                                                  // USER MODE FOR TESTING
-        currentMemory = memoryContents.Where(i => i.userMode == CommandDB.UserMode.Guest).FirstOrDefault();
+        currentMemory = memoryContents.Where(i => i.userMode == CommandDB.UserMode.User).FirstOrDefault();
 
         InitAllDocs();
     }
