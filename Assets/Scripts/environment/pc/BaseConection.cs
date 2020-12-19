@@ -10,7 +10,7 @@ public class BaseConection : MonoBehaviour
     float connectionRadius = 1f;
 
     Vector3[] diractions;
-    //EventController eventController;
+    NPC_StateMashine mashine;
     void Awake() 
     {
         //eventController = Global.Component.GetEventController();
@@ -22,9 +22,13 @@ public class BaseConection : MonoBehaviour
         };
     }
 
+    void Start()
+    {
+        mashine = GetComponent<NPC_StateMashine>();    
+    }
+
     public virtual void ProcessConection(PCController pcController) 
     {
-        //this.connectedPc = pcController;
         if (pcController.peripherals.Contains(this.gameObject) == true)
         {
             pcController.peripherals.Remove(this.gameObject);
@@ -33,6 +37,8 @@ public class BaseConection : MonoBehaviour
         {
             pcController.peripherals.Add(this.gameObject);
         }
+
+        mashine.SetInactiveState();
     }
 
     public PCController FindPcInRadius() 

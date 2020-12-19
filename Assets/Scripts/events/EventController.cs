@@ -69,7 +69,11 @@ public class EventController : MonoBehaviour
     private void OnEnable()
     {
         OnStaticCaseItemEvent.AddListener(casePanelController.ActivateStaticItemPanel);
-        OnRightButtonClickEvent.AddListener(rightButtonClickController.RightButtonClick);
+        
+        /* right btn click */
+        //OnRightButtonClickEvent.AddListener(rightButtonClickController.RightButtonClick);
+        
+        
         //OnDoorEvent.AddListener(doorController.OnDoorClick);
         //OnCaseEvent.AddListener(caseController.OnCaseCloseOpen);
     }

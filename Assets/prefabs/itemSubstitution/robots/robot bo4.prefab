@@ -9,16 +9,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2625731408473647538}
-  - component: {fileID: 6825416519695765372}
   - component: {fileID: 1812004640913891536}
   - component: {fileID: 4458132913642461077}
   - component: {fileID: 7396670958920297992}
   - component: {fileID: 823809573349469283}
+  - component: {fileID: 6825416519695765372}
   - component: {fileID: 2303160128514797625}
   - component: {fileID: 1117177328779820343}
   - component: {fileID: 5160718800612515068}
   - component: {fileID: 2261443480622220363}
   - component: {fileID: 4991559075804292905}
+  - component: {fileID: 636126675958296622}
   m_Layer: 0
   m_Name: robot bo4
   m_TagString: substitudeItem
@@ -41,19 +42,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6825416519695765372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2131623077153338455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6654b9bb3be513468e07a6148170d5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcName: bo4 active
 --- !u!114 &1812004640913891536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,6 +106,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &6825416519695765372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6654b9bb3be513468e07a6148170d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcName: bo4 active
 --- !u!114 &2303160128514797625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c30fb623939d2c4fa2e0a9b7289a444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateList: 00000000010000000b00000009000000
+  stateList: 00000000010000000b000000090000000e000000
 --- !u!114 &1117177328779820343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +214,22 @@ MonoBehaviour:
   points: []
   walkSpeed: 1
   animationController: {fileID: 0}
+--- !u!114 &636126675958296622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 139e0cc6d23a680459a39ebfc7f111dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: []
+  optionDialog: []
+  nextState: 0
+  savedItems: []
 --- !u!1 &5825296998909200320
 GameObject:
   m_ObjectHideFlags: 0

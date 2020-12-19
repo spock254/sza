@@ -18,7 +18,8 @@ public enum StateTypes
     NPC_STATE_actionComplete,
     NPC_STATE_stateTransitionModify,
     NPC_STATE_tableLuggageCheck,
-    NPC_STATE_spawnItem
+    NPC_STATE_spawnItem,
+    NPC_STATE_inactive
 }
 
 public class NPC_StateMashine : MachineBehaviour
@@ -46,5 +47,10 @@ public class NPC_StateMashine : MachineBehaviour
         }
 
         SetInitialState(Type.GetType(initState.ToString()));
+    }
+
+    public void SetInactiveState() 
+    {
+        ChangeState<NPC_STATE_inactive>();
     }
 }

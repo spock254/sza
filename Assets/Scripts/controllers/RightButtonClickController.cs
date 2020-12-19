@@ -17,6 +17,7 @@ public class RightButtonClickController : MonoBehaviour
 
     // время для того что бы выполнить все onClick события
     float closePanelDelay = 0.17f;
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && panelIsOpen)
@@ -24,7 +25,7 @@ public class RightButtonClickController : MonoBehaviour
             StartCoroutine(LoadSceneAfterDelay(closePanelDelay));
         }
 
-        if (!panelIsOpen) 
+        if (!panelIsOpen)
         {
             StopAllCoroutines();
         }
@@ -36,11 +37,11 @@ public class RightButtonClickController : MonoBehaviour
         OnClosePanel();
     }
 
-    public void RightButtonClick(RaycastHit2D[] hits, Vector2 mousePosition) 
+    public void RightButtonClick(RaycastHit2D[] hits, Vector2 mousePosition)
     {
         DestroyItems();
 
-        Debug.Log(mousePosition.x +" "+mousePosition.y);
+        Debug.Log(mousePosition.x + " " + mousePosition.y);
         rightButtonClick_panel.SetActive(true);
         //rightButtonClick_panel.transform.position = SetPanelPosition(mousePosition);
         //TODO
@@ -75,7 +76,7 @@ public class RightButtonClickController : MonoBehaviour
         panelIsOpen = true;
     }
 
-    Vector3 SetPanelPosition(Vector2 mousePosition) 
+    Vector3 SetPanelPosition(Vector2 mousePosition)
     {
         RectTransform rt = UICanval;
 
@@ -92,7 +93,7 @@ public class RightButtonClickController : MonoBehaviour
         //return P;
     }
 
-    void DestroyItems() 
+    void DestroyItems()
     {
         for (int j = 0; j < spawnPoint.transform.childCount; j++)
         {
@@ -100,17 +101,17 @@ public class RightButtonClickController : MonoBehaviour
         }
     }
 
-    float GetItemHeight() 
+    float GetItemHeight()
     {
         return item.GetComponent<RectTransform>().rect.height;
     }
 
-    void SetItemName(GameObject spawnedItem, string name) 
+    void SetItemName(GameObject spawnedItem, string name)
     {
         spawnedItem.transform.GetChild(0).GetComponent<Text>().text = name;
     }
 
-    void OnClosePanel() 
+    void OnClosePanel()
     {
         rightButtonClick_panel.SetActive(false);
         panelIsOpen = false;
