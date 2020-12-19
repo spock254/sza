@@ -736,9 +736,10 @@ namespace commands
                 {
                     List<string> result = new List<string>();
 
-                    foreach (var dev in pcController.peripherals)
+                    for (int i = 0; i < pcController.peripherals.Count; i++)
                     {
-                        result.Add(dev.GetComponent<IPeripheral>().DeviseDescription());
+                        result.Add(i + 1 + ") " + pcController.peripherals[i]
+                            .GetComponent<IPeripheral>().DeviseDescription());
                     }
 
                     if (result.Count == 0) 

@@ -92,7 +92,7 @@ public class EWQueueOrder : EWBase, IEWInit
         }
     }
 
-    public void Init(GameObject window, GameObject envObj)
+    public override void Init(GameObject window, GameObject envObj)
     {
         BaseInit(window, envObj);
 

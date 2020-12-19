@@ -29,6 +29,8 @@ public class BaseConection : MonoBehaviour
 
     public virtual void ProcessConection(PCController pcController) 
     {
+        this.connectedPc = pcController;
+
         if (pcController.peripherals.Contains(this.gameObject) == true)
         {
             pcController.peripherals.Remove(this.gameObject);
@@ -39,6 +41,14 @@ public class BaseConection : MonoBehaviour
         }
 
         mashine.SetInactiveState();
+    }
+
+    void OnDestroy()
+    {
+        if (connectedPc.peripherals.Contains(this.gameObject) == true) 
+        {
+            connectedPc.peripherals.Remove(this.gameObject);
+        }
     }
 
     public PCController FindPcInRadius() 

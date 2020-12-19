@@ -26,7 +26,7 @@ public class EWVendingController : EWBase, IEWInit
 
     readonly int[] prices = new int[4] { 15, 20, 10, 15 };
 
-    public void Init(GameObject vendingwindow, GameObject envObj) 
+    public override void Init(GameObject vendingwindow, GameObject envObj) 
     {
         BaseInit(vendingwindow, envObj);
 
