@@ -140,6 +140,23 @@ public class TerminalController : MonoBehaviour
                     " ",
                     " ",
                     " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
                     " "
                 });
 
@@ -251,7 +268,7 @@ public class TerminalController : MonoBehaviour
 
             //res.GetComponentInChildren<Text>().text = interpretation[i];
             res.GetComponentInChildren<Text>().text = string.Empty;
-            //StartCoroutine(PrintWithDilay(res, interpretation[i]));
+            StartCoroutine(PrintWithDilay(res, interpretation[i]));
             res.GetComponentInChildren<Text>().text = interpretation[i];
         }
         //StartCoroutine(AddInterpriterLinesDilay(interpretation));
@@ -263,14 +280,17 @@ public class TerminalController : MonoBehaviour
 
     void ScrallToButtom(int lines) 
     {
-        if (lines > 4)
-        {
-            sr.velocity = new Vector2(0, 450);
-        }
-        else 
-        {
-            sr.verticalNormalizedPosition = 0;
-        }
+        //if (lines > 0)
+        //{
+        //    sr.velocity = new Vector2(0, 0);
+        //}
+        //else 
+        //{
+        //    sr.verticalNormalizedPosition = 0;
+        //}
+        
+        sr.velocity = new Vector2(0, 0);
+        
     }
 
     IEnumerator PrintWithDilay(GameObject res, string str) 
@@ -295,7 +315,7 @@ public class TerminalController : MonoBehaviour
             string toAssigh = new string(temp);
 
             toAssigh = toAssigh.Insert(entry.Key + 1, "</b></color>");
-            toAssigh = toAssigh.Insert(entry.Key, "<color=#FFF408><b>");
+            toAssigh = toAssigh.Insert(entry.Key, "<color=#FFFFFF><b>");
 
             res.GetComponentInChildren<Text>().text = toAssigh;
             yield return new WaitForSeconds(printDelay);
