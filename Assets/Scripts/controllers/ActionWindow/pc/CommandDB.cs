@@ -13,7 +13,10 @@ public class CommandDB : MonoBehaviour
 
     Dictionary<string, ICommandAction> guide = new Dictionary<string, ICommandAction>()
     {
-        { "light", new Guide_LightCommand() }
+        { "guide", new GuideCommand() },
+        { "light", new Guide_LightCommand() },
+        { "help", new Guide_HelpCommand() },
+        { "exit", new ExitCommand() }
     };
 
     Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
@@ -71,8 +74,8 @@ public interface ICommandAction
     string GetDescription();
 }
 
-namespace commands 
-{ 
+namespace commands
+{
     public class ExitCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
@@ -84,7 +87,7 @@ namespace commands
             actionWindow.CloseActionWindow("awpc");
 
             return new List<string>() { "exit status 0" };
-        
+
         }
 
         public string GetDescription()
@@ -101,12 +104,12 @@ namespace commands
     {
         List<string> responce;
 
-        public Dictionary<string, string> GetParams() 
+        public Dictionary<string, string> GetParams()
         {
             return null;
         }
 
-        public CommonCommand(List<string> responce) 
+        public CommonCommand(List<string> responce)
         {
             this.responce = responce;
         }
@@ -124,9 +127,9 @@ namespace commands
     }
     public class HelpCommand : ICommandAction
     {
-        public Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, string> GetParams()
         {
-            return new Dictionary<string, string>() 
+            return new Dictionary<string, string>()
             {
                 { "-all", "shoes description of all command flags" },
                 { "-f", "shoes flags of all commands" },
@@ -134,10 +137,10 @@ namespace commands
                 { "-sf [command]", "description and flags of the selected command" }
             };
         }
-    
 
 
-        public List<string> GetActionStatus(string[] param)
+
+        public virtual List<string> GetActionStatus(string[] param)
         {
             CommandDB commandDB = Global.UIElement.GetTerminalWindow().GetComponent<CommandDB>();
 
@@ -197,7 +200,7 @@ namespace commands
             {
                 return new List<string>(commandDB.GetCommands().Keys);
             }
-            else if (param.Length == 3) 
+            else if (param.Length == 3)
             {
                 if (param[1] == "-s")
                 {
@@ -215,7 +218,7 @@ namespace commands
                     }
                 }
 
-                if (param[1] == "-sf") 
+                if (param[1] == "-detail")
                 {
                     CommandDB commandDb = Global.Component.GetCommandDB();
 
@@ -224,7 +227,7 @@ namespace commands
                     if (commands.ContainsKey(param[2]))
                     {
                         List<string> resp = new List<string>() { param[2] + ": " + commands[param[2]].GetDescription() };
-                        
+
                         List<string> temp = new List<string>();
 
                         foreach (var item in commands[param[2]].GetParams())
@@ -246,7 +249,7 @@ namespace commands
             return null;
         }
 
-        public string GetDescription()
+        public virtual string GetDescription()
         {
             return "description of commands";
         }
@@ -259,14 +262,14 @@ namespace commands
             PCController pcController = terminalController.GetCurrentPc();
             List<GameObject> peripherals = pcController.peripherals;
 
-            if (param.Length > 1) 
-            { 
-                if (param[1] == "-status") 
+            if (param.Length > 1)
+            {
+                if (param[1] == "-status")
                 {
-                
+
                     string enabledStatus = "printer status ( disabled )";
                     string paperStatus = "";
-                
+
                     foreach (var item in peripherals)
                     {
                         if (item.tag == "printer")
@@ -287,10 +290,10 @@ namespace commands
 
                     return new List<string>() { enabledStatus, paperStatus };
                 }
-            
-                if (param[1] == "-s") 
+
+                if (param[1] == "-s")
                 {
-                    
+
                     if (param.Length == 2)
                     {
                         return new List<string>() { "Document not selected.", "use: printer -s [ docname ]" };
@@ -312,18 +315,18 @@ namespace commands
                                 return new List<string>() { "Incorect document name." };
                             }
                         }
-                        else 
+                        else
                         {
                             return new List<string>() { "printer status ( disabled )" };
                         }
                     }
-                    else if (param.Length > 3) 
+                    else if (param.Length > 3)
                     {
                         return new List<string>() { "incorect command syntax", "use: printer -s [ docname ]" };
                     }
                 }
 
-                if (param[1] == "-r") 
+                if (param[1] == "-r")
                 {
                     if (isPrinterPresent(peripherals))
                     {
@@ -331,7 +334,7 @@ namespace commands
 
                         if (printerController.itemToPrint)
                         {
-                            if (!printerController.isPaperInside()) 
+                            if (!printerController.isPaperInside())
                             {
                                 return new List<string>() { "printer interrupted", "paper status ( no paper )" };
                             }
@@ -340,12 +343,12 @@ namespace commands
 
                             return new List<string>() { "the printer finished successfully" };
                         }
-                        else 
+                        else
                         {
                             return new List<string>() { "document not uploaded", "use: printer -s [docname]" };
                         }
                     }
-                    else 
+                    else
                     {
                         return new List<string>() { "printer status ( disabled )" };
                     }
@@ -355,11 +358,11 @@ namespace commands
             return new List<string>() { "use with flags -status -s", "for more information use help" };
         }
 
-        bool isPrinterPresent(List<GameObject> peref) 
+        bool isPrinterPresent(List<GameObject> peref)
         {
             foreach (var item in peref)
             {
-                if (item.tag == "printer") 
+                if (item.tag == "printer")
                 {
                     return true;
                 }
@@ -367,11 +370,11 @@ namespace commands
 
             return false;
         }
-        PrinterController GetPrinterFromPeref(List<GameObject> peref) 
+        PrinterController GetPrinterFromPeref(List<GameObject> peref)
         {
             foreach (var item in peref)
             {
-                if (item.tag == "printer") 
+                if (item.tag == "printer")
                 {
                     return item.GetComponent<PrinterController>();
                 }
@@ -400,7 +403,7 @@ namespace commands
         {
             PCController pcController = Global.Component.GetTerminalController().GetCurrentPc();
             List<PCMempryContent> mempryContents = pcController.memoryContents;
-            
+
             if (param.Length == 4)
             {
                 if (param[1] == "-login")
@@ -422,7 +425,7 @@ namespace commands
                 }
 
             }
-            else if (param.Length == 2) 
+            else if (param.Length == 2)
             {
                 if (param[1] == "-logout")
                 {
@@ -439,7 +442,7 @@ namespace commands
                         return new List<string>() { "You are already a guest" };
                     }
                 }
-                else if (param[1] == "-l") 
+                else if (param[1] == "-l")
                 {
                     List<string> allUsers = new List<string>();
 
@@ -449,8 +452,8 @@ namespace commands
                         {
                             allUsers.Add(item.userName + ": " + item.userMode + "*");
                         }
-                        else 
-                        { 
+                        else
+                        {
                             allUsers.Add(item.userName + ": " + item.userMode);
                         }
                     }
@@ -486,10 +489,10 @@ namespace commands
     {
         public List<string> GetActionStatus(string[] param)
         {
-            if (param.Length == 1) 
+            if (param.Length == 1)
             {
                 TerminalController terminal = Global.Component.GetTerminalController();
-                return new List<string>() { "You are logged in as " + terminal.GetCurrentPc().currentMemory.userName, 
+                return new List<string>() { "You are logged in as " + terminal.GetCurrentPc().currentMemory.userName,
                                             "User mode " + terminal.GetCurrentPc().currentMemory.userMode.ToString() };
             }
 
@@ -511,8 +514,8 @@ namespace commands
 
         public List<string> GetActionStatus(string[] param)
         {
-            if (param.Length == 1) 
-            { 
+            if (param.Length == 1)
+            {
                 TerminalController terminal = Global.Component.GetTerminalController();
                 Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
 
@@ -523,7 +526,7 @@ namespace commands
                     res.Add(item.Key);
                 }
 
-                if (res.Count == 0) 
+                if (res.Count == 0)
                 {
                     return new List<string>() { "Documents not found" };
                 }
@@ -610,7 +613,7 @@ namespace commands
                     }
                 }
             }
-            else if (param.Length == 3) 
+            else if (param.Length == 3)
             {
                 if (param[1] == "-cpy")
                 {
@@ -672,29 +675,29 @@ namespace commands
             AccauntController accaunt = Global.Component.GetAccauntController();
 
 
-            if (param.Length == 4) 
+            if (param.Length == 4)
             {
-                if (param[1] == "-login") 
+                if (param[1] == "-login")
                 {
-                    if (pcController.currentMemory.isInAccauntEntered) 
+                    if (pcController.currentMemory.isInAccauntEntered)
                     {
                         return new List<string>() { "already logged in" };
                     }
 
                     Debug.Log(playerInfo.accauntID == param[2]);
                     Debug.Log(playerInfo.accauntPass == param[3]);
-                    if (playerInfo.accauntID == param[2] && playerInfo.accauntPass == param[3]) 
+                    if (playerInfo.accauntID == param[2] && playerInfo.accauntPass == param[3])
                     {
                         pcController.currentMemory.isInAccauntEntered = true;
                         return new List<string>() { "logged in successfully" };
                     }
-                    else 
+                    else
                     {
                         return new List<string>() { "incorrect accaunt id or password" };
                     }
                 }
             }
-            if (param.Length == 2) 
+            if (param.Length == 2)
             {
                 if (pcController.currentMemory.isInAccauntEntered)
                 {
@@ -702,14 +705,14 @@ namespace commands
                     {
                         return new List<string>() { "accaunt balance [ " + accaunt.GetAccautBalance() + " ]" };
                     }
-                    else if (param[1] == "-logout") 
+                    else if (param[1] == "-logout")
                     {
                         pcController.currentMemory.isInAccauntEntered = false;
 
                         return new List<string>() { "logged out successfully" };
                     }
                 }
-                else 
+                else
                 {
                     return new List<string>() { "not logged in", "use -login [accauntID] [pass]" };
                 }
@@ -739,10 +742,10 @@ namespace commands
         {
             TerminalController terminal = Global.Component.GetTerminalController();
             PCController pcController = terminal.GetCurrentPc();
-            
-            if (param.Length == 2) 
+
+            if (param.Length == 2)
             {
-                if (param[1] == "-l") 
+                if (param[1] == "-l")
                 {
                     List<string> result = new List<string>();
 
@@ -752,7 +755,7 @@ namespace commands
                             .GetComponent<IPeripheral>().DeviseDescription());
                     }
 
-                    if (result.Count == 0) 
+                    if (result.Count == 0)
                     {
                         return new List<string> { "Devices not detected" };
                     }
@@ -786,10 +789,10 @@ namespace commands
 
             Item item = pcController.peripherals[0].GetComponent<SubstitudeCell>().item;
             item.itemSubstitution.initState = StateTypes.NPC_STATE_stateTransitionModify;
-            
+
             NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
             mashine.ChangeState<NPC_STATE_stateTransitionModify>();
-            
+
             return new List<string>() { "TODO" };
         }
 
@@ -815,18 +818,18 @@ namespace commands
         public virtual List<string> GetActionStatus(string[] param)
         {
             light = GameObject.Find("Point Light 2D").GetComponent<Light2D>();
-         
-            if (param.Length == 2) 
+
+            if (param.Length == 3)
             {
                 if (param[1] == "-on")
                 {
                     light.enabled = true;
-                    return new List<string>() { "the light is on successfully" };
+                    return new List<string>() { "light is on successfully" };
                 }
-                else if (param[1] == "-off") 
+                else if (param[1] == "-off")
                 {
                     light.enabled = false;
-                    return new List<string>() { "the light is off successfully" };
+                    return new List<string>() { "light is off successfully" };
                 }
             }
 
@@ -835,28 +838,51 @@ namespace commands
 
         public virtual string GetDescription()
         {
-            return "TODO";
+            return "manipulating with light";
         }
 
         public virtual Dictionary<string, string> GetParams()
         {
             return new Dictionary<string, string>
             {
-                { "-on", "turn light on" },
-                { "-off", "turn light off" }
+                { "-on [room]", "turn light on" },
+                { "-off [room]", "turn light off" },
+                { "-info", "get list off all rooms" }
             };
         }
     }
 
     #region guide commands
 
+    public class GuideStep
+    {
+        static int guide_step = 0;
+        static bool IsSameStep(int step) 
+        {
+            return step == guide_step;
+        }
+
+        public static List<string> ProcessStep(int step) 
+        {
+            if (IsSameStep(step)) 
+            {
+                guide_step++;
+                return new List<string>() { string.Empty };
+
+            }
+
+            return new List<string>() { "Plase complete previouse guide step",
+                                        "or you can exit guide session: guide -off" };
+        }
+    }
     public class GuideCommand : ICommandAction
     {
         TerminalController terminalController;
-        CommandDB.UserMode prevUserMode = CommandDB.UserMode.Guide;
+        static CommandDB.UserMode prevUserMode = CommandDB.UserMode.Guide;
 
         public List<string> GetActionStatus(string[] param)
         {
+            const int step = 0;
             terminalController = Global.Component.GetTerminalController();
             PCController pcController = terminalController.GetCurrentPc();
             List<PCMempryContent> mempryContents = pcController.memoryContents;
@@ -866,8 +892,15 @@ namespace commands
             {
                 if (param[1] == "-on")
                 {
-                    prevUserMode = terminalController.GetCurrentPc().currentMemory.userMode;
+                    GuideStep.ProcessStep(step);
 
+                    CommandDB.UserMode currentUserMode = terminalController.GetCurrentPc().currentMemory.userMode;
+                    
+                    if (currentUserMode != CommandDB.UserMode.Guest) 
+                    {
+                        prevUserMode = currentUserMode;
+                    }
+                    
                     PCMempryContent guestMemoryContent = mempryContents.Where(x => x.userMode == CommandDB.UserMode.Guide)
                                               .FirstOrDefault();
 
@@ -875,21 +908,36 @@ namespace commands
 
                     terminalController.AddContent(new List<string>
                     {
-                        "welcome to begining terminal guide sesion",
-                        "rewr",
-                        "rwerewr",
-                        "rwerewsdfsdfsdfr",
-                        "rwerewdsfsdfr",
-                        "rwerewrdsfs",
-                        "rwerewdsfsdfr",
-                        "rweresdfsdfwr"
+                        "Welcome to begining <color=#FFFFFF>SYSTEM_32s</color> terminal guide session",
+                        "Terminal command contains from one till three parts",
+                        "For example a command to manipulate the light in the room",
+                        "",
+                        "light -off room",
+                        "^      ^   ^       ",
+                        "|      |   argument",
+                        "|      command flag",
+                        "command",
+                        "",
+                        "Sometimes you can meet more then one argument",
+                        "Use this command if you are too lazy ",
+                        "to come up to light switcher"
                     });
 
                     return new List<string>() { string.Empty };
                 }
                 else if (param[1] == "-off") 
-                { 
-                    // back to prev user mode
+                {
+                    if (terminalController.GetCurrentPc().currentMemory.userMode != CommandDB.UserMode.Guide) 
+                    {
+                        return new List<string>() { "You are not in guide session" };
+                    }
+
+                    PCMempryContent guestMemoryContent = mempryContents.Where(x => x.userMode == prevUserMode)
+                          .FirstOrDefault();
+                    Debug.Log(prevUserMode);
+                    pcController.currentMemory = guestMemoryContent;
+
+                    return new List<string>() { "Guide session complete" };
                 }
             }
 
@@ -909,14 +957,48 @@ namespace commands
 
     public class Guide_LightCommand : LightCommand 
     {
+        TerminalController terminalController;
+
         public override List<string> GetActionStatus(string[] param)
         {
+
             List<string> toReturn = new List<string>();
             List<string> result = base.GetActionStatus(param);
+            terminalController = Global.Component.GetTerminalController();
 
-            if (result == null) 
+            if (result != null && result.Contains("light is off successfully"))
             {
+                int step = 1;
+                toReturn = GuideStep.ProcessStep(step);
+                if (toReturn.Contains(string.Empty) == false) 
+                {
+                    return toReturn;
+                }
 
+                terminalController.AddContent(new List<string>
+                {
+                    "Also some command can be used with set of different flags",
+                    "Turn on the light with -on flag"
+                });
+            }
+            else if (result != null && result.Contains("light is on successfully")) 
+            {
+                int step = 2;
+                toReturn = GuideStep.ProcessStep(step);
+                if (toReturn.Contains(string.Empty) == false)
+                {
+                    return toReturn;
+                }
+
+                terminalController.AddContent(new List<string>
+                {
+                    "Well done!",
+                    "One of the usefull command witch you will use often",
+                    "help command",
+                    "help command displays information about built-in commands",
+                    "Try help command with out flags and arguments to see list ",
+                    "of all accessible commands (accessible in guide session)"
+                });
             }
 
             return toReturn;
@@ -930,6 +1012,56 @@ namespace commands
         public override Dictionary<string, string> GetParams()
         {
             return base.GetParams();
+        }
+    }
+
+    public class Guide_HelpCommand : HelpCommand 
+    {
+        TerminalController terminalController;
+
+        public override List<string> GetActionStatus(string[] param)
+        {
+            List<string> result = base.GetActionStatus(param);
+            List<string> toReturn = new List<string>();
+            terminalController = Global.Component.GetTerminalController();
+
+            if (result != null && result.Contains("light") && result.Contains("help"))
+            {
+                int step = 3;
+                toReturn = GuideStep.ProcessStep(step);
+                if (toReturn.Contains(string.Empty) == false)
+                {
+                    return toReturn;
+                }
+
+                terminalController.AddContent(new List<string>
+                {
+                    "help",
+                    "guide",
+                    "light",
+                    "exit",
+                    "",
+                    "",
+                    "To get more detail information about spacific command ",
+                    "you can use -detail flag and command name as argumend",
+                    "try get all information about light command"
+
+                });
+
+            }
+            else if (result != null && result.Contains("-info")) 
+            {
+                int step = 4;
+                toReturn = GuideStep.ProcessStep(step);
+                if (toReturn.Contains(string.Empty) == false)
+                {
+                    return toReturn;
+                }
+            }
+
+            toReturn.AddRange(new List<string>() { "", "Congratulations terminal guide session complete successfully!" });
+            return toReturn;
+
         }
     }
 
