@@ -45,7 +45,7 @@ public class BaseConection : MonoBehaviour
 
     void OnDestroy()
     {
-        if (connectedPc.peripherals.Contains(this.gameObject) == true) 
+        if (connectedPc != null && connectedPc.peripherals.Contains(this.gameObject) == true) 
         {
             connectedPc.peripherals.Remove(this.gameObject);
         }

@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using commands;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class CommandDB : MonoBehaviour
 {
-    public enum UserMode { Guest, User, Admin }
+    public enum UserMode { Guest, User, Admin, Guide }
 
     //public UserMode userMode;
 
+    Dictionary<string, ICommandAction> guide = new Dictionary<string, ICommandAction>()
+    {
+        { "light", new Guide_LightCommand() }
+    };
+
     Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
+        { "guide", new GuideCommand() },
         { "help", new HelpCommand() },
         { "exit", new ExitCommand() },
         { "chuser", new ChUserCommand() },
@@ -25,7 +32,7 @@ public class CommandDB : MonoBehaviour
         { "disk", new DiskCommand() },
         { "accaunt", new AccauntCommand() },
         { "per", new PeripheralCommand() },
-        { "upgrade", new DeviceUpgrade() }
+        { "upgrade", new DeviceUpgradeCommand() }
     };
 
     Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -39,11 +46,15 @@ public class CommandDB : MonoBehaviour
 
         UserMode userMode = terminal.GetCurrentPc().currentMemory.userMode;
 
-        if (userMode == UserMode.Guest)
+        if (userMode == UserMode.Guide)
+        {
+            return guide;
+        }
+        else if (userMode == UserMode.Guest)
         {
             return guest;
         }
-        else if (userMode == UserMode.User) 
+        else if (userMode == UserMode.User)
         {
             return guest.Union(user).ToDictionary(k => k.Key, v => v.Value);
         }
@@ -722,7 +733,6 @@ namespace commands
             };
         }
     }
-
     public class PeripheralCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
@@ -767,8 +777,7 @@ namespace commands
             };
         }
     }
-
-    public class DeviceUpgrade : ICommandAction
+    public class DeviceUpgradeCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
         {
@@ -797,4 +806,132 @@ namespace commands
             };
         }
     }
+
+
+    public class LightCommand : ICommandAction
+    {
+        Light2D light;
+
+        public virtual List<string> GetActionStatus(string[] param)
+        {
+            light = GameObject.Find("Point Light 2D").GetComponent<Light2D>();
+         
+            if (param.Length == 2) 
+            {
+                if (param[1] == "-on")
+                {
+                    light.enabled = true;
+                    return new List<string>() { "the light is on successfully" };
+                }
+                else if (param[1] == "-off") 
+                {
+                    light.enabled = false;
+                    return new List<string>() { "the light is off successfully" };
+                }
+            }
+
+            return null;
+        }
+
+        public virtual string GetDescription()
+        {
+            return "TODO";
+        }
+
+        public virtual Dictionary<string, string> GetParams()
+        {
+            return new Dictionary<string, string>
+            {
+                { "-on", "turn light on" },
+                { "-off", "turn light off" }
+            };
+        }
+    }
+
+    #region guide commands
+
+    public class GuideCommand : ICommandAction
+    {
+        TerminalController terminalController;
+        CommandDB.UserMode prevUserMode = CommandDB.UserMode.Guide;
+
+        public List<string> GetActionStatus(string[] param)
+        {
+            terminalController = Global.Component.GetTerminalController();
+            PCController pcController = terminalController.GetCurrentPc();
+            List<PCMempryContent> mempryContents = pcController.memoryContents;
+
+
+            if (param.Length == 2) 
+            {
+                if (param[1] == "-on")
+                {
+                    prevUserMode = terminalController.GetCurrentPc().currentMemory.userMode;
+
+                    PCMempryContent guestMemoryContent = mempryContents.Where(x => x.userMode == CommandDB.UserMode.Guide)
+                                              .FirstOrDefault();
+
+                    pcController.currentMemory = guestMemoryContent;
+
+                    terminalController.AddContent(new List<string>
+                    {
+                        "welcome to begining terminal guide sesion",
+                        "rewr",
+                        "rwerewr",
+                        "rwerewsdfsdfsdfr",
+                        "rwerewdsfsdfr",
+                        "rwerewrdsfs",
+                        "rwerewdsfsdfr",
+                        "rweresdfsdfwr"
+                    });
+
+                    return new List<string>() { string.Empty };
+                }
+                else if (param[1] == "-off") 
+                { 
+                    // back to prev user mode
+                }
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public class Guide_LightCommand : LightCommand 
+    {
+        public override List<string> GetActionStatus(string[] param)
+        {
+            List<string> toReturn = new List<string>();
+            List<string> result = base.GetActionStatus(param);
+
+            if (result == null) 
+            {
+
+            }
+
+            return toReturn;
+        }
+
+        public override string GetDescription()
+        {
+            return base.GetDescription();
+        }
+
+        public override Dictionary<string, string> GetParams()
+        {
+            return base.GetParams();
+        }
+    }
+
+    #endregion
 }

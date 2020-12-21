@@ -31,11 +31,11 @@ public class TerminalController : MonoBehaviour
         interpreter = GetComponent<Interpreter>();
     }
 
-    string ScrollHistory(string input) 
+    string ScrollHistory(string input)
     {
         int index = 0;
 
-        if (history.Count == 0) 
+        if (history.Count == 0)
         {
             return input;
         }
@@ -43,7 +43,7 @@ public class TerminalController : MonoBehaviour
 
         for (int i = 0; i < history.Count; i++)
         {
-            if (input == history[i]) 
+            if (input == history[i])
             {
                 index = i;
                 break;
@@ -54,7 +54,7 @@ public class TerminalController : MonoBehaviour
         {
             index = 0;
         }
-        else 
+        else
         {
             index++;
         }
@@ -71,7 +71,7 @@ public class TerminalController : MonoBehaviour
         //        if (index > history.Count) 
         //        {
         //            index = history.Count - 1;
-                    
+
         //        }
 
         //        return history[index];
@@ -79,13 +79,13 @@ public class TerminalController : MonoBehaviour
         //    else if (Input.GetKeyDown(KeyCode.UpArrow)) 
         //    {
         //        index--;
-            
+
         //        if (index < 0) 
         //        {
         //            index = 0;
         //            return string.Empty;
         //        }
-                
+
         //        return history[index];
         //    }
         //}
@@ -94,7 +94,7 @@ public class TerminalController : MonoBehaviour
         //return input;
     }
 
-    void AddToHistory(string command) 
+    void AddToHistory(string command)
     {
         //if (history.Count == 100)
         //{
@@ -112,12 +112,12 @@ public class TerminalController : MonoBehaviour
     //int index = 0;
     private void OnGUI()
     {
-        if (isOpen) 
+        if (isOpen)
         {
             terminalInput.ActivateInputField();
             terminalInput.Select();
-            
-            if (!isInit) 
+
+            if (!isInit)
             {
                 isInit = true;
                 //AddToHistory(userInput);
@@ -125,7 +125,7 @@ public class TerminalController : MonoBehaviour
                 ClearInputField();
                 //AddDirectoryLine(userInput);
 
-                int lines = AddInterpriterLines(new List<string>() 
+                int lines = AddInterpriterLines(new List<string>()
                 {
                     " ",
                     " ",
@@ -133,8 +133,8 @@ public class TerminalController : MonoBehaviour
                     " ",
                     "\t\tWelcome " + pcController.currentMemory.userName + " to <color=#FFFFFF>SYSTEM_32s</color>.",
                     " ",
-                    "to familiarize yourself with the system use",
-                    "help -sf help",
+                    "to familiarize yourself with the system, ",
+                    "use command: guide -on",
                     " ",
                     " ",
                     " ",
@@ -145,13 +145,13 @@ public class TerminalController : MonoBehaviour
 
                 ScrallToButtom(lines);
 
-                userInputLine.transform.SetAsLastSibling();
+                SetUserInputLineAsLastSibling();
             }
         }
-        else 
+        else
         {
             isInit = false;
-            
+
         }
 
 
@@ -182,9 +182,9 @@ public class TerminalController : MonoBehaviour
         //    return;
         //}
 
-        if (terminalInput.isFocused && terminalInput.text != "" && Input.GetKeyDown(KeyCode.Return)) 
+        if (terminalInput.isFocused && terminalInput.text != "" && Input.GetKeyDown(KeyCode.Return))
         {
-            
+
             string userInput = terminalInput.text;
 
             AddToHistory(userInput);
@@ -200,6 +200,20 @@ public class TerminalController : MonoBehaviour
             terminalInput.ActivateInputField();
             terminalInput.Select();
         }
+    }
+
+    public void AddContent(List<string> content) 
+    {
+        ClearInputField();
+        int lines = AddInterpriterLines(content);
+
+        ScrallToButtom(lines);
+        SetUserInputLineAsLastSibling();
+    }
+
+    void SetUserInputLineAsLastSibling() 
+    {
+        userInputLine.transform.SetAsLastSibling();
     }
 
     IEnumerator ChangeCaretPosition() 

@@ -26,7 +26,6 @@ public class PCController : MonoBehaviour
     public Item disk;
 
     bool isOpen;
-    bool isLock;
     Vector3Int currentCell;
 
     ActionWindowController actionWindow;
