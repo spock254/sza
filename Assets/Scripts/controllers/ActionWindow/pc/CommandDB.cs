@@ -1044,9 +1044,11 @@ namespace commands
                     "",
                     "To get more detail information about spacific command ",
                     "you can use -detail flag and command name as argumend",
-                    "try get all information about light command"
+                    "try to get all information about light command"
 
                 });
+
+                return new List<string>() { string.Empty };
 
             }
             else if (result != null && result.Contains("-info")) 
@@ -1057,10 +1059,16 @@ namespace commands
                 {
                     return toReturn;
                 }
+            
+                result.AddRange(new List<string>() { 
+                    "", 
+                    "",
+                    "Congratulations!",
+                    " terminal guide session complete successfully!" });
             }
 
-            toReturn.AddRange(new List<string>() { "", "Congratulations terminal guide session complete successfully!" });
-            return toReturn;
+
+            return result;
 
         }
     }
