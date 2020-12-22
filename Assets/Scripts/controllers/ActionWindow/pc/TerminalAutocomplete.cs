@@ -14,7 +14,10 @@ public class TerminalAutocomplete : MonoBehaviour
 
     int hintIndex = -1;
 
-    
+    [SerializeField]
+    Color hintColor = Color.red;
+    [SerializeField]
+    Color defaultHintColor = Color.red;
 
     void Start()
     {
@@ -33,12 +36,45 @@ public class TerminalAutocomplete : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                terminalController.terminalInput.enabled = false;
+                List<Text> hintWithContent = new List<Text>();
+
+                foreach (var hint in hintLines)
+                {
+                    if (hint.text != string.Empty)
+                    {
+                        hintWithContent.Add(hint);
+                    }
+                }
+
+                if (hintIndex > 0)
+                {
+                    hintIndex--;
+
+                    foreach (var hint in hintLines)
+                    {
+                        hint.color = defaultHintColor;
+                    }
+
+                    hintLines[hintIndex].color = hintColor;
+                }
+                else
+                {
+                    terminalController.terminalInput.enabled = true;
+                    StartCoroutine(SetCarret());
+
+                    hintIndex = hintWithContent.Count - 1;
+                    foreach (var hint in hintLines)
+                    {
+                        hint.color = defaultHintColor;
+                    }
+                }
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 terminalController.terminalInput.enabled = false;
-
                 List<Text> hintWithContent = new List<Text>();
+
                 foreach (var hint in hintLines)
                 {
                     if (hint.text != string.Empty)
@@ -51,26 +87,18 @@ public class TerminalAutocomplete : MonoBehaviour
                 {
                     hintIndex++;
 
-                    foreach (var hint in hintLines)
-                    {
-                        hint.color = Color.white;
-                    }
-                    hintLines[hintIndex].color = Color.red;
+                    ResetHintColor();
+
+                    hintLines[hintIndex].color = hintColor;
                 }
                 else
                 {
                     terminalController.terminalInput.enabled = true;
                     StartCoroutine(SetCarret());
-                    setCarret = true;
-                    //terminalController.terminalInput.Select();
-                    //terminalController.terminalInput.ActivateInputField();
-                    hintIndex = -1;
-                    foreach (var hint in hintLines)
-                    {
-                        hint.color = Color.white;
-                    }
-                }
 
+                    hintIndex = -1;
+                    ResetHintColor();
+                }
             }
             else if (Input.GetKeyDown(KeyCode.Return))
             {
@@ -87,10 +115,7 @@ public class TerminalAutocomplete : MonoBehaviour
                     }
 
                     hintIndex = -1;
-                    foreach (var hint in hintLines)
-                    {
-                        hint.color = Color.white;
-                    }
+                    ResetHintColor();
 
                     terminalController.terminalInput.enabled = true;
                     StartCoroutine(SetCarret());
@@ -98,15 +123,15 @@ public class TerminalAutocomplete : MonoBehaviour
 
                 }
             }
-            //else 
+            //else if ()
             //{
-                
-            //    if (terminalController.terminalInput.enabled == false) 
+
+            //    if (terminalController.terminalInput.enabled == false)
             //    {
             //        terminalController.terminalInput.enabled = true;
             //    }
             //}
-        
+
         }
     }
 
@@ -117,15 +142,14 @@ public class TerminalAutocomplete : MonoBehaviour
         terminalController.terminalInput.ForceLabelUpdate();
     }
 
-    //private void LateUpdate()
-    //{
-    //    if (setCarret == true) 
-    //    {
-    //        terminalController.terminalInput.caretPosition = terminalController.terminalInput.text.Length;
-    //        terminalController.terminalInput.ForceLabelUpdate();
-    //        setCarret = false;
-    //    }
-    //}
+    void ResetHintColor() 
+    {
+        foreach (var hint in hintLines)
+        {
+            hint.color = defaultHintColor;
+        }
+    }
+
     public void ValueChange()
     {
         commands = commandDB.GetCommands();
