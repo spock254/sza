@@ -23,6 +23,8 @@ public class TerminalAutocomplete : MonoBehaviour
     {
         terminalController = GetComponent<TerminalController>();
         commandDB = GetComponent<CommandDB>();
+
+        ResetHintColor();
     }
     bool setCarret = false;
     string prevInput = string.Empty;
@@ -47,6 +49,7 @@ public class TerminalAutocomplete : MonoBehaviour
                     }
                 }
 
+                
                 if (hintIndex > 0)
                 {
                     hintIndex--;
@@ -63,7 +66,7 @@ public class TerminalAutocomplete : MonoBehaviour
                     terminalController.terminalInput.enabled = true;
                     StartCoroutine(SetCarret());
 
-                    hintIndex = hintWithContent.Count - 1;
+                    hintIndex = hintWithContent.Count;
                     foreach (var hint in hintLines)
                     {
                         hint.color = defaultHintColor;
