@@ -27,25 +27,40 @@ public class TerminalAutocomplete : MonoBehaviour
         {
             if (command.Key == input.Split()[0]) 
             {
-                List<string> flags = new List<string>(command.Value.GetParams().Keys);
+                Dictionary<string, string> param = command.Value.GetParams();
+
+                if (param == null) 
+                {
+                    return;
+                }
+
+                List<string> flags = new List<string>(param.Keys);
+
                 if (input.Split().Length != 2) 
                 {
                     return;
                 }
 
-                SetHints(flags, input.Split()[1]);
+                SetHints(flags, input.Split()[1], true);
 
             }
         }
     }
 
-    void SetHints(List<string> flags, string input) 
+    void SetHints(List<string> flags, string input, bool offset = false) 
     {
         List<string> maped = new List<string>();
+        string offsetStr = string.Empty;
+
+        if (offset == true) 
+        {
+            offsetStr = ParseToStringOffset(terminalController.terminalInput.text
+                                                    .Split()[0] + " ");
+        }
 
         foreach (var flag in flags)
         {
-            if (flag.StartsWith(input)) 
+            if (flag.StartsWith(input) && input != string.Empty) 
             {
                 maped.Add(flag);
             }
@@ -56,7 +71,7 @@ public class TerminalAutocomplete : MonoBehaviour
             int i = 0;
             for (; i < maped.Count && i < hintLines.Count; i++)
             {
-                hintLines[i].text = maped[i];
+                hintLines[i].text = offsetStr + maped[i];
             }
 
             for (; i < hintLines.Count; i++)
@@ -73,8 +88,15 @@ public class TerminalAutocomplete : MonoBehaviour
         }
     }
 
-    void SetNextHintLine(string comStr) 
-    { 
+    string ParseToStringOffset(string str) 
+    {
+        string toReturn = string.Empty;
         
+        foreach (var ch in str)
+        {
+            toReturn += " ";
+        }
+
+        return toReturn;
     }
 }
