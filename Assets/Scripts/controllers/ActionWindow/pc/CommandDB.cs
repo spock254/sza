@@ -878,7 +878,7 @@ namespace commands
     public class GuideCommand : ICommandAction
     {
         TerminalController terminalController;
-        static CommandDB.UserMode prevUserMode = CommandDB.UserMode.Guide;
+        public static CommandDB.UserMode prevUserMode = CommandDB.UserMode.Guide;
 
         public List<string> GetActionStatus(string[] param)
         {
@@ -934,7 +934,6 @@ namespace commands
 
                     PCMempryContent guestMemoryContent = mempryContents.Where(x => x.userMode == prevUserMode)
                           .FirstOrDefault();
-                    Debug.Log(prevUserMode);
                     pcController.currentMemory = guestMemoryContent;
 
                     return new List<string>() { "Guide session complete" };
@@ -1024,6 +1023,8 @@ namespace commands
             List<string> result = base.GetActionStatus(param);
             List<string> toReturn = new List<string>();
             terminalController = Global.Component.GetTerminalController();
+            PCController pcController = terminalController.GetCurrentPc();
+            List<PCMempryContent> mempryContents = pcController.memoryContents;
 
             if (result != null && result.Contains("light") && result.Contains("help"))
             {
@@ -1051,7 +1052,7 @@ namespace commands
                 return new List<string>() { string.Empty };
 
             }
-            else if (result != null && result.Contains("-info")) 
+            else if (param[1] == "-detail" && param[2] == "light") 
             {
                 int step = 4;
                 toReturn = GuideStep.ProcessStep(step);
@@ -1059,12 +1060,19 @@ namespace commands
                 {
                     return toReturn;
                 }
-            
+
                 result.AddRange(new List<string>() { 
                     "", 
                     "",
                     "Congratulations!",
-                    " terminal guide session complete successfully!" });
+                    "Terminal guide session complete successfully!",
+                    "Return to " + GuideCommand.prevUserMode + " mode"
+                });
+
+
+                PCMempryContent guestMemoryContent = mempryContents.Where(x => x.userMode == GuideCommand.prevUserMode)
+                                                      .FirstOrDefault();
+                pcController.currentMemory = guestMemoryContent;
             }
 
 

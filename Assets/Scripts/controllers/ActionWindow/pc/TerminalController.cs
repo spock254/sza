@@ -268,7 +268,7 @@ public class TerminalController : MonoBehaviour
 
             //res.GetComponentInChildren<Text>().text = interpretation[i];
             res.GetComponentInChildren<Text>().text = string.Empty;
-            StartCoroutine(PrintWithDilay(res, interpretation[i]));
+            //StartCoroutine(PrintWithDilay(res, interpretation[i]));
             res.GetComponentInChildren<Text>().text = interpretation[i];
         }
         //StartCoroutine(AddInterpriterLinesDilay(interpretation));
