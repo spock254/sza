@@ -134,7 +134,7 @@ namespace commands
                 { "-all", "shoes description of all command flags" },
                 { "-f", "shoes flags of all commands" },
                 { "-s [command]", "description of the selected command" },
-                { "-sf [command]", "description and flags of the selected command" }
+                { "-detail [command]", "description and flags of the selected command" }
             };
         }
 
@@ -945,12 +945,16 @@ namespace commands
 
         public string GetDescription()
         {
-            throw new System.NotImplementedException();
+            return "terminal begining guide session";
         }
 
         public Dictionary<string, string> GetParams()
         {
-            throw new System.NotImplementedException();
+            return new Dictionary<string, string>() 
+            {
+                { "-on", "start guide session" },
+                { "-off", "finish guide session" }
+            };
         }
     }
 

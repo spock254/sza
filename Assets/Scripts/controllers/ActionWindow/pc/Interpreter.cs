@@ -7,25 +7,14 @@ public class Interpreter : MonoBehaviour
     Dictionary<string, ICommandAction> commands = null;
     CommandDB commandDB;
 
-    //public CommandDB.UserMode currentUserMode;
-    //PCController pcController;
     void Awake()
     {
-        //pcController = GetComponent<TerminalController>().GetCurrentPc();
-
         commandDB = GetComponent<CommandDB>();
-        //commandDB.userMode = CommandDB.UserMode.Guest;
-        //currentUserMode = CommandDB.UserMode.Guest;
-        //commands = commandDB.GetCommands();
     }
 
     public List<string> Interpret(string userInput) 
     {
-        //responce.Clear();
-
         string[] args = userInput.Split();
-
-
         commands = commandDB.GetCommands();
 
         if (commands.ContainsKey(args[0]))
@@ -44,12 +33,4 @@ public class Interpreter : MonoBehaviour
         
     }
 
-    //void CheckUserMode() 
-    //{
-    //    if (currentUserMode != commandDB.userMode)
-    //    {
-    //        currentUserMode = commandDB.userMode;
-    //        commands = commandDB.GetCommands();
-    //    }
-    //}
 }

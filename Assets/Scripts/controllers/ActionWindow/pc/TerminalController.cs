@@ -116,7 +116,7 @@ public class TerminalController : MonoBehaviour
         {
             terminalInput.ActivateInputField();
             terminalInput.Select();
-
+            
             if (!isInit)
             {
                 isInit = true;
