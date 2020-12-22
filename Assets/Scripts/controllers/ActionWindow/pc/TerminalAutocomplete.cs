@@ -11,11 +11,121 @@ public class TerminalAutocomplete : MonoBehaviour
     Dictionary<string, ICommandAction> commands = null;
     [SerializeField]
     List<Text> hintLines = null;
+
+    int hintIndex = -1;
+
+    
+
     void Start()
     {
         terminalController = GetComponent<TerminalController>();
         commandDB = GetComponent<CommandDB>();
     }
+    bool setCarret = false;
+    string prevInput = string.Empty;
+    void Update()
+    {
+        if (terminalController.isOpen == true) 
+        { 
+            if (hintIndex == -1) 
+            {
+                prevInput = terminalController.terminalInput.text;
+            }
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                terminalController.terminalInput.enabled = false;
+
+                List<Text> hintWithContent = new List<Text>();
+                foreach (var hint in hintLines)
+                {
+                    if (hint.text != string.Empty)
+                    {
+                        hintWithContent.Add(hint);
+                    }
+                }
+
+                if (hintIndex < hintWithContent.Count - 1)
+                {
+                    hintIndex++;
+
+                    foreach (var hint in hintLines)
+                    {
+                        hint.color = Color.white;
+                    }
+                    hintLines[hintIndex].color = Color.red;
+                }
+                else
+                {
+                    terminalController.terminalInput.enabled = true;
+                    StartCoroutine(SetCarret());
+                    setCarret = true;
+                    //terminalController.terminalInput.Select();
+                    //terminalController.terminalInput.ActivateInputField();
+                    hintIndex = -1;
+                    foreach (var hint in hintLines)
+                    {
+                        hint.color = Color.white;
+                    }
+                }
+
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if (hintIndex != -1)
+                {
+                    if (hintLines[hintIndex].text[0] == ' ')
+                    {
+                        string flagToappend = hintLines[hintIndex].text.Trim().Split()[0].Substring(1);
+                        terminalController.terminalInput.text += flagToappend;
+                    }
+                    else 
+                    { 
+                        terminalController.terminalInput.text = hintLines[hintIndex].text;
+                    }
+
+                    hintIndex = -1;
+                    foreach (var hint in hintLines)
+                    {
+                        hint.color = Color.white;
+                    }
+
+                    terminalController.terminalInput.enabled = true;
+                    StartCoroutine(SetCarret());
+                    setCarret = true;
+
+                }
+            }
+            //else 
+            //{
+                
+            //    if (terminalController.terminalInput.enabled == false) 
+            //    {
+            //        terminalController.terminalInput.enabled = true;
+            //    }
+            //}
+        
+        }
+    }
+
+    IEnumerator SetCarret() 
+    {
+        yield return new WaitForEndOfFrame();
+        terminalController.terminalInput.caretPosition = terminalController.terminalInput.text.Length;
+        terminalController.terminalInput.ForceLabelUpdate();
+    }
+
+    //private void LateUpdate()
+    //{
+    //    if (setCarret == true) 
+    //    {
+    //        terminalController.terminalInput.caretPosition = terminalController.terminalInput.text.Length;
+    //        terminalController.terminalInput.ForceLabelUpdate();
+    //        setCarret = false;
+    //    }
+    //}
     public void ValueChange()
     {
         commands = commandDB.GetCommands();
