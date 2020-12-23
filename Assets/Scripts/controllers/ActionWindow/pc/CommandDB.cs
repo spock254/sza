@@ -11,7 +11,7 @@ public class CommandDB : MonoBehaviour
 
     //public UserMode userMode;
 
-    Dictionary<string, ICommandAction> guide = new Dictionary<string, ICommandAction>()
+    public Dictionary<string, ICommandAction> guide = new Dictionary<string, ICommandAction>()
     {
         { "guide", new GuideCommand() },
         { "light", new Guide_LightCommand() },
@@ -19,7 +19,7 @@ public class CommandDB : MonoBehaviour
         { "exit", new ExitCommand() }
     };
 
-    Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
+    public Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
         { "clear", new ClearCommand() },
         { "guide", new GuideCommand() },
@@ -30,18 +30,24 @@ public class CommandDB : MonoBehaviour
         { "docs", new DocsCommand() }
     };
 
-    Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
+    public Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
     {
         { "printer", new PrinterCommand() },
         { "disk", new DiskCommand() },
+        { "command_manager", new CommandManagerCommand() },
         { "accaunt", new AccauntCommand() },
-        { "per", new PeripheralCommand() },
-        { "upgrade", new DeviceUpgradeCommand() }
+        { "per", new PeripheralCommand() }
+        //{ "upgrade", new DeviceUpgradeCommand() }
     };
 
-    Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
+    public Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
     {
         { "test3",  new CommonCommand( new List<string>() { "test3 terminal" } )}
+    };
+
+    public Dictionary<string, ICommandAction> installDev = new Dictionary<string, ICommandAction>()
+    {
+        { "bo4", new Bo4Command() }
     };
 
     public Dictionary<string, ICommandAction> GetCommands() 
@@ -591,7 +597,7 @@ namespace commands
                         return new List<string>() { "disk status ( disabled )" };
                     }
                 }
-                else if (param[1] == "-c")
+                else if (param[1] == "-content")
                 {
                     if (pcController.disk != null)
                     {
@@ -660,8 +666,8 @@ namespace commands
             {
                 { "-status", "shows disk status" },
                 { "-out", "plug out disk" },
-                { "-c", "shows disk content" },
-                { "-cpy [docName]", "copies selected document" }
+                { "-content", "shows disk content" },
+                { "-cpy [document ame]", "copies selected document" }
             };
         }
     }
@@ -781,32 +787,135 @@ namespace commands
             };
         }
     }
-    public class DeviceUpgradeCommand : ICommandAction
+
+    public class CommandManagerCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
         {
-            TerminalController terminal = Global.Component.GetTerminalController();
-            PCController pcController = terminal.GetCurrentPc();
+            if (param.Length == 3) 
+            {
+                if (param[1] == "-install") 
+                {
+                    TerminalController terminal = Global.Component.GetTerminalController();
+                    PCController pcController = terminal.GetCurrentPc();
 
-            Item item = pcController.peripherals[0].GetComponent<SubstitudeCell>().item;
-            item.itemSubstitution.initState = StateTypes.NPC_STATE_stateTransitionModify;
+                    Item disk = pcController.disk;
+                    CommandDB commandDB = Global.Component.GetCommandDB();
 
-            NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
-            mashine.ChangeState<NPC_STATE_stateTransitionModify>();
-
-            return new List<string>() { "TODO" };
+                    if (param[2].EndsWith(Global.Command.COMMAND_FORMAT)) 
+                    {
+                        foreach (var cmd in disk.innerItems)
+                        {
+                            if (cmd.itemDescription == param[2]) 
+                            {
+                                string key = param[2].Split('.')[0];
+                                if (commandDB.user.Keys.Contains(key) == false)
+                                {
+                                    commandDB.user.Add(key, commandDB.installDev[key]);
+                                    return new List<string>() { "command" + key + " installed successfully" };
+                                }
+                                else 
+                                {
+                                    return new List<string>() { "command " + key + " already installed" };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         public string GetDescription()
         {
-            return "TODO";
+            return "use for installing command into system";
         }
 
         public Dictionary<string, string> GetParams()
         {
+            return new Dictionary<string, string>()
+            {
+                { "-install [command name]", "install command into system" }
+            };
+        }
+    }
+
+    #region installed command
+
+    public class Bo4Command : DeviceUpgradeCommand 
+    {
+        public override List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            bool deviceFound = false;
+            for (int i = 0; i < pcController.peripherals.Count; i++)
+            {
+                string description = pcController.peripherals[i].GetComponent<IPeripheral>().DeviseDescription();
+                
+                if (description.Contains("bo4") == true) 
+                {
+                    deviceFound = true;
+                    break;
+                }
+            }
+
+            if (deviceFound)
+            {
+                return base.GetActionStatus(param);
+            }
+
+            return new List<string>() { "Device not found." };
+        }
+
+        public override string GetDescription()
+        {
+            return base.GetDescription();
+        }
+
+        public override Dictionary<string, string> GetParams()
+        {
+            return base.GetParams();
+        }
+    }
+    
+    #endregion
+
+    public class DeviceUpgradeCommand : ICommandAction
+    {
+        public virtual List<string> GetActionStatus(string[] param)
+        {
+            if (param.Length == 2) 
+            {
+                if (param[1] == "-upgrade") 
+                { 
+                    TerminalController terminal = Global.Component.GetTerminalController();
+                    PCController pcController = terminal.GetCurrentPc();
+
+                    Item item = pcController.peripherals[0].GetComponent<SubstitudeCell>().item;
+                    item.itemSubstitution.initState = StateTypes.NPC_STATE_stateTransitionModify;
+
+                    NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
+                    mashine.ChangeState<NPC_STATE_stateTransitionModify>();
+
+                    return new List<string>() { "device " + param[2] + " upgraded" };
+                
+                }
+            }
+
+            return null;
+        }
+
+        public virtual string GetDescription()
+        {
+            return "TODO";
+        }
+
+        public virtual Dictionary<string, string> GetParams()
+        {
             return new Dictionary<string, string>
             {
-                { "-update [device]", "list of all mounted drives" }
+                { "-upgrade", "upgrade device" }
             };
         }
     }
@@ -850,7 +959,6 @@ namespace commands
             };
         }
     }
-
     public class ClearCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)

@@ -18,6 +18,11 @@ public static class Global
         public const int MAX_HOURS = 24;
     }
 
+    public static class Command 
+    { 
+        public const string COMMAND_FORMAT = ".cmd";
+    }
+
     public static class Tooltip
     {
         public const string LM_USE = "LM to use";
