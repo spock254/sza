@@ -155,12 +155,43 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     void Update()
     {
         if (dialogWindow.isOpen == false) 
-        { 
-            if (Input.mouseScrollDelta.y != 0 )
+        {
+            if (Input.mouseScrollDelta.y != 0)      //switch hands
             {
                 currentHand = SwapActiveHand();
                 SetHandColor();
-                //currentHand.GetComponentInChildren<Text>().text = "*";
+            }
+            else if (Input.GetKeyDown(KeyCode.Q))   //switch to left hand
+            {
+                currentHand = left_hand_btn;
+                SetHandColor();
+            }
+            else if (Input.GetKeyDown(KeyCode.E))   //switch to right hand
+            {
+                currentHand = right_hand_btn;
+                SetHandColor();
+            }
+            else if (Input.GetKeyDown(KeyCode.Tab)) // open bag
+            {
+                if (isBagOpen == true) 
+                {
+                    CloseOpenContainer(bag_panel, ref isBagOpen);
+                    return;
+                }
+
+                if (IsEmpty(bag_btn) == true) 
+                {
+                    return;
+                }
+
+                Item bag = bag_btn.GetComponent<ItemCell>().item;
+
+                CloseOpenContainer(bag_panel, ref isBagOpen);
+
+                if (isBagOpen == true) 
+                {
+                    ContainerContentInit(bag.innerItems, bag_panel);
+                }
             }
 
             if (Input.GetMouseButtonDown(1)) 
@@ -537,6 +568,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             // если две руки заняты попробовать скрафтить
             // и если заимод только с айтемом во второй руке
             Item itemInCell = cell.GetComponent<ItemCell>().item;
+
             if (!IsEmpty(GetAnotherHand()) && itemInCell == GetItemInHand(GetAnotherHand())) 
             {
                 foreach (var item_type in itemInHand.itemUseData.itemTypes) 
@@ -586,7 +618,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                             CloseOpenContainer(bag_panel, ref isBagOpen);
 
-                            if (isBagOpen)
+                            if (isBagOpen == true)
                             {
                                 ContainerContentInit(itemInCell.innerItems, bag_panel);
                                 Debug.Log("bag init");

@@ -911,7 +911,7 @@ namespace commands
 
         public string GetDescription()
         {
-            return "clear terminal window";
+            return "clear content of terminal window";
         }
 
         public Dictionary<string, string> GetParams()
