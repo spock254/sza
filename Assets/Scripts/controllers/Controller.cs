@@ -61,6 +61,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public GameObject bag_panel;
     
     public bool isBagOpen = false;
+    public bool isBagOpenWithTab = false;
 
     bool isLeftHand = true;
     
@@ -175,6 +176,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             {
                 if (isBagOpen == true) 
                 {
+
                     CloseOpenContainer(bag_panel, ref isBagOpen);
                     return;
                 }
@@ -190,6 +192,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 if (isBagOpen == true) 
                 {
+                    isBagOpenWithTab = true;
                     ContainerContentInit(bag.innerItems, bag_panel);
                 }
             }
@@ -473,20 +476,22 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
         Item bagItem = bagCellGo.GetComponent<ItemCell>().item;
         Item handItem = currentHand.GetComponent<ItemCell>().item;
-        Item bag = GetAnotherHand().GetComponent<ItemCell>().item;
+        Item bag = (isBagOpenWithTab == true) ? bag_btn.GetComponent<ItemCell>().item 
+                                              : GetAnotherHand().GetComponent<ItemCell>().item;
 
         // избежание добавления сумки в ту же сумку
-        if (IsEmpty(GetAnotherHand()))
+        if (IsEmpty(GetAnotherHand()) == true && isBagOpenWithTab == false)
         {
             return;
         }
-        
+
         // если абгрейдабл айтем можно добавлять только абгрейты
         //в обычную сумку можно добавлять любые предметы
-        if (IsItemTypePresent(bag, ItemUseData.ItemType.Openable) 
-            || ((IsItemTypePresent(bag, ItemUseData.ItemType.Upgradable) 
-            && IsItemTypePresent(handItem, ItemUseData.ItemType.Upgrate)) || IsEmpty(currentHand))) 
-        { 
+        if (IsItemTypePresent(bag, ItemUseData.ItemType.Openable)
+            || ((IsItemTypePresent(bag, ItemUseData.ItemType.Upgradable)
+            && IsItemTypePresent(handItem, ItemUseData.ItemType.Upgrate)) || IsEmpty(currentHand)))
+        {
+
             if (IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
             {
                 bag.innerItems.Remove(bagItem);
@@ -497,11 +502,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             {
 
                 // если достаточно места в сумке для добавления
-                 if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity) 
-                 { 
-                     bag.innerItems.Add(handItem);
-                     DressCell(bagCellBtn, handItem);
-                     SetDefaultItem(currentHand);
+                if (bag.CountInnerCapacity() + handItem.GetItemSize() <= bag.capacity)
+                {
+                    bag.innerItems.Add(handItem);
+                    DressCell(bagCellBtn, handItem);
+                    SetDefaultItem(currentHand);
                 }
             }
             else if (!IsEmpty(currentHand) && !IsEmpty(bagCellBtn))
@@ -913,6 +918,12 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public void CloseOpenContainer(GameObject panel, ref bool isOpen) 
     {
         isOpen = !isOpen;
+
+        if (isOpen == false) 
+        {
+            isBagOpenWithTab = false;
+        }
+
         panel.SetActive(isOpen);
     }
 
