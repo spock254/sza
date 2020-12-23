@@ -110,7 +110,8 @@ public class TerminalAutocomplete : MonoBehaviour
                     if (hintLines[hintIndex].text[0] == ' ')
                     {
                         string flagToappend = hintLines[hintIndex].text.Trim().Split()[0].Substring(1);
-                        terminalController.terminalInput.text += flagToappend;
+                        terminalController.terminalInput.text = terminalController.terminalInput
+                                                                .text.Split()[0] + " -" + flagToappend;
                     }
                     else 
                     { 

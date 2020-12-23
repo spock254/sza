@@ -21,6 +21,7 @@ public class CommandDB : MonoBehaviour
 
     Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
+        { "clear", new ClearCommand() },
         { "guide", new GuideCommand() },
         { "help", new HelpCommand() },
         { "exit", new ExitCommand() },
@@ -809,8 +810,6 @@ namespace commands
             };
         }
     }
-
-
     public class LightCommand : ICommandAction
     {
         Light2D light;
@@ -852,8 +851,76 @@ namespace commands
         }
     }
 
-    #region guide commands
+    public class ClearCommand : ICommandAction
+    {
+        public List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
 
+            if (param.Length == 1) 
+            {
+                terminal.AddContent(new List<string>() 
+                { 
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    ""
+                });
+
+                return new List<string>() { string.Empty };
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "clear terminal window";
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
+        }
+    }
+
+    #region guide commands
     public class GuideStep
     {
         static int guide_step = 0;
@@ -957,7 +1024,6 @@ namespace commands
             };
         }
     }
-
     public class Guide_LightCommand : LightCommand 
     {
         TerminalController terminalController;
@@ -1017,7 +1083,6 @@ namespace commands
             return base.GetParams();
         }
     }
-
     public class Guide_HelpCommand : HelpCommand 
     {
         TerminalController terminalController;
@@ -1084,6 +1149,5 @@ namespace commands
 
         }
     }
-
     #endregion
 }
