@@ -812,7 +812,7 @@ namespace commands
                                 if (commandDB.user.Keys.Contains(key) == false)
                                 {
                                     commandDB.user.Add(key, commandDB.installDev[key]);
-                                    return new List<string>() { "command" + key + " installed successfully" };
+                                    return new List<string>() { "command " + key + " installed successfully" };
                                 }
                                 else 
                                 {
@@ -898,7 +898,7 @@ namespace commands
                     NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
                     mashine.ChangeState<NPC_STATE_stateTransitionModify>();
 
-                    return new List<string>() { "device " + param[2] + " upgraded" };
+                    return new List<string>() { "device  upgraded" };
                 
                 }
             }
