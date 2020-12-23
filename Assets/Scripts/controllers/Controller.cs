@@ -71,6 +71,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     [SerializeField]
     float actioPlayerRadius = 0;
     public Transform player;
+    PlayerMovement playerMovement;
 
     [HideInInspector]
     public Vector3 mousePos;
@@ -84,6 +85,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     ActionWindowController actionWindow;
     DialogueManager dialogWindow;
     ActionPanelController actionPanel;
+    TerminalController terminalController; // не детектить нажатие пробела когда терминал открыт
     void Start()
     {
         instance = this;
@@ -92,6 +94,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         actionWindow = Global.Component.GetActionWindowController();
         dialogWindow = Global.Component.GetDialogueManager();
         actionPanel = Global.Component.GetActionPanelController();
+        playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
+        terminalController = Global.Component.GetTerminalController();
 
         InitCells();
         InitItemInInventory();
@@ -153,6 +157,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         GetAnotherHand().GetComponent<Image>().color = Color.white;
     }
 
+    bool isOptMouseInput = false;
     void Update()
     {
         if (dialogWindow.isOpen == false) 
@@ -162,26 +167,30 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 currentHand = SwapActiveHand();
                 SetHandColor();
             }
-            else if (Input.GetKeyDown(KeyCode.Q))   //switch to left hand
+            else if (Input.GetKeyDown(KeyCode.Q)) 
             {
-                currentHand = left_hand_btn;
-                SetHandColor();
+                actionPanel.OnDropClick();
             }
-            else if (Input.GetKeyDown(KeyCode.E))   //switch to right hand
-            {
-                currentHand = right_hand_btn;
-                SetHandColor();
-            }
+            //else if (Input.GetKeyDown(KeyCode.Q))   //switch to left hand
+            //{
+            //    currentHand = left_hand_btn;
+            //    SetHandColor();
+            //}
+            //else if (Input.GetKeyDown(KeyCode.E))   //switch to right hand
+            //{
+            //    currentHand = right_hand_btn;
+            //    SetHandColor();
+            //}
             else if (Input.GetKeyDown(KeyCode.Tab)) // open bag
             {
-                if (isBagOpen == true) 
+                if (isBagOpen == true)
                 {
 
                     CloseOpenContainer(bag_panel, ref isBagOpen);
                     return;
                 }
 
-                if (IsEmpty(bag_btn) == true) 
+                if (IsEmpty(bag_btn) == true)
                 {
                     return;
                 }
@@ -190,7 +199,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                 CloseOpenContainer(bag_panel, ref isBagOpen);
 
-                if (isBagOpen == true) 
+                if (isBagOpen == true)
                 {
                     isBagOpenWithTab = true;
                     ContainerContentInit(bag.innerItems, bag_panel);
@@ -314,13 +323,26 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || ((isOptMouseInput = Input.GetKeyDown(KeyCode.E)) 
+                                                     && terminalController.isOpen == false))
             {
                 eventController.OnMouseClickEvent.Invoke();
+                // не детектить нажатие пробела вовремя работы в терминале
+                //isOptMouseInput = !terminalController.isOpen;   
 
-                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                if (isOptMouseInput == false)
+                {
+                    mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                }
+                else
+                {
+                    mousePos = player.position + (playerMovement.GetTurnSide() / 2);
+                }
+
                 Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
                 RaycastHit2D[] hits = Physics2D.RaycastAll(mousePos2D, Vector2.zero);
+
+                //isSpacePressed = false;
 
                 if (IsInActionRadius(mousePos, player.position, actioPlayerRadius)) 
                 {
@@ -442,8 +464,8 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                             // важно соблюдать очередность, сначало открывается сундук потом панэль
                             hit.collider.GetComponent<CaseController>().OnCaseCloseOpen(casePosition.position);
+                            
                             eventController.OnStaticCaseItemEvent.Invoke(caseItem, casePosition);
-
                             eventController.OnEnvChangeShapeEvent.Invoke();
                         }
 
@@ -531,7 +553,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                                     .ToLower() + "_cell");
 
         Button cell = cellGo.GetComponent<Button>();
-
 
         if (!IsEmpty(currentHand)) //если в руке что то есть
         {
