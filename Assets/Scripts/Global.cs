@@ -48,6 +48,8 @@ public static class Global
         public const string LM_DISCONNECT = "LM to disconnect";
         public const string LM_INTERACT = "LM to interact";
 
+        public const string RM_INSERT = "RM to insert";
+
         public static Vector3 EnvObjOffset() 
         {
             return new Vector3(0, 0.32f, 0);

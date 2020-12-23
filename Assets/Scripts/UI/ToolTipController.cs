@@ -93,7 +93,7 @@ public class ToolTipController : MonoBehaviour
 
             foreach (var hit in hits)
             {
-                if (hit.collider.tag == "substitudeItem") 
+                if (hit.collider.tag == "substitudeItem")
                 {
                     BaseConection baseConection = hit.collider.GetComponent<BaseConection>();
                     NPC_Info npcInfo = hit.collider.GetComponent<NPC_Info>();
@@ -101,7 +101,7 @@ public class ToolTipController : MonoBehaviour
 
                     string interactionStr = Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_TURN_OFF;
 
-                    if (pcController != null) 
+                    if (pcController != null)
                     {
                         bool isConnected = pcController.peripherals.Contains(hit.collider.gameObject);
                         interactionStr = ((isConnected == true) ? Global.Tooltip.LM_DISCONNECT : Global.Tooltip.LM_CONNECT) + " / " + Global.Tooltip.RM_TURN_OFF;
@@ -112,7 +112,7 @@ public class ToolTipController : MonoBehaviour
                     ShowToolTip(npcInfo == null ? "obj" : npcInfo.npcName, interactionStr);
                     TooltipLocate(tooltipPosition);
                     return;
-                    
+
                 }
                 else if (hit.collider.tag == "table")
                 {
@@ -131,7 +131,7 @@ public class ToolTipController : MonoBehaviour
                         Item itemOnTable = FindRaycast(hits, Global.DROPED_ITEM_PREFIX, false)?.collider
                                                                          .GetComponent<ItemCell>().item;
 
-                        ShowToolTip((tableController.tableName == string.Empty) ? "table" + " (" + itemOnTable.itemName + ")" 
+                        ShowToolTip((tableController.tableName == string.Empty) ? "table" + " (" + itemOnTable.itemName + ")"
                                                               : tableController.tableName + " (" + itemOnTable.itemName + ")",
                                                                 Global.Tooltip.LM_PICK_UP);
                     }
@@ -185,7 +185,7 @@ public class ToolTipController : MonoBehaviour
                         string useInteraction = (item.itemSubstitution.IsSubstituted() == true && item.itemSubstitution.IsItemToUseExist(itemInHand)) ? " / " + Global.Tooltip.RM_TURN_ON : string.Empty;
 
                         ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ?
-                            Global.Tooltip.LM_PICK_UP + useInteraction 
+                            Global.Tooltip.LM_PICK_UP + useInteraction
                             : ((useInteraction == string.Empty) ? PrintRed(Global.Tooltip.NO_ACTIONS) : useInteraction.Substring(" / ".Length)));
                         TooltipLocate(tooltipPosition);
 
@@ -218,20 +218,32 @@ public class ToolTipController : MonoBehaviour
 
                     return;
                 }
-                else if (hit.collider.tag == "envObj") 
+                else if (hit.collider.tag == "envObj")
                 {
                     VendingController vending = hit.collider.GetComponent<VendingController>();
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position + 
+                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position +
                                                                     Global.Tooltip.EnvObjOffset());
 
-                    ShowToolTip((vending.headerTitle == string.Empty) ? "vending" : vending.headerTitle.ToLower(), 
+                    ShowToolTip((vending.headerTitle == string.Empty) ? "vending" : vending.headerTitle.ToLower(),
                                                                             Global.Tooltip.LM_USE);
                     TooltipLocate(tooltipPosition);
 
                     return;
-                    
+
+                }
+                else if (hit.collider.tag == "pc") 
+                {
+                    Item itemInHand = controller.currentHand.GetComponent<ItemCell>().item;
+
+                    isdetected = true;
+                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+
+                    ShowToolTip("pc", (controller.IsEmpty(controller.currentHand) == false 
+                                        && itemInHand.itemName.Contains("disk"))
+                                ? Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_INSERT : Global.Tooltip.LM_INTERACT);
+                    TooltipLocate(tooltipPosition);
                 }
                 else
                 {
