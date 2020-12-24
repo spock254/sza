@@ -743,9 +743,19 @@ namespace commands
 
         public Dictionary<string, List<string>> GetParams()
         {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+
+            List<string> cpy = new List<string>();
+
+            foreach (var item in pcController.disk.innerItems)
+            {
+                cpy.Add(item.itemDescription);
+            }
+
             return new Dictionary<string, List<string>>()
             {
-                //{ "-cpy", }
+                { "-cpy", cpy}
             };
         }
     }

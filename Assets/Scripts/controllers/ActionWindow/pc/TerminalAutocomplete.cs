@@ -107,14 +107,27 @@ public class TerminalAutocomplete : MonoBehaviour
             {
                 if (hintIndex != -1)
                 {
-                    if (hintLines[hintIndex].text[0] == ' ')
+                    string currentInput = terminalController.terminalInput.text;
+                    //if (hintLines[hintIndex].text[0] == ' ')
+                    if (currentInput.Split().Length == 2
+                        || (currentInput.Split().Length == 1 && currentInput.EndsWith(" ")))
                     {
                         string flagToappend = hintLines[hintIndex].text.Trim().Split()[0].Substring(1);
                         terminalController.terminalInput.text = terminalController.terminalInput
                                                                 .text.Split()[0] + " -" + flagToappend;
                     }
-                    else 
-                    { 
+                    else if (currentInput.Split().Length == 3 
+                        || (currentInput.Split().Length == 2 && currentInput.EndsWith(" "))) 
+                    {
+                        string[] splitedInput = terminalController.terminalInput.text.Split();
+                        string argToappend = hintLines[hintIndex].text.Trim();
+                        
+                        terminalController.terminalInput.text = splitedInput[0] + " " 
+                                                                + splitedInput[1] + " " 
+                                                                + argToappend;
+                    }
+                    else
+                    {
                         terminalController.terminalInput.text = hintLines[hintIndex].text;
                     }
 
@@ -161,10 +174,16 @@ public class TerminalAutocomplete : MonoBehaviour
 
         SetHints(new List<string>(commands.Keys), input);
 
+        KeyValuePair<string, ICommandAction> ?commandKeyValue = null;
+        
+        string[] spletedInput = input.Split();
+        
         foreach (var command in commands)
         {
-            if (command.Key == input.Split()[0]) 
+
+            if (command.Key == spletedInput[0]) 
             {
+                commandKeyValue = command;
                 Dictionary<string, string> param = command.Value.GetFlagDescription();
 
                 if (param == null) 
@@ -174,31 +193,50 @@ public class TerminalAutocomplete : MonoBehaviour
 
                 List<string> flags = new List<string>(param.Keys);
 
-                if (input.Split().Length != 2) 
+                if (spletedInput.Length == 2) 
                 {
-                    return;
+                    SetHints(flags, spletedInput[1], spletedInput[0].Length + 1);
+                    //return;
                 }
 
-                SetHints(flags, input.Split()[1], true);
 
+                //if (input.Split().Length == 3) 
+                //{
+                //    string flag = input.Split()[1];
+                //    string arg = input.Split()[2];
+
+                //    Debug.Log("qweqwe");
+                //}
+            }
+        }
+
+        if (spletedInput.Length == 3 && commandKeyValue != null)
+        {
+            var param = commandKeyValue.Value.Value.GetParams();
+            string flag = spletedInput[1];
+            string arg = spletedInput[2];
+
+            if (param != null && param.Keys.Contains(flag))
+            {
+                SetHints(param[flag], arg, spletedInput[0].Length + 1 + spletedInput[1].Length + 1);
             }
         }
     }
 
-    void SetHints(List<string> flags, string input, bool offset = false) 
+    void SetHints(List<string> flags, string input, int offset = 0) 
     {
         List<string> maped = new List<string>();
-        string offsetStr = string.Empty;
+        string offsetStr = ParseToStringOffset(offset);
 
-        if (offset == true) 
-        {
-            offsetStr = ParseToStringOffset(terminalController.terminalInput.text
-                                                    .Split()[0] + " ");
-        }
+        //if (offset == true) 
+        //{
+        //    offsetStr = ParseToStringOffset(terminalController.terminalInput.text
+        //                                            .Split()[0] + " ");
+        //}
 
         foreach (var flag in flags)
         {
-            if (flag.StartsWith(input) && input != string.Empty) 
+            if (flag.StartsWith(input)) 
             {
                 maped.Add(flag);
             }
@@ -226,11 +264,11 @@ public class TerminalAutocomplete : MonoBehaviour
         }
     }
 
-    string ParseToStringOffset(string str) 
+    string ParseToStringOffset(int spaces) 
     {
         string toReturn = string.Empty;
-        
-        foreach (var ch in str)
+
+        for (int i = 0; i < spaces; i++)
         {
             toReturn += " ";
         }
