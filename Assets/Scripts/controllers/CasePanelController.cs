@@ -110,4 +110,9 @@ public class CasePanelController : MonoBehaviour
 
         return false;
     }
+
+    public bool IsCaseOpen() 
+    {
+        return caseIsOpen;
+    }
 }

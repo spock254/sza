@@ -48,6 +48,15 @@ public class PCController : MonoBehaviour
         InitAllDocs();
     }
 
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Escape) && isOpen == true)
+    //    {
+    //        Close();
+    //        eventController.OnTerminalClose.Invoke();
+    //    }
+    //}
+
     public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
     {
         currentCell = upper_2.WorldToCell(mousePosition);
@@ -55,13 +64,11 @@ public class PCController : MonoBehaviour
         if (isOpen == false)
         {
             Open();
-
             eventController.OnTerminalOpen.Invoke();
         }
         else 
         {
             Close();
-
             eventController.OnTerminalClose.Invoke();
         }
     }
@@ -123,6 +130,11 @@ public class PCController : MonoBehaviour
         {
             item.DocsInit();
         }
+    }
+
+    public bool IsTerminalOpen() 
+    {
+        return isOpen;
     }
 }
 

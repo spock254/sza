@@ -167,7 +167,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 currentHand = SwapActiveHand();
                 SetHandColor();
             }
-            else if (Input.GetKeyDown(KeyCode.Q)) 
+            else if (Input.GetKeyDown(KeyCode.Q))
             {
                 actionPanel.OnDropClick();
             }
