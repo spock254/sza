@@ -162,7 +162,6 @@ namespace commands
         {
             CommandDB commandDB = Global.UIElement.GetTerminalWindow().GetComponent<CommandDB>();
 
-
             if (param.Length == 2)
             {
                 if (param[1] == "-all")
@@ -274,7 +273,13 @@ namespace commands
 
         public virtual Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            CommandDB commandDB = Global.UIElement.GetTerminalWindow().GetComponent<CommandDB>();
+            List<string> detail = commandDB.GetCommands().Keys.ToList();
+
+            return new Dictionary<string, List<string>>()
+            {
+                { "-detail", detail }
+            };
         }
     }
     public class PrinterCommand : ICommandAction
@@ -521,7 +526,19 @@ namespace commands
 
         public Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            PCController pcController = Global.Component.GetTerminalController().GetCurrentPc();
+            List<PCMempryContent> mempryContents = pcController.memoryContents;
+            List<string> login = new List<string>();
+
+            foreach (var memory in mempryContents)
+            {
+                login.Add(memory.userName);
+            }
+
+            return new Dictionary<string, List<string>>() 
+            {
+                { "-login", login }
+            };
         }
     }
     public class WhoamiCommand : ICommandAction
@@ -657,7 +674,6 @@ namespace commands
                         itemPref.GetComponent<SpriteRenderer>().sprite = pcController.disk.itemSprite;
                         prefbDB.InstantiateItemPref(pcController.transform.position);
 
-
                         pcController.disk = null;
 
                         return new List<string>() { "disk " + discDescription + " logged out successfully" };
@@ -692,7 +708,7 @@ namespace commands
             }
             else if (param.Length == 3)
             {
-                if (param[1] == "-cpy")
+                if (param[1] == "-copy")
                 {
                     if (pcController.disk != null)
                     {
@@ -737,7 +753,7 @@ namespace commands
                 { "-status", "shows disk status" },
                 { "-out", "plug out disk" },
                 { "-content", "shows disk content" },
-                { "-cpy [document ame]", "copies selected document" }
+                { "-copy [document name]", "copies selected document" }
             };
         }
 
@@ -746,7 +762,7 @@ namespace commands
             TerminalController terminal = Global.Component.GetTerminalController();
             PCController pcController = terminal.GetCurrentPc();
 
-            List<string> cpy = new List<string>();
+            List<string> cpy = new  List<string>();
 
             foreach (var item in pcController.disk.innerItems)
             {
@@ -755,7 +771,7 @@ namespace commands
 
             return new Dictionary<string, List<string>>()
             {
-                { "-cpy", cpy}
+                { "-copy", cpy}
             };
         }
     }

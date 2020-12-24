@@ -172,12 +172,21 @@ public class TerminalAutocomplete : MonoBehaviour
         commands = commandDB.GetCommands();
         string input = terminalController.terminalInput.text;
 
+        KeyValuePair<string, ICommandAction> ?commandKeyValue = null;        
+        string[] spletedInput = input.Split();
+
+        if (input == string.Empty) 
+        {
+            foreach (var hint in hintLines)
+            {
+                hint.text = string.Empty;
+            }
+
+            return; 
+        }
+
         SetHints(new List<string>(commands.Keys), input);
 
-        KeyValuePair<string, ICommandAction> ?commandKeyValue = null;
-        
-        string[] spletedInput = input.Split();
-        
         foreach (var command in commands)
         {
 
@@ -227,12 +236,6 @@ public class TerminalAutocomplete : MonoBehaviour
     {
         List<string> maped = new List<string>();
         string offsetStr = ParseToStringOffset(offset);
-
-        //if (offset == true) 
-        //{
-        //    offsetStr = ParseToStringOffset(terminalController.terminalInput.text
-        //                                            .Split()[0] + " ");
-        //}
 
         foreach (var flag in flags)
         {
