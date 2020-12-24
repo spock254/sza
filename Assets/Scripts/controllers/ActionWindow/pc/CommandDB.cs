@@ -34,6 +34,7 @@ public class CommandDB : MonoBehaviour
     {
         { "printer", new PrinterCommand() },
         { "disk", new DiskCommand() },
+        { "light", new Guide_LightCommand() },
         { "command_manager", new CommandManagerCommand() },
         { "accaunt", new AccauntCommand() },
         { "per", new PeripheralCommand() }
@@ -155,8 +156,6 @@ namespace commands
                 { "-detail [command]", "description and flags of the selected command" }
             };
         }
-
-
 
         public virtual List<string> GetActionStatus(string[] param)
         {
@@ -638,7 +637,22 @@ namespace commands
 
         public Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            TerminalController terminal = Global.Component.GetTerminalController();
+            Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
+            List<string> read = new List<string>();
+
+            foreach (var doc in docs)
+            {
+                if (doc.Key.EndsWith(".txt")) 
+                {
+                    read.Add(doc.Key);
+                }
+            }
+
+            return new Dictionary<string, List<string>>() 
+            {
+                { "-read", read }
+            };
         }
     }
     public class DiskCommand : ICommandAction
@@ -969,7 +983,38 @@ namespace commands
 
         public Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            CommandDB commandDB = Global.UIElement.GetTerminalWindow().GetComponent<CommandDB>();
+
+            List<string> install = new List<string>();
+
+            if (pcController.disk != null) 
+            { 
+                foreach (var com in pcController.disk.innerItems)
+                {
+                    if (com.itemName.EndsWith(".cmd")
+                        && commandDB.GetCommands().Keys.Contains(com.itemName) == false) 
+                    {
+                        install.Add(com.itemName);
+                    }
+                }
+            }
+
+            foreach (var fileName in pcController.currentMemory.docs.Keys)
+            {
+                if (fileName.EndsWith(".cmd")
+                    && install.Contains(fileName) == false
+                    && commandDB.GetCommands().Keys.Contains(fileName) == false) 
+                {
+                    install.Add(fileName);
+                }
+            }
+
+            return new Dictionary<string, List<string>>()
+            {
+                { "-install", install }
+            };
         }
     }
 
@@ -1114,7 +1159,11 @@ namespace commands
 
         public virtual Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            return new Dictionary<string, List<string>>() 
+            {
+                { "-on", new List<string>(){ "room", "kitchen", "bathroom" } },
+                { "-off", new List<string>(){ "room", "kitchen", "bathroom" } }
+            };
         }
     }
     public class ClearCommand : ICommandAction
