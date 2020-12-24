@@ -162,7 +162,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     {
         if (dialogWindow.isOpen == false) 
         {
-            if (Input.mouseScrollDelta.y != 0)      //switch hands
+            if (Input.mouseScrollDelta.y != 0 || Input.GetKeyDown(KeyCode.Space))      //switch hands
             {
                 currentHand = SwapActiveHand();
                 SetHandColor();

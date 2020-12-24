@@ -311,6 +311,12 @@ namespace commands
                         {
                             if (pcController.currentMemory.docs.ContainsKey(param[2]))
                             {
+                                if (param[2].EndsWith(".txt") == false
+                                 || param[2].EndsWith(".pdf") == false) 
+                                {
+                                    return new List<string>() { "incorrect file format" ,"acceptable file formats (txt, pdf)" };
+                                }
+
                                 Item item = pcController.currentMemory.docs[param[2]];
                                 PrinterController printerController = GetPrinterFromPeref(peripherals);
                                 printerController.itemToPrint = item;
@@ -849,12 +855,15 @@ namespace commands
             TerminalController terminal = Global.Component.GetTerminalController();
             PCController pcController = terminal.GetCurrentPc();
             bool deviceFound = false;
+            GameObject bo4Go = null;
+
             for (int i = 0; i < pcController.peripherals.Count; i++)
             {
                 string description = pcController.peripherals[i].GetComponent<IPeripheral>().DeviseDescription();
-                
-                if (description.Contains("bo4") == true) 
+
+                if (description.Contains("bo4") == true)
                 {
+                    bo4Go = pcController.peripherals[i];
                     deviceFound = true;
                     break;
                 }
@@ -862,10 +871,17 @@ namespace commands
 
             if (deviceFound)
             {
-                return base.GetActionStatus(param);
+                Item item = bo4Go.GetComponent<SubstitudeCell>().item;
+                item.itemSubstitution.initState = StateTypes.NPC_STATE_stateTransitionModify;
+
+                NPC_StateMashine mashine = bo4Go.GetComponent<NPC_StateMashine>();
+                mashine.ChangeState<NPC_STATE_stateTransitionModify>();
+
+                return new List<string>() { "device bo4 upgraded" };
+
             }
 
-            return new List<string>() { "Device not found." };
+            return new List<string>() { "device not found" };
         }
 
         public override string GetDescription()
