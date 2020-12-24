@@ -5,6 +5,7 @@ using UnityEngine;
 public class ItemOptionData
 {
     public GameObject awPrefab;
+    [TextArea(3, 10)]
     public string text;
     public string actionWindowTag;
     public bool isModified = false;

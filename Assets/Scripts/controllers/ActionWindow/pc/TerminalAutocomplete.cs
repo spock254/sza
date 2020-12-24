@@ -165,7 +165,7 @@ public class TerminalAutocomplete : MonoBehaviour
         {
             if (command.Key == input.Split()[0]) 
             {
-                Dictionary<string, string> param = command.Value.GetParams();
+                Dictionary<string, string> param = command.Value.GetFlagDescription();
 
                 if (param == null) 
                 {

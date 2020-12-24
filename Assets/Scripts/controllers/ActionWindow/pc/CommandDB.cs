@@ -76,9 +76,10 @@ public class CommandDB : MonoBehaviour
 
 public interface ICommandAction 
 {
-    Dictionary<string, string> GetParams();
+    Dictionary<string, string> GetFlagDescription();
     List<string> GetActionStatus(string[] param);
     string GetDescription();
+    Dictionary<string, string> GetParams();
 }
 
 namespace commands
@@ -102,6 +103,11 @@ namespace commands
             return "cause the shell to exit";
         }
 
+        public Dictionary<string, string> GetFlagDescription()
+        {
+            return null;
+        }
+
         public Dictionary<string, string> GetParams()
         {
             return null;
@@ -111,7 +117,7 @@ namespace commands
     {
         List<string> responce;
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return null;
         }
@@ -131,10 +137,15 @@ namespace commands
         {
             return "test description";
         }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
+        }
     }
     public class HelpCommand : ICommandAction
     {
-        public virtual Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>()
             {
@@ -162,12 +173,12 @@ namespace commands
                     {
                         responce.Add(entry.Key + " - " + entry.Value.GetDescription());
 
-                        if (entry.Value.GetParams() != null)
+                        if (entry.Value.GetFlagDescription() != null)
                         {
-                            List<string> flags = new List<string>(entry.Value.GetParams().Keys);
+                            List<string> flags = new List<string>(entry.Value.GetFlagDescription().Keys);
                             responce.Add(entry.Key + " ( " + string.Join(", ", flags) + " )");
 
-                            foreach (KeyValuePair<string, string> flagData in entry.Value.GetParams())
+                            foreach (KeyValuePair<string, string> flagData in entry.Value.GetFlagDescription())
                             {
                                 responce.Add(flagData.Key + " " + flagData.Value);
                             }
@@ -186,9 +197,9 @@ namespace commands
                     foreach (KeyValuePair<string, ICommandAction> entry in commandDB.GetCommands())
                     {
 
-                        if (entry.Value.GetParams() != null)
+                        if (entry.Value.GetFlagDescription() != null)
                         {
-                            List<string> flags = new List<string>(entry.Value.GetParams().Keys);
+                            List<string> flags = new List<string>(entry.Value.GetFlagDescription().Keys);
                             responce.Add(entry.Key + " ( " + string.Join(", ", flags) + " )");
 
                         }
@@ -237,7 +248,7 @@ namespace commands
 
                         List<string> temp = new List<string>();
 
-                        foreach (var item in commands[param[2]].GetParams())
+                        foreach (var item in commands[param[2]].GetFlagDescription())
                         {
                             temp.Add(item.Key + " " + item.Value);
                         }
@@ -259,6 +270,11 @@ namespace commands
         public virtual string GetDescription()
         {
             return "description of commands";
+        }
+
+        public virtual Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class PrinterCommand : ICommandAction
@@ -400,7 +416,7 @@ namespace commands
             return "working with the printer";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>
             {
@@ -408,6 +424,11 @@ namespace commands
                 { "-upload [docname]", "set up document for printing" },
                 { "-run", "run the printer" }
             };
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class ChUserCommand : ICommandAction
@@ -487,7 +508,7 @@ namespace commands
             return "login or logout";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>()
             {
@@ -496,6 +517,11 @@ namespace commands
                 { "-l", "list all registered users" }
 
             };
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class WhoamiCommand : ICommandAction
@@ -517,6 +543,11 @@ namespace commands
             return "shows you user name and user mode";
         }
 
+        public Dictionary<string, string> GetFlagDescription()
+        {
+            return null;
+        }
+
         public Dictionary<string, string> GetParams()
         {
             return null;
@@ -527,10 +558,11 @@ namespace commands
 
         public List<string> GetActionStatus(string[] param)
         {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
+            
             if (param.Length == 1)
             {
-                TerminalController terminal = Global.Component.GetTerminalController();
-                Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
 
                 List<string> res = new List<string>();
 
@@ -546,6 +578,30 @@ namespace commands
 
                 return res;
             }
+            else if (param.Length == 3) 
+            {
+                if (param[1] == "-read") 
+                {
+                    if (docs.Keys.Contains(param[2]))
+                    {
+                        if (param[2].EndsWith(".txt") == false) 
+                        {
+                            return new List<string>() { "can't read not txt file format" };
+                        }
+
+                        List<string> fileContent = docs[param[2]].itemOptionData.text
+                                                        .Split('\n').ToList();
+
+                        terminal.AddContent(fileContent);
+
+                        return new List<string>() { string.Empty };
+                    }
+                    else 
+                    {
+                        return new List<string>() { "File not found" };
+                    }
+                }
+            }
 
             return null;
         }
@@ -553,6 +609,14 @@ namespace commands
         public string GetDescription()
         {
             return "prints all documents";
+        }
+
+        public Dictionary<string, string> GetFlagDescription()
+        {
+            return new Dictionary<string, string>() 
+            {
+                { "-read [file name]", "prints file content" }
+            };
         }
 
         public Dictionary<string, string> GetParams()
@@ -666,7 +730,7 @@ namespace commands
             return "working with the disk";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>()
             {
@@ -675,6 +739,11 @@ namespace commands
                 { "-content", "shows disk content" },
                 { "-cpy [document ame]", "copies selected document" }
             };
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class AccauntCommand : ICommandAction
@@ -739,7 +808,7 @@ namespace commands
             return "bank account info";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>()
             {
@@ -747,6 +816,11 @@ namespace commands
                 { "-logout", "logout bank accaunt" },
                 { "-b", "get accaunt balance" }
             };
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class PeripheralCommand : ICommandAction
@@ -785,15 +859,19 @@ namespace commands
             return "show hardware, including peripherals";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>
             {
                 { "-l", "list of all mounted drives" }
             };
         }
-    }
 
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
+        }
+    }
     public class CommandManagerCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
@@ -852,12 +930,17 @@ namespace commands
             return "use for installing command into system";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>()
             {
                 { "-install [command name]", "install command into system" }
             };
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
 
@@ -904,6 +987,11 @@ namespace commands
             return base.GetDescription();
         }
 
+        public override Dictionary<string, string> GetFlagDescription()
+        {
+            return base.GetFlagDescription();
+        }
+
         public override Dictionary<string, string> GetParams()
         {
             return base.GetParams();
@@ -942,12 +1030,17 @@ namespace commands
             return "TODO";
         }
 
-        public virtual Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>
             {
                 { "-upgrade", "upgrade device" }
             };
+        }
+
+        public virtual Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class LightCommand : ICommandAction
@@ -980,7 +1073,7 @@ namespace commands
             return "manipulating with light";
         }
 
-        public virtual Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>
             {
@@ -988,6 +1081,11 @@ namespace commands
                 { "-off [room]", "turn light off" },
                 { "-info", "get list off all rooms" }
             };
+        }
+
+        public virtual Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class ClearCommand : ICommandAction
@@ -1051,6 +1149,11 @@ namespace commands
         public string GetDescription()
         {
             return "clear content of terminal window";
+        }
+
+        public Dictionary<string, string> GetFlagDescription()
+        {
+            return null;
         }
 
         public Dictionary<string, string> GetParams()
@@ -1154,13 +1257,18 @@ namespace commands
             return "terminal begining guide session";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>() 
             {
                 { "-on", "start guide session" },
                 { "-off", "finish guide session" }
             };
+        }
+
+        public Dictionary<string, string> GetParams()
+        {
+            return null;
         }
     }
     public class Guide_LightCommand : LightCommand 
@@ -1215,6 +1323,11 @@ namespace commands
         public override string GetDescription()
         {
             return base.GetDescription();
+        }
+
+        public override Dictionary<string, string> GetFlagDescription()
+        {
+            return base.GetFlagDescription();
         }
 
         public override Dictionary<string, string> GetParams()
@@ -1286,6 +1399,11 @@ namespace commands
 
             return result;
 
+        }
+
+        public override Dictionary<string, string> GetParams()
+        {
+            return base.GetParams();
         }
     }
     #endregion
