@@ -298,12 +298,12 @@ namespace commands
                     return new List<string>() { enabledStatus, paperStatus };
                 }
 
-                if (param[1] == "-s")
+                if (param[1] == "-upload")
                 {
 
                     if (param.Length == 2)
                     {
-                        return new List<string>() { "Document not selected.", "use: printer -s [ docname ]" };
+                        return new List<string>() { "Document not selected.", "use: printer -upload [ docname ]" };
                     }
                     else if (param.Length == 3)
                     {
@@ -339,7 +339,7 @@ namespace commands
                     }
                 }
 
-                if (param[1] == "-r")
+                if (param[1] == "-run")
                 {
                     if (isPrinterPresent(peripherals))
                     {
@@ -358,7 +358,7 @@ namespace commands
                         }
                         else
                         {
-                            return new List<string>() { "document not uploaded", "use: printer -s [docname]" };
+                            return new List<string>() { "document not uploaded", "use: printer -upload [docname]" };
                         }
                     }
                     else
@@ -368,7 +368,7 @@ namespace commands
                 }
             }
 
-            return new List<string>() { "use with flags -status -s", "for more information use help" };
+            return new List<string>() { "use with flags -status -upload", "for more information use help" };
         }
 
         bool isPrinterPresent(List<GameObject> peref)
@@ -405,8 +405,8 @@ namespace commands
             return new Dictionary<string, string>
             {
                 { "-status", "shows printer status" },
-                { "-s [docname]", "set up document for printing" },
-                { "-r", "run the printer" }
+                { "-upload [docname]", "set up document for printing" },
+                { "-run", "run the printer" }
             };
         }
     }
@@ -808,27 +808,42 @@ namespace commands
                     Item disk = pcController.disk;
                     CommandDB commandDB = Global.Component.GetCommandDB();
 
-                    if (param[2].EndsWith(Global.Command.COMMAND_FORMAT)) 
+                    string key = param[2].Split('.')[0];
+
+                    if (disk == null)
                     {
-                        foreach (var cmd in disk.innerItems)
+                        if (pcController.currentMemory.docs.Keys.Contains(param[2]) == true)
                         {
-                            if (cmd.itemDescription == param[2]) 
+                            commandDB.user.Add(key, commandDB.installDev[key]);
+                            return new List<string>() { "command " + key + " installed successfully" };
+                        }
+                    }
+                    else 
+                    { 
+                        if (param[2].EndsWith(Global.Command.COMMAND_FORMAT)) 
+                        {
+                            foreach (var cmd in disk.innerItems)
                             {
-                                string key = param[2].Split('.')[0];
-                                if (commandDB.user.Keys.Contains(key) == false)
+                                if (cmd.itemDescription == param[2]) 
                                 {
-                                    commandDB.user.Add(key, commandDB.installDev[key]);
-                                    return new List<string>() { "command " + key + " installed successfully" };
-                                }
-                                else 
-                                {
-                                    return new List<string>() { "command " + key + " already installed" };
+                                    if (commandDB.user.Keys.Contains(key) == false)
+                                    {
+                                        commandDB.user.Add(key, commandDB.installDev[key]);
+                                        return new List<string>() { "command " + key + " installed successfully" };
+                                    }
+                                    else 
+                                    {
+                                        return new List<string>() { "command " + key + " already installed" };
+                                    }
                                 }
                             }
                         }
                     }
+
+                    return new List<string>() { "command to install not found" };
                 }
             }
+
             return null;
         }
 
