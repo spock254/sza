@@ -79,7 +79,7 @@ public interface ICommandAction
     Dictionary<string, string> GetFlagDescription();
     List<string> GetActionStatus(string[] param);
     string GetDescription();
-    Dictionary<string, string> GetParams();
+    Dictionary<string, List<string>> GetParams();
 }
 
 namespace commands
@@ -108,7 +108,7 @@ namespace commands
             return null;
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -138,7 +138,7 @@ namespace commands
             return "test description";
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -272,7 +272,7 @@ namespace commands
             return "description of commands";
         }
 
-        public virtual Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -426,7 +426,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -519,7 +519,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -548,7 +548,7 @@ namespace commands
             return null;
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -619,7 +619,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -741,9 +741,12 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            return new Dictionary<string, List<string>>()
+            {
+                //{ "-cpy", }
+            };
         }
     }
     public class AccauntCommand : ICommandAction
@@ -818,7 +821,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -867,7 +870,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -938,7 +941,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -992,7 +995,7 @@ namespace commands
             return base.GetFlagDescription();
         }
 
-        public override Dictionary<string, string> GetParams()
+        public override Dictionary<string, List<string>> GetParams()
         {
             return base.GetParams();
         }
@@ -1038,7 +1041,7 @@ namespace commands
             };
         }
 
-        public virtual Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -1083,7 +1086,7 @@ namespace commands
             };
         }
 
-        public virtual Dictionary<string, string> GetParams()
+        public virtual Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -1156,7 +1159,7 @@ namespace commands
             return null;
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -1266,7 +1269,7 @@ namespace commands
             };
         }
 
-        public Dictionary<string, string> GetParams()
+        public Dictionary<string, List<string>> GetParams()
         {
             return null;
         }
@@ -1330,7 +1333,7 @@ namespace commands
             return base.GetFlagDescription();
         }
 
-        public override Dictionary<string, string> GetParams()
+        public override Dictionary<string, List<string>> GetParams()
         {
             return base.GetParams();
         }
@@ -1401,7 +1404,7 @@ namespace commands
 
         }
 
-        public override Dictionary<string, string> GetParams()
+        public override Dictionary<string, List<string>> GetParams()
         {
             return base.GetParams();
         }
