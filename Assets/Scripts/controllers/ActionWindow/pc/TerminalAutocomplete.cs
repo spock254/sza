@@ -171,24 +171,7 @@ public class TerminalAutocomplete : MonoBehaviour
 
         KeyValuePair<string, ICommandAction> ?commandKeyValue = null;
 
-        foreach (var command in commands)
-        {
-            if (command.Key == spletedInput[0].Trim())
-            {
-                if (command.Value.IsValidCommand(terminalController.terminalInput.text))
-                {
-                    SetDirectoryColor(Color.green);
-                }
-                else
-                {
-                    SetDirectoryColor(Color.red);
-                }
-
-                return;
-            }
-        }
-
-        SetDirectoryColor(Color.red);
+        CommandValidation(spletedInput, commands);
 
         if (input == string.Empty) 
         {
@@ -285,6 +268,27 @@ public class TerminalAutocomplete : MonoBehaviour
         return toReturn;
     }
 
+    void CommandValidation(string[] spletedInput, Dictionary<string, ICommandAction> commands) 
+    {
+        foreach (var command in commands)
+        {
+            if (command.Key == spletedInput[0].Trim())
+            {
+                if (command.Value.IsValidCommand(terminalController.terminalInput.text))
+                {
+                    SetDirectoryColor(Color.green);
+                }
+                else
+                {
+                    SetDirectoryColor(Color.red);
+                }
+
+                return;
+            }
+        }
+
+        SetDirectoryColor(Color.red);
+    }
     void SetDirectoryColor(Color color) 
     {
         directory.color = color;

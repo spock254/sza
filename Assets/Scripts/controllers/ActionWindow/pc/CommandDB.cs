@@ -13,31 +13,31 @@ public class CommandDB : MonoBehaviour
 
     public Dictionary<string, ICommandAction> guide = new Dictionary<string, ICommandAction>()
     {
-        { "guide", new GuideCommand() },
-        { "light", new Guide_LightCommand() },
-        { "help", new Guide_HelpCommand() },
-        { "exit", new ExitCommand() }
+        { "guide", new GuideCommand("guide") },
+        { "light", new Guide_LightCommand("light") },
+        { "help", new Guide_HelpCommand("help") },
+        { "exit", new ExitCommand("exit") }
     };
 
     public Dictionary<string, ICommandAction> guest = new Dictionary<string, ICommandAction>() 
     {
-        { "clear", new ClearCommand() },
-        { "guide", new GuideCommand() },
-        { "help", new HelpCommand() },
-        { "exit", new ExitCommand() },
-        { "chuser", new ChUserCommand() },
-        { "whoami", new WhoamiCommand() },
-        { "file", new DocsCommand() }
+        { "clear", new ClearCommand("clear") },
+        { "guide", new GuideCommand("guide") },
+        { "help", new HelpCommand("help") },
+        { "exit", new ExitCommand("exit") },
+        { "chuser", new ChUserCommand("chuser") },
+        { "whoami", new WhoamiCommand("whoami") },
+        { "file", new DocsCommand("file") }
     };
 
     public Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
     {
-        { "printer", new PrinterCommand() },
-        { "disk", new DiskCommand() },
-        { "light", new Guide_LightCommand() },
-        { "command_manager", new CommandManagerCommand() },
-        { "accaunt", new AccauntCommand() },
-        { "peripheral", new PeripheralCommand() }
+        { "printer", new PrinterCommand("printer") },
+        { "disk", new DiskCommand("disk") },
+        { "light", new Guide_LightCommand("light") },
+        { "command_manager", new CommandManagerCommand("command_manager") },
+        { "accaunt", new AccauntCommand("accaunt") },
+        { "peripheral", new PeripheralCommand("peripheral") }
         //{ "upgrade", new DeviceUpgradeCommand() }
     };
 
@@ -48,7 +48,7 @@ public class CommandDB : MonoBehaviour
 
     public Dictionary<string, ICommandAction> installDev = new Dictionary<string, ICommandAction>()
     {
-        { "bo4", new Bo4Command() }
+        { "bo4", new Bo4Command("bo4") }
     };
 
     public Dictionary<string, ICommandAction> GetCommands() 
@@ -86,8 +86,10 @@ public interface ICommandAction
 
 namespace commands
 {
-    public class ExitCommand : ICommandAction
+    public class ExitCommand : BaseCommand, ICommandAction
     {
+        public ExitCommand(string tag) : base(tag) { }
+
         public List<string> GetActionStatus(string[] param)
         {
             ActionWindowController actionWindow = Global.Component.GetActionWindowController();
@@ -120,8 +122,9 @@ namespace commands
             return command.Trim() == "exit";
         }
     }
-    public class CommonCommand : ICommandAction
+    public class CommonCommand  : ICommandAction
     {
+
         List<string> responce;
 
         public Dictionary<string, string> GetFlagDescription()
@@ -155,8 +158,9 @@ namespace commands
             return false;
         }
     }
-    public class HelpCommand : ICommandAction
+    public class HelpCommand : BaseCommand, ICommandAction
     {
+        public HelpCommand(string tag) : base(tag) { }
         public virtual Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>()
@@ -257,9 +261,14 @@ namespace commands
 
                         List<string> temp = new List<string>();
 
-                        foreach (var item in commands[param[2]].GetFlagDescription())
-                        {
-                            temp.Add(item.Key + " " + item.Value);
+                        Dictionary<string, string> description = commands[param[2]].GetFlagDescription();
+
+                        if (description != null) 
+                        { 
+                            foreach (var item in commands[param[2]].GetFlagDescription())
+                            {
+                                temp.Add(item.Key + " " + item.Value);
+                            }
                         }
 
                         resp.AddRange(temp);
@@ -294,11 +303,34 @@ namespace commands
 
         public virtual bool IsValidCommand(string command)
         {
+            string[] spletedCommand = command.Trim().Split();
+
+            if (spletedCommand.Length == 2)
+            {
+                if (spletedCommand[1] == "-all")
+                {
+                    return true;
+                }
+            }
+            else if (spletedCommand.Length == 3) 
+            {
+                if (spletedCommand[1] == "-detail") 
+                {
+                    Dictionary<string, List<string>> parameters = GetParams();
+
+                    //return param.Keys.ContainsspletedCommand[2];
+                    List<string> param = parameters[spletedCommand[1]];
+                    return param.Contains(spletedCommand[2]);
+                }
+            }
+
             return false;
         }
     }
-    public class PrinterCommand : ICommandAction
+    public class PrinterCommand : BaseCommand, ICommandAction
     {
+        public PrinterCommand(string tag) : base(tag) { }
+
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminalController = Global.Component.GetTerminalController();
@@ -456,8 +488,9 @@ namespace commands
             return false;
         }
     }
-    public class ChUserCommand : ICommandAction
+    public class ChUserCommand : BaseCommand, ICommandAction
     {
+        public ChUserCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             PCController pcController = Global.Component.GetTerminalController().GetCurrentPc();
@@ -566,8 +599,9 @@ namespace commands
             return false;
         }
     }
-    public class WhoamiCommand : ICommandAction
+    public class WhoamiCommand : BaseCommand, ICommandAction
     {
+        public WhoamiCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             if (param.Length == 1)
@@ -600,9 +634,9 @@ namespace commands
             return false;
         }
     }
-    public class DocsCommand : ICommandAction
+    public class DocsCommand : BaseCommand, ICommandAction
     {
-
+        public DocsCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -766,8 +800,9 @@ namespace commands
             return res;
         }
     }
-    public class DiskCommand : ICommandAction
+    public class DiskCommand : BaseCommand, ICommandAction
     {
+        public DiskCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -905,8 +940,9 @@ namespace commands
             return false;
         }
     }
-    public class AccauntCommand : ICommandAction
+    public class AccauntCommand : BaseCommand, ICommandAction
     {
+        public AccauntCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -986,8 +1022,9 @@ namespace commands
             return false;
         }
     }
-    public class PeripheralCommand : ICommandAction
+    public class PeripheralCommand : BaseCommand, ICommandAction
     {
+        public PeripheralCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -1040,8 +1077,9 @@ namespace commands
             return false;
         }
     }
-    public class CommandManagerCommand : ICommandAction
+    public class CommandManagerCommand : BaseCommand, ICommandAction
     {
+        public CommandManagerCommand(string tag) : base(tag) { }
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -1167,6 +1205,7 @@ namespace commands
 
     public class Bo4Command : DeviceUpgradeCommand 
     {
+        public Bo4Command(string tag) : base(tag) { }
         public override List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -1224,8 +1263,9 @@ namespace commands
     
     #endregion
 
-    public class DeviceUpgradeCommand : ICommandAction
+    public class DeviceUpgradeCommand : BaseCommand, ICommandAction
     {
+        public DeviceUpgradeCommand(string tag) : base(tag) { }
         public virtual List<string> GetActionStatus(string[] param)
         {
             if (param.Length == 2) 
@@ -1272,8 +1312,10 @@ namespace commands
             return false;
         }
     }
-    public class LightCommand : ICommandAction
+    public class LightCommand : BaseCommand, ICommandAction
     {
+        public LightCommand(string tag) : base(tag) { }
+
         Light2D light;
 
         public virtual List<string> GetActionStatus(string[] param)
@@ -1326,8 +1368,10 @@ namespace commands
             return false;
         }
     }
-    public class ClearCommand : ICommandAction
+    public class ClearCommand : BaseCommand, ICommandAction
     {
+        public ClearCommand(string tag) : base(tag) { }
+
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -1427,8 +1471,10 @@ namespace commands
                                         "or you can exit guide session: guide -off" };
         }
     }
-    public class GuideCommand : ICommandAction
+    public class GuideCommand : BaseCommand, ICommandAction
     {
+        public GuideCommand(string tag) : base(tag) { }
+
         TerminalController terminalController;
         public static CommandDB.UserMode prevUserMode = CommandDB.UserMode.Guide;
 
@@ -1521,6 +1567,8 @@ namespace commands
     }
     public class Guide_LightCommand : LightCommand 
     {
+        public Guide_LightCommand(string tag) : base(tag) { }
+
         TerminalController terminalController;
 
         public override List<string> GetActionStatus(string[] param)
@@ -1590,6 +1638,8 @@ namespace commands
     }
     public class Guide_HelpCommand : HelpCommand 
     {
+        public Guide_HelpCommand(string tag) : base(tag) { }
+
         TerminalController terminalController;
 
         public override List<string> GetActionStatus(string[] param)
@@ -1665,4 +1715,29 @@ namespace commands
         }
     }
     #endregion
+    public class CommandValidator
+    {
+        ICommandAction command = null;
+        string tag = string.Empty;
+        public CommandValidator(ICommandAction command, string tag) 
+        {
+            this.command = command;
+            this.tag = tag;
+        }
+
+        public bool Validate()
+        {
+            return false;
+        }
+    }
+
+    public class BaseCommand 
+    {
+        protected string tag = string.Empty;
+
+        public BaseCommand(string tag) 
+        {
+            this.tag = tag;
+        }
+    }
 }
