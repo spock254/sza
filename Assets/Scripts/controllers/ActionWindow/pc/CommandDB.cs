@@ -117,7 +117,7 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            return command.Trim() == "exit";
         }
     }
     public class CommonCommand : ICommandAction

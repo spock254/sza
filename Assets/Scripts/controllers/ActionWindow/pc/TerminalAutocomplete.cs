@@ -11,6 +11,8 @@ public class TerminalAutocomplete : MonoBehaviour
     Dictionary<string, ICommandAction> commands = null;
     [SerializeField]
     List<Text> hintLines = null;
+    [SerializeField]
+    Text directory;
 
     int hintIndex = -1;
 
@@ -108,7 +110,7 @@ public class TerminalAutocomplete : MonoBehaviour
                 if (hintIndex != -1)
                 {
                     string currentInput = terminalController.terminalInput.text;
-                    //if (hintLines[hintIndex].text[0] == ' ')
+
                     if (currentInput.Split().Length == 2
                         || (currentInput.Split().Length == 1 && currentInput.EndsWith(" ")))
                     {
@@ -138,17 +140,10 @@ public class TerminalAutocomplete : MonoBehaviour
                     StartCoroutine(SetCarret());
                     setCarret = true;
 
+                    ValueChange();
+
                 }
             }
-            //else if ()
-            //{
-
-            //    if (terminalController.terminalInput.enabled == false)
-            //    {
-            //        terminalController.terminalInput.enabled = true;
-            //    }
-            //}
-
         }
     }
 
@@ -207,15 +202,6 @@ public class TerminalAutocomplete : MonoBehaviour
                     SetHints(flags, spletedInput[1], spletedInput[0].Length + 1);
                     //return;
                 }
-
-
-                //if (input.Split().Length == 3) 
-                //{
-                //    string flag = input.Split()[1];
-                //    string arg = input.Split()[2];
-
-                //    Debug.Log("qweqwe");
-                //}
             }
         }
 
@@ -230,6 +216,26 @@ public class TerminalAutocomplete : MonoBehaviour
                 SetHints(param[flag], arg, spletedInput[0].Length + 1 + spletedInput[1].Length + 1);
             }
         }
+
+        foreach (var command in commands)
+        {
+            if (command.Key == spletedInput[0].Trim())
+            {
+                if (command.Value.IsValidCommand(terminalController.terminalInput.text))
+                {
+                    SetDirectoryColor(Color.white);
+                }
+                else 
+                {
+                    SetDirectoryColor(Color.red);
+                }
+
+                return;
+            }
+        }
+
+        SetDirectoryColor(Color.red);
+        
     }
 
     void SetHints(List<string> flags, string input, int offset = 0) 
@@ -277,5 +283,10 @@ public class TerminalAutocomplete : MonoBehaviour
         }
 
         return toReturn;
+    }
+
+    void SetDirectoryColor(Color color) 
+    {
+        directory.color = color;
     }
 }
