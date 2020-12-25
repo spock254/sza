@@ -37,7 +37,7 @@ public class CommandDB : MonoBehaviour
         { "light", new Guide_LightCommand() },
         { "command_manager", new CommandManagerCommand() },
         { "accaunt", new AccauntCommand() },
-        { "per", new PeripheralCommand() }
+        { "peripheral", new PeripheralCommand() }
         //{ "upgrade", new DeviceUpgradeCommand() }
     };
 
@@ -81,6 +81,7 @@ public interface ICommandAction
     List<string> GetActionStatus(string[] param);
     string GetDescription();
     Dictionary<string, List<string>> GetParams();
+    bool IsValidCommand(string command);
 }
 
 namespace commands
@@ -113,6 +114,11 @@ namespace commands
         {
             return null;
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class CommonCommand : ICommandAction
     {
@@ -142,6 +148,11 @@ namespace commands
         public Dictionary<string, List<string>> GetParams()
         {
             return null;
+        }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
     public class HelpCommand : ICommandAction
@@ -279,6 +290,11 @@ namespace commands
             {
                 { "-detail", detail }
             };
+        }
+
+        public virtual bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
     public class PrinterCommand : ICommandAction
@@ -434,6 +450,11 @@ namespace commands
         {
             return null;
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class ChUserCommand : ICommandAction
     {
@@ -539,6 +560,11 @@ namespace commands
                 { "-login", login }
             };
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class WhoamiCommand : ICommandAction
     {
@@ -567,6 +593,11 @@ namespace commands
         public Dictionary<string, List<string>> GetParams()
         {
             return null;
+        }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
     public class DocsCommand : ICommandAction
@@ -683,12 +714,16 @@ namespace commands
         {
             TerminalController terminal = Global.Component.GetTerminalController();
             Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
+            Item disk = terminal.GetCurrentPc().disk;
             List<string> read = new List<string>();
             List<string> copy = new List<string>();
-
-            foreach (var file in terminal.GetCurrentPc().disk.innerItems)
-            {
-                copy.Add(file.itemName);
+            
+            if (disk != null) 
+            { 
+                foreach (var file in disk.innerItems)
+                {
+                    copy.Add(file.itemName);
+                }
             }
 
             foreach (var doc in docs)
@@ -704,6 +739,11 @@ namespace commands
                 { "-read", read },
                 { "-copy", copy }
             };
+        }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
         }
 
         List<string> GetAllFilesInFormat(string format, Dictionary<string, Item> docs) 
@@ -859,10 +899,14 @@ namespace commands
                 { "-copy", cpy}
             };
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class AccauntCommand : ICommandAction
     {
-
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
@@ -936,6 +980,11 @@ namespace commands
         {
             return null;
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class PeripheralCommand : ICommandAction
     {
@@ -946,13 +995,13 @@ namespace commands
 
             if (param.Length == 2)
             {
-                if (param[1] == "-l")
+                if (param[1] == "-all")
                 {
                     List<string> result = new List<string>();
 
                     for (int i = 0; i < pcController.peripherals.Count; i++)
                     {
-                        result.Add(i + 1 + ") " + pcController.peripherals[i]
+                        result.Add("port #" + "000" +(i + 1) + " : " + pcController.peripherals[i]
                             .GetComponent<IPeripheral>().DeviseDescription());
                     }
 
@@ -977,7 +1026,7 @@ namespace commands
         {
             return new Dictionary<string, string>
             {
-                { "-l", "list of all mounted drives" }
+                { "-all", "list of all mounted drives" }
             };
         }
 
@@ -985,20 +1034,26 @@ namespace commands
         {
             return null;
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class CommandManagerCommand : ICommandAction
     {
         public List<string> GetActionStatus(string[] param)
         {
-            if (param.Length == 3) 
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            CommandDB commandDB = Global.Component.GetCommandDB();
+
+            if (param.Length == 3)
             {
-                if (param[1] == "-install") 
+                if (param[1] == "-install")
                 {
-                    TerminalController terminal = Global.Component.GetTerminalController();
-                    PCController pcController = terminal.GetCurrentPc();
 
                     Item disk = pcController.disk;
-                    CommandDB commandDB = Global.Component.GetCommandDB();
 
                     string key = param[2].Split('.')[0];
 
@@ -1010,20 +1065,20 @@ namespace commands
                             return new List<string>() { "command " + key + " installed successfully" };
                         }
                     }
-                    else 
-                    { 
-                        if (param[2].EndsWith(Global.Command.COMMAND_FORMAT)) 
+                    else
+                    {
+                        if (param[2].EndsWith(Global.Command.COMMAND_FORMAT))
                         {
                             foreach (var cmd in disk.innerItems)
                             {
-                                if (cmd.itemDescription == param[2]) 
+                                if (cmd.itemDescription == param[2])
                                 {
                                     if (commandDB.user.Keys.Contains(key) == false)
                                     {
                                         commandDB.user.Add(key, commandDB.installDev[key]);
                                         return new List<string>() { "command " + key + " installed successfully" };
                                     }
-                                    else 
+                                    else
                                     {
                                         return new List<string>() { "command " + key + " already installed" };
                                     }
@@ -1035,7 +1090,20 @@ namespace commands
                     return new List<string>() { "command to install not found" };
                 }
             }
+            else if (param.Length == 2) 
+            {
+                if (param[1] == "-all") 
+                {
+                    List<string> commandNames = new List<string>();
 
+                    foreach (var command in commandDB.GetCommands())
+                    {
+                        commandNames.Add(command.Key);
+                    }
+
+                    return commandNames;
+                }
+            }
             return null;
         }
 
@@ -1048,7 +1116,8 @@ namespace commands
         {
             return new Dictionary<string, string>()
             {
-                { "-install [command name]", "install command into system" }
+                { "-install [command name]", "install command into system" },
+                { "-all", "list all commands in the system" }
             };
         }
 
@@ -1086,6 +1155,11 @@ namespace commands
             {
                 { "-install", install }
             };
+        }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
 
@@ -1141,6 +1215,11 @@ namespace commands
         {
             return base.GetParams();
         }
+
+        public override bool IsValidCommand(string command)
+        {
+            return base.IsValidCommand(command);
+        }
     }
     
     #endregion
@@ -1186,6 +1265,11 @@ namespace commands
         public virtual Dictionary<string, List<string>> GetParams()
         {
             return null;
+        }
+
+        public virtual bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
     public class LightCommand : ICommandAction
@@ -1235,6 +1319,11 @@ namespace commands
                 { "-on", new List<string>(){ "room", "kitchen", "bathroom" } },
                 { "-off", new List<string>(){ "room", "kitchen", "bathroom" } }
             };
+        }
+
+        public virtual bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
     public class ClearCommand : ICommandAction
@@ -1308,6 +1397,11 @@ namespace commands
         public Dictionary<string, List<string>> GetParams()
         {
             return null;
+        }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
         }
     }
 
@@ -1419,6 +1513,11 @@ namespace commands
         {
             return null;
         }
+
+        public bool IsValidCommand(string command)
+        {
+            return false;
+        }
     }
     public class Guide_LightCommand : LightCommand 
     {
@@ -1482,6 +1581,11 @@ namespace commands
         public override Dictionary<string, List<string>> GetParams()
         {
             return base.GetParams();
+        }
+
+        public override bool IsValidCommand(string command)
+        {
+            return base.IsValidCommand(command);
         }
     }
     public class Guide_HelpCommand : HelpCommand 
@@ -1553,6 +1657,11 @@ namespace commands
         public override Dictionary<string, List<string>> GetParams()
         {
             return base.GetParams();
+        }
+
+        public override bool IsValidCommand(string command)
+        {
+            return base.IsValidCommand(command);
         }
     }
     #endregion
