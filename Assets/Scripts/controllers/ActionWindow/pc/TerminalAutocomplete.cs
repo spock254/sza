@@ -140,7 +140,7 @@ public class TerminalAutocomplete : MonoBehaviour
                     StartCoroutine(SetCarret());
                     setCarret = true;
 
-                    ValueChange();
+                    //ValueChange();
 
                 }
             }
@@ -165,10 +165,30 @@ public class TerminalAutocomplete : MonoBehaviour
     public void ValueChange()
     {
         commands = commandDB.GetCommands();
-        string input = terminalController.terminalInput.text;
 
-        KeyValuePair<string, ICommandAction> ?commandKeyValue = null;        
+        string input = terminalController.terminalInput.text;
         string[] spletedInput = input.Split();
+
+        KeyValuePair<string, ICommandAction> ?commandKeyValue = null;
+
+        foreach (var command in commands)
+        {
+            if (command.Key == spletedInput[0].Trim())
+            {
+                if (command.Value.IsValidCommand(terminalController.terminalInput.text))
+                {
+                    SetDirectoryColor(Color.green);
+                }
+                else
+                {
+                    SetDirectoryColor(Color.red);
+                }
+
+                return;
+            }
+        }
+
+        SetDirectoryColor(Color.red);
 
         if (input == string.Empty) 
         {
@@ -182,9 +202,9 @@ public class TerminalAutocomplete : MonoBehaviour
 
         SetHints(new List<string>(commands.Keys), input);
 
+
         foreach (var command in commands)
         {
-
             if (command.Key == spletedInput[0]) 
             {
                 commandKeyValue = command;
@@ -216,26 +236,6 @@ public class TerminalAutocomplete : MonoBehaviour
                 SetHints(param[flag], arg, spletedInput[0].Length + 1 + spletedInput[1].Length + 1);
             }
         }
-
-        foreach (var command in commands)
-        {
-            if (command.Key == spletedInput[0].Trim())
-            {
-                if (command.Value.IsValidCommand(terminalController.terminalInput.text))
-                {
-                    SetDirectoryColor(Color.white);
-                }
-                else 
-                {
-                    SetDirectoryColor(Color.red);
-                }
-
-                return;
-            }
-        }
-
-        SetDirectoryColor(Color.red);
-        
     }
 
     void SetHints(List<string> flags, string input, int offset = 0) 
