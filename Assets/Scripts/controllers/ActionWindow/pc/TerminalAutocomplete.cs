@@ -147,6 +147,40 @@ public class TerminalAutocomplete : MonoBehaviour
         }
     }
 
+    void OnGUI()
+    {
+        if (terminalController.isOpen == true) 
+        { 
+            Event e = Event.current;
+
+            if (e.type == EventType.KeyDown &&
+                ((e.keyCode.ToString().Length == 1 &&
+                char.IsLetter(e.keyCode.ToString()[0]))) || e.keyCode == KeyCode.Backspace)
+            {
+
+                if (hintIndex != -1) 
+                {
+                    string userInput = terminalController.terminalInput.text;
+
+                    hintIndex = -1;
+                    ResetHintColor();
+
+                    terminalController.terminalInput.enabled = true;
+                    StartCoroutine(SetCarret());
+                    setCarret = true;
+
+                    if (e.keyCode == KeyCode.Backspace) 
+                    {
+                        terminalController.terminalInput.text = userInput.Remove(userInput.Length - 1);
+                        return;
+                    }
+
+                    terminalController.terminalInput.text += e.keyCode.ToString().ToLower();
+                }
+            }
+        }
+    }
+
     IEnumerator SetCarret() 
     {
         yield return new WaitForEndOfFrame();
