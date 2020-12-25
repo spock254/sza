@@ -119,7 +119,9 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return command.Trim() == "exit";
+            //return command.Trim() == "exit";
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class CommonCommand  : ICommandAction
@@ -303,28 +305,8 @@ namespace commands
 
         public virtual bool IsValidCommand(string command)
         {
-            string[] spletedCommand = command.Trim().Split();
-
-            if (spletedCommand.Length == 2)
-            {
-                if (spletedCommand[1] == "-all")
-                {
-                    return true;
-                }
-            }
-            else if (spletedCommand.Length == 3) 
-            {
-                if (spletedCommand[1] == "-detail") 
-                {
-                    Dictionary<string, List<string>> parameters = GetParams();
-
-                    //return param.Keys.ContainsspletedCommand[2];
-                    List<string> param = parameters[spletedCommand[1]];
-                    return param.Contains(spletedCommand[2]);
-                }
-            }
-
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class PrinterCommand : BaseCommand, ICommandAction
@@ -379,10 +361,14 @@ namespace commands
                         {
                             if (pcController.currentMemory.docs.ContainsKey(param[2]))
                             {
-                                if (param[2].EndsWith(".txt") == false
-                                 || param[2].EndsWith(".pdf") == false) 
+                                if (param[2].EndsWith(".txt") == false)
                                 {
                                     return new List<string>() { "incorrect file format" ,"acceptable file formats (txt, pdf)" };
+                                }
+
+                                if (param[2].EndsWith(".pdf") == false)
+                                {
+                                    return new List<string>() { "incorrect file format", "acceptable file formats (txt, pdf)" };
                                 }
 
                                 Item item = pcController.currentMemory.docs[param[2]];
@@ -480,12 +466,29 @@ namespace commands
 
         public Dictionary<string, List<string>> GetParams()
         {
-            return null;
+            TerminalController terminalController = Global.Component.GetTerminalController();
+            PCController pcController = terminalController.GetCurrentPc();
+
+            List<string> upload = new List<string>();
+
+            foreach (var file in pcController.currentMemory.docs)
+            {
+                if (file.Key.EndsWith(".txt") || file.Key.EndsWith(".pdf")) 
+                {
+                    upload.Add(file.Key);
+                }
+            }
+
+            return new Dictionary<string, List<string>>()
+            {
+                { "-upload", upload }
+            };
         }
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class ChUserCommand : BaseCommand, ICommandAction
@@ -596,7 +599,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class WhoamiCommand : BaseCommand, ICommandAction
@@ -631,7 +635,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class DocsCommand : BaseCommand, ICommandAction
@@ -777,7 +782,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
 
         List<string> GetAllFilesInFormat(string format, Dictionary<string, Item> docs) 
@@ -937,7 +943,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class AccauntCommand : BaseCommand, ICommandAction
@@ -1019,7 +1026,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class PeripheralCommand : BaseCommand, ICommandAction
@@ -1074,7 +1082,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class CommandManagerCommand : BaseCommand, ICommandAction
@@ -1197,7 +1206,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
 
@@ -1309,7 +1319,8 @@ namespace commands
 
         public virtual bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class LightCommand : BaseCommand, ICommandAction
@@ -1365,7 +1376,8 @@ namespace commands
 
         public virtual bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class ClearCommand : BaseCommand, ICommandAction
@@ -1445,7 +1457,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
 
@@ -1562,7 +1575,8 @@ namespace commands
 
         public bool IsValidCommand(string command)
         {
-            return false;
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
         }
     }
     public class Guide_LightCommand : LightCommand 
@@ -1715,6 +1729,8 @@ namespace commands
         }
     }
     #endregion
+
+
     public class CommandValidator
     {
         ICommandAction command = null;
@@ -1725,12 +1741,86 @@ namespace commands
             this.tag = tag;
         }
 
-        public bool Validate()
+        public bool Validate(string userInput)
         {
+            string[] spletedCommand = userInput.Trim().Split();
+
+            if (spletedCommand[0] == tag) 
+            {
+                Dictionary<string, string> flagsDescription = command.GetFlagDescription();
+                Dictionary<string, List<string>> parameters = command.GetParams();
+                List<string> flags = null;
+
+                if (flagsDescription != null) 
+                { 
+                    flags = flagsDescription.Keys.ToList();
+                }
+                // соло команда типа exit
+                if (parameters == null && spletedCommand.Length == 1)
+                {
+                    return true;
+                }
+
+                if (spletedCommand.Length == 2)
+                {
+                    foreach (var flag in flags)
+                    {
+                        string[] spletedFlag = flag.Split();
+
+                        // если команда без параметров
+                        if (spletedFlag[0] == spletedCommand[1] 
+                            && spletedFlag.Length == 1)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if (spletedCommand.Length == 3) 
+                {
+                    foreach (var flag in flags)
+                    {
+                        string[] spletedFlag = flag.Split();
+
+                        if (spletedFlag[0] == spletedCommand[1]
+                            && spletedFlag.Length > 1) 
+                        {
+                            if (parameters != null && parameters.Keys.Contains(spletedCommand[1])) 
+                            { 
+                                List<string> flagParam = parameters[spletedCommand[1]];
+
+                                if (flagParam.Contains(spletedCommand[2]) == true) 
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                //if (spletedCommand.Length == 2)
+                //{
+                //    if (spletedCommand[1] == "-all")
+                //    {
+                //        return true;
+                //    }
+                //}
+                //else if (spletedCommand.Length == 3)
+                //{
+                //    if (spletedCommand[1] == "-detail")
+                //    {
+                //        Dictionary<string, List<string>> parameters = GetParams();
+
+                //        //return param.Keys.ContainsspletedCommand[2];
+                //        List<string> param = parameters[spletedCommand[1]];
+                //        return param.Contains(spletedCommand[2]);
+                //    }
+                //}
+            }
+
             return false;
         }
     }
-
     public class BaseCommand 
     {
         protected string tag = string.Empty;
