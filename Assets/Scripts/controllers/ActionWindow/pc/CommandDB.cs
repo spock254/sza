@@ -27,7 +27,7 @@ public class CommandDB : MonoBehaviour
         { "exit", new ExitCommand() },
         { "chuser", new ChUserCommand() },
         { "whoami", new WhoamiCommand() },
-        { "docs", new DocsCommand() }
+        { "file", new DocsCommand() }
     };
 
     public Dictionary<string, ICommandAction> user = new Dictionary<string, ICommandAction>()
@@ -575,24 +575,63 @@ namespace commands
         public List<string> GetActionStatus(string[] param)
         {
             TerminalController terminal = Global.Component.GetTerminalController();
-            Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
-            
-            if (param.Length == 1)
+            PCController pcController = terminal.GetCurrentPc();
+            Dictionary<string, Item> docs = pcController.currentMemory.docs;
+
+            if (param.Length == 3) 
             {
-
-                List<string> res = new List<string>();
-
-                foreach (var item in docs)
+                if (param[1] == "-copy") 
                 {
-                    res.Add(item.Key);
-                }
+                    foreach (var item in pcController.disk.innerItems)
+                    {
+                        if (param[2] == item.itemName)
+                        {
+                            if (pcController.currentMemory.docs.Keys.Contains(param[2]) == false)
+                            {
+                                pcController.currentMemory.docs.Add(param[2], item);
+                                return new List<string>() { "file copied successfully" };
+                            }
+                            else
+                            {
+                                return new List<string>() { "file " + param[2] + " already exist" };
+                            }
+                        }
+                    }
 
-                if (res.Count == 0)
+                    return new List<string>() { "file not found" };
+                }
+            }
+
+            if (param.Length == 2)
+            {
+                if (param[1] == "-all")
                 {
-                    return new List<string>() { "Documents not found" };
-                }
+                    List<string> res = new List<string>();
 
-                return res;
+                    foreach (var item in docs)
+                    {
+                        res.Add(item.Key);
+                    }
+
+                    if (res.Count == 0)
+                    {
+                        return new List<string>() { "Documents not found" };
+                    }
+
+                    return res;
+                }
+                else if (param[1] == "-all_txt")
+                {
+                    return GetAllFilesInFormat(".txt", docs);
+                }
+                else if (param[1] == "-all_pdf")
+                {
+                    return GetAllFilesInFormat(".pdf", docs);
+                }
+                else if (param[1] == "-all_cmd") 
+                {
+                    return GetAllFilesInFormat(".cmd", docs);
+                }
             }
             else if (param.Length == 3) 
             {
@@ -624,14 +663,19 @@ namespace commands
 
         public string GetDescription()
         {
-            return "prints all documents";
+            return "file manager";
         }
 
         public Dictionary<string, string> GetFlagDescription()
         {
             return new Dictionary<string, string>() 
             {
-                { "-read [file name]", "prints file content" }
+                { "-read [file name]", "prints file content" },
+                { "-all", "list all files in the system" },
+                { "-copy [file name]", "copy file from disk" },
+                { "-all_txt", "list all txt files in the system" },
+                { "-all_pdf", "list pdf pdf files in the system" },
+                { "-all_cmd", "list cmd txt files in the system" }
             };
         }
 
@@ -640,6 +684,12 @@ namespace commands
             TerminalController terminal = Global.Component.GetTerminalController();
             Dictionary<string, Item> docs = terminal.GetCurrentPc().currentMemory.docs;
             List<string> read = new List<string>();
+            List<string> copy = new List<string>();
+
+            foreach (var file in terminal.GetCurrentPc().disk.innerItems)
+            {
+                copy.Add(file.itemName);
+            }
 
             foreach (var doc in docs)
             {
@@ -651,8 +701,29 @@ namespace commands
 
             return new Dictionary<string, List<string>>() 
             {
-                { "-read", read }
+                { "-read", read },
+                { "-copy", copy }
             };
+        }
+
+        List<string> GetAllFilesInFormat(string format, Dictionary<string, Item> docs) 
+        {
+            List<string> res = new List<string>();
+
+            foreach (var item in docs)
+            {
+                if (item.Key.EndsWith(format))
+                {
+                    res.Add(item.Key);
+                }
+            }
+
+            if (res.Count == 0)
+            {
+                return new List<string>() { "Documents not found" };
+            }
+
+            return res;
         }
     }
     public class DiskCommand : ICommandAction
