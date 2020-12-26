@@ -236,13 +236,23 @@ public class ToolTipController : MonoBehaviour
                 else if (hit.collider.tag == "pc") 
                 {
                     Item itemInHand = controller.currentHand.GetComponent<ItemCell>().item;
+                    PCController pcController = hit.collider.GetComponent<PCController>();
+                    Item disk = pcController.disk;
 
                     isdetected = true;
                     tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
-                    ShowToolTip("pc", (controller.IsEmpty(controller.currentHand) == false 
-                                        && itemInHand.itemName.Contains("disk"))
+                    if (disk != null && controller.IsEmpty(controller.currentHand))
+                    {
+                        ShowToolTip("pc", Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_PULL_THE_DISK);
+                    }
+                    else 
+                    { 
+                        ShowToolTip("pc", (controller.IsEmpty(controller.currentHand) == false 
+                                            && itemInHand.itemName.Contains("disk"))
                                 ? Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_INSERT : Global.Tooltip.LM_INTERACT);
+                    }
+
                     TooltipLocate(tooltipPosition);
                 }
                 else

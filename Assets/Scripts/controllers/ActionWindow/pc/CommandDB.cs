@@ -167,10 +167,11 @@ namespace commands
         {
             return new Dictionary<string, string>()
             {
-                { "-all", "shoes description of all command flags" },
-                { "-f", "shoes flags of all commands" },
-                { "-s [command]", "description of the selected command" },
-                { "-detail [command]", "description and flags of the selected command" }
+                { "-detail [command]", "description and flags of the selected command" },
+                { "-all_commands", "shoes list of all commands" },
+                { "-all_commands_detail", "shoes description of all command flags" }
+                //{ "-f", "shoes flags of all commands" },
+                //{ "-s [command]", "description of the selected command" },
             };
         }
 
@@ -180,7 +181,7 @@ namespace commands
 
             if (param.Length == 2)
             {
-                if (param[1] == "-all")
+                if (param[1] == "-all_commands_detail")
                 {
                     List<string> responce = new List<string>();
 
@@ -228,11 +229,22 @@ namespace commands
 
                     return responce;
                 }
+                else if (param[1] == "-all_commands") 
+                {
+                    List<string> commandNames = new List<string>();
+
+                    foreach (var command in commandDB.GetCommands())
+                    {
+                        commandNames.Add(command.Key);
+                    }
+
+                    return commandNames;
+                }
             }
-            else if (param.Length == 1)
-            {
-                return new List<string>(commandDB.GetCommands().Keys);
-            }
+            //else if (param.Length == 1)
+            //{
+            //    return new List<string>(commandDB.GetCommands().Keys);
+            //}
             else if (param.Length == 3)
             {
                 if (param[1] == "-s")
@@ -1197,7 +1209,7 @@ namespace commands
             }
             else if (param.Length == 2) 
             {
-                if (param[1] == "-all") 
+                if (param[1] == "-all_commands") 
                 {
                     List<string> commandNames = new List<string>();
 
@@ -1222,7 +1234,7 @@ namespace commands
             return new Dictionary<string, string>()
             {
                 { "-install [command name]", "install command into system" },
-                { "-all", "list all commands in the system" }
+                { "-all_commands", "list all commands in the system" }
             };
         }
 
@@ -1687,19 +1699,40 @@ namespace commands
 
                     terminalController.AddContent(new List<string>
                     {
-                        "Welcome to begining <color=#FFFFFF>SYSTEM_32s</color> terminal guide session",
-                        "Terminal command contains from one till three parts",
-                        "For example a command to manipulate the light in the room",
+                        //"Welcome to begining <color=#FFFFFF>SYSTEM_32s</color> terminal guide session",
+                        //"Terminal command contains from one till three parts",
+                        //"For example a command to manipulate the light in the room",
+                        //"",
+                        //"light -off room",
+                        //"^      ^   ^       ",
+                        //"|      |   argument",
+                        //"|      command flag",
+                        //"command",
+                        //"",
+                        //"Sometimes you can meet more then one argument",
+                        //"Use this command if you are too lazy ",
+                        //"to come up to light switcher"
+                        "Добро пожаловать в руковотство для начинающих",
+                        "пользователей терминала.",
+                        "Команда для терминала состоит из трех основных частей.",
+                        "Например команда для манипуляции светом в помещении :",
                         "",
                         "light -off room",
                         "^      ^   ^       ",
-                        "|      |   argument",
-                        "|      command flag",
-                        "command",
+                        "|      |   аргумент",
+                        "|      флаг команды",
+                        "команда",
                         "",
-                        "Sometimes you can meet more then one argument",
-                        "Use this command if you are too lazy ",
-                        "to come up to light switcher"
+                        "Команда может иметь набор флагов например :",
+                        "'light -off room' с помощью фдага '-off' можно выключить",
+                        "свет в комнате, или с флагом '-on' выключить. ",
+                        "Также каждый флаг может иметь набор аргументов ",
+                        "'light -off kitchen' выключить свет на кухне. ",
+                        "Если вы не знаете какой флаг или аргумент использовать,",
+                        "автонаборщик терминала всегда вам подскажит. ",
+                        "Или с помощу команды 'help', но к этой команде мы вернемся",
+                        "",
+                        "Выключите свет в комнате что бы пройти дальше"
                     });
 
                     return new List<string>() { string.Empty };
@@ -1771,8 +1804,42 @@ namespace commands
 
                 terminalController.AddContent(new List<string>
                 {
-                    "Also some command can be used with set of different flags",
-                    "Turn on the light with -on flag"
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Теперь включите свет в комнте"
                 });
             }
             else if (result != null && result.Contains("light is on successfully")) 
@@ -1786,12 +1853,46 @@ namespace commands
 
                 terminalController.AddContent(new List<string>
                 {
-                    "Well done!",
-                    "One of the usefull command witch you will use often",
-                    "help command",
-                    "help command displays information about built-in commands",
-                    "Try help command with out flags and arguments to see list ",
-                    "of all accessible commands (accessible in guide session)"
+                    //"Well done!",
+                    //"One of the usefull command witch you will use often",
+                    //"help command",
+                    //"help command displays information about built-in commands",
+                    //"Try help command with out flags and arguments to see list ",
+                    //"of all accessible commands (accessible in guide session)"
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",             "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Туперь время посмотреть все доступные команды в системе",
+                    "'help -all_commands' выводит список всех команд.",
+                    "Как вы заметили для этого флага не нужды аргументы.",
+                    "",
+                    "Просмотрите все доступные команды (команд окажется ",
+                    "не так много так как в обучающем рукаводстве список ",
+                    "команд ограничен)"
                 });
             }
 
@@ -1832,7 +1933,7 @@ namespace commands
             PCController pcController = terminalController.GetCurrentPc();
             List<PCMempryContent> mempryContents = pcController.memoryContents;
 
-            if (result != null && result.Contains("light") && result.Contains("help"))
+            if (result != null && result.Contains("help") && result.Contains("light") && result.Contains("exit"))
             {
                 int step = 3;
                 toReturn = GuideStep.ProcessStep(step);
@@ -1843,22 +1944,54 @@ namespace commands
 
                 terminalController.AddContent(new List<string>
                 {
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",                    "",                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
                     "help",
                     "guide",
                     "light",
                     "exit",
                     "",
                     "",
-                    "To get more detail information about spacific command ",
-                    "you can use -detail flag and command name as argumend",
-                    "try to get all information about light command"
+                    //"To get more detail information about spacific command ",
+                    //"you can use -detail flag and command name as argumend",
+                    //"try to get all information about light command"
+                    "Для более детального просмотре информации про команду ",
+                    "'light', используйте 'help -detail light'. Вы увидете все"
+                    ," флаги команды, и какие аргументы принемает флаг."
 
                 });
 
                 return new List<string>() { string.Empty };
 
             }
-            else if (param[1] == "-detail" && param[2] == "light") 
+            else if (param.Length == 3 && param[1] == "-detail" && param[2] == "light") 
             {
                 int step = 4;
                 toReturn = GuideStep.ProcessStep(step);
@@ -1867,10 +2000,42 @@ namespace commands
                     return toReturn;
                 }
 
-                result.AddRange(new List<string>() { 
+                result.AddRange(new List<string>() {
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",                  "",                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Хорошая работа! Вы теперь знаете строение команд.",
+                    "Если вы хотите ознакомится с стандартным набором команд в системе,", 
+                    "Вы можете прочитать руководство которое хранится в системе", 
+                    "c помощью 'file -read standart_terminal_command.txt'", 
                     "", 
                     "",
-                    "Congratulations!",
                     "Terminal guide session complete successfully!",
                     "Return to " + GuideCommand.prevUserMode + " mode"
                 });

@@ -49,6 +49,7 @@ public static class Global
         public const string LM_INTERACT = "LM to interact";
 
         public const string RM_INSERT = "RM to insert";
+        public const string RM_PULL_THE_DISK = "RM pull out";
 
         public static Vector3 EnvObjOffset() 
         {
