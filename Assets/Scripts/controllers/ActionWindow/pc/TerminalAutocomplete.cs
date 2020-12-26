@@ -30,6 +30,7 @@ public class TerminalAutocomplete : MonoBehaviour
     }
     bool setCarret = false;
     string prevInput = string.Empty;
+
     void Update()
     {
         if (terminalController.isOpen == true) 
@@ -51,7 +52,7 @@ public class TerminalAutocomplete : MonoBehaviour
                     }
                 }
 
-                
+
                 if (hintIndex > 0)
                 {
                     hintIndex--;
@@ -105,7 +106,7 @@ public class TerminalAutocomplete : MonoBehaviour
                     ResetHintColor();
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Return))
+            else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
             {
                 if (hintIndex != -1)
                 {
@@ -116,21 +117,21 @@ public class TerminalAutocomplete : MonoBehaviour
                     {
                         string flagToappend = hintLines[hintIndex].text.Trim().Split()[0].Substring(1);
                         terminalController.terminalInput.text = terminalController.terminalInput
-                                                                .text.Split()[0] + " -" + flagToappend;
+                                                                .text.Split()[0] + " -" + flagToappend + " ";
                     }
-                    else if (currentInput.Split().Length == 3 
-                        || (currentInput.Split().Length == 2 && currentInput.EndsWith(" "))) 
+                    else if (currentInput.Split().Length == 3
+                        || (currentInput.Split().Length == 2 && currentInput.EndsWith(" ")))
                     {
                         string[] splitedInput = terminalController.terminalInput.text.Split();
                         string argToappend = hintLines[hintIndex].text.Trim();
-                        
-                        terminalController.terminalInput.text = splitedInput[0] + " " 
-                                                                + splitedInput[1] + " " 
-                                                                + argToappend;
+
+                        terminalController.terminalInput.text = splitedInput[0] + " "
+                                                                + splitedInput[1] + " "
+                                                                + argToappend + " ";
                     }
                     else
                     {
-                        terminalController.terminalInput.text = hintLines[hintIndex].text;
+                        terminalController.terminalInput.text = hintLines[hintIndex].text + " ";
                     }
 
                     hintIndex = -1;
@@ -139,9 +140,14 @@ public class TerminalAutocomplete : MonoBehaviour
                     terminalController.terminalInput.enabled = true;
                     StartCoroutine(SetCarret());
                     setCarret = true;
-
-                    //ValueChange();
-
+                    //isSpacePressed = false;
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                if (hintIndex != -1) 
+                { 
+                    
                 }
             }
         }

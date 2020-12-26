@@ -112,15 +112,23 @@ public class TerminalController : MonoBehaviour
     //int index = 0;
     private void OnGUI()
     {
-        if (isOpen)
+        if (isOpen == true)
         {
             terminalInput.ActivateInputField();
             terminalInput.Select();
             
-            if (!isInit)
+            if (isInit == false)
             {
                 isInit = true;
                 //AddToHistory(userInput);
+                // если вышел в гайде сессии вернутся к пред юзер моду
+                //if (pcController.currentMemory.userMode == CommandDB.UserMode.Guide) 
+                //{
+                //    CommandDB.UserMode prevUserMode = commands.GuideCommand.prevUserMode;
+                //    PCMempryContent guestMemoryContent = pcController.memoryContents.Where(x => x.userMode == prevUserMode)
+                //                                        .FirstOrDefault();
+                //    pcController.currentMemory = guestMemoryContent;
+                //}
 
                 ClearInputField();
                 //AddDirectoryLine(userInput);
@@ -163,6 +171,7 @@ public class TerminalController : MonoBehaviour
                 ScrallToButtom(lines);
 
                 SetUserInputLineAsLastSibling();
+
             }
         }
         else
