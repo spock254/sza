@@ -1228,9 +1228,19 @@ namespace commands
                     bool deviceFound = false;
                     GameObject bo4Go = null;
 
+                    if (disk == null) 
+                    {
+                        return new List<string>() { "driver disk missing" };
+                    }
+
+                    if (param[2].EndsWith(".exe") == false)
+                    {
+                        return new List<string>() { "driver not found" };
+                    }
+
                     foreach (var driver in disk.innerItems)
                     {
-                        if (driver.itemName.EndsWith(".exe") && param[2] == driver.itemName) 
+                        if (driver.itemName.EndsWith(".exe") && param[2] == driver.itemName)
                         {
                             for (int i = 0; i < pcController.peripherals.Count; i++)
                             {
