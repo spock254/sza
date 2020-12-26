@@ -108,9 +108,9 @@ public class ToolTipController : MonoBehaviour
                     }
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.transform.position);
+                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.transform.position);
                     ShowToolTip(npcInfo == null ? "obj" : npcInfo.npcName, interactionStr);
-                    TooltipLocate(tooltipPosition);
+                    TooltipLocate(hit.collider.transform.position);
                     return;
 
                 }
@@ -120,7 +120,7 @@ public class ToolTipController : MonoBehaviour
 
                     isdetected = true;
                     tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
-
+                    
                     if (IsCurrentHandEmpty() && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == false)
                     {
                         ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
@@ -157,7 +157,7 @@ public class ToolTipController : MonoBehaviour
                                 Global.Tooltip.LM_PUT);
                     }
 
-                    TooltipLocate(tooltipPosition);
+                    TooltipLocate(hit.transform.position);
 
                     return;
                 }
@@ -180,14 +180,14 @@ public class ToolTipController : MonoBehaviour
                         Item itemInHand = controller.currentHand.GetComponent<ItemCell>().item;
 
                         isdetected = true;
-                        tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                        //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                         string useInteraction = (item.itemSubstitution.IsSubstituted() == true && item.itemSubstitution.IsItemToUseExist(itemInHand)) ? " / " + Global.Tooltip.RM_TURN_ON : string.Empty;
 
                         ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ?
                             Global.Tooltip.LM_PICK_UP + useInteraction
                             : ((useInteraction == string.Empty) ? PrintRed(Global.Tooltip.NO_ACTIONS) : useInteraction.Substring(" / ".Length)));
-                        TooltipLocate(tooltipPosition);
+                        TooltipLocate(hit.collider.transform.position);
 
                         return;
                     }
@@ -197,11 +197,11 @@ public class ToolTipController : MonoBehaviour
                     CaseController caseController = hit.collider.GetComponent<CaseController>();
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                     ShowToolTip((caseController.caseName == string.Empty) ? "case" : caseController.caseName, (caseController.isOpen == false)
                                 ? Global.Tooltip.LM_OPEN : Global.Tooltip.LM_CLOSE);
-                    TooltipLocate(tooltipPosition);
+                    TooltipLocate(hit.collider.transform.position);
 
                     return;
                 }
@@ -210,11 +210,11 @@ public class ToolTipController : MonoBehaviour
                     TVController tvController = hit.collider.GetComponent<TVController>();
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                     ShowToolTip("tv", (tvController.IsTvOpen() == false)
                                 ? Global.Tooltip.LM_TURN_ON : Global.Tooltip.LM_TURN_OFF + " / " + Global.Tooltip.RM_NEXT_CHANNEL);
-                    TooltipLocate(tooltipPosition);
+                    TooltipLocate(hit.collider.transform.position);
 
                     return;
                 }
@@ -223,12 +223,12 @@ public class ToolTipController : MonoBehaviour
                     VendingController vending = hit.collider.GetComponent<VendingController>();
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position +
-                                                                    Global.Tooltip.EnvObjOffset());
+                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position +
+                    //                                                Global.Tooltip.EnvObjOffset());
 
                     ShowToolTip((vending.headerTitle == string.Empty) ? "vending" : vending.headerTitle.ToLower(),
                                                                             Global.Tooltip.LM_USE);
-                    TooltipLocate(tooltipPosition);
+                    TooltipLocate(hit.collider.transform.position);
 
                     return;
 
@@ -240,7 +240,7 @@ public class ToolTipController : MonoBehaviour
                     Item disk = pcController.disk;
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                     if (disk != null && controller.IsEmpty(controller.currentHand))
                     {
@@ -253,7 +253,7 @@ public class ToolTipController : MonoBehaviour
                                 ? Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_INSERT : Global.Tooltip.LM_INTERACT);
                     }
 
-                    TooltipLocate(tooltipPosition);
+                    TooltipLocate(hit.collider.transform.position);
                 }
                 else
                 {
@@ -299,24 +299,17 @@ public class ToolTipController : MonoBehaviour
             bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize * 2,
                 (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
 
-            //bgSize = new Vector2(textItemName.preferredWidth,
-            //    (textInteraction.preferredHeight * 2));
 
-            //  textInteraction.alignment = TextAnchor.MiddleCenter;
         }
         else 
         {
             bgSize = new Vector2(textInteraction.preferredWidth + textPaddinSize * 2,
                 (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
 
-            //bgSize = new Vector2(textInteraction.preferredWidth,
-            //    (textInteraction.preferredHeight * 2));
-
-            // textItemName.alignment = TextAnchor.MiddleCenter;
         }
 
         //bgRectTransform.sizeDelta = bgSize;
-
+        Debug.Log(new Vector2(bgSize.x, bgSize.y));
         bgRectTransform.sizeDelta = new Vector2(bgSize.x, bgSize.y);
 
         //bgSize.y = bgSize.y + preferredHeight / 2;
@@ -337,14 +330,16 @@ public class ToolTipController : MonoBehaviour
 
     void TooltipLocate(Vector2 pos) 
     {
-        Vector2 localPoint;
+        //Vector2 localPoint;
 
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(UIRectTransform,
-            pos, uiCamera, out localPoint);
+        //RectTransformUtility.ScreenPointToLocalPointInRectangle(UIRectTransform,
+        //    pos, uiCamera, out localPoint);
 
-        localPoint.y = localPoint.y + 32;
-        toolTip.transform.localPosition = localPoint;
-        //toolTip.transform.localPosition = new Vector3(0,0,0);
+        //localPoint.y = localPoint.y + 32;
+        //toolTip.transform.localPosition = localPoint;
+
+        pos.y = pos.y + 1;
+        toolTip.transform.position = pos;
 
     }
 
