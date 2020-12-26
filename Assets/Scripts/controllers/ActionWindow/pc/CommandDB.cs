@@ -652,6 +652,27 @@ namespace commands
             {
                 if (param[1] == "-copy") 
                 {
+
+                    if (pcController.disk == null) 
+                    {
+                        return new List<string>() { "disk not found" };
+                    }
+
+                    if (param[2] == "*") 
+                    {
+                        int copyFileCount = 0;
+                        foreach (var file in pcController.disk.innerItems)
+                        {
+                            if (docs.Keys.Contains(file.itemName) == false) 
+                            {
+                                copyFileCount++;
+                                docs.Add(file.itemName, file);
+                            }
+                        }
+
+                        return new List<string>() { "copied " + copyFileCount + " files" };
+                    }
+
                     foreach (var item in pcController.disk.innerItems)
                     {
                         if (param[2] == item.itemName)
@@ -698,21 +719,26 @@ namespace commands
                 {
                     return GetAllFilesInFormat(".pdf", docs);
                 }
-                else if (param[1] == "-all_cmd") 
+                else if (param[1] == "-all_cmd")
                 {
                     return GetAllFilesInFormat(".cmd", docs);
+                }
+                else if (param[1] == "-all_exe") 
+                { 
+                    return GetAllFilesInFormat(".exe", docs);
                 }
             }
             else if (param.Length == 3) 
             {
                 if (param[1] == "-read") 
                 {
+                    if (param[2].EndsWith(".txt") == false)
+                    {
+                        return new List<string>() { "can't read not txt file format" };
+                    }
+                    
                     if (docs.Keys.Contains(param[2]))
                     {
-                        if (param[2].EndsWith(".txt") == false) 
-                        {
-                            return new List<string>() { "can't read not txt file format" };
-                        }
 
                         List<string> fileContent = docs[param[2]].itemOptionData.text
                                                         .Split('\n').ToList();
@@ -721,7 +747,22 @@ namespace commands
 
                         return new List<string>() { string.Empty };
                     }
-                    else 
+                    else if (pcController.disk != null) 
+                    {
+                        foreach (var file in pcController.disk.innerItems)
+                        {
+                            if (param[2] == file.itemName) 
+                            {
+                                List<string> fileContent = file.itemOptionData.text
+                                                                .Split('\n').ToList();
+
+                                terminal.AddContent(fileContent);
+
+                                return new List<string>() { string.Empty };
+                            }
+                        }
+                    }
+                    else
                     {
                         return new List<string>() { "File not found" };
                     }
@@ -757,6 +798,8 @@ namespace commands
             List<string> read = new List<string>();
             List<string> copy = new List<string>();
             
+            /* -copy */
+
             if (disk != null) 
             { 
                 foreach (var file in disk.innerItems)
@@ -765,11 +808,23 @@ namespace commands
                 }
             }
 
+            /* -read */
             foreach (var doc in docs)
             {
                 if (doc.Key.EndsWith(".txt")) 
                 {
                     read.Add(doc.Key);
+                }
+            }
+
+            if (disk != null) 
+            { 
+                foreach (var doc in disk.innerItems)
+                {
+                    if (read.Contains(doc.itemName) == false) 
+                    {
+                        read.Add(doc.itemName);
+                    }
                 }
             }
 
@@ -930,9 +985,12 @@ namespace commands
 
             List<string> cpy = new  List<string>();
 
-            foreach (var item in pcController.disk.innerItems)
-            {
-                cpy.Add(item.itemDescription);
+            if (pcController.disk != null) 
+            { 
+                foreach (var item in pcController.disk.innerItems)
+                {
+                    cpy.Add(item.itemDescription);
+                }
             }
 
             return new Dictionary<string, List<string>>()
@@ -1390,7 +1448,7 @@ namespace commands
         {
             if (param.Length == 2) 
             {
-                if (param[1] == "-upgrade") 
+                if (param[1] == "-install_driver") 
                 { 
                     TerminalController terminal = Global.Component.GetTerminalController();
                     PCController pcController = terminal.GetCurrentPc();
