@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
-  m_Name: bo4 command disk
+  m_Name: bo4_driver.exe
   m_EditorClassIdentifier: 
-  id: 325350650
-  itemName: bo4 command disk
-  itemDescription: bo4 command disk
-  itemPrice: 150
-  itemSprite: {fileID: -8572460971912414593, guid: db074c080037dc24aa03aae3d9692859,
+  id: 762134937
+  itemName: bo4_driver.exe
+  itemDescription: bo4_driver.exe
+  itemPrice: 0
+  itemSprite: {fileID: -5657096579419258068, guid: 149d87d62e16120489cea4e7939166b1,
     type: 3}
   stats:
     playerStats: 5
@@ -44,7 +44,7 @@ MonoBehaviour:
     currentCell: {fileID: 0}
   itemOptionData:
     awPrefab: {fileID: 0}
-    text: 
+    text: bo4
     actionWindowTag: 
     isModified: 0
   itemReviewData:
@@ -54,9 +54,7 @@ MonoBehaviour:
     initState: 0
     itemsToUse: []
   capacity: 0
-  innerItems:
-  - {fileID: 11400000, guid: d20f0afe02862bb40934823db4c406eb, type: 2}
-  - {fileID: 11400000, guid: 53f5784cbbfe30e4fbb357e13eb8c8ac, type: 2}
+  innerItems: []
   isDestroyOnPlayerUse: 0
   afterOnPlayerUseItem: {fileID: 0}
   references:

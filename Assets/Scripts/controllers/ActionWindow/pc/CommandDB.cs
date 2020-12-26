@@ -37,8 +37,8 @@ public class CommandDB : MonoBehaviour
         { "light", new Guide_LightCommand("light") },
         { "command_manager", new CommandManagerCommand("command_manager") },
         { "accaunt", new AccauntCommand("accaunt") },
-        { "peripheral", new PeripheralCommand("peripheral") }
-        //{ "upgrade", new DeviceUpgradeCommand() }
+        { "peripheral", new PeripheralCommand("peripheral") },
+        { "driver", new DriverCommand("driver") }
     };
 
     public Dictionary<string, ICommandAction> admin = new Dictionary<string, ICommandAction>()
@@ -1211,6 +1211,106 @@ namespace commands
         }
     }
 
+    public class DriverCommand : BaseCommand, ICommandAction
+    {
+        public DriverCommand(string tag) : base(tag) { }
+
+        public List<string> GetActionStatus(string[] param)
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            Item disk = pcController.disk;
+
+            if (param.Length == 3) 
+            {
+                if (param[1] == "-install") 
+                {
+                    bool deviceFound = false;
+                    GameObject bo4Go = null;
+
+                    foreach (var driver in disk.innerItems)
+                    {
+                        if (driver.itemName.EndsWith(".exe") && param[2] == driver.itemName) 
+                        {
+                            for (int i = 0; i < pcController.peripherals.Count; i++)
+                            {
+                                string description = pcController.peripherals[i].GetComponent<IPeripheral>().DeviseDescription();
+                                string tagDevice = driver.itemOptionData.text;
+
+                                if (description.Contains(tagDevice) == true)
+                                {
+                                    bo4Go = pcController.peripherals[i];
+                                    deviceFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (deviceFound == true)
+                    {
+                        Item item = bo4Go.GetComponent<SubstitudeCell>().item;
+                        item.itemSubstitution.initState = StateTypes.NPC_STATE_stateTransitionModify;
+
+                        NPC_StateMashine mashine = bo4Go.GetComponent<NPC_StateMashine>();
+                        mashine.ChangeState<NPC_STATE_stateTransitionModify>();
+
+                        return new List<string>() { "driver installed successfully" };
+                    }
+                    else 
+                    {
+                        return new List<string>() { "device not found" };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public string GetDescription()
+        {
+            return "install device driver";
+        }
+
+        public Dictionary<string, string> GetFlagDescription()
+        {
+            return new Dictionary<string, string>()
+            {
+                { "-install [driver name]", "install driver for device" }
+            };
+        }
+
+        public Dictionary<string, List<string>> GetParams()
+        {
+            TerminalController terminal = Global.Component.GetTerminalController();
+            PCController pcController = terminal.GetCurrentPc();
+            Item disk = pcController.disk;
+            List<string> install = new List<string>();
+
+            if (disk != null) 
+            { 
+                foreach (var driver in disk.innerItems)
+                {
+                    if (driver.itemName.EndsWith(".exe")) 
+                    {
+                        install.Add(driver.itemName);
+                    }
+                }
+            }
+            
+            return new Dictionary<string, List<string>>()
+            {
+                { "-install", install }
+            };
+        }
+
+        public bool IsValidCommand(string command)
+        {
+            CommandValidator validator = new CommandValidator(this, this.tag);
+            return validator.Validate(command);
+        }
+    }
+
     #region installed command
 
     public class Bo4Command : DeviceUpgradeCommand 
@@ -1235,7 +1335,7 @@ namespace commands
                 }
             }
 
-            if (deviceFound)
+            if (deviceFound == true)
             {
                 Item item = bo4Go.GetComponent<SubstitudeCell>().item;
                 item.itemSubstitution.initState = StateTypes.NPC_STATE_stateTransitionModify;
