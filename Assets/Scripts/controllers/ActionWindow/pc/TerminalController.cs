@@ -26,6 +26,7 @@ public class TerminalController : MonoBehaviour
     public List<string> history = new List<string>();
 
     bool isInit = false;
+    bool isInstaled = false;
     void Start()
     {
         interpreter = GetComponent<Interpreter>();
@@ -114,6 +115,36 @@ public class TerminalController : MonoBehaviour
     {
         if (isOpen == true)
         {
+            if (pcController.IsSystemInstaled() == false
+                && (pcController.disk == null || pcController.disk.itemOptionData.text != "installer"))
+            {
+                terminalInput.enabled = false;
+
+                ClearInputField();
+                //AddDirectoryLine(userInput);
+
+                int lines = AddInterpriterLines(new List<string>()
+                {
+                   "critical error [3213 .32]"
+                });
+
+                ScrallToButtom(lines);
+                return;
+            }
+            else if (pcController.IsSystemInstaled() == false
+                && (pcController.disk != null && pcController.disk.itemOptionData.text == "installer")) 
+            {
+
+                StartCoroutine(InstallingSystem());
+
+                //pcController.SetSystemInstall(true);
+            }
+            
+            if (pcController.IsSystemInstaled() == true) 
+            { 
+                terminalInput.enabled = true;
+            }
+
             terminalInput.ActivateInputField();
             terminalInput.Select();
             
@@ -346,5 +377,16 @@ public class TerminalController : MonoBehaviour
     public PCController GetCurrentPc() 
     {
         return pcController;
+    }
+
+    IEnumerator InstallingSystem() 
+    {
+        for (int i = 1; i < 101; i++)
+        {
+            AddContent(new List<string>() { "installing " + i + "%" });
+            yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
+        }
+
+        pcController.SetSystemInstall(true);
     }
 }

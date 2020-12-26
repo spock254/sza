@@ -26,6 +26,7 @@ public class PCController : MonoBehaviour
     public Item disk;
 
     bool isOpen;
+    bool isSystemInstaled = false;
     Vector3Int currentCell;
 
     ActionWindowController actionWindow;
@@ -135,6 +136,16 @@ public class PCController : MonoBehaviour
     public bool IsTerminalOpen() 
     {
         return isOpen;
+    }
+
+    public bool IsSystemInstaled() 
+    {
+        return isSystemInstaled;
+    }
+
+    public void SetSystemInstall(bool isSystemInstaled) 
+    {
+        this.isSystemInstaled = isSystemInstaled;
     }
 }
 
