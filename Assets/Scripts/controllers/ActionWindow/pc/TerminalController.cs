@@ -14,7 +14,7 @@ public class TerminalController : MonoBehaviour
     public GameObject userInputLine;
     public ScrollRect sr;
     public GameObject msgList;
-
+    Vector2 initMsgListSize = Vector2.zero;
     public float printDelay = 0.1f;
 
     Interpreter interpreter;
@@ -24,11 +24,13 @@ public class TerminalController : MonoBehaviour
 
     //public List<string> history = new List<string>();
     public List<string> history = new List<string>();
+    List<GameObject> responceContainer = new List<GameObject>();
 
     bool isInit = false;
-    bool isInstaled = false;
+    bool isInstaling = false;
     void Start()
     {
+        initMsgListSize = msgList.GetComponent<RectTransform>().sizeDelta;
         interpreter = GetComponent<Interpreter>();
     }
 
@@ -109,41 +111,71 @@ public class TerminalController : MonoBehaviour
         history.Add(command);
     }
 
-
+    bool errorOneFram = false;
     //int index = 0;
     private void OnGUI()
     {
         if (isOpen == true)
         {
-            if (pcController.IsSystemInstaled() == false
-                && (pcController.disk == null || pcController.disk.itemOptionData.text != "installer"))
-            {
-                terminalInput.enabled = false;
 
-                ClearInputField();
-                //AddDirectoryLine(userInput);
-
-                int lines = AddInterpriterLines(new List<string>()
+            if (pcController.IsSystemInstaled() == false) 
+            { 
+                if (pcController.IsSystemInstaled() == false
+                    && (pcController.disk == null || pcController.disk.itemOptionData.text != "installer") 
+                    && isInstaling == false)
                 {
-                   "critical error [3213 .32]"
-                });
+                    if (errorOneFram == false) 
+                    {
+                        userInputLine.gameObject.SetActive(false);
 
-                ScrallToButtom(lines);
+                //        ClearInputField();
+                        //AddDirectoryLine(userInput);
+
+                        AddContent(new List<string>()
+                        {
+                            "critical error [3213 .32]",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " ",
+                        " "
+                        });
+
+                    
+                    }
+
+                    errorOneFram = true;
+                }
+                else if (pcController.IsSystemInstaled() == false
+                    && (pcController.disk != null && pcController.disk.itemOptionData.text == "installer") 
+                    && isInstaling == false) 
+                {
+                    isInstaling = true;
+                    StartCoroutine(InstallingSystem());
+
+                    //pcController.SetSystemInstall(true);
+                }
+
                 return;
             }
-            else if (pcController.IsSystemInstaled() == false
-                && (pcController.disk != null && pcController.disk.itemOptionData.text == "installer")) 
-            {
-
-                StartCoroutine(InstallingSystem());
-
-                //pcController.SetSystemInstall(true);
-            }
-            
-            if (pcController.IsSystemInstaled() == true) 
-            { 
-                terminalInput.enabled = true;
-            }
+            //if (pcController.IsSystemInstaled() == true) 
+            //{ 
+            //}
 
             terminalInput.ActivateInputField();
             terminalInput.Select();
@@ -151,6 +183,7 @@ public class TerminalController : MonoBehaviour
             if (isInit == false)
             {
                 isInit = true;
+                userInputLine.gameObject.SetActive(true);
                 //AddToHistory(userInput);
                 // если вышел в гайде сессии вернутся к пред юзер моду
                 //if (pcController.currentMemory.userMode == CommandDB.UserMode.Guide) 
@@ -163,6 +196,7 @@ public class TerminalController : MonoBehaviour
 
                 ClearInputField();
                 //AddDirectoryLine(userInput);
+                CleanResponceLines();
 
                 int lines = AddInterpriterLines(new List<string>()
                 {
@@ -174,9 +208,6 @@ public class TerminalController : MonoBehaviour
                     " ",
                     "to familiarize yourself with the system, ",
                     "use command: guide -on",
-                    " ",
-                    " ",
-                    " ",
                     " ",
                     " ",
                     " ",
@@ -295,25 +326,22 @@ public class TerminalController : MonoBehaviour
         msg.transform.SetSiblingIndex(msgList.transform.childCount - 1);
         msg.GetComponentsInChildren<Text>()[1].text = userInput;
     }
-    int AddInterpriterLines(List<string> interpretation) 
+
+    int AddInterpriterLines(List<string> interpretation)
     {
         for (int i = 0; i < interpretation.Count; i++)
         {
             GameObject res = Instantiate(responceLine, msgList.transform);
-
+            responceContainer.Add(res);
+            Debug.Log(responceContainer.Count);
             res.transform.SetAsLastSibling();
 
             Vector2 msgListSize = msgList.GetComponent<RectTransform>().sizeDelta;
             msgList.GetComponent<RectTransform>().sizeDelta = new Vector2(msgListSize.x, msgListSize.y + 20);
 
-            //res.GetComponentInChildren<Text>().text = interpretation[i];
             res.GetComponentInChildren<Text>().text = string.Empty;
-            //StartCoroutine(PrintWithDilay(res, interpretation[i]));
             res.GetComponentInChildren<Text>().text = interpretation[i];
         }
-        //StartCoroutine(AddInterpriterLinesDilay(interpretation));
-
-        
 
         return interpretation.Count;
     }
@@ -381,12 +409,54 @@ public class TerminalController : MonoBehaviour
 
     IEnumerator InstallingSystem() 
     {
-        for (int i = 1; i < 101; i++)
+        for (int i = 1; i < 101; i += 5)
         {
-            AddContent(new List<string>() { "installing " + i + "%" });
-            yield return new WaitForSeconds(Random.Range(0.1f, 0.3f));
+            AddContent(new List<string>() 
+            {
+                "",
+                "",
+                "",
+                "installing " + i + "%",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            });
+
+            yield return new WaitForSeconds(Random.Range(0.03f, 0.08f));
         }
 
+
+        CleanResponceLines();
+
+        AddContent(new List<string>() { "almoste done..." });
+
+        yield return new WaitForSeconds(3f);
+
         pcController.SetSystemInstall(true);
+    }
+
+    void CleanResponceLines() 
+    {
+        foreach (var res in responceContainer)
+        {
+            Destroy(res);
+        }
+
+        msgList.GetComponent<RectTransform>().sizeDelta = initMsgListSize;
     }
 }

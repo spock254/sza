@@ -309,7 +309,6 @@ public class ToolTipController : MonoBehaviour
         }
 
         //bgRectTransform.sizeDelta = bgSize;
-        Debug.Log(new Vector2(bgSize.x, bgSize.y));
         bgRectTransform.sizeDelta = new Vector2(bgSize.x, bgSize.y);
 
         //bgSize.y = bgSize.y + preferredHeight / 2;
