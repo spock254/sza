@@ -333,7 +333,6 @@ public class TerminalController : MonoBehaviour
         {
             GameObject res = Instantiate(responceLine, msgList.transform);
             responceContainer.Add(res);
-            Debug.Log(responceContainer.Count);
             res.transform.SetAsLastSibling();
 
             Vector2 msgListSize = msgList.GetComponent<RectTransform>().sizeDelta;
@@ -443,7 +442,25 @@ public class TerminalController : MonoBehaviour
 
         CleanResponceLines();
 
-        AddContent(new List<string>() { "almoste done..." });
+        AddContent(new List<string>() { "almoste done...",                
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "" });
 
         yield return new WaitForSeconds(3f);
 
@@ -458,5 +475,6 @@ public class TerminalController : MonoBehaviour
         }
 
         msgList.GetComponent<RectTransform>().sizeDelta = initMsgListSize;
+        responceContainer.Clear();
     }
 }
