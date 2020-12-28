@@ -122,4 +122,16 @@ public class Quest : ScriptableObject
         return dialogue.speaker == speacker && dialogue.isLastPart();
         
     }
+
+    public bool FindGameObjectInSceneState(GameObject pref, string ending) 
+    {
+        GameObject prefInScene = GameObject.Find(pref.name + ending);
+
+        if (prefInScene == null) 
+        {
+            return false;
+        }
+
+        return prefInScene.GetComponent<GameObjectTrigger>().GetIsTriggerd();
+    }
 }

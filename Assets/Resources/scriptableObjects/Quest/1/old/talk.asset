@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335dffd30dacdda4480840c523c6d917, type: 3}
-  m_Name: empty_form
+  m_Name: talk
   m_EditorClassIdentifier: 
-  questEventDescription: get empty space station form
-  questType: 3
+  questEventDescription: talk
+  questType: 5
   questData:
-    necessaryItems:
-    - {fileID: 11400000, guid: e2cfc0bd92a84a446bf6d30d6f3d7c5f, type: 2}
-    arg: 
+    necessaryItems: []
+    arg: phone
+    pref: {fileID: 0}
     rewards: []

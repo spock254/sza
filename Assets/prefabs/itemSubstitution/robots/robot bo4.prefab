@@ -20,6 +20,8 @@ GameObject:
   - component: {fileID: 2261443480622220363}
   - component: {fileID: 4991559075804292905}
   - component: {fileID: 636126675958296622}
+  - component: {fileID: 6779154264717106388}
+  - component: {fileID: 1965094602829752745}
   m_Layer: 0
   m_Name: robot bo4
   m_TagString: substitudeItem
@@ -131,7 +133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c30fb623939d2c4fa2e0a9b7289a444, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateList: 00000000010000000b000000090000000e000000
+  stateList: 00000000010000000b000000090000000e0000000a0000000f000000
 --- !u!114 &1117177328779820343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +193,7 @@ MonoBehaviour:
   - state: 0
     transition: 1
   - state: 1
-    transition: 9
+    transition: 15
   newDialogIndex: 1
   modifyDialog: 1
 --- !u!114 &4991559075804292905
@@ -229,6 +231,34 @@ MonoBehaviour:
   dialog: []
   optionDialog: []
   nextState: 0
+  savedItems: []
+--- !u!114 &6779154264717106388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 934d5d5f2bd178d438299913a00dc9dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1965094602829752745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131623077153338455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9f644c37237664dbb9bf5b855f073f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialog: []
+  optionDialog: []
+  nextState: 9
   savedItems: []
 --- !u!1 &5825296998909200320
 GameObject:

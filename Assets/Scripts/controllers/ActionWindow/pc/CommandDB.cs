@@ -1321,6 +1321,14 @@ namespace commands
                                 {
                                     bo4Go = pcController.peripherals[i];
                                     deviceFound = true;
+
+                                    //FindGameObjectInSceneState fgInScene = bo4Go.GetComponent<FindGameObjectInSceneState>();
+                                    
+                                    //if (fgInScene != null) 
+                                    //{
+                                    //    fgInScene.SetIsChangerd(true);
+                                    //}
+                                    
                                     break;
                                 }
                             }
@@ -1471,7 +1479,7 @@ namespace commands
                     NPC_StateMashine mashine = pcController.peripherals[0].GetComponent<NPC_StateMashine>();
                     mashine.ChangeState<NPC_STATE_stateTransitionModify>();
 
-                    return new List<string>() { "device  upgraded" };
+                    return new List<string>() { "driver installed" };
                 
                 }
             }

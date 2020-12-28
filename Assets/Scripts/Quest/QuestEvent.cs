@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum QuestType { Kill, Combo, Delivery, Gather, Escort, Syntax, Dialogue, Hybrids, Use, Spawn, EndQuest }
+public enum QuestType { Kill, Combo, Delivery, Gather, Escort, Syntax, Dialogue, Hybrids, 
+    Use, Spawn, FindInScene, FindGameObjectInSceneState, EndQuest }
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Data", menuName = "Quest/QuestEvent")]

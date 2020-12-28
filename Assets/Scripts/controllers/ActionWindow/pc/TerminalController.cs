@@ -226,7 +226,6 @@ public class TerminalController : MonoBehaviour
                     " ",
                     " ",
                     " ",
-                    " ",
                     " "
                 });
 
@@ -239,7 +238,7 @@ public class TerminalController : MonoBehaviour
         else
         {
             isInit = false;
-
+            //CleanResponceLines();
         }
 
 
@@ -322,7 +321,9 @@ public class TerminalController : MonoBehaviour
         msgList.GetComponent<RectTransform>().sizeDelta = new Vector2(msgListSize.x, msgListSize.y + 20);
 
         GameObject msg = Instantiate(direcoryLine, msgList.transform);
-        
+
+        responceContainer.Add(msg);
+
         msg.transform.SetSiblingIndex(msgList.transform.childCount - 1);
         msg.GetComponentsInChildren<Text>()[1].text = userInput;
     }
@@ -332,7 +333,9 @@ public class TerminalController : MonoBehaviour
         for (int i = 0; i < interpretation.Count; i++)
         {
             GameObject res = Instantiate(responceLine, msgList.transform);
+            
             responceContainer.Add(res);
+        
             res.transform.SetAsLastSibling();
 
             Vector2 msgListSize = msgList.GetComponent<RectTransform>().sizeDelta;
@@ -442,7 +445,7 @@ public class TerminalController : MonoBehaviour
 
         CleanResponceLines();
 
-        AddContent(new List<string>() { "almoste done...",                
+        AddContent(new List<string>() { "almost done...",                
                 "",
                 "",
                 "",
@@ -469,6 +472,11 @@ public class TerminalController : MonoBehaviour
 
     void CleanResponceLines() 
     {
+        if (responceContainer.Count == 0) 
+        {
+            return;
+        }
+
         foreach (var res in responceContainer)
         {
             Destroy(res);

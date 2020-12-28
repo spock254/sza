@@ -61,7 +61,7 @@ public class QuestSystem : MonoBehaviour
             }
             else if (currentQuestEvent.questType == QuestType.Syntax)
             {
-                
+
                 if (quests.Peek().StartDialog(quests.Peek().GetCurrentQuestDialog(), currentQuestEvent.questData.arg))
                 {
                     quests.Peek().NextDialog();
@@ -96,9 +96,17 @@ public class QuestSystem : MonoBehaviour
                     eventController.OnNextQuestEvent.Invoke();
                 }
             }
-            else if (currentQuestEvent.questType == QuestType.Dialogue) 
-            { 
-                if (quests.Peek().Dialogue(currentQuestEvent.questData.arg)) 
+            else if (currentQuestEvent.questType == QuestType.Dialogue)
+            {
+                if (quests.Peek().Dialogue(currentQuestEvent.questData.arg))
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.FindGameObjectInSceneState) 
+            {
+                if (quests.Peek().FindGameObjectInSceneState(currentQuestEvent.questData.pref, currentQuestEvent.questData.arg)) 
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();
