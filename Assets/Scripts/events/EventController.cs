@@ -30,11 +30,15 @@ public class EventController : MonoBehaviour
     public TerminalEvent OnTerminalOpen;
     [HideInInspector]
     public TerminalEvent OnTerminalClose;
+
     [HideInInspector]
     public CaseCloseEvent OnCaseCloseEvent;
     [HideInInspector]
     public ChangeSpriteEvent OnChangeSpriteEvent;
 
+    [HideInInspector]
+    public AddBuffEvent OnAddBuffEvent;
+    
     [HideInInspector]
     public NewTicEvent OnNewTicEvent;
 
@@ -64,6 +68,7 @@ public class EventController : MonoBehaviour
         OnChangeSpriteEvent = new ChangeSpriteEvent();
 
         OnNewTicEvent = new NewTicEvent();
+        OnAddBuffEvent = new AddBuffEvent();
     }
 
     private void OnEnable()

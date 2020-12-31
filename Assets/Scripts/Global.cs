@@ -189,6 +189,11 @@ public static class Global
 
     public static class UIElement 
     {
+        public static GameObject GetBuffPanel() 
+        {
+            return GameObject.FindGameObjectWithTag("buffPanel");
+        }
+
         public static GameObject GetUI()
         {
             return GameObject.FindGameObjectWithTag("ui");

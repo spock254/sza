@@ -20,6 +20,7 @@ public class Item : ScriptableObject
     public ItemAnimationData itemAnimationData;
     public ItemTimeflowModify itemTimeflowModify;
     public ItemEffect itemEffect;
+    public ItemBuff itemBuff;
     public ItemOptionData itemOptionData;
     public ItemReviewData itemReviewData;
     public ItemSubstitution itemSubstitution;

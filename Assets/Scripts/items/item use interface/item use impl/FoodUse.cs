@@ -24,6 +24,11 @@ public class FoodUse : UseMassage, IUse
     {
         StatModify.AddValue(stats.Hunger, item.stats.value);
         StatModify.ChangeDuration(stats.Hunger, item.stats.duration, item.stats.time);
+
+        if (item.itemBuff.buff != null) 
+        { 
+            item.itemBuff.buff.BuffActivate(item);
+        }
     }
 
     public void Use_To_Drop(Transform prefab, Transform position, Item item)
