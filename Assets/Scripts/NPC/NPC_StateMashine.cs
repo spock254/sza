@@ -21,7 +21,8 @@ public enum StateTypes
     NPC_STATE_spawnItem,
     NPC_STATE_inactive,
     NPC_STATE_setTrigger,    /* меняет свой тригер в GameObjectTrigger на true */
-    NPC_STATE_walkTillReverce
+    NPC_STATE_walkTillReverce,
+    NPC_STATE_spawnEnvObj
 }
 
 public class NPC_StateMashine : MachineBehaviour
