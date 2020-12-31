@@ -20,7 +20,8 @@ public enum StateTypes
     NPC_STATE_tableLuggageCheck,
     NPC_STATE_spawnItem,
     NPC_STATE_inactive,
-    NPC_STATE_setTrigger    /* меняет свой тригер в GameObjectTrigger на true */
+    NPC_STATE_setTrigger,    /* меняет свой тригер в GameObjectTrigger на true */
+    NPC_STATE_walkTillReverce
 }
 
 public class NPC_StateMashine : MachineBehaviour

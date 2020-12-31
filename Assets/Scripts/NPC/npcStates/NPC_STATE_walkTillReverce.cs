@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
+public class NPC_STATE_walkTillReverce : BaseState<NPC_DATA_walkTillReverce>
 {
     Transform point;
     Vector2 diraction;
@@ -11,24 +11,24 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
         base.Enter();
 
         point = data.GetNextPoint();
-        
+
     }
 
     public override void Execute()
     {
-        if (IsDialogOpen() == false) 
-        { 
+        if (IsDialogOpen() == false)
+        {
             if (data.IsLastPoint() && point.position == data.transform.position)
             {
-                machine.ChangeState(data.GetNextStateType(data.nextState));    
+                machine.ChangeState(data.GetNextStateType(data.nextState));
             }
 
-            if (point.position != data.transform.position) 
+            if (point.position != data.transform.position)
             {
                 data.transform.position = Vector3.MoveTowards(data.transform.position,
                                                               point.position,
                                                               data.walkSpeed * Time.deltaTime);
-            
+
                 diraction = data.GetNpcDiraction(point.position, data.transform.position);
 
                 if (data.animationController != null)
@@ -38,11 +38,11 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
                 }
 
             }
-            else 
+            else
             {
                 point = data.GetNextPoint();
             }
-        
+
         }
     }
 
@@ -55,12 +55,4 @@ public class NPC_STATE_walkTill : BaseState<NPC_DATA_walkTill>
             data.animationController.UpdateSprites();
         }
     }
-    //public override void OnAnimatorIK(int layerIndex)
-    //{
-    //    base.OnAnimatorIK(layerIndex);
-
-    //    diraction = GetNpcDiraction();
-
-    //    data.animationController.Play(diraction);
-    //}
 }
