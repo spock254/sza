@@ -171,4 +171,47 @@ public class Quest : ScriptableObject
 
         return true;
     }
+
+    Item eatedItem = null;
+    public bool Eat(List<Item> itemsToEat) 
+    {
+        //Controller controller = Global.Component.GetController();
+        EventController eventController = Global.Component.GetEventController();
+
+        int events = eventController.OnUseOnPlayerEvent.GetPersistentEventCount();
+        bool isListen = false;
+
+        for (int i = 0; i < events; i++)
+        {
+            Debug.Log(eventController.OnUseOnPlayerEvent.GetPersistentMethodName(i));
+            if (eventController.OnUseOnPlayerEvent.GetPersistentMethodName(i) == "IsItemUsedOnPLayer")
+            {
+                isListen = true;
+                break;
+            }
+        }
+
+        if (isListen == false) 
+        {
+           // Debug.Log("EAT addd");
+            eventController.OnUseOnPlayerEvent.AddListener(IsItemUsedOnPLayer);
+        }
+
+        if (eatedItem == null) 
+        {
+            return false;
+        }
+
+        bool result = eatedItem.IsSameItems(itemsToEat[0]);
+        eatedItem = null;
+
+        return result;
+    }
+
+
+    void IsItemUsedOnPLayer(Item item) 
+    {
+        eatedItem = item;
+      //  Debug.Log("EAT");
+    }
 }

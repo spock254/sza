@@ -112,9 +112,17 @@ public class QuestSystem : MonoBehaviour
                     eventController.OnNextQuestEvent.Invoke();
                 }
             }
-            else if (currentQuestEvent.questType == QuestType.ActivateGameObject) 
+            else if (currentQuestEvent.questType == QuestType.ActivateGameObject)
             {
                 if (quests.Peek().ActivateGameObject(currentQuestEvent.questData.pref, currentQuestEvent.questData.arg))
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.Eat) 
+            {
+                if (quests.Peek().Eat(currentQuestEvent.questData.necessaryItems))
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();

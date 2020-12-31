@@ -10,7 +10,6 @@ public class TerminallScralling : MonoBehaviour
     float yPos = 2.6f;
     public void ValueChange(Vector2 pos) 
     {
-        Debug.Log(commandLineContainerRect.position);
         if (pos.y < 0.5f) 
         {
 

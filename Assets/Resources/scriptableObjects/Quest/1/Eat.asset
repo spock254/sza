@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 335dffd30dacdda4480840c523c6d917, type: 3}
-  m_Name: FGOinScene_bo4
+  m_Name: Eat
   m_EditorClassIdentifier: 
-  questEventDescription: "\u0417\u0430\u043F\u0443\u0441\u0442\u0438\u0442\u044C
-    \u0440\u043E\u0431\u043E\u0442\u0430"
-  questType: 12
+  questEventDescription: eat food
+  questType: 9
   questData:
-    necessaryItems: []
-    arg: (Clone)
-    pref: {fileID: 2131623077153338455, guid: b06f27a5637e3fe46b6d7a0d659a9b73, type: 3}
+    necessaryItems:
+    - {fileID: 11400000, guid: 16ad646e852432f47a4f142c9cec8a6d, type: 2}
+    arg: 
+    pref: {fileID: 0}
     pos: {fileID: 0}
     rewards: []

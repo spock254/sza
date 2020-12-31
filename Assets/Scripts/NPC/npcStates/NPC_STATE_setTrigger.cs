@@ -7,7 +7,7 @@ public class NPC_STATE_setTrigger : BaseState<NPC_DATA_setTrigger>
     public override void Enter()
     {
         base.Enter();
-
+        Debug.Log("Set trigger");
         data.gameObject.GetComponent<GameObjectTrigger>().SetIsTriggerd(true);
 
         machine.ChangeState(data.GetNextStateType(data.nextState));

@@ -368,6 +368,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         if (hit.collider.gameObject.tag == "player")
                         {
                             Item item = currentHand.GetComponent<ItemCell>().item;
+                            eventController.OnUseOnPlayerEvent.Invoke(item);
                             item.itemUseData.use.Use_On_Player(statInit.stats, item);
 
                             if (item.isDestroyOnPlayerUse) 
