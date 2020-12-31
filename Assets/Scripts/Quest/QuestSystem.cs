@@ -104,9 +104,17 @@ public class QuestSystem : MonoBehaviour
                     eventController.OnNextQuestEvent.Invoke();
                 }
             }
-            else if (currentQuestEvent.questType == QuestType.FindGameObjectInSceneState) 
+            else if (currentQuestEvent.questType == QuestType.FindGameObjectInSceneState)
             {
-                if (quests.Peek().FindGameObjectInSceneState(currentQuestEvent.questData.pref, currentQuestEvent.questData.arg)) 
+                if (quests.Peek().FindGameObjectInSceneState(currentQuestEvent.questData.pref, currentQuestEvent.questData.arg))
+                {
+                    currentQuestEvent = quests.Peek().NextQuestEvent();
+                    eventController.OnNextQuestEvent.Invoke();
+                }
+            }
+            else if (currentQuestEvent.questType == QuestType.ActivateGameObject) 
+            {
+                if (quests.Peek().ActivateGameObject(currentQuestEvent.questData.pref, currentQuestEvent.questData.arg))
                 {
                     currentQuestEvent = quests.Peek().NextQuestEvent();
                     eventController.OnNextQuestEvent.Invoke();

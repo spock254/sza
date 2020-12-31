@@ -31,6 +31,7 @@ public class BaseState<T> : ByTheTale.StateMachine.State
 
         data = GameObject.Find(npcName).GetComponent<T>();
         info = GameObject.Find(npcName).GetComponent<NPC_Info>();
+
         // увиличить радиус на 20% (не может одстать больше чем 1 тайл радиус)
         playerActionRadius += playerActionRadius / 100 * 20;
     }
@@ -44,13 +45,4 @@ public class BaseState<T> : ByTheTale.StateMachine.State
     {
         return dialogueManager.isOpen;
     }
-    //public T GetData<T>() 
-    //{ 
-    //    return GameObject.Find(npcName).GetComponent<T>();
-    //}
-
-    //NPC_Info GetInfo()
-    //{
-    //    return GameObject.Find(npcName).GetComponent<NPC_Info>();
-    //}
 }

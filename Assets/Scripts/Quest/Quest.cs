@@ -134,4 +134,41 @@ public class Quest : ScriptableObject
 
         return prefInScene.GetComponent<GameObjectTrigger>().GetIsTriggerd();
     }
+
+    /* 
+     * неактивный обьект должен быть дочерним 
+     * пэрэент обьект должен называться тем же именем что и дочерний
+     */
+    public bool ActivateGameObject(GameObject pref, string ending) 
+    {
+        GameObject rootGo = GameObject.Find(pref.name + ending);
+
+        if (rootGo == null) 
+        {
+            return false;
+        }
+
+        Transform[] trs = rootGo.GetComponentsInChildren<Transform>(true);
+        GameObject childGo = null;
+        
+        foreach (var tr in trs)
+        {
+            if (tr.name == pref.name) 
+            {
+                childGo = tr.gameObject;
+            }
+        }
+
+        //GameObject prefInScene = GameObject.Find(pref.name + ending);
+
+        //Debug.Log(prefInScene);
+        if (childGo == null)
+        {
+            return false;
+        }
+
+        childGo.SetActive(true);
+
+        return true;
+    }
 }

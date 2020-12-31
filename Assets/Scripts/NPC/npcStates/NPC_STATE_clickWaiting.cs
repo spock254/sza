@@ -7,7 +7,7 @@ public class NPC_STATE_clickWaiting : BaseState<NPC_DATA_clickWaiting>
     public override void Enter()
     {
         base.Enter();
-
+        if (data == null) Debug.Log("DATA = NULL");
         if (data.animationController != null) 
         { 
             data.animationController.ChangeAllSprites();

@@ -20,6 +20,7 @@ public class QuestData
     [Header("option event data")]
     public string arg;
     public GameObject pref;
+    public Transform pos;
     [Header("Rewards")]
     [SerializeReference]
     public List<Item> rewards;
