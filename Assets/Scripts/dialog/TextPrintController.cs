@@ -13,6 +13,7 @@ public class TextPrintController
     string[] timingKeys = new string[]
     {
                 "[0.1]",
+                "[0.15]",
                 "[0.2]",
                 "[0.3]",
                 "[0.4]",
@@ -21,7 +22,7 @@ public class TextPrintController
                 "[0.7]",
                 "[0.8]",
                 "[0.9]",
-    };
+    };  /*   TODO    */
 
     public delegate IEnumerator Print(string text, float timer);
 

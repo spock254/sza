@@ -59,7 +59,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public List<Button> cellList = new List<Button>();
 
     public GameObject bag_panel;
-    
+
     public bool isBagOpen = false;
     public bool isBagOpenWithTab = false;
 
@@ -545,6 +545,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             }
         }
 
+        //weightBagText.gameObject.SetActive(true);
         Debug.Log(bag.CountInnerCapacity() +" / " + bag.capacity);
     }
 
