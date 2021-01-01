@@ -8,4 +8,9 @@ public class FoodBuff : IBuff
     {
         Debug.Log("Food buff");
     }
+
+    public void Debuff()
+    {
+        Debug.Log("Food debuff");
+    }
 }

@@ -38,7 +38,9 @@ public class EventController : MonoBehaviour
 
     [HideInInspector]
     public AddBuffEvent OnAddBuffEvent;
-    
+    [HideInInspector]
+    public RemoveBuffEvent OnRemoveBuffEvent;
+
     [HideInInspector]
     public NewTicEvent OnNewTicEvent;
 
@@ -69,6 +71,7 @@ public class EventController : MonoBehaviour
 
         OnNewTicEvent = new NewTicEvent();
         OnAddBuffEvent = new AddBuffEvent();
+        OnRemoveBuffEvent = new RemoveBuffEvent();
     }
 
     private void OnEnable()

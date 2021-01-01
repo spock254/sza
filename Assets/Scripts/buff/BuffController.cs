@@ -26,13 +26,20 @@ public class BuffController : MonoBehaviour
     void Start()
     {
         eventController.OnAddBuffEvent.AddListener(AddBuff);
-        
+        eventController.OnRemoveBuffEvent.AddListener(RemoveBuff);
     }
 
     void AddBuff(Item item) 
     {
         //find if buff exist
-        
+        foreach (var cell in buffCells)
+        {
+            if (cell.GetComponent<BuffCell>().buffType == item.itemBuff.buff.buffType) 
+            {
+                return;
+            }
+        }
+
         //if not exist
         GameObject freeCell = FindFreeBuffCell();
 
@@ -44,6 +51,18 @@ public class BuffController : MonoBehaviour
         
         freeCell.SetActive(true);
         freeCell.GetComponent<Image>().sprite = item.itemBuff.buff.buffSprite;
+        freeCell.GetComponent<BuffCell>().buffType = item.itemBuff.buff.buffType;
+        
+        StartCoroutine(BuffLifeTime(freeCell, item));
+    }
+
+    void RemoveBuff(GameObject cell, Item item) 
+    {
+        item.itemBuff.buff.BuffDiactivate();
+
+        cell.GetComponent<Image>().sprite = null;
+        cell.SetActive(false);
+        cell.GetComponent<BuffCell>().buffType = Buff.BuffType.None;
     }
 
     GameObject FindFreeBuffCell() 
@@ -61,5 +80,10 @@ public class BuffController : MonoBehaviour
         return cellToreturn;
     }
 
-    //IEnumerator 
+    IEnumerator BuffLifeTime(GameObject cell, Item item) 
+    {
+        yield return new WaitForSeconds(item.itemBuff.buffTime);
+
+        eventController.OnRemoveBuffEvent.Invoke(cell, item);
+    }
 }
