@@ -34,26 +34,33 @@ public class BuffController : MonoBehaviour
         //find if buff exist
         foreach (var cell in buffCells)
         {
-            if (cell.GetComponent<BuffCell>().buffType == item.itemBuff.buff.buffType) 
+            BuffCell activeBuffCell = cell.GetComponent<BuffCell>();
+            
+            if (activeBuffCell.buffType == item.itemBuff.buff.buffType) 
             {
+                activeBuffCell.RefreshBuff(cell, item);
+
                 return;
             }
         }
 
         //if not exist
         GameObject freeCell = FindFreeBuffCell();
-
+        BuffCell buffCell = null;
         // когда все ячейки для баффа заняты
         if (freeCell == null) 
         {
             return;
         }
+
+        buffCell = freeCell.GetComponent<BuffCell>();
         
         freeCell.SetActive(true);
         freeCell.GetComponent<Image>().sprite = item.itemBuff.buff.buffSprite;
-        freeCell.GetComponent<BuffCell>().buffType = item.itemBuff.buff.buffType;
-        
-        StartCoroutine(BuffLifeTime(freeCell, item));
+        buffCell.buffType = item.itemBuff.buff.buffType;
+
+        buffCell.InitBuff(freeCell, item);
+        //StartCoroutine(buffCell.BuffLifeTime(freeCell, item));
     }
 
     void RemoveBuff(GameObject cell, Item item) 
@@ -80,10 +87,18 @@ public class BuffController : MonoBehaviour
         return cellToreturn;
     }
 
-    IEnumerator BuffLifeTime(GameObject cell, Item item) 
+    public bool IsBuffExist(Item item) 
     {
-        yield return new WaitForSeconds(item.itemBuff.buffTime);
+        foreach (var cell in buffCells)
+        {
+            BuffCell activeBuffCell = cell.GetComponent<BuffCell>();
+            
+            if (activeBuffCell.buffType == item.itemBuff.buff.buffType)
+            {
+                return true;
+            }
+        }
 
-        eventController.OnRemoveBuffEvent.Invoke(cell, item);
+        return false;
     }
 }

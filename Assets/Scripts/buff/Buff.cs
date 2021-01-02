@@ -13,6 +13,7 @@ public class Buff : ScriptableObject
     public BuffType buffType = BuffType.None;
 
     EventController eventController = null;
+    BuffController buffController = null;
     public void BuffActivate(Item item) 
     {
         if (eventController == null) 
@@ -20,9 +21,17 @@ public class Buff : ScriptableObject
             eventController = Global.Component.GetEventController();
         }
 
-        Type type = Type.GetType(buffType.ToString());
-        IBuff buff = (IBuff) Activator.CreateInstance(type);
-        buff.Buff();
+        if (buffController == null) 
+        {
+            buffController = Global.Component.GetBuffController();
+        }
+
+        if (buffController.IsBuffExist(item) == false) 
+        { 
+            Type type = Type.GetType(buffType.ToString());
+            IBuff buff = (IBuff) Activator.CreateInstance(type);
+            buff.Buff();
+        }
 
         eventController.OnAddBuffEvent.Invoke(item);
     }

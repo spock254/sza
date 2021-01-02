@@ -185,6 +185,10 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("screenLoader").GetComponent<ProgressSceneLoader>();
         }
+        public static BuffController GetBuffController() 
+        {
+            return GameObject.FindGameObjectWithTag("ui").GetComponent<BuffController>();
+        }
     }
 
     public static class UIElement 
