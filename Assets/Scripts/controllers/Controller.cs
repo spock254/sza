@@ -365,7 +365,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             return; // приоритет что бы не взять айтем и не положить его потом на стол если он был уже на столе
                         }
 
-                        if (hit.collider.gameObject.tag == "player")
+                        if (hit.collider.gameObject.tag == "playerAction")
                         {
                             Item item = currentHand.GetComponent<ItemCell>().item;
                             eventController.OnUseOnPlayerEvent.Invoke(item);

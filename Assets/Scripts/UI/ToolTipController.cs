@@ -45,6 +45,9 @@ public class ToolTipController : MonoBehaviour
     [SerializeField]
     Text descriptionText = null;
 
+    [SerializeField]
+    Canvas playerTooltip = null;
+
     Vector2 pos = Vector2.zero;
 
     GameObject staticItemPanel = null;
@@ -78,7 +81,7 @@ public class ToolTipController : MonoBehaviour
         UpdateItemDescriptionPosition();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (IsInActionRadius() == true)
         {
@@ -120,7 +123,7 @@ public class ToolTipController : MonoBehaviour
 
                     isdetected = true;
                     tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
-                    
+
                     if (IsCurrentHandEmpty() && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == false)
                     {
                         ShowToolTip((tableController.tableName == string.Empty) ? "table" : tableController.tableName,
@@ -233,7 +236,7 @@ public class ToolTipController : MonoBehaviour
                     return;
 
                 }
-                else if (hit.collider.tag == "pc") 
+                else if (hit.collider.tag == "pc")
                 {
                     Item itemInHand = controller.currentHand.GetComponent<ItemCell>().item;
                     PCController pcController = hit.collider.GetComponent<PCController>();
@@ -246,20 +249,38 @@ public class ToolTipController : MonoBehaviour
                     {
                         ShowToolTip("pc", Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_PULL_THE_DISK);
                     }
-                    else 
-                    { 
-                        ShowToolTip("pc", (controller.IsEmpty(controller.currentHand) == false 
+                    else
+                    {
+                        ShowToolTip("pc", (controller.IsEmpty(controller.currentHand) == false
                                             && itemInHand.itemName.Contains("disk"))
                                 ? Global.Tooltip.LM_INTERACT + " / " + Global.Tooltip.RM_INSERT : Global.Tooltip.LM_INTERACT);
                     }
 
                     TooltipLocate(hit.collider.transform.position);
                 }
+                else if (hit.collider.tag == "playerAction") 
+                {
+                    if (controller.IsEmpty(controller.currentHand) == false
+                        && controller.GetItemInHand(controller.currentHand).itemBuff.buff != null)
+                    {
+                        playerTooltip.gameObject.SetActive(true);
+                    }
+                    else 
+                    {
+                        playerTooltip.gameObject.SetActive(false);
+                    }
+
+                    return;
+                }
                 else
                 {
                     isdetected = false;
                 }
+                
+                //playerTooltip.gameObject.SetActive(hit.collider.tag == "player");
             }
+
+            playerTooltip.gameObject.SetActive(false);
 
             if (isTooltipOpen == true && isdetected == false)
             {
