@@ -4,24 +4,48 @@ using UnityEngine;
 
 public class PlayerRenderOrder : MonoBehaviour
 {
-    const int ORDER_IN_LAYER_VALUE = 10;
+    [SerializeField]
+    int newPlayerOrder = 0;
+    int originPlayerOrder = 0;
     
+    [SerializeField]
+    string[] contactTriggers = null;
+
     [SerializeField]
     SpriteRenderer baseLayer = null;
 
+    void Start()
+    {
+        originPlayerOrder = baseLayer.sortingOrder;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "NPC") 
+        if (IsContain(contactTriggers, collision.tag)) 
         {
-            baseLayer.sortingOrder += ORDER_IN_LAYER_VALUE;        
+            //baseLayer.sortingOrder += ADITIONAL_ORDER_IN_LAYER;        
+            baseLayer.sortingOrder = newPlayerOrder;        
         }    
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "NPC")
+        if (IsContain(contactTriggers, collision.tag))
         {
-            baseLayer.sortingOrder -= ORDER_IN_LAYER_VALUE;
+            baseLayer.sortingOrder = originPlayerOrder;
         }
+    }
+
+    bool IsContain(string[] arr, string tag) 
+    {
+        foreach (var item in arr)
+        {
+            if (item == tag) 
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
