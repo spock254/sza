@@ -9,6 +9,9 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     Controller controller = null;
 
     [SerializeField]
+    string name = string.Empty;
+
+    [SerializeField]
     Item resultItem = null;
 
     [SerializeField]
@@ -72,5 +75,15 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
         //prefClone.GetComponent<ItemCell>().item.itemBuff.buff = item.itemBuff.buff;
         prefClone.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
         prefClone.name += Global.DROPED_ITEM_PREFIX;
+    }
+
+    public Item GetNeedItem() 
+    {
+        return needItem;
+    }
+
+    public string GetISwitchName()
+    {
+        return name;
     }
 }

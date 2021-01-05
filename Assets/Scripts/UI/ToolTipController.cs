@@ -258,25 +258,35 @@ public class ToolTipController : MonoBehaviour
 
                     TooltipLocate(hit.collider.transform.position);
                 }
-                else if (hit.collider.tag == "playerAction") 
+                else if (hit.collider.tag == "playerAction")
                 {
                     if (controller.IsEmpty(controller.currentHand) == false
                         && controller.GetItemInHand(controller.currentHand).itemBuff.buff != null)
                     {
                         playerTooltip.gameObject.SetActive(true);
                     }
-                    else 
+                    else
                     {
                         playerTooltip.gameObject.SetActive(false);
                     }
 
                     return;
                 }
+                else if (hit.collider.gameObject.name.Contains(Global.ITEM_SWITCH_PREFIX)) 
+                {
+                    isdetected = true;
+                    ISwitchItem switchItem = hit.collider.GetComponent<ISwitchItem>();
+                    Item itemInHand = controller.GetItemInHand(controller.currentHand);
+
+                    ShowToolTip(switchItem.GetISwitchName(), (itemInHand.IsSameItems(switchItem.GetNeedItem()) ? 
+                                        Global.Tooltip.RM_INSERT : PrintRed(Global.Tooltip.NO_ACTIONS)));
+                    TooltipLocate(hit.collider.transform.position);
+                }
                 else
                 {
                     isdetected = false;
                 }
-                
+
                 //playerTooltip.gameObject.SetActive(hit.collider.tag == "player");
             }
 
