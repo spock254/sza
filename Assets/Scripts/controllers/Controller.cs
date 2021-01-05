@@ -301,9 +301,11 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 
                     if (hit.collider.gameObject.name.Contains(Global.ITEM_SWITCH_PREFIX)) 
                     {
-                        ItemSwitchController itemSwitchController = hit.collider.GetComponent<ItemSwitchController>();
+                        ISwitchItem switchItem = hit.collider.GetComponent<ISwitchItem>();
+                        switchItem.SwitchItem(GetItemInHand(currentHand), currentHand);
+                        //ItemSwitchController itemSwitchController = hit.collider.GetComponent<ItemSwitchController>();
 
-                        itemSwitchController.SwitchItem(GetItemInHand(currentHand), currentHand);
+                        //itemSwitchController.SwitchItem(GetItemInHand(currentHand), currentHand);
                     }
 
                     /*                  */
