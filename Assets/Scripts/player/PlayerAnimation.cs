@@ -40,6 +40,9 @@ public class PlayerAnimation : MonoBehaviour
 
     Dictionary<SpritePart, Sprite[]> spritesDict = new Dictionary<SpritePart, Sprite[]>();
     Dictionary<SpritePart, GameObject> partsGo = new Dictionary<SpritePart, GameObject>();
+
+    Dictionary<Vector2, string> playerAnims = new Dictionary<Vector2, string>();
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -78,7 +81,14 @@ public class PlayerAnimation : MonoBehaviour
         spritesDict.Add(SpritePart.lags, null);
         spritesDict.Add(SpritePart.face, null);
 
-
+        playerAnims.Add(new Vector2(-1, 0), "walk_left");
+        playerAnims.Add(new Vector2(1, 0), "walk_right");
+        playerAnims.Add(new Vector2(0, 1), "walk_up");
+        playerAnims.Add(new Vector2(0, -1), "walk_down");
+        playerAnims.Add(new Vector2(1, -1), "diagonal_left");
+        playerAnims.Add(new Vector2(-1, -1), "diagonal_right");
+        playerAnims.Add(new Vector2(1, 1), "diagonal_up_right");
+        playerAnims.Add(new Vector2(-1, 1), "diagonal_up_left");
         //UpdateSprites();
     }
 
@@ -101,22 +111,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (movement.IsPlayerMoving() == true)
         {
-            if (movement.input.x > 0)
-            {
-                anim.Play("walk_right");
-            }
-            else if (movement.input.x < 0)
-            {
-                anim.Play("walk_left");
-            }
-            else if (movement.input.y > 0)
-            {
-                anim.Play("walk_up");
-            }
-            else
-            {
-                anim.Play("walk_down");
-            }
+            anim.Play(playerAnims[movement.input]);
         }
         else 
         {
