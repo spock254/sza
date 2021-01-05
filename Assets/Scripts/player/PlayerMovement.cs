@@ -44,11 +44,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             Vector3 direction = input.normalized;
-            //Debug.Log(direction + " : " + input);
-            //SetSprite(direction);
-
             Vector3 movement = direction * speed * Time.fixedDeltaTime;
-
             rigidBody.MovePosition(transform.position + movement);
         
         }
@@ -63,31 +59,4 @@ public class PlayerMovement : MonoBehaviour
     {
         return isMoving;
     }
-    //void SetSprite(Vector2 dir) 
-    //{
-    //    if (dir.x > 0)
-    //    {
-    //        skin.sprite = right_skin;
-    //        hair.sprite = right_hair;
-    //        skin_base.sprite = right_skin_base;
-    //    }
-    //    else if (dir.x < 0)
-    //    {
-    //        skin.sprite = left_skin;
-    //        hair.sprite = left_hair;
-    //        skin_base.sprite = left_skin_base;
-    //    }
-    //    else if (dir.y > 0)
-    //    {
-    //        skin.sprite = up_skin;
-    //        hair.sprite = up_hair;
-    //        skin_base.sprite = up_skin_base;
-    //    }
-    //    else if(dir.y < 0)
-    //    {
-    //        skin.sprite = down_skin;
-    //        hair.sprite = down_hair;
-    //        skin_base.sprite = down_skin_base;
-    //    }
-    //}
 }
