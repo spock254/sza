@@ -15,8 +15,18 @@ public class BuffCell : MonoBehaviour
     IEnumerator BuffLifeTime(GameObject cell, Item item)
     {
         isBuffAvtive = true;
-        
-        yield return new WaitForSeconds(item.itemBuff.buffTime);
+
+        if (item.itemBuff.buffTime < 0)
+        {
+            while (isBuffAvtive == true) 
+            {
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        else 
+        { 
+            yield return new WaitForSeconds(item.itemBuff.buffTime);
+        }
 
         eventController.OnRemoveBuffEvent.Invoke(cell, item);
         
@@ -37,5 +47,10 @@ public class BuffCell : MonoBehaviour
     public bool IsBuffActive() 
     {
         return isBuffAvtive;
+    }
+
+    public void SetBuffActive(bool isActive) 
+    {
+        this.isBuffAvtive = isActive;
     }
 }

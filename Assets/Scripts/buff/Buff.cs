@@ -7,10 +7,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "Buff/Buff")]
 public class Buff : ScriptableObject
 {
-    public enum BuffType { FoodBuff, None }
+    public enum BuffType { FoodBuff, WalkSpeedDebuff, None }
+    public enum BuffMode { BUFF, DEBUFF }
 
     public Sprite buffSprite;
+    public BuffMode buffMode = BuffMode.BUFF;
     public BuffType buffType = BuffType.None;
+    public Buff debuffToRemove = null;
 
     EventController eventController = null;
     BuffController buffController = null;

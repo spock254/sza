@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class BuffController : MonoBehaviour
 {
-    List<Image> buffImages = new List<Image>();
+    //List<Image> buffImages = new List<Image>();
     List<GameObject> buffCells = new List<GameObject>();
+    List<GameObject> debuffCells = new List<GameObject>();
 
     EventController eventController;
     void Awake()
@@ -14,13 +15,18 @@ public class BuffController : MonoBehaviour
         eventController = Global.Component.GetEventController();
 
         GameObject buffPanelGo = Global.UIElement.GetBuffPanel();
+        GameObject debuffPanelGo = Global.UIElement.GetDeBuffPanel();
 
         foreach (Transform tr in buffPanelGo.transform)
         {
-            buffImages.Add(tr.gameObject.GetComponent<Image>());
+            //buffImages.Add(tr.gameObject.GetComponent<Image>());
             buffCells.Add(tr.gameObject);
         }
 
+        foreach (Transform tr in debuffPanelGo.transform)
+        {
+            debuffCells.Add(tr.gameObject);
+        }
     }
 
     void Start()
@@ -31,8 +37,32 @@ public class BuffController : MonoBehaviour
 
     void AddBuff(Item item) 
     {
+        List<GameObject> buffs = (item.itemBuff.buff.buffMode == Buff.BuffMode.BUFF) ? buffCells : debuffCells;
+
+        // remove debuff if  buff contains list 
+        if (item.itemBuff.buff.buffMode == Buff.BuffMode.BUFF) 
+        {
+            Buff debuffToRemove = item.itemBuff.buff.debuffToRemove;
+
+            if (debuffToRemove != null) 
+            {
+                foreach (var cell in debuffCells)
+                {
+                    BuffCell activeBuffCell = cell.GetComponent<BuffCell>();
+                    
+                    if (activeBuffCell.buffType == debuffToRemove.buffType) 
+                    {
+
+                        Debug.Log("QQQQ");
+                        RemoveBuff(cell, debuffToRemove);
+                        return;
+                    }
+                }
+            }
+        }
+        
         //find if buff exist
-        foreach (var cell in buffCells)
+        foreach (var cell in buffs)
         {
             BuffCell activeBuffCell = cell.GetComponent<BuffCell>();
             
@@ -45,7 +75,7 @@ public class BuffController : MonoBehaviour
         }
 
         //if not exist
-        GameObject freeCell = FindFreeBuffCell();
+        GameObject freeCell = FindFreeBuffCell(buffs);
         BuffCell buffCell = null;
         // когда все ячейки для баффа заняты
         if (freeCell == null) 
@@ -70,13 +100,24 @@ public class BuffController : MonoBehaviour
         cell.GetComponent<Image>().sprite = null;
         cell.SetActive(false);
         cell.GetComponent<BuffCell>().buffType = Buff.BuffType.None;
+        cell.GetComponent<BuffCell>().SetBuffActive(false);
     }
 
-    GameObject FindFreeBuffCell() 
+    void RemoveBuff(GameObject cell, Buff buff) 
+    {
+        buff.BuffDiactivate();
+
+        cell.GetComponent<Image>().sprite = null;
+        cell.SetActive(false);
+        cell.GetComponent<BuffCell>().buffType = Buff.BuffType.None;
+        cell.GetComponent<BuffCell>().SetBuffActive(false);
+    }
+
+    GameObject FindFreeBuffCell(List<GameObject> cells) 
     {
         GameObject cellToreturn = null;
 
-        foreach (var cell in buffCells)
+        foreach (var cell in cells)
         {
             if (cell.activeInHierarchy == false) 
             {

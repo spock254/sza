@@ -197,6 +197,10 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("buffPanel");
         }
+        public static GameObject GetDeBuffPanel()
+        {
+            return GameObject.FindGameObjectWithTag("debuffPanel");
+        }
 
         public static GameObject GetUI()
         {
