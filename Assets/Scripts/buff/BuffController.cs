@@ -40,20 +40,67 @@ public class BuffController : MonoBehaviour
         List<GameObject> buffs = (item.itemBuff.buff.buffMode == Buff.BuffMode.BUFF) ? buffCells : debuffCells;
 
         // remove debuff if  buff contains list 
-        if (item.itemBuff.buff.buffMode == Buff.BuffMode.BUFF) 
+        if (item.itemBuff.buff.buffMode == Buff.BuffMode.BUFF)
         {
             Buff debuffToRemove = item.itemBuff.buff.debuffToRemove;
 
-            if (debuffToRemove != null) 
+            if (debuffToRemove != null)
             {
                 foreach (var cell in debuffCells)
                 {
                     BuffCell activeBuffCell = cell.GetComponent<BuffCell>();
-                    
-                    if (activeBuffCell.buffType == debuffToRemove.buffType) 
+
+                    if (activeBuffCell.buffType == debuffToRemove.buffType)
                     {
-                        RemoveBuff(cell, debuffToRemove);
-                        return;
+                        if (IsBuffExist(item) == false)
+                        {
+                            if (item.itemBuff.buffTime > Global.Buff.CONSTANT_BUFF_TIME)
+                            {
+                                RemoveBuff(cell, debuffToRemove);
+                                return;
+                            }
+                            else // если шмотка  
+                            {
+                                item.itemBuff.buff.BuffDiactivate();
+                            }
+                        }
+                        else
+                        {
+                            if (item.itemBuff.buffTime > Global.Buff.CONSTANT_BUFF_TIME)
+                            {
+                                RemoveBuff(cell, debuffToRemove);
+                                item.itemBuff.buff.BuffDirty(item);
+
+
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+        else if (item.itemBuff.buff.buffMode == Buff.BuffMode.DEBUFF) 
+        {
+            Buff buffToRemove = item.itemBuff.buff.debuffToRemove;
+
+            if (buffToRemove != null)
+            {
+                foreach (var cell in buffCells)
+                {
+                    BuffCell activeBuffCell = cell.GetComponent<BuffCell>();
+
+                    if (activeBuffCell.buffType == buffToRemove.buffType)
+                    {
+                        if (activeBuffCell.GetBuffTimeLeft() != float.MaxValue)
+                        {
+                            RemoveBuff(cell, buffToRemove);
+                            return;
+                        }
+                        else 
+                        {
+                            //RemoveBuff(cell, buffToRemove);
+                            item.itemBuff.buff.DeBuffDirty(item);
+                        }
                     }
                 }
             }
@@ -67,7 +114,7 @@ public class BuffController : MonoBehaviour
             if (activeBuffCell.buffType == item.itemBuff.buff.buffType) 
             {
                 if (activeBuffCell.GetBuffTimeLeft() < item.itemBuff.buffTime 
-                    || item.itemBuff.buffTime <= Global.CONSTANT_BUFF_TIME) 
+                    || item.itemBuff.buffTime <= Global.Buff.CONSTANT_BUFF_TIME) 
                 { 
                     activeBuffCell.RefreshBuff(cell, item);
                 }

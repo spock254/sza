@@ -9,7 +9,7 @@ public class WalkSpeedDebuff : IBuff
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
-        playerOriginMovement = playerMovement.speed;
+        playerOriginMovement = Global.Buff.Player.SPEED;
         playerMovement.speed = 1f;
     }
 

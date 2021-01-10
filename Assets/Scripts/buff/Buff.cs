@@ -39,6 +39,41 @@ public class Buff : ScriptableObject
         eventController.OnAddBuffEvent.Invoke(item);
     }
 
+    // игнорировать если айтем существует
+    public void BuffDirty(Item item) 
+    {
+        if (eventController == null)
+        {
+            eventController = Global.Component.GetEventController();
+        }
+
+        if (buffController == null)
+        {
+            buffController = Global.Component.GetBuffController();
+        }
+
+        Type type = Type.GetType(buffType.ToString());
+        IBuff buff = (IBuff)Activator.CreateInstance(type);
+        buff.Buff();
+    }
+
+    public void DeBuffDirty(Item item)
+    {
+        if (eventController == null)
+        {
+            eventController = Global.Component.GetEventController();
+        }
+
+        if (buffController == null)
+        {
+            buffController = Global.Component.GetBuffController();
+        }
+
+        Type type = Type.GetType(buffType.ToString());
+        IBuff buff = (IBuff)Activator.CreateInstance(type);
+        buff.Debuff();
+    }
+
     public void BuffDiactivate() 
     {
         //if (eventController == null)

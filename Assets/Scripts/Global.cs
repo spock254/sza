@@ -11,7 +11,15 @@ public static class Global
     public const string UNPICKABLE_ITEM = "unpick_";
     public const string MONEY_SIGN = "$";
     public const string ITEM_SWITCH_PREFIX = "iswitch_";
-    public const float CONSTANT_BUFF_TIME = -1;
+
+    public static class Buff 
+    {
+        public const float CONSTANT_BUFF_TIME = -1;
+        public static class Player 
+        {
+            public const float SPEED = 1.2f;
+        }
+    }
 
     public static class Timeflow
     {

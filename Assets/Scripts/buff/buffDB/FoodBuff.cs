@@ -9,7 +9,7 @@ public class FoodBuff : IBuff
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
-        playerOriginMovement = playerMovement.speed;
+        playerOriginMovement = Global.Buff.Player.SPEED;
         playerMovement.speed = 1.6f;
     }
 
