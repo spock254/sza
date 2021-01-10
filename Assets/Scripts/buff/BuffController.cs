@@ -99,7 +99,7 @@ public class BuffController : MonoBehaviour
                         else 
                         {
                             //RemoveBuff(cell, buffToRemove);
-                            item.itemBuff.buff.DeBuffDirty(item);
+                            item.itemBuff.buff.DeBuffDirty(item, null);
                         }
                     }
                 }
@@ -148,7 +148,7 @@ public class BuffController : MonoBehaviour
 
         cell.GetComponent<Image>().sprite = null;
         cell.SetActive(false);
-        cell.GetComponent<BuffCell>().buffType = Buff.BuffType.None;
+        cell.GetComponent<BuffCell>().buffType = BuffType.None;
         cell.GetComponent<BuffCell>().SetBuffActive(false);
     }
 
@@ -158,7 +158,7 @@ public class BuffController : MonoBehaviour
 
         cell.GetComponent<Image>().sprite = null;
         cell.SetActive(false);
-        cell.GetComponent<BuffCell>().buffType = Buff.BuffType.None;
+        cell.GetComponent<BuffCell>().buffType = BuffType.None;
         cell.GetComponent<BuffCell>().SetBuffActive(false);
     }
 

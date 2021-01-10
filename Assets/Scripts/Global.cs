@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,6 +16,13 @@ public static class Global
     public static class Buff 
     {
         public const float CONSTANT_BUFF_TIME = -1;
+
+        public static IBuff GetIBuffByType(BuffType buffType) 
+        {
+            Type type = Type.GetType(buffType.ToString());
+            return (IBuff)Activator.CreateInstance(type);
+        }
+
         public static class Player 
         {
             public const float SPEED = 1.2f;

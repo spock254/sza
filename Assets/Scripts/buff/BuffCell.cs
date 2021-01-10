@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuffCell : MonoBehaviour
 {
-    public Buff.BuffType buffType = Buff.BuffType.None;
+    public BuffType buffType = BuffType.None;
     EventController eventController = null;
     bool isBuffAvtive = false;
     float buffTimeLeft = float.MaxValue;

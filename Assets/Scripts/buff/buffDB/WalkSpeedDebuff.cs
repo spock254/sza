@@ -13,9 +13,14 @@ public class WalkSpeedDebuff : IBuff
         playerMovement.speed = 1f;
     }
 
-    public void Debuff()
+    public void Debuff(IBuff buff)
     {
         playerMovement.speed = playerOriginMovement;
+
+        if (buff != null) 
+        {
+            buff.Buff();
+        }
 
         Debug.Log(playerMovement.speed);
     }

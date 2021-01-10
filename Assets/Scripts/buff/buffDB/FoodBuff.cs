@@ -13,9 +13,14 @@ public class FoodBuff : IBuff
         playerMovement.speed = 1.6f;
     }
 
-    public void Debuff()
+    public void Debuff(IBuff buff)
     {
         playerMovement.speed = playerOriginMovement;
+
+        if (buff != null) 
+        {
+            buff.Buff();
+        }
 
         Debug.Log(playerMovement.speed);
     }
