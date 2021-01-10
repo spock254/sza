@@ -86,8 +86,8 @@ public class PlayerAnimation : MonoBehaviour
         playerMoveAnims.Add(new Vector2(1, 0), "walk_right");
         playerMoveAnims.Add(new Vector2(0, 1), "walk_up");
         playerMoveAnims.Add(new Vector2(0, -1), "walk_down");
-        playerMoveAnims.Add(new Vector2(1, -1), "diagonal_left");
-        playerMoveAnims.Add(new Vector2(-1, -1), "diagonal_right");
+        playerMoveAnims.Add(new Vector2(-1, -1), "diagonal_left");
+        playerMoveAnims.Add(new Vector2(1, -1), "diagonal_right");
         playerMoveAnims.Add(new Vector2(1, 1), "diagonal_up_right");
         playerMoveAnims.Add(new Vector2(-1, 1), "diagonal_up_left");
         //UpdateSprites();

@@ -16,6 +16,11 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 turn = Vector3.zero;
     bool isMoving = false;
+    
+    //const float DIAGONAL_TIMEOUT = 0.5f;
+    //float current2BtnsPress = 0f;
+    //bool twoButtonsPressed = false;
+    //Vector2 prevDiagonPos = Vector2.zero;
 
     void Awake()
     {
@@ -30,18 +35,41 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!actionWindow.isOpen && !dialogWindow.isOpen) 
+        if (!actionWindow.isOpen && !dialogWindow.isOpen)
         {
 
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
-            
+
+            //if (input.x != 0 && input.y != 0)
+            //{
+            //    //twoButtonsPressed = true;
+            //    current2BtnsPress = 0;
+            //    prevDiagonPos = new Vector2(input.x, input.y);
+            //}
+            //else 
+            //{
+            //    current2BtnsPress += Time.deltaTime;
+            //    //twoButtonsPressed = false;
+            //}
+
             isMoving = (input != Vector3.zero);
 
-            if (input != Vector3.zero) 
+            if (isMoving == true)
             {
                 turn = input;
             }
+            //else 
+            //{
+            //    //if (DIAGONAL_TIMEOUT <= current2BtnsPress)
+            //    //{
+            //    //    turn = prevDiagonPos;
+            //    //}
+            //    //else 
+            //    //{
+            //    //    prevDiagonPos = Vector2.zero;
+            //    //}
+            //}
 
             Vector3 direction = input.normalized;
             Vector3 movement = direction * speed * Time.fixedDeltaTime;
