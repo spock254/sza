@@ -66,7 +66,11 @@ public class BuffController : MonoBehaviour
             
             if (activeBuffCell.buffType == item.itemBuff.buff.buffType) 
             {
-                activeBuffCell.RefreshBuff(cell, item);
+                if (activeBuffCell.GetBuffTimeLeft() < item.itemBuff.buffTime 
+                    || item.itemBuff.buffTime <= Global.CONSTANT_BUFF_TIME) 
+                { 
+                    activeBuffCell.RefreshBuff(cell, item);
+                }
 
                 return;
             }
