@@ -52,8 +52,6 @@ public class BuffController : MonoBehaviour
                     
                     if (activeBuffCell.buffType == debuffToRemove.buffType) 
                     {
-
-                        Debug.Log("QQQQ");
                         RemoveBuff(cell, debuffToRemove);
                         return;
                     }
@@ -141,5 +139,52 @@ public class BuffController : MonoBehaviour
         }
 
         return false;
+    }
+
+    public BuffCell TryGetBuffCell(Item item)
+    {
+
+        foreach (var cell in buffCells)
+        {
+            BuffCell currentCell = cell.GetComponent<BuffCell>();
+
+            if (currentCell.buffType == item.itemBuff.buff.buffType)
+            {
+                return currentCell;
+            }
+        }
+
+        return null;
+    }
+
+    public void ActivateBuff(Item item) 
+    {
+        if (item.itemBuff.buff != null)
+        {
+
+            BuffCell buffCell = TryGetBuffCell(item);
+
+            if (buffCell != null)
+            {
+                buffCell.SetBuffActive(false);
+            }
+
+            item.itemBuff.buff.BuffActivate(item);
+        }
+    }
+
+    public void DiactivateBuff(Item item) 
+    {
+        if (item.itemBuff.buff != null)
+        {
+            BuffCell buffCell = TryGetBuffCell(item);
+
+            if (buffCell != null)
+            {
+                buffCell.SetBuffActive(false);
+            }
+
+            item.itemBuff.buff.BuffDiactivate();
+        }
     }
 }

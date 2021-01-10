@@ -49,6 +49,9 @@ public class EquipmentUse : UseMassage, IUse
     {
         fightStats.Attack -= item.ItemFightStats.Attack;
         fightStats.Defence -= item.ItemFightStats.Defence;
+
+        BuffController buffController = Global.Component.GetBuffController();
+        buffController.DiactivateBuff(item);
     }
 
     public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
@@ -57,6 +60,9 @@ public class EquipmentUse : UseMassage, IUse
 
         fightStats.Attack += item.ItemFightStats.Attack;
         fightStats.Defence += item.ItemFightStats.Defence;
+
+        BuffController buffController = Global.Component.GetBuffController();
+        buffController.ActivateBuff(item);
     }
 
     public void Use_When_Ware(FightStats fightStats, Stats stats, Item item)

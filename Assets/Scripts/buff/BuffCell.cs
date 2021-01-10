@@ -20,7 +20,7 @@ public class BuffCell : MonoBehaviour
         {
             while (isBuffAvtive == true) 
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(.1f);
             }
         }
         else 
