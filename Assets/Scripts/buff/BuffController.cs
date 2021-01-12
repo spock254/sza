@@ -62,7 +62,13 @@ public class BuffController : MonoBehaviour
                             }
                             else // если шмотка  
                             {
-                                item.itemBuff.buff.BuffDiactivate();
+                                //item.itemBuff.buff.BuffDiactivate();
+                                if (IsBuffExistByTypeName(debuffToRemove.buffType, false)) 
+                                {
+                                    RollBackBuff(debuffToRemove);
+                                }
+                                //Debug.Log("HERE");
+                                //RollBackBuff(item);
                             }
                         }
                         else
@@ -72,7 +78,6 @@ public class BuffController : MonoBehaviour
                                 RemoveBuff(cell, debuffToRemove);
                                 item.itemBuff.buff.BuffDirty();
                             }
-
                         }
                     }
                 }
@@ -147,6 +152,15 @@ public class BuffController : MonoBehaviour
         item.itemBuff.buff.DeBuffDirty();
         debuff.SetRebuff(rebuff);
     }
+
+    void RollBackBuff(Buff buff) 
+    {
+        IBuff debuff = Global.Buff.GetIBuffByType(buff.buffType);
+        IBuff rebuff = Global.Buff.GetIBuffByType(buff.debuffToRemove.buffType);
+        buff.DeBuffDirty();
+        debuff.SetRebuff(rebuff);
+    }
+
     void RemoveBuff(GameObject cell, Item item) 
     {
         item.itemBuff.buff.BuffDiactivate();

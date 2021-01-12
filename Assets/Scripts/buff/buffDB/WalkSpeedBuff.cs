@@ -6,7 +6,7 @@ public class WalkSpeedBuff : IBuff
 {
     static float playerOriginMovement = 0;
     static PlayerMovement playerMovement;
-
+    static BuffController buffController;
     static IBuff rebuff = null;
     public void Buff()
     {
@@ -17,15 +17,23 @@ public class WalkSpeedBuff : IBuff
 
     public void Debuff()
     {
+        //Debug.Log(WalkSpeedBuff.rebuff != null);
+        //Debug.Log("-------------- WalkSpeedBuff");
         playerMovement.speed = playerOriginMovement;
 
-        if (rebuff != null) 
+        if (WalkSpeedBuff.rebuff != null)
         {
-            rebuff.Buff();
-            rebuff = null;
-        }
+            if (buffController == null)
+            {
+                buffController = Global.Component.GetBuffController();
+            }
 
-        //Debug.Log(playerMovement.speed);
+            if (buffController.IsBuffExistByTypeName(BuffType.WalkSpeedDebuff, false) == false)
+            {
+                WalkSpeedBuff.rebuff.Buff();
+                WalkSpeedBuff.rebuff = null;
+            }
+        }
     }
 
     public bool IsBuffed()

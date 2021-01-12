@@ -19,7 +19,8 @@ public class WalkSpeedDebuff : IBuff
 
     public void Debuff()
     {
-        Debug.Log(WalkSpeedDebuff.rebuff != null);
+        //Debug.Log(WalkSpeedDebuff.rebuff != null);
+        //Debug.Log("-------------- WalkSpeedDebuff");
         playerMovement.speed = playerOriginMovement;
 
         if (WalkSpeedDebuff.rebuff != null) 
