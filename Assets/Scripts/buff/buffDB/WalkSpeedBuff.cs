@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodBuff : IBuff
+public class WalkSpeedBuff : IBuff
 {
     static float playerOriginMovement = 0;
     static PlayerMovement playerMovement;
 
-    IBuff rebuff = null;
+    static IBuff rebuff = null;
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
@@ -19,10 +19,10 @@ public class FoodBuff : IBuff
     {
         playerMovement.speed = playerOriginMovement;
 
-        if (this.rebuff != null) 
+        if (rebuff != null) 
         {
-            this.rebuff.Buff();
-            this.rebuff = null;
+            rebuff.Buff();
+            rebuff = null;
         }
 
         //Debug.Log(playerMovement.speed);
@@ -30,6 +30,6 @@ public class FoodBuff : IBuff
 
     public void SetRebuff(IBuff rebuff)
     {
-        this.rebuff = rebuff;
+        WalkSpeedBuff.rebuff = rebuff;
     }
 }

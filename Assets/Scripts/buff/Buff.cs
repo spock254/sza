@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum BuffType { FoodBuff, WalkSpeedDebuff, TestBuff, None }
+public enum BuffType { WalkSpeedBuff, WalkSpeedDebuff, TestBuff, None }
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Data", menuName = "Buff/Buff")]

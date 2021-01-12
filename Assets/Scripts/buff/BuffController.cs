@@ -89,7 +89,6 @@ public class BuffController : MonoBehaviour
 
                     if (activeBuffCell.buffType == buffToRemove.buffType)
                     {
-
                         if (activeBuffCell.GetBuffTimeLeft() != float.MaxValue)
                         {
                             RemoveBuff(cell, buffToRemove);
@@ -97,11 +96,7 @@ public class BuffController : MonoBehaviour
                         }
                         else 
                         {
-                            //RemoveBuff(cell, buffToRemove);
-                            IBuff debuff = Global.Buff.GetIBuffByType(item.itemBuff.buff.buffType);
-                            IBuff rebuff = Global.Buff.GetIBuffByType(buffToRemove.buffType);
-                            item.itemBuff.buff.DeBuffDirty();
-                            debuff.SetRebuff(rebuff);
+                            RollBackBuff(item);
                         }
                     }
                 }
@@ -144,6 +139,13 @@ public class BuffController : MonoBehaviour
         //StartCoroutine(buffCell.BuffLifeTime(freeCell, item));
     }
 
+    void RollBackBuff(Item item) 
+    {
+        IBuff debuff = Global.Buff.GetIBuffByType(item.itemBuff.buff.buffType);
+        IBuff rebuff = Global.Buff.GetIBuffByType(item.itemBuff.buff.debuffToRemove.buffType);
+        item.itemBuff.buff.DeBuffDirty();
+        debuff.SetRebuff(rebuff);
+    }
     void RemoveBuff(GameObject cell, Item item) 
     {
         item.itemBuff.buff.BuffDiactivate();
@@ -239,5 +241,22 @@ public class BuffController : MonoBehaviour
 
             item.itemBuff.buff.BuffDiactivate();
         }
+    }
+
+    public bool IsBuffExistByTypeName(BuffType buffType, bool isBuff = true) 
+    {
+        List<GameObject> buffs = (isBuff == true) ? buffCells : debuffCells;
+
+        foreach (var cell in buffs)
+        {
+            BuffCell bcell = cell.GetComponent<BuffCell>();
+
+            if (bcell.buffType == buffType) 
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

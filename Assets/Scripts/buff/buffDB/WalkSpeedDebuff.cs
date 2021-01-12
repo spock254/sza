@@ -8,6 +8,7 @@ public class WalkSpeedDebuff : IBuff
     static PlayerMovement playerMovement;
 
     static IBuff rebuff = null;
+    static BuffController buffController;
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
@@ -23,8 +24,16 @@ public class WalkSpeedDebuff : IBuff
 
         if (WalkSpeedDebuff.rebuff != null) 
         {
-            WalkSpeedDebuff.rebuff.Buff();
-            WalkSpeedDebuff.rebuff = null;
+            if (buffController == null) 
+            {
+                buffController = Global.Component.GetBuffController();
+            }
+
+            if (buffController.IsBuffExistByTypeName(BuffType.WalkSpeedBuff)) 
+            { 
+                WalkSpeedDebuff.rebuff.Buff();
+                WalkSpeedDebuff.rebuff = null;            
+            }
         }
 
         //Debug.Log(playerMovement.speed);
