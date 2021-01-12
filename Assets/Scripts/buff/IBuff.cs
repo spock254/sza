@@ -5,5 +5,6 @@ using UnityEngine;
 public interface IBuff
 {
     void Buff();
-    void Debuff(IBuff buff = null);
+    void Debuff();
+    void SetRebuff(IBuff rebuff);
 }

@@ -6,6 +6,8 @@ public class FoodBuff : IBuff
 {
     static float playerOriginMovement = 0;
     static PlayerMovement playerMovement;
+
+    IBuff rebuff = null;
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
@@ -13,15 +15,21 @@ public class FoodBuff : IBuff
         playerMovement.speed = 1.6f;
     }
 
-    public void Debuff(IBuff buff)
+    public void Debuff()
     {
         playerMovement.speed = playerOriginMovement;
 
-        if (buff != null) 
+        if (this.rebuff != null) 
         {
-            buff.Buff();
+            this.rebuff.Buff();
+            this.rebuff = null;
         }
 
-        Debug.Log(playerMovement.speed);
+        //Debug.Log(playerMovement.speed);
+    }
+
+    public void SetRebuff(IBuff rebuff)
+    {
+        this.rebuff = rebuff;
     }
 }

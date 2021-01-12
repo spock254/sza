@@ -6,22 +6,32 @@ public class WalkSpeedDebuff : IBuff
 {
     static float playerOriginMovement = 0;
     static PlayerMovement playerMovement;
+
+    static IBuff rebuff = null;
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
         playerOriginMovement = Global.Buff.Player.SPEED;
         playerMovement.speed = 1f;
+
     }
 
-    public void Debuff(IBuff buff)
+    public void Debuff()
     {
+        Debug.Log(WalkSpeedDebuff.rebuff != null);
         playerMovement.speed = playerOriginMovement;
 
-        if (buff != null) 
+        if (WalkSpeedDebuff.rebuff != null) 
         {
-            buff.Buff();
+            WalkSpeedDebuff.rebuff.Buff();
+            WalkSpeedDebuff.rebuff = null;
         }
 
-        Debug.Log(playerMovement.speed);
+        //Debug.Log(playerMovement.speed);
+    }
+
+    public void SetRebuff(IBuff rebuff)
+    {
+        WalkSpeedDebuff.rebuff = rebuff;
     }
 }

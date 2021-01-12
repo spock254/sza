@@ -34,13 +34,15 @@ public class Buff : ScriptableObject
             Type type = Type.GetType(buffType.ToString());
             IBuff buff = (IBuff) Activator.CreateInstance(type);
             buff.Buff();
+
+            Debug.Log("???");
         }
 
         eventController.OnAddBuffEvent.Invoke(item);
     }
 
     // игнорировать если айтем существует
-    public void BuffDirty(Item item) 
+    public void BuffDirty() 
     {
         if (eventController == null)
         {
@@ -53,11 +55,11 @@ public class Buff : ScriptableObject
         }
 
         Type type = Type.GetType(buffType.ToString());
-        IBuff buff = (IBuff)Activator.CreateInstance(type);
+        IBuff buff = (IBuff) Activator.CreateInstance(type);
         buff.Buff();
     }
 
-    public void DeBuffDirty(Item item, IBuff toRebuff)
+    public void DeBuffDirty()
     {
         if (eventController == null)
         {
@@ -70,8 +72,9 @@ public class Buff : ScriptableObject
         }
 
         Type type = Type.GetType(buffType.ToString());
-        IBuff buff = (IBuff)Activator.CreateInstance(type);
-        buff.Debuff(toRebuff);
+        IBuff buff = (IBuff) Activator.CreateInstance(type);
+        buff.Debuff();
+
     }
 
     public void BuffDiactivate() 

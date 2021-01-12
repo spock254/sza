@@ -69,9 +69,7 @@ public class BuffController : MonoBehaviour
                             if (item.itemBuff.buffTime > Global.Buff.CONSTANT_BUFF_TIME)
                             {
                                 RemoveBuff(cell, debuffToRemove);
-                                item.itemBuff.buff.BuffDirty(item);
-
-
+                                item.itemBuff.buff.BuffDirty();
                             }
 
                         }
@@ -91,6 +89,7 @@ public class BuffController : MonoBehaviour
 
                     if (activeBuffCell.buffType == buffToRemove.buffType)
                     {
+
                         if (activeBuffCell.GetBuffTimeLeft() != float.MaxValue)
                         {
                             RemoveBuff(cell, buffToRemove);
@@ -99,7 +98,10 @@ public class BuffController : MonoBehaviour
                         else 
                         {
                             //RemoveBuff(cell, buffToRemove);
-                            item.itemBuff.buff.DeBuffDirty(item, null);
+                            IBuff debuff = Global.Buff.GetIBuffByType(item.itemBuff.buff.buffType);
+                            IBuff rebuff = Global.Buff.GetIBuffByType(buffToRemove.buffType);
+                            item.itemBuff.buff.DeBuffDirty();
+                            debuff.SetRebuff(rebuff);
                         }
                     }
                 }
