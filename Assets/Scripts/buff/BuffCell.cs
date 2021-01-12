@@ -8,9 +8,10 @@ public class BuffCell : MonoBehaviour
     EventController eventController = null;
     bool isBuffAvtive = false;
     float buffTimeLeft = float.MaxValue;
+    BuffController buffController;
     void Start()
     {
-        eventController = Global.Component.GetEventController();    
+        eventController = Global.Component.GetEventController();
     }
 
     IEnumerator BuffLifeTime(GameObject cell, Item item)
@@ -18,6 +19,10 @@ public class BuffCell : MonoBehaviour
         isBuffAvtive = true;
         float circleTime = 0.1f;
         float buffActiveTime = 0f;
+
+        Buff buff = item.itemBuff.buff;
+        bool isBuff = item.itemBuff.buff.buffType.ToString().EndsWith("Debuff");
+        buffController = Global.Component.GetBuffController();
 
         if (item.itemBuff.buffTime < 0)
         {
@@ -35,7 +40,19 @@ public class BuffCell : MonoBehaviour
             { 
                 buffActiveTime += circleTime;
                 buffTimeLeft = item.itemBuff.buffTime - buffActiveTime;
-        
+
+                if (buff.debuffToRemove != null) 
+                {
+                    if (buff.IsBuffed() == false) 
+                    {
+                        if (buffController.IsBuffExistByTypeName(buff.debuffToRemove.buffType, isBuff) == false) 
+                        { 
+                            buff.BuffDirty();                     
+                        }
+
+                    }
+                }
+
                 yield return new WaitForSeconds(circleTime);
             
             }

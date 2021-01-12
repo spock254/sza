@@ -28,6 +28,11 @@ public class WalkSpeedBuff : IBuff
         //Debug.Log(playerMovement.speed);
     }
 
+    public bool IsBuffed()
+    {
+        return playerMovement.speed == 1.6f;
+    }
+
     public void SetRebuff(IBuff rebuff)
     {
         WalkSpeedBuff.rebuff = rebuff;

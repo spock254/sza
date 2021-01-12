@@ -77,6 +77,13 @@ public class Buff : ScriptableObject
 
     }
 
+    public bool IsBuffed() 
+    {
+        Type type = Type.GetType(buffType.ToString());
+        IBuff buff = (IBuff)Activator.CreateInstance(type);
+
+        return buff.IsBuffed();
+    }
     public void BuffDiactivate() 
     {
         //if (eventController == null)

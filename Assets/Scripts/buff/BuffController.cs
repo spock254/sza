@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -259,4 +260,21 @@ public class BuffController : MonoBehaviour
 
         return false;
     }
+
+    //public bool IsBuffTypeValid(string buffTypeStr) 
+    //{
+    //    return Enum.IsDefined(typeof(BuffType), buffTypeStr);
+    //}
+
+    //public string GetOpositeBuff(BuffType buffType) 
+    //{
+    //    string buffStr = buffType.ToString();
+
+    //    if (buffStr.EndsWith("Buff"))
+    //    {
+    //        return buffStr.Replace("Buff", "Debuff");
+    //    }
+
+    //    return buffStr.Replace("Debuff", "Buff");
+    //}
 }
