@@ -135,6 +135,7 @@ public class BuffController : MonoBehaviour
         
         freeCell.SetActive(true);
         freeCell.GetComponent<Image>().sprite = item.itemBuff.buff.buffSprite;
+        freeCell.transform.GetChild(0).GetComponent<Text>().text = item.itemBuff.buff.buffDescription;
         buffCell.buffType = item.itemBuff.buff.buffType;
 
         buffCell.InitBuff(freeCell, item);

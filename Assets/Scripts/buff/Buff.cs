@@ -10,6 +10,7 @@ public class Buff : ScriptableObject
 {
     public enum BuffMode { BUFF, DEBUFF }
 
+    public string buffDescription = string.Empty;
     public Sprite buffSprite;
     public BuffMode buffMode = BuffMode.BUFF;
     public BuffType buffType = BuffType.None;

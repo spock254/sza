@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuffCell : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class BuffCell : MonoBehaviour
         Buff buff = item.itemBuff.buff;
         bool isBuff = item.itemBuff.buff.buffType.ToString().EndsWith("Debuff");
         buffController = Global.Component.GetBuffController();
+        Text buffTimeText = transform.GetChild(1).GetComponent<Text>();
 
         if (item.itemBuff.buffTime < 0)
         {
@@ -30,7 +32,7 @@ public class BuffCell : MonoBehaviour
 
             while (isBuffAvtive == true) 
             {
-
+                buffTimeText.text = "999+";
                 yield return new WaitForSeconds(circleTime);
             }
         }
@@ -40,6 +42,7 @@ public class BuffCell : MonoBehaviour
             { 
                 buffActiveTime += circleTime;
                 buffTimeLeft = item.itemBuff.buffTime - buffActiveTime;
+                buffTimeText.text = buffTimeLeft.ToString("0.00");
 
                 if (buff.debuffToRemove != null) 
                 {
