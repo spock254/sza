@@ -34,8 +34,6 @@ public class Buff : ScriptableObject
             Type type = Type.GetType(buffType.ToString());
             IBuff buff = (IBuff) Activator.CreateInstance(type);
             buff.Buff();
-
-            Debug.Log("???");
         }
 
         eventController.OnAddBuffEvent.Invoke(item);
