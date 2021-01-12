@@ -6,8 +6,8 @@ public class WalkSpeedBuff : IBuff
 {
     static float playerOriginMovement = 0;
     static PlayerMovement playerMovement;
-    static BuffController buffController;
-    static IBuff rebuff = null;
+    //static BuffController buffController;
+    //static IBuff rebuff = null;
     public void Buff()
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
@@ -21,19 +21,19 @@ public class WalkSpeedBuff : IBuff
         //Debug.Log("-------------- WalkSpeedBuff");
         playerMovement.speed = playerOriginMovement;
 
-        if (WalkSpeedBuff.rebuff != null)
-        {
-            if (buffController == null)
-            {
-                buffController = Global.Component.GetBuffController();
-            }
+        //if (WalkSpeedBuff.rebuff != null)
+        //{
+        //    if (buffController == null)
+        //    {
+        //        buffController = Global.Component.GetBuffController();
+        //    }
 
-            if (buffController.IsBuffExistByTypeName(BuffType.WalkSpeedDebuff, false) == false)
-            {
-                WalkSpeedBuff.rebuff.Buff();
-                WalkSpeedBuff.rebuff = null;
-            }
-        }
+        //    if (buffController.IsBuffExistByTypeName(BuffType.WalkSpeedDebuff, false) == false)
+        //    {
+        //        WalkSpeedBuff.rebuff.Buff();
+        //        WalkSpeedBuff.rebuff = null;
+        //    }
+        //}
     }
 
     public bool IsBuffed()
@@ -43,6 +43,6 @@ public class WalkSpeedBuff : IBuff
 
     public void SetRebuff(IBuff rebuff)
     {
-        WalkSpeedBuff.rebuff = rebuff;
+        //WalkSpeedBuff.rebuff = rebuff;
     }
 }

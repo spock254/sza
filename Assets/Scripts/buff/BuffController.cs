@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class BuffController : MonoBehaviour
 {
-    //List<Image> buffImages = new List<Image>();
     List<GameObject> buffCells = new List<GameObject>();
     List<GameObject> debuffCells = new List<GameObject>();
-
     EventController eventController;
+
     void Awake()
     {
         eventController = Global.Component.GetEventController();
@@ -20,7 +19,6 @@ public class BuffController : MonoBehaviour
 
         foreach (Transform tr in buffPanelGo.transform)
         {
-            //buffImages.Add(tr.gameObject.GetComponent<Image>());
             buffCells.Add(tr.gameObject);
         }
 
@@ -62,13 +60,10 @@ public class BuffController : MonoBehaviour
                             }
                             else // если шмотка  
                             {
-                                //item.itemBuff.buff.BuffDiactivate();
                                 if (IsBuffExistByTypeName(debuffToRemove.buffType, false)) 
                                 {
                                     RollBackBuff(debuffToRemove);
                                 }
-                                //Debug.Log("HERE");
-                                //RollBackBuff(item);
                             }
                         }
                         else
@@ -129,6 +124,7 @@ public class BuffController : MonoBehaviour
         //if not exist
         GameObject freeCell = FindFreeBuffCell(buffs);
         BuffCell buffCell = null;
+
         // когда все ячейки для баффа заняты
         if (freeCell == null) 
         {
@@ -142,9 +138,12 @@ public class BuffController : MonoBehaviour
         buffCell.buffType = item.itemBuff.buff.buffType;
 
         buffCell.InitBuff(freeCell, item);
-        //StartCoroutine(buffCell.BuffLifeTime(freeCell, item));
     }
 
+    /// <summary>
+    /// Отключает изменения бафа и асайнит ребаф того же бафа
+    /// <br>используеть ребаф после окончания бафа</br>
+    /// </summary>
     void RollBackBuff(Item item) 
     {
         IBuff debuff = Global.Buff.GetIBuffByType(item.itemBuff.buff.buffType);
@@ -153,6 +152,10 @@ public class BuffController : MonoBehaviour
         debuff.SetRebuff(rebuff);
     }
 
+    /// <summary>
+    /// Отключает изменения бафа и асайнит ребаф того же бафа
+    /// <br>используеть ребаф после окончания бафа</br>
+    /// </summary>
     void RollBackBuff(Buff buff) 
     {
         IBuff debuff = Global.Buff.GetIBuffByType(buff.buffType);
@@ -161,6 +164,9 @@ public class BuffController : MonoBehaviour
         debuff.SetRebuff(rebuff);
     }
 
+    /// <summary>
+    /// Завершает и удаляет баф с баф селл
+    /// </summary>
     void RemoveBuff(GameObject cell, Item item) 
     {
         item.itemBuff.buff.BuffDiactivate();
@@ -171,6 +177,9 @@ public class BuffController : MonoBehaviour
         cell.GetComponent<BuffCell>().SetBuffActive(false);
     }
 
+    /// <summary>
+    /// Завершает и удаляет баф с баф селл
+    /// </summary>
     void RemoveBuff(GameObject cell, Buff buff) 
     {
         buff.BuffDiactivate();
@@ -181,6 +190,9 @@ public class BuffController : MonoBehaviour
         cell.GetComponent<BuffCell>().SetBuffActive(false);
     }
 
+    /// <summary>
+    /// Возврощает первую свободную ячейку
+    /// </summary>
     GameObject FindFreeBuffCell(List<GameObject> cells) 
     {
         GameObject cellToreturn = null;
@@ -196,6 +208,9 @@ public class BuffController : MonoBehaviour
         return cellToreturn;
     }
 
+    /// <summary>
+    /// Проверяет если баф существует
+    /// </summary>
     public bool IsBuffExist(Item item) 
     {
         foreach (var cell in buffCells)
@@ -211,9 +226,11 @@ public class BuffController : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Возврощает ячейку или null
+    /// </summary>
     public BuffCell TryGetBuffCell(Item item)
     {
-
         foreach (var cell in buffCells)
         {
             BuffCell currentCell = cell.GetComponent<BuffCell>();
@@ -231,7 +248,6 @@ public class BuffController : MonoBehaviour
     {
         if (item.itemBuff.buff != null)
         {
-
             BuffCell buffCell = TryGetBuffCell(item);
 
             if (buffCell != null)
@@ -257,7 +273,11 @@ public class BuffController : MonoBehaviour
             item.itemBuff.buff.BuffDiactivate();
         }
     }
-
+    /// <summary>
+    /// Проверяет если бафф существует по типу бафа в ячейках баффов или дебаффов
+    /// <br>isBuff = true - поиск в листе бафов </br>
+    /// <br>false - дебафов</br>
+    /// </summary>
     public bool IsBuffExistByTypeName(BuffType buffType, bool isBuff = true) 
     {
         List<GameObject> buffs = (isBuff == true) ? buffCells : debuffCells;
@@ -274,21 +294,4 @@ public class BuffController : MonoBehaviour
 
         return false;
     }
-
-    //public bool IsBuffTypeValid(string buffTypeStr) 
-    //{
-    //    return Enum.IsDefined(typeof(BuffType), buffTypeStr);
-    //}
-
-    //public string GetOpositeBuff(BuffType buffType) 
-    //{
-    //    string buffStr = buffType.ToString();
-
-    //    if (buffStr.EndsWith("Buff"))
-    //    {
-    //        return buffStr.Replace("Buff", "Debuff");
-    //    }
-
-    //    return buffStr.Replace("Debuff", "Buff");
-    //}
 }
