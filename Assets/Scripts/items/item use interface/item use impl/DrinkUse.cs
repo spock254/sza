@@ -19,8 +19,7 @@ public class DrinkUse : UseMassage, IUse
 
     public void Use_On_Player(Stats stats, Item item)
     {
-        StatModify.AddValue(stats.Dehydration, item.stats.value);
-        StatModify.ChangeDuration(stats.Dehydration, item.stats.duration, item.stats.time);
+
     }
 
     public void Use_To_Drop(Transform prefab, Transform position, Item item)

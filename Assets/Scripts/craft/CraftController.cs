@@ -9,7 +9,6 @@ public class CraftController : MonoBehaviour
     static CraftController instance;
 
     List<ItemCraftData> itemCraftData;
-    public SkillsInit skillsInit;
 
     Controller controller;              /*   IsEmpty()   */
 
@@ -40,12 +39,6 @@ public class CraftController : MonoBehaviour
         if (recept == null)
         {
             Debug.Log("no recept");
-            return;
-        }
-
-        if (!IsSuitableMinLvl(recept))
-        {
-            Debug.Log("recept lvl bigger then skill lvl");
             return;
         }
 
@@ -83,12 +76,6 @@ public class CraftController : MonoBehaviour
             return false;
         }
 
-        if (!IsSuitableMinLvl(recept)) 
-        {
-            Debug.Log("recept lvl bigger then skill lvl");
-            return false;
-        }
-
         Item craftResult = recept.recept.craftResult;
         
         // для вызова actionWindow
@@ -112,8 +99,6 @@ public class CraftController : MonoBehaviour
 
 
         UpdateGameObjItem(GameObjOnTable, craftResult);
-
-        AddExpReward(recept);
 
         return recept.removeTool;
     }
@@ -140,7 +125,6 @@ public class CraftController : MonoBehaviour
             Debug.Log(craftResult.itemName);
             microwave.itemInside = craftResult;
 
-            AddExpReward(recept);
         }
     }
 
@@ -197,32 +181,6 @@ public class CraftController : MonoBehaviour
     public static ItemCraftData FindRecept_Static(Item tool, Item originItem, CraftType craftType, CraftTable craftTable) 
     {
         return instance.FindRecept(tool, originItem, craftType, craftTable);
-    }
-
-    void AddExpReward(ItemCraftData itemCraftData) 
-    {
-        CraftType craftType = itemCraftData.craftType;
-        float exp = itemCraftData.expReward;
-
-        if (craftType == CraftType.Cooking) 
-        {
-            skillsInit.cooking.AddExp(exp);
-        }
-
-    }
-
-    bool IsSuitableMinLvl(ItemCraftData itemCraftData) 
-    {
-        CraftType craftType = itemCraftData.craftType;
-        int minCraftLvl = itemCraftData.craftMinLVL;
-
-        if (craftType == CraftType.Cooking 
-        && skillsInit.cooking.GetSkillLvl() >= minCraftLvl)
-        {
-            return true;
-        }
-
-        return false;
     }
 
     void UpdateGameObjItem(GameObject GameObjOnTable, Item craftResult) 

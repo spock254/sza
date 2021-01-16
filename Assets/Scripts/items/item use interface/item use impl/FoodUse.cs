@@ -22,9 +22,6 @@ public class FoodUse : UseMassage, IUse
 
     public void Use_On_Player(Stats stats, Item item)
     {
-        StatModify.AddValue(stats.Hunger, item.stats.value);
-        StatModify.ChangeDuration(stats.Hunger, item.stats.duration, item.stats.time);
-
         if (item.itemBuff.buff != null) 
         { 
             item.itemBuff.buff.BuffActivate(item);

@@ -10,10 +10,6 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
 {
     static Controller instance;
 
-    [Header("Init")]
-    public StatInit statInit;
-    public FightStatsInit fightStatsInit;
-
     public InventoryInit inventoryInit;
     public ItemInInventoryInit itemInInventoryInit;
 
@@ -371,7 +367,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         {
                             Item item = currentHand.GetComponent<ItemCell>().item;
                             eventController.OnUseOnPlayerEvent.Invoke(item);
-                            item.itemUseData.use.Use_On_Player(statInit.stats, item);
+                            item.itemUseData.use.Use_On_Player(null, item);
 
                             if (item.isDestroyOnPlayerUse) 
                             { 
@@ -457,7 +453,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             // использовать айтем как ключ
                             //eventController.OnDoorEvent.Invoke(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
                             hit.collider.GetComponent<DoorController>().OnDoorClick(itemInHand, mousePos, hit.collider, hit.collider.GetComponent<DoorController>().isLocked);
-                            itemInHand.itemUseData.use.Use_To_Open(statInit.stats, itemInHand);
+                            itemInHand.itemUseData.use.Use_To_Open(null, itemInHand);
                         }
 
                         if (hit.collider.gameObject.tag == "case" || hit.collider.gameObject.tag == "printer")
@@ -625,7 +621,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                     {
                         if (item_type == ItemUseData.ItemType.HandUsable)
                         {
-                            itemInCell.itemUseData.use.Use_In_Hands(statInit.stats, itemInCell);
+                            itemInCell.itemUseData.use.Use_In_Hands(null, itemInCell);
 
                             return;
                         }
@@ -643,7 +639,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             // TODO:  
                             if (!isBagOpen)
                             {
-                                itemInCell.itemUseData.use.Use_To_Open(statInit.stats, itemInCell);
+                                itemInCell.itemUseData.use.Use_To_Open(null, itemInCell);
                             }
 
                             CloseOpenContainer(bag_panel, ref isBagOpen);
@@ -671,7 +667,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             }
             else 
             {
-                itemInCell.itemUseData.use.Use_When_Ware(fightStatsInit.fightStats, statInit.stats, itemInCell);
+                itemInCell.itemUseData.use.Use_When_Ware(null, null, itemInCell);
             }
         }
     }
@@ -865,7 +861,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 eventController.OnChangeSpriteEvent.Invoke(item.itemSprite.name, ParseStringToPrt(bodyPart));
             }
 
-            item.itemUseData.use.Use_To_Ware(fightStatsInit.fightStats, statInit.stats, item);
+            item.itemUseData.use.Use_To_Ware(null, null, item);
         }
         else 
         {
@@ -876,7 +872,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                 eventController.OnChangeSpriteEvent.Invoke(string.Empty, ParseStringToPrt(bodyPart));
             }
 
-            item.itemUseData.use.Use_To_TakeOff(fightStatsInit.fightStats, statInit.stats, item);
+            item.itemUseData.use.Use_To_TakeOff(null, null, item);
         }
     }
 

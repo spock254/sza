@@ -14,8 +14,8 @@ public class Item : ScriptableObject
 
     public Sprite itemSprite;
     
-    public ItemStats stats;
-    public ItemFightStats ItemFightStats;
+    //public ItemStats stats;
+    //public ItemFightStats ItemFightStats;
     public ItemUseData itemUseData;
     public ItemAnimationData itemAnimationData;
     public ItemTimeflowModify itemTimeflowModify;
@@ -35,10 +35,7 @@ public class Item : ScriptableObject
     
     public int GenerateId() 
     {
-
-        return itemName.GetHashCode() + 
-            (int)stats.value + 
-            (int)stats.playerStats;
+        return itemName.GetHashCode();
     }
 
     public int GetItemSize(Item item) 
@@ -101,8 +98,6 @@ public class Item : ScriptableObject
                 "\nitemName " + itemName +
                 "\nitemPrice " + itemPrice +
                 "\nitemSprite " + ((itemSprite == null) ? " - " : " + ") +
-                "\nstats " + ((itemSprite == null) ? " - " : stats.ToString()) +
-                "\nItemFightStats " + ((ItemFightStats == null) ? " - " : ItemFightStats.ToString()) +
                 "\nitemUseData " + ((itemUseData == null) ? " - " : itemUseData.ToString());
             
     }

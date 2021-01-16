@@ -37,14 +37,12 @@ public class BagUse : UseMassage, IUse
 
     public void Use_To_TakeOff(FightStats fightStats, Stats stats, Item item)
     {
-        fightStats.Attack -= item.ItemFightStats.Attack;
-        fightStats.Defence -= item.ItemFightStats.Defence;
+
     }
 
     public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
     {
-        fightStats.Attack += item.ItemFightStats.Attack;
-        fightStats.Defence += item.ItemFightStats.Defence;
+
     }
 
     public void Use_When_Ware(FightStats fightStats, Stats stats, Item item)

@@ -47,20 +47,12 @@ public class EquipmentUse : UseMassage, IUse
 
     public void Use_To_TakeOff(FightStats fightStats, Stats stats, Item item)
     {
-        fightStats.Attack -= item.ItemFightStats.Attack;
-        fightStats.Defence -= item.ItemFightStats.Defence;
-
         BuffController buffController = Global.Component.GetBuffController();
         buffController.DiactivateBuff(item);
     }
 
     public void Use_To_Ware(FightStats fightStats, Stats stats, Item item)
     {
-        //Debug.Log(item.ToString());
-
-        fightStats.Attack += item.ItemFightStats.Attack;
-        fightStats.Defence += item.ItemFightStats.Defence;
-
         BuffController buffController = Global.Component.GetBuffController();
         buffController.ActivateBuff(item);
     }
