@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +12,8 @@ public static class Global
     public const string UNPICKABLE_ITEM = "unpick_";
     public const string MONEY_SIGN = "$";
     public const string ITEM_SWITCH_PREFIX = "iswitch_";
+
+    
 
     public static class Buff 
     {

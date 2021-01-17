@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
         dialogWindow = Global.Component.GetDialogueManager();           
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
 
         if (!actionWindow.isOpen && !dialogWindow.isOpen)   
