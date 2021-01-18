@@ -368,7 +368,7 @@ public class ToolTipController : MonoBehaviour
         //localPoint.y = localPoint.y + 32;
         //toolTip.transform.localPosition = localPoint;
 
-        pos.y = pos.y + 1;
+        pos.y = pos.y + 0.32f;
         toolTip.transform.position = pos;
 
     }
