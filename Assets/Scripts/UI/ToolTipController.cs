@@ -19,6 +19,9 @@ public class ToolTipController : MonoBehaviour
     float textPaddinSize = 0f;
 
     [SerializeField]
+    float toolTipHeight = 0f;
+
+    [SerializeField]
     float actionDistanceCof = 1f;
 
     Image bgImage;
@@ -122,7 +125,7 @@ public class ToolTipController : MonoBehaviour
                     TableController tableController = hit.collider.GetComponent<TableController>();
 
                     isdetected = true;
-                    tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
+                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                     if (IsCurrentHandEmpty() && IsObjectExist(hits, Global.DROPED_ITEM_PREFIX, false) == false)
                     {
@@ -160,7 +163,7 @@ public class ToolTipController : MonoBehaviour
                                 Global.Tooltip.LM_PUT);
                     }
 
-                    TooltipLocate(hit.transform.position);
+                    TooltipLocate(hit.collider.transform.position);
 
                     return;
                 }
@@ -183,13 +186,13 @@ public class ToolTipController : MonoBehaviour
                         Item itemInHand = controller.currentHand.GetComponent<ItemCell>().item;
 
                         isdetected = true;
-                        //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                         string useInteraction = (item.itemSubstitution.IsSubstituted() == true && item.itemSubstitution.IsItemToUseExist(itemInHand)) ? " / " + Global.Tooltip.RM_TURN_ON : string.Empty;
 
                         ShowToolTip(item.itemName, (controller.IsEmpty(controller.currentHand) == true) ?
                             Global.Tooltip.LM_PICK_UP + useInteraction
                             : ((useInteraction == string.Empty) ? PrintRed(Global.Tooltip.NO_ACTIONS) : useInteraction.Substring(" / ".Length)));
+
                         TooltipLocate(hit.collider.transform.position);
 
                         return;
@@ -200,10 +203,10 @@ public class ToolTipController : MonoBehaviour
                     CaseController caseController = hit.collider.GetComponent<CaseController>();
 
                     isdetected = true;
-                    //tooltipPosition = Camera.main.WorldToScreenPoint(hit.collider.transform.position);
 
                     ShowToolTip((caseController.caseName == string.Empty) ? "case" : caseController.caseName, (caseController.isOpen == false)
                                 ? Global.Tooltip.LM_OPEN : Global.Tooltip.LM_CLOSE);
+
                     TooltipLocate(hit.collider.transform.position);
 
                     return;
@@ -327,15 +330,15 @@ public class ToolTipController : MonoBehaviour
         //if (itemName.Length >= itemInteractionLength - 1)
         if (textItemName.preferredWidth >= textInteraction.preferredWidth)
         {
-            bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize * 2,
-                (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
+            bgSize = new Vector2(textItemName.preferredWidth + textPaddinSize,
+                (textInteraction.preferredHeight * 2) + textPaddinSize);
 
 
         }
         else 
         {
-            bgSize = new Vector2(textInteraction.preferredWidth + textPaddinSize * 2,
-                (textInteraction.preferredHeight * 2) + textPaddinSize * 2);
+            bgSize = new Vector2(textInteraction.preferredWidth + textPaddinSize,
+                (textInteraction.preferredHeight * 2) + textPaddinSize);
 
         }
 
@@ -368,7 +371,7 @@ public class ToolTipController : MonoBehaviour
         //localPoint.y = localPoint.y + 32;
         //toolTip.transform.localPosition = localPoint;
 
-        pos.y = pos.y + 0.32f;
+        pos.y = pos.y + toolTipHeight;
         toolTip.transform.position = pos;
 
     }

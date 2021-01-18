@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate() 
     {
         rb.MovePosition(rb.transform.position + movement * Time.fixedDeltaTime);
+        //transform.position += movement * Time.fixedDeltaTime;
     }
 
     public Vector3 GetTurnSide() 
