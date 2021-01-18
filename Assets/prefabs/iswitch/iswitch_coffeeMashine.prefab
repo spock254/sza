@@ -45,16 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c780eee3fd4b04a862a02de28bf5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: coffee mashine
   resultItem: {fileID: 11400000, guid: 089e0c0e2d8baaf40843e7390a6acd5b, type: 2}
   needItem: {fileID: 11400000, guid: ad462d570f8776a40ba2642a479b13fd, type: 2}
   pref: {fileID: 2469437768556809796, guid: bf79c35f0775378489176baf436f71bd, type: 3}
   dropPoint: {fileID: 3422232691854015637}
-  bodyTile: {fileID: 11400000, guid: 0e212788e5f6782489222467b2f78a86, type: 2}
-  upperTile: {fileID: 11400000, guid: 8161651627668e741b605299942e0841, type: 2}
+  bodyTile: {fileID: 11400000, guid: b9291ea48fb2c4648aea132f8baf516e, type: 2}
+  upperTile: {fileID: 11400000, guid: b9291ea48fb2c4648aea132f8baf516e, type: 2}
   actionTiles:
-  - {fileID: 11400000, guid: 08de134b46d0701458f0c71358f60ea6, type: 2}
-  - {fileID: 11400000, guid: 32e4007e203ac674693f1c1787b21c39, type: 2}
-  - {fileID: 11400000, guid: 3d1dcca328ef68a4eb20b51b713fd450, type: 2}
+  - {fileID: 11400000, guid: 2f0d4a49c80c602488a7169000efe298, type: 2}
+  - {fileID: 11400000, guid: 6c03d464375ad5642b97aa319fba873d, type: 2}
+  - {fileID: 11400000, guid: 809cb3f013ef89b4693df7514db0d15a, type: 2}
   actionFrameTime: 0.5
 --- !u!61 &3102926820188111976
 BoxCollider2D:
@@ -69,7 +70,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.25, y: 0.25}
+  m_Offset: {x: 0.08, y: 0.08}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -80,7 +81,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
 --- !u!1 &3422232691854015636
 GameObject:

@@ -15,7 +15,7 @@ public class PCController : MonoBehaviour
     public Tile open_tile;
     public Tile acess_enterTile;
     public Tile pc_body;
-    public Light2D light2D;
+    //public Light2D light2D;
 
     // pc inner data----------------------------------------------------------------
     public List<GameObject> peripherals;
@@ -35,8 +35,11 @@ public class PCController : MonoBehaviour
 
     private void Awake()
     {
-        upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_3);
-        upper = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_2);
+        //upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_3);
+        //upper = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_2);
+
+        upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+        upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
 
         upper.SetTile(upper.WorldToCell(transform.position), pc_body);
 
@@ -110,7 +113,7 @@ public class PCController : MonoBehaviour
         actionWindow.OpenActionWindow("awpc");
 
         terminalController.isOpen = true;
-        light2D.enabled = true;
+        //light2D.enabled = true;
     }
 
     public void Close() 
@@ -122,7 +125,7 @@ public class PCController : MonoBehaviour
         actionWindow.CloseActionWindow("awpc");
 
         terminalController.isOpen = false;
-        light2D.enabled = false;
+        //light2D.enabled = false;
     }
 
     void InitAllDocs() 

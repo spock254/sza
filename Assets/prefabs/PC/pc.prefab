@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3466372725349360055
 Transform:
   m_ObjectHideFlags: 0
@@ -130,9 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ee4516038e50845923252c229ef232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  open_tile: {fileID: 0}
-  acess_enterTile: {fileID: 0}
-  pc_body: {fileID: 0}
+  open_tile: {fileID: 11400000, guid: 9061516caf0d2944c8d29ec211e8b34c, type: 2}
+  acess_enterTile: {fileID: 11400000, guid: 9061516caf0d2944c8d29ec211e8b34c, type: 2}
+  pc_body: {fileID: 11400000, guid: c93d78871607a5d449983fea32a3a4c0, type: 2}
   light2D: {fileID: 3466372725349360052}
   peripherals:
   - {fileID: 0}
