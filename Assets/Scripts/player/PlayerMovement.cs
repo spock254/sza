@@ -5,51 +5,57 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed = 2f;                               
+
     [HideInInspector]
-    public Vector3 input = Vector3.zero;
+    public Vector3 input = Vector3.zero;    
 
-    ActionWindowController actionWindow;              
-    DialogueManager dialogWindow;                    
+    ActionWindowController actionWindow;     
+    DialogueManager dialogWindow;          
 
-    Vector3 turn = Vector3.zero;
+    Vector3 turn = Vector3.zero;  
+    Vector3 movement = Vector3.zero;          
     bool isMoving = false;
-
+    Rigidbody2D rb = null;
 
     void Awake()
     {
         actionWindow = Global.Component.GetActionWindowController();   
-        dialogWindow = Global.Component.GetDialogueManager();           
+        dialogWindow = Global.Component.GetDialogueManager();  
+        rb = GetComponent<Rigidbody2D>();         
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-
+        
         if (!actionWindow.isOpen && !dialogWindow.isOpen)   
         {                                                   
 
-            input.x = Input.GetAxisRaw("Horizontal");
-            input.y = Input.GetAxisRaw("Vertical");
+            input.x = Input.GetAxisRaw("Horizontal");   
+            input.y = Input.GetAxisRaw("Vertical");     
 
-            isMoving = (input != Vector3.zero);
+            isMoving = (input != Vector3.zero);         
 
-            if (isMoving == true)
+            if (isMoving == true)      
             {
                 turn = input;
             }
 
-            Vector3 direction = input.normalized;
-            Vector3 movement = direction * speed;
-
-            transform.position += movement * Time.deltaTime;
-
+            Vector3 direction = input.normalized;   
+            movement = direction * speed;   
         }                                                   
+    }
+
+    void FixedUpdate() 
+    {
+        rb.MovePosition(rb.transform.position + movement * Time.fixedDeltaTime);
     }
 
     public Vector3 GetTurnSide() 
     {
         return turn;
     }
+
 
     public bool IsPlayerMoving() 
     {
