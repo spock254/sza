@@ -204,6 +204,11 @@ public static class Global
         {
             return GameObject.FindGameObjectWithTag("ui").GetComponent<BuffController>();
         }
+
+        public static CollisionCounter GetCollisionCounter()
+        {
+            return GameObject.FindGameObjectWithTag("collisionCounter").GetComponent<CollisionCounter>();
+        }
     }
 
     public static class UIElement 
