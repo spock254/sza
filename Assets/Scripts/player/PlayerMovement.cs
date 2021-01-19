@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetDiractionAccess(Vector2 newDirAccess)
     {
-        Debug.Log("SetDiractionAccess");
+        
         diractionAccess = newDirAccess;
     }
 

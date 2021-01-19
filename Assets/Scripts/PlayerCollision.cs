@@ -16,68 +16,55 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "player")
         {
-            Debug.Log("ENTER");
+            Vector2 contact = Vector2.zero;
+
+            foreach (var contactPoints in other.contacts)
+            {
+                if (contactPoints.normal.x == 1 || contactPoints.normal.x == -1)
+                {
+                    contact.x = contactPoints.normal.x;
+                }
+
+                if (contactPoints.normal.y == 1 || contactPoints.normal.y == -1)
+                {
+                    contact.y = contactPoints.normal.y;
+                }
+            }
             
-            Vector2 contactPoints = other.contacts[0].normal;
-            playerMovement.SetDiractionAccess(contactPoints);
+            playerMovement.SetDiractionAccess(contact);
         }   
     }
-    Vector2 dirAccess = Vector2.zero;
+
     void OnCollisionStay2D(Collision2D other) 
     {
         if (other.gameObject.tag == "player")
         {
-            //Debug.Log("STAY");
-            //Debug.Log(playerMovement.GetDiractionAccess() + " OLD");
-            //Vector2 contactPoints = other.contacts[0].normal;
-            //Debug.Log(contactPoints);
-            //if (playerMovement.GetDiractionAccess() != Vector2.zero)
-            //{
-            //    dirAccess = playerMovement.GetDiractionAccess();
+            Vector2 contact = playerMovement.GetDiractionAccess();
 
-            //}
-            //if (other.contacts.Length == 4)
-            //{
-            //    playerMovement.SetDiractionAccess(new Vector2(other.contacts[0].normal.x, other.contacts[3].normal.x));
-            //}
-            //else if (other.contacts.Length == 2)
-            //{
-            //    playerMovement.SetDiractionAccess(new Vector2(other.contacts[0].normal.x, other.contacts[0].normal.y));
-            //}
-            //if (contactPoints.x != dirAccess.x)
-            //{
-                //playerMovement.SetDiractionAccess(new Vector2(contactPoints.x, dirAccess.y));
-            //}
-            //else if (contactPoints.y != dirAccess.y)
-            //{
-              //  playerMovement.SetDiractionAccess(new Vector2(dirAccess.x, contactPoints.y));
-                //Debug.Log(playerMovement.GetDiractionAccess());
-            //}
+            if (other.contacts.Length == 1)
+            {
+                if (contact != other.contacts[0].normal)
+                {
+                    playerMovement.SetDiractionAccess(other.contacts[0].normal);
+                }
+            }
+            else
+            {
+                Vector2 firstAx = other.contacts[0].normal;
+                Vector2 lastAx = other.contacts[other.contacts.Length - 1].normal;
 
-            //Vector2 contact = Vector2.zero;
+                if ((((firstAx.x == 1 || firstAx .x == -1) && firstAx.y == 0) || ((firstAx.y == 1 || firstAx .y == -1) && firstAx.x == 0)) 
+                && (((lastAx.x == 1 || lastAx .x == -1) && lastAx.y == 0) || ((lastAx.y == 1 || lastAx .y == -1) && lastAx.x == 0)))
+                {
+                    Vector2 axisSum = firstAx + lastAx;
 
-            //foreach (var contactPoints in other.contacts)
-            //{
-            //    if (contactPoints.normal.x != 0)
-            //    {
-            //        contact.x = contactPoints.normal.x;
-            //    }
+                    if (contact != axisSum)
+                    {
+                        playerMovement.SetDiractionAccess(axisSum);
+                    }
+                }
 
-            //    if (contactPoints.normal.y != 0)
-            //    {
-            //        contact.y = contactPoints.normal.y;
-            //    }
-            //}
-
-            //playerMovement.SetDiractionAccess(contact);
-
-            //Debug.Log("____________________");
-            //foreach (var contactPoints in other.contacts)
-            //{
-            //    Debug.Log(contactPoints.normal);
-
-            //}
-            //playerMovement.SetDiractionAccess(contactPoints);
+            }
         }   
     }
 
@@ -85,9 +72,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "player")
         {
-            Debug.Log("EXIT");
             playerMovement.SetDiractionAccess(new Vector2(0, 0));
-            dirAccess = Vector2.zero;
         } 
     }
 }
