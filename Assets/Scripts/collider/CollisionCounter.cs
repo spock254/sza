@@ -52,6 +52,24 @@ public class CollisionCounter : MonoBehaviour
         return null;
     }
 
+    public void SetContact(GameObject go, Vector2 newContact)
+    {
+        CollisionUnit collision = null;
+
+        foreach (CollisionUnit col in currentCollisions)
+        {
+            if (col.GetGoName() == go.gameObject.name)
+            {
+                collision = col;
+            }
+        }
+
+        if (collision != null)
+        {
+            collision.SetContact(newContact);
+        }
+    }
+
     public void TryAddCollision(CollisionUnit currentGo)
     {
         bool colExist = false;
@@ -92,5 +110,10 @@ public class CollisionUnit
     public Vector2 GetContact()
     {
         return contact;
+    }
+
+    public void SetContact(Vector2 contact)
+    {
+        this.contact = contact;
     }
 }

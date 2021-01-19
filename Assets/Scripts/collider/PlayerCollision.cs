@@ -73,7 +73,7 @@ public class PlayerCollision : MonoBehaviour
                 {
                     Vector2 roundAx = new Vector2(Mathf.Round(other.contacts[0].normal.x), Mathf.Round(other.contacts[0].normal.y));
                     Vector2 sumAxis = roundAx + playerMovement.GetDiractionAccess();
-                    colCounter.TryAddCollision(new CollisionUnit(sumAxis, this.gameObject));
+                    colCounter.TryAddCollision(new CollisionUnit(roundAx, this.gameObject));
                     playerMovement.SetDiractionAccess(sumAxis);
                 }
             }
@@ -92,9 +92,10 @@ public class PlayerCollision : MonoBehaviour
                 {
                     if (contact != other.contacts[0].normal)
                     {
-                        
                         if (colCounter.Count() == 1)
                         {
+                            colCounter.SetContact(this.gameObject, other.contacts[0].normal);
+                            contactToExit = other.contacts[0].normal;
                             playerMovement.SetDiractionAccess(other.contacts[0].normal);
                         }
                         else if (colCounter.Count() > 1)
@@ -166,8 +167,9 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "player")
         {
+
             colCounter.Remove(this.gameObject);
-            //Debug.Log("EXIT");
+            Debug.Log("EXIT");
             if (colCounter.IsEmpty())
             {
                 playerMovement.SetDiractionAccess(new Vector2(0, 0));
