@@ -13,7 +13,6 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
 
     [SerializeField]
     Item resultItem = null;
-
     [SerializeField]
     Item needItem = null;
 
@@ -26,12 +25,7 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     Tilemap upper2;
 
     [SerializeField]
-    Sprite bodySprite = null;
-    Tile bodyTile = null;
-    
-    [SerializeField]
-    Sprite upperSprite = null;
-    Tile upperTile = null;
+    StaticTiles baseTiles = null;
 
     [SerializeField]
     TileAnim tileAnim;
@@ -40,16 +34,13 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     {
         controller = Global.Component.GetController();
 
-        bodyTile = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
-        bodyTile.sprite = bodySprite;
-        upperTile = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
-        upperTile.sprite = upperSprite;
+        baseTiles.Init();
 
         upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         upper2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
 
-        upper.SetTile(upper.WorldToCell(transform.position), bodyTile);
-        upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
+        upper.SetTile(upper.WorldToCell(transform.position), baseTiles.GetBackTile());
+        upper2.SetTile(upper2.WorldToCell(transform.position), baseTiles.GetFrontTile());
         
         tileAnim.Init(this, upper2);
     }
@@ -61,40 +52,15 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
             controller.SetDefaultItem(hand);
             Item resultItemClone = Instantiate(resultItem);
             
-            Object[] args = new Object[1];
-            args[0] = resultItemClone;
-
-            tileAnim.StartAnim(FinalAction, args);
-            //StartCoroutine(Action(resultItemClone));
+            tileAnim.StartAnim(FinalAction, new Object[]{ resultItem });
         }
     }
-
-    void Test(Object[] args)
-    {
-        Debug.Log("Finish");
-    }
-    // IEnumerator Action(Item item)
-    // {
-    //     foreach (var tile in actionTiles)
-    //     {
-    //         upper2.SetTile(upper2.WorldToCell(transform.position), tile);
-    //         yield return new WaitForSeconds(actionFrameTime);
-    //     }
-
-    //     upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
-
-    //     GameObject prefClone = Instantiate(pref, dropPoint.position, Quaternion.identity);
-    //     prefClone.GetComponent<ItemCell>().item = item;
-    //     //prefClone.GetComponent<ItemCell>().item.itemBuff.buff = item.itemBuff.buff;
-    //     prefClone.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
-    //     prefClone.name += Global.DROPED_ITEM_PREFIX;
-    // }
 
     void FinalAction(object[] args)
     {
         Item item = (Item) args[0];
 
-        upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
+        upper2.SetTile(upper2.WorldToCell(transform.position), baseTiles.GetFrontTile());
 
         GameObject prefClone = Instantiate(pref, dropPoint.position, Quaternion.identity);
         prefClone.GetComponent<ItemCell>().item = item;
@@ -110,6 +76,6 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
 
     public string GetISwitchName()
     {
-        return name;
+        return objName;
     }
 }
