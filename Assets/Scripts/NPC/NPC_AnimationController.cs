@@ -75,23 +75,23 @@ public class NPC_AnimationController : MonoBehaviour
     {
         if (diraction.x > 0)
         {
-            anim.Play("walk_right");
+            anim.Play("walk R");
         }
         else if (diraction.x < 0)
         {
-            anim.Play("walk_left");
+            anim.Play("walk L");
         }
         else if (diraction.y > 0)
         {
-            anim.Play("walk_up");
+            anim.Play("walk U");
         }
         else if (diraction.y < 0)
         {
-            anim.Play("walk_down");
+            anim.Play("walk D");
         }
         else
         {
-            anim.Play("idle");
+            anim.Play("idle D");
         }
     }
 
@@ -99,23 +99,23 @@ public class NPC_AnimationController : MonoBehaviour
     {
         if (diraction.x > 0)
         {
-            anim.Play("right");
+            anim.Play("idle R");
         }
         else if (diraction.x < 0)
         {
-            anim.Play("left");
+            anim.Play("idle L");
         }
         else if (diraction.y > 0)
         {
-            anim.Play("up");
+            anim.Play("idle U");
         }
         else if (diraction.y < 0)
         {
-            anim.Play("down");
+            anim.Play("idle D");
         }
         else 
         {
-            anim.Play("down");
+            anim.Play("idle D");
         }
     }
 

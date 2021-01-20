@@ -82,24 +82,27 @@ public class PlayerAnimation : MonoBehaviour
         spritesDict.Add(SpritePart.lags, null);
         spritesDict.Add(SpritePart.face, null);
 
-        playerMoveAnims.Add(new Vector2(-1, 0), "walk_left");
-        playerMoveAnims.Add(new Vector2(1, 0), "walk_right");
-        playerMoveAnims.Add(new Vector2(0, 1), "walk_up");
-        playerMoveAnims.Add(new Vector2(0, -1), "walk_down");
-        playerMoveAnims.Add(new Vector2(-1, -1), "diagonal_left");
-        playerMoveAnims.Add(new Vector2(1, -1), "diagonal_right");
-        playerMoveAnims.Add(new Vector2(1, 1), "diagonal_up_right");
-        playerMoveAnims.Add(new Vector2(-1, 1), "diagonal_up_left");
-        //UpdateSprites();
-        playerIdleAnims.Add(new Vector2(-1, 0), "left");
-        playerIdleAnims.Add(new Vector2(1, 0), "right");
-        playerIdleAnims.Add(new Vector2(0, 1), "up");
-        playerIdleAnims.Add(new Vector2(0, -1), "down");
-        playerIdleAnims.Add(new Vector2(0, 0), "idle");
-        playerIdleAnims.Add(new Vector2(-1, -1), "diagonal_left_idle");
-        playerIdleAnims.Add(new Vector2(1, -1), "diagonal_right_idle");
-        playerIdleAnims.Add(new Vector2(1, 1), "diagonal_up_right_idle");
-        playerIdleAnims.Add(new Vector2(-1, 1), "diagonal_up_left_idle");
+        playerMoveAnims.Add(new Vector2(-1, 0), "walk L");
+        playerMoveAnims.Add(new Vector2(1, 0), "walk R");
+        playerMoveAnims.Add(new Vector2(0, 1), "walk U");
+        playerMoveAnims.Add(new Vector2(0, -1), "walk D");
+
+        playerMoveAnims.Add(new Vector2(-1, -1), "walk DL");
+        playerMoveAnims.Add(new Vector2(1, -1), "walk DR");
+        playerMoveAnims.Add(new Vector2(1, 1), "walk UR");
+        playerMoveAnims.Add(new Vector2(-1, 1), "walk UL");
+
+        playerIdleAnims.Add(new Vector2(-1, 0), "idle L");
+        playerIdleAnims.Add(new Vector2(1, 0), "idle R");
+        playerIdleAnims.Add(new Vector2(0, 1), "idle U");
+        playerIdleAnims.Add(new Vector2(0, -1), "idle D");
+
+        playerIdleAnims.Add(new Vector2(0, 0), "idle D");
+
+        playerIdleAnims.Add(new Vector2(-1, -1), "idle DL");
+        playerIdleAnims.Add(new Vector2(1, -1), "idle DR");
+        playerIdleAnims.Add(new Vector2(1, 1), "idle UR");
+        playerIdleAnims.Add(new Vector2(-1, 1), "idle UL");
     }
 
     public void OnSpriteChange(string spriteSheet, SpritePart spritePart) 
