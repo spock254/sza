@@ -35,6 +35,11 @@ public class CircularList<T> : ICollection<T>
         return list[index];
     }
 
+    public void Reset() 
+    {
+        index = 0;    
+    }
+
     public T GetCurrent() 
     {
         return list[index];

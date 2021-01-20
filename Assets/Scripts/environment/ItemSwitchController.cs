@@ -9,7 +9,7 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     Controller controller = null;
 
     [SerializeField]
-    string name = string.Empty;
+    string objName = string.Empty;
 
     [SerializeField]
     Item resultItem = null;
@@ -31,10 +31,13 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     Tile upperTile = null;
 
     [SerializeField]
-    List<Tile> actionTiles = new List<Tile>();
+    TileAnim tileAnim;
 
-    [SerializeField]
-    float actionFrameTime = 0.5f;
+    //[SerializeField]
+    //List<Tile> actionTiles = new List<Tile>();
+
+    //[SerializeField]
+    //float actionFrameTime = 0.5f;
 
     void Awake()
     {
@@ -45,9 +48,12 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
 
         upper.SetTile(upper.WorldToCell(transform.position), bodyTile);
         upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
-
     }
 
+    void Start() 
+    {
+        tileAnim.Init(this, upper2);
+    }
     public void SwitchItem(Item itemToSwitch, Button hand) 
     {
         if (itemToSwitch.IsSameItems(needItem)) 
@@ -55,18 +61,38 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
             controller.SetDefaultItem(hand);
             Item resultItemClone = Instantiate(resultItem);
             
-            StartCoroutine(Action(resultItemClone));
+            Object[] args = new Object[1];
+            args[0] = resultItemClone;
+
+            tileAnim.StartAnim(FinalAction, args);
+            //StartCoroutine(Action(resultItemClone));
         }
     }
 
-
-    IEnumerator Action(Item item)
+    void Test(Object[] args)
     {
-        foreach (var tile in actionTiles)
-        {
-            upper2.SetTile(upper2.WorldToCell(transform.position), tile);
-            yield return new WaitForSeconds(actionFrameTime);
-        }
+        Debug.Log("Finish");
+    }
+    // IEnumerator Action(Item item)
+    // {
+    //     foreach (var tile in actionTiles)
+    //     {
+    //         upper2.SetTile(upper2.WorldToCell(transform.position), tile);
+    //         yield return new WaitForSeconds(actionFrameTime);
+    //     }
+
+    //     upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
+
+    //     GameObject prefClone = Instantiate(pref, dropPoint.position, Quaternion.identity);
+    //     prefClone.GetComponent<ItemCell>().item = item;
+    //     //prefClone.GetComponent<ItemCell>().item.itemBuff.buff = item.itemBuff.buff;
+    //     prefClone.GetComponent<SpriteRenderer>().sprite = item.itemSprite;
+    //     prefClone.name += Global.DROPED_ITEM_PREFIX;
+    // }
+
+    void FinalAction(object[] args)
+    {
+        Item item = (Item) args[0];
 
         upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
 

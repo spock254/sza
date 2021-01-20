@@ -23,8 +23,6 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "player")
         {
-            //colCounter.TryAddCollision(this.gameObject);
-
             if (colliderObj == ColliderObject.Wall)
             {
                 Vector2 contact = Vector2.zero;
@@ -41,8 +39,6 @@ public class PlayerCollision : MonoBehaviour
                         contact.y = contactPoints.normal.y;
                     }
                 }
-                
-                //colCounter.TryAddCollision(new CollisionUnit(contact))
 
                 if (colCounter.IsEmpty())    /* только 1 колизия с обьектом */
                 {
@@ -52,17 +48,12 @@ public class PlayerCollision : MonoBehaviour
                 else
                 {
                     Vector2 sumAxis = contact + playerMovement.GetDiractionAccess();
-                    //Debug.Log(contact + playerMovement.GetDiractionAccess());
                     colCounter.TryAddCollision(new CollisionUnit(contact, this.gameObject));
                     playerMovement.SetDiractionAccess(sumAxis);
                 }
             }
             else if (colliderObj == ColliderObject.GameObject)
             {
-                //foreach (var contactPoints in other.contacts)
-                //{
-                //    Debug.Log(contactPoints.normal);
-                //}
                 if (colCounter.IsEmpty())    /* только 1 колизия с обьектом */
                 {
                     Vector2 contact = new Vector2(Mathf.Round(other.contacts[0].normal.x), Mathf.Round(other.contacts[0].normal.y));
@@ -101,7 +92,6 @@ public class PlayerCollision : MonoBehaviour
                         else if (colCounter.Count() > 1)
                         {
                             Vector2 axisSum = other.contacts[0].normal + colCounter.GetNextCollisionUnit(this.gameObject).GetContact();
-                            //Debug.Log("HERE _ WALL" + axisSum);
                             contactToExit = axisSum;
                             playerMovement.SetDiractionAccess(axisSum);
                         }
@@ -121,15 +111,14 @@ public class PlayerCollision : MonoBehaviour
                         {
                             contactToExit = axisSum;
                             
-                            if (colCounter.Count() == 1)
-                            {
+                            //if (colCounter.Count() == 1)
+                            //{
+                            //    playerMovement.SetDiractionAccess(axisSum);
+                            //}
+                            //else if (colCounter.Count() > 1)
+                            //{
                                 playerMovement.SetDiractionAccess(axisSum);
-                            }
-                            else if (colCounter.Count() > 1)
-                            {
-                                //Debug.Log("HERE _ WALL 2" + other.contacts[0].normal + colCounter.GetNextCollisionUnit(this.gameObject).GetContact());
-                                playerMovement.SetDiractionAccess(axisSum);
-                            }
+                            //}
                         }
                     }
 
@@ -150,15 +139,9 @@ public class PlayerCollision : MonoBehaviour
                     }
                     else if (colCounter.Count() > 1)
                     {
-                        //Debug.Log("HERE _ OBJ" + contact + colCounter.GetNextCollisionUnit(this.gameObject).GetContact());
                         playerMovement.SetDiractionAccess(contact + colCounter.GetNextCollisionUnit(this.gameObject).GetContact());
                     }
                 }
-                //Debug.Log("___________________");
-                //foreach (var contactPoints in other.contacts)
-                //{
-                //    Debug.Log(contactPoints.normal);
-                //}
             }
         }   
     }
@@ -167,9 +150,8 @@ public class PlayerCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "player")
         {
-
             colCounter.Remove(this.gameObject);
-            Debug.Log("EXIT");
+
             if (colCounter.IsEmpty())
             {
                 playerMovement.SetDiractionAccess(new Vector2(0, 0));

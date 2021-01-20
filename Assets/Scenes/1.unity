@@ -11374,7 +11374,7 @@ PrefabInstance:
     - target: {fileID: 4493286739577914818, guid: c1215e39813078c4f86eb662c43e188f,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4493286739577914818, guid: c1215e39813078c4f86eb662c43e188f,
         type: 3}
@@ -13631,7 +13631,7 @@ PrefabInstance:
     - target: {fileID: 3102926820188111976, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3102926820188111978, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
@@ -13688,6 +13688,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: frames.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frameRate
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.actionTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: frames.Array.data[0]
+      value: 
+      objectReference: {fileID: 822733507132942983, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: frames.Array.data[1]
+      value: 
+      objectReference: {fileID: 8116405315820045386, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: frames.Array.data[2]
+      value: 
+      objectReference: {fileID: -3658132573436936548, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[0]
+      value: 
+      objectReference: {fileID: -14730427380125175, guid: c486991fd5cd01f4394dfd40af4ea846,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[1]
+      value: 
+      objectReference: {fileID: 870872942048082161, guid: c486991fd5cd01f4394dfd40af4ea846,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[2]
+      value: 
+      objectReference: {fileID: -2649303518379460144, guid: c486991fd5cd01f4394dfd40af4ea846,
+        type: 3}
     - target: {fileID: 3102926820188111988, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: m_Name
@@ -31242,7 +31298,7 @@ PrefabInstance:
     - target: {fileID: 2629205702211164419, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2629205702211164540, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
