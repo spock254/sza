@@ -26,34 +26,34 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     Tilemap upper2;
 
     [SerializeField]
+    Sprite bodySprite = null;
     Tile bodyTile = null;
+    
     [SerializeField]
+    Sprite upperSprite = null;
     Tile upperTile = null;
 
     [SerializeField]
     TileAnim tileAnim;
 
-    //[SerializeField]
-    //List<Tile> actionTiles = new List<Tile>();
-
-    //[SerializeField]
-    //float actionFrameTime = 0.5f;
-
     void Awake()
     {
         controller = Global.Component.GetController();
+
+        bodyTile = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
+        bodyTile.sprite = bodySprite;
+        upperTile = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
+        upperTile.sprite = upperSprite;
 
         upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         upper2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
 
         upper.SetTile(upper.WorldToCell(transform.position), bodyTile);
         upper2.SetTile(upper2.WorldToCell(transform.position), upperTile);
-    }
-
-    void Start() 
-    {
+        
         tileAnim.Init(this, upper2);
     }
+
     public void SwitchItem(Item itemToSwitch, Button hand) 
     {
         if (itemToSwitch.IsSameItems(needItem)) 

@@ -13646,7 +13646,7 @@ PrefabInstance:
     - target: {fileID: 3102926820188111978, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.96
+      value: 3.12
       objectReference: {fileID: 0}
     - target: {fileID: 3102926820188111978, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
@@ -13690,13 +13690,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
+      propertyPath: bodyTile
+      value: 
+      objectReference: {fileID: 11400000, guid: d8eb0abc5eaf5fe41a543788afa39fff,
+        type: 2}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: upperTile
+      value: 
+      objectReference: {fileID: 11400000, guid: d8eb0abc5eaf5fe41a543788afa39fff,
+        type: 2}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
       propertyPath: frames.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: tileAnim.frameRate
-      value: 0.4
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
@@ -13724,25 +13736,169 @@ PrefabInstance:
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: tileAnim.frames.Array.size
-      value: 3
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: tileAnim.frames.Array.data[0]
       value: 
-      objectReference: {fileID: -14730427380125175, guid: c486991fd5cd01f4394dfd40af4ea846,
+      objectReference: {fileID: 822733507132942983, guid: 08af0fafd7a443444abba60863611b80,
         type: 3}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: tileAnim.frames.Array.data[1]
       value: 
-      objectReference: {fileID: 870872942048082161, guid: c486991fd5cd01f4394dfd40af4ea846,
+      objectReference: {fileID: 8116405315820045386, guid: 08af0fafd7a443444abba60863611b80,
         type: 3}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: tileAnim.frames.Array.data[2]
       value: 
-      objectReference: {fileID: -2649303518379460144, guid: c486991fd5cd01f4394dfd40af4ea846,
+      objectReference: {fileID: -3658132573436936548, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[3]
+      value: 
+      objectReference: {fileID: 8021415388866052911, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[4]
+      value: 
+      objectReference: {fileID: 642636671357801848, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[5]
+      value: 
+      objectReference: {fileID: 4303411926534430891, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[6]
+      value: 
+      objectReference: {fileID: 2751896603837582780, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[7]
+      value: 
+      objectReference: {fileID: -567342659974035918, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[8]
+      value: 
+      objectReference: {fileID: 6104068677315325800, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[9]
+      value: 
+      objectReference: {fileID: -8459986626779701102, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[10]
+      value: 
+      objectReference: {fileID: 1760889165381783699, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[11]
+      value: 
+      objectReference: {fileID: -7475430982656399351, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[12]
+      value: 
+      objectReference: {fileID: -1446168607867803888, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[13]
+      value: 
+      objectReference: {fileID: -6638417310169019941, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[14]
+      value: 
+      objectReference: {fileID: 2729403504095144251, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[15]
+      value: 
+      objectReference: {fileID: -1123181691817077551, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[16]
+      value: 
+      objectReference: {fileID: -7553489504842136815, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[17]
+      value: 
+      objectReference: {fileID: 4757193879449234203, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[18]
+      value: 
+      objectReference: {fileID: -4900849884842864318, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[19]
+      value: 
+      objectReference: {fileID: -4712227043479126895, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[20]
+      value: 
+      objectReference: {fileID: -5810752094406932416, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[21]
+      value: 
+      objectReference: {fileID: -8816994489232510593, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[22]
+      value: 
+      objectReference: {fileID: -4379321792019241234, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[23]
+      value: 
+      objectReference: {fileID: -2577914922014742398, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[24]
+      value: 
+      objectReference: {fileID: 6430576931507459854, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[25]
+      value: 
+      objectReference: {fileID: 307693995878988075, guid: 08af0fafd7a443444abba60863611b80,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: tileAnim.frames.Array.data[26]
+      value: 
+      objectReference: {fileID: -5342916703443659101, guid: 08af0fafd7a443444abba60863611b80,
         type: 3}
     - target: {fileID: 3102926820188111988, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
