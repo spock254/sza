@@ -418,7 +418,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                         {
                             PCController pcController = hit.collider.GetComponent<PCController>();
                             Item itemInHand = IsEmpty(currentHand) ? null : GetItemInHand(currentHand);
-                            pcController.OnPc_ClicK(itemInHand, mousePos);
+                            pcController.OnPc_ClicK(itemInHand);
                         }
 
                         if (hit.collider.gameObject.tag == "tv") 

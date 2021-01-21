@@ -10,11 +10,14 @@ public enum AcessLvL { USER }
 //[ExecuteInEditMode]
 public class PCController : MonoBehaviour
 {
-    Tilemap upper_2;
+    //Tilemap upper_2;
     Tilemap upper;
-    public Tile open_tile;
-    public Tile acess_enterTile;
-    public Tile pc_body;
+
+    //public Tile open_tile;
+    //public Tile pc_body;
+    [SerializeField]
+    StaticTiles baseTiles = null;
+
     //public Light2D light2D;
 
     // pc inner data----------------------------------------------------------------
@@ -27,7 +30,6 @@ public class PCController : MonoBehaviour
 
     bool isOpen;
     bool isSystemInstaled = false;
-    Vector3Int currentCell;
 
     ActionWindowController actionWindow;
     TerminalController terminalController;
@@ -38,10 +40,12 @@ public class PCController : MonoBehaviour
         //upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_3);
         //upper = Global.TileMaps.GetTileMap(Global.TileMaps.BASE_2);
 
-        upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+        //upper_2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
         upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
 
-        upper.SetTile(upper.WorldToCell(transform.position), pc_body);
+        baseTiles.Init();
+
+        upper.SetTile(upper.WorldToCell(transform.position), baseTiles.GetMainTile());
 
         actionWindow = Global.Component.GetActionWindowController();
         terminalController = Global.Component.GetTerminalController();
@@ -61,10 +65,8 @@ public class PCController : MonoBehaviour
     //    }
     //}
 
-    public void OnPc_ClicK(Item itemInHand, Vector3 mousePosition) 
+    public void OnPc_ClicK(Item itemInHand) 
     {
-        currentCell = upper_2.WorldToCell(mousePosition);
-        
         if (isOpen == false)
         {
             Open();
@@ -106,7 +108,7 @@ public class PCController : MonoBehaviour
      
     public void Open()
     {
-        upper_2.SetTile(currentCell, open_tile);
+        upper.SetTile(upper.WorldToCell(transform.position), baseTiles.GetSecondaryTile());
         isOpen = true;
 
         terminalController.SetCurrentPc(this);
@@ -118,7 +120,7 @@ public class PCController : MonoBehaviour
 
     public void Close() 
     {
-        upper_2.SetTile(currentCell, null);
+        upper.SetTile(upper.WorldToCell(transform.position), baseTiles.GetMainTile());
         isOpen = false;
 
         terminalController.SetCurrentPc(null);
