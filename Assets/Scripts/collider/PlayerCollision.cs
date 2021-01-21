@@ -132,7 +132,7 @@ public class PlayerCollision : MonoBehaviour
                 if (playerMovement.GetDiractionAccess() != contact)
                 {
                     contactToExit = contact;
-
+                
                     if (colCounter.Count() == 1)
                     {
                         playerMovement.SetDiractionAccess(contact);

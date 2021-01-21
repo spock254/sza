@@ -97,8 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164dedf2b818a7c49bd34f6a18ab4ecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caseName: 
-  caseBody: {fileID: 11400000, guid: 7015e01507c2ee749b819999a23f8a1c, type: 2}
-  caseOpen: {fileID: 11400000, guid: fc3045600a03ff1488ea6ea63f365cb8, type: 2}
-  caseClosed: {fileID: 11400000, guid: f2b2b18b1ffe2144989987e6b57b69eb, type: 2}
+  caseName: box
+  baseTiles:
+    mainSprite: {fileID: 5729655590360138071, guid: 538b36995f1d47b49b7e46e014d4b648,
+      type: 3}
+    secondarySprite: {fileID: -771531970694122940, guid: 538b36995f1d47b49b7e46e014d4b648,
+      type: 3}
   isOpen: 0

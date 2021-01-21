@@ -34,16 +34,24 @@ public class TileAnim
     {
         mb.StartCoroutine(Anim(finalAction, args));
     }
-
+    
     IEnumerator Anim(FinalAction finalAction, Object[] args)
     {
-        for (float i = 0; i <= actionTime; i += frameRate)
+        if (sl.IsEmpty() == false)
         {
-            tilemap.SetTile(tilemap.WorldToCell(mb.transform.position), sl.GetNext());
-            yield return new WaitForSeconds(frameRate); 
+            for (float i = 0; i <= actionTime; i += frameRate)
+            {
+                tilemap.SetTile(tilemap.WorldToCell(mb.transform.position), sl.GetNext());
+                yield return new WaitForSeconds(frameRate); 
+            }
+
+            sl.Reset();
+        }
+        else
+        {
+            yield return new WaitForSeconds(actionTime);
         }
 
-        sl.Reset();
         finalAction(args);
     }
 }

@@ -425,7 +425,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.9238477, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -13719,6 +13719,18 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
+      propertyPath: baseTiles.back
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dbd2ea14f91f1b4281664e5165dc6c5,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: baseTiles.front
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dbd2ea14f91f1b4281664e5165dc6c5,
+        type: 3}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
       propertyPath: frames.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -13732,6 +13744,12 @@ PrefabInstance:
       propertyPath: tileAnim.actionTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
+        type: 3}
+      propertyPath: baseTiles.mainSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7dbd2ea14f91f1b4281664e5165dc6c5,
+        type: 3}
     - target: {fileID: 3102926820188111983, guid: af1c168c6878be44898485ff5739dc69,
         type: 3}
       propertyPath: frames.Array.data[0]
@@ -26478,6 +26496,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3466372726103184826, guid: 46ff48647ccb2784e99a47b6b57247fd,
+        type: 3}
+      propertyPath: peripherals.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3466372726103184828, guid: 46ff48647ccb2784e99a47b6b57247fd,
         type: 3}
       propertyPath: m_Name
@@ -26496,7 +26519,7 @@ PrefabInstance:
     - target: {fileID: 3466372726103184829, guid: 46ff48647ccb2784e99a47b6b57247fd,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3466372726103184829, guid: 46ff48647ccb2784e99a47b6b57247fd,
         type: 3}
@@ -31469,6 +31492,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: case
       objectReference: {fileID: 0}
+    - target: {fileID: 2629205702211164418, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: caseName
+      value: box
+      objectReference: {fileID: 0}
+    - target: {fileID: 2629205702211164418, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: baseTiles.back
+      value: 
+      objectReference: {fileID: 5729655590360138071, guid: 538b36995f1d47b49b7e46e014d4b648,
+        type: 3}
+    - target: {fileID: 2629205702211164418, guid: 413b41d385057064f9251b5543e99c83,
+        type: 3}
+      propertyPath: baseTiles.front
+      value: 
+      objectReference: {fileID: -771531970694122940, guid: 538b36995f1d47b49b7e46e014d4b648,
+        type: 3}
     - target: {fileID: 2629205702211164419, guid: 413b41d385057064f9251b5543e99c83,
         type: 3}
       propertyPath: m_Enabled
@@ -32736,7 +32776,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146029486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.48, y: 0.61000013, z: 0}
+  m_LocalPosition: {x: 1.179, y: -0.028, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1600854425}

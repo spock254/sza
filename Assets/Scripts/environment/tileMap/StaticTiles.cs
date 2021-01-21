@@ -6,28 +6,35 @@ using UnityEngine.Tilemaps;
 [System.Serializable]
 public class StaticTiles
 {
-    public Sprite back = null;
-    public Sprite front = null;
+    public Sprite mainSprite = null;
+    public Sprite secondarySprite = null;
 
-    Tile backTile = null;
-    Tile frontTile = null;
-
+    Tile main = null;
+    Tile secondary = null;
+    
     public void Init() 
     {
-        backTile = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
-        backTile.sprite = back;
+        if (mainSprite != null)
+        {
+            main = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
+            main.sprite = mainSprite;
+        }
 
-        backTile = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
-        backTile.sprite = back;
+        if (secondarySprite != null)
+        {
+            secondary = ScriptableObject.CreateInstance(typeof(Tile)) as Tile;
+            secondary.sprite = secondarySprite;
+        }
     }
 
-    public Tile GetBackTile()
+    public Tile GetMainTile()
     {
-        return backTile;
+        return main;
     }
 
-    public Tile GetFrontTile()
+    public Tile GetSecondaryTile()
     {
-        return frontTile;
+        return secondary;
     }
+    
 }

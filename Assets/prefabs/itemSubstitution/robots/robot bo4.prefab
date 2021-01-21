@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d242f2b85bd59874a8be7a14bafa736f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectionRadius: 1
+  connectionRadius: 0.32
 --- !u!114 &4458132913642461077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,7 +106,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
 --- !u!114 &6825416519695765372
 MonoBehaviour:
@@ -306,6 +306,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

@@ -8,12 +8,13 @@ public class CaseController : MonoBehaviour
 {
     public string caseName;
 
-    Tilemap caseTilemap_door;
-    Tilemap caseTilemap_body;
+    Tilemap caseTileMap;
 
-    public Tile caseBody;
-    public Tile caseOpen;
-    public Tile caseClosed;
+    //public Tile caseBody;
+    //public Tile caseOpen;
+    //public Tile caseClosed;
+    [SerializeField]
+    StaticTiles baseTiles;
 
     public bool isOpen = false;
     
@@ -25,14 +26,16 @@ public class CaseController : MonoBehaviour
 
     void Start()
     {
-        caseTilemap_body = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
-        caseTilemap_door = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
+        caseTileMap = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
+        //caseTilemap_door = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
 
         eventController = Global.Component.GetEventController();
         casePanelController = Global.Component.GetCasePanelController();
 
-        caseTilemap_body.SetTile(caseTilemap_body.WorldToCell(transform.position), caseBody);
-        caseTilemap_door.SetTile(caseTilemap_door.WorldToCell(transform.position), caseClosed);
+        baseTiles.Init();
+
+        caseTileMap.SetTile(caseTileMap.WorldToCell(transform.position), baseTiles.GetMainTile());
+        //caseTilemap_door.SetTile(caseTilemap_door.WorldToCell(transform.position), caseClosed);
     }
 
 
@@ -43,8 +46,8 @@ public class CaseController : MonoBehaviour
             return;
         }
 
-        Vector3Int currentCell = caseTilemap_door.WorldToCell(mousePosition);
-        caseTilemap_door.SetTile(currentCell, (!isOpen) ? caseOpen : caseClosed);
+        Vector3Int currentCell = caseTileMap.WorldToCell(mousePosition);
+        caseTileMap.SetTile(currentCell, (isOpen == false) ? baseTiles.GetSecondaryTile() : baseTiles.GetMainTile());
         isOpen = !isOpen;
         //mousePos = mousePosition;
     }

@@ -39,8 +39,8 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
         upper = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER);
         upper2 = Global.TileMaps.GetTileMap(Global.TileMaps.UPPER_2);
 
-        upper.SetTile(upper.WorldToCell(transform.position), baseTiles.GetBackTile());
-        upper2.SetTile(upper2.WorldToCell(transform.position), baseTiles.GetFrontTile());
+        upper.SetTile(upper.WorldToCell(transform.position), baseTiles.GetMainTile());
+        upper2.SetTile(upper2.WorldToCell(transform.position), baseTiles.GetSecondaryTile());
         
         tileAnim.Init(this, upper2);
     }
@@ -60,7 +60,7 @@ public class ItemSwitchController : MonoBehaviour, ISwitchItem
     {
         Item item = (Item) args[0];
 
-        upper2.SetTile(upper2.WorldToCell(transform.position), baseTiles.GetFrontTile());
+        upper2.SetTile(upper2.WorldToCell(transform.position), baseTiles.GetSecondaryTile());
 
         GameObject prefClone = Instantiate(pref, dropPoint.position, Quaternion.identity);
         prefClone.GetComponent<ItemCell>().item = item;

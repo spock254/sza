@@ -12,6 +12,11 @@ public class CircularList<T> : ICollection<T>
         list = new List<T>();
     }
 
+    public bool IsEmpty()
+    {
+        return Count == 0;
+    }
+
     public CircularList(List<T> list) 
     {
         this.list = list;
