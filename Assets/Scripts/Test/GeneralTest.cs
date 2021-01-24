@@ -15,9 +15,9 @@ public class GeneralTest : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Home))
+        if (Input.GetKeyDown(KeyCode.Escape
         {
-            //skillsInit.cooking.AddExp(250);
+            Application.Quit();
 
         }
     }
