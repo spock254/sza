@@ -88,6 +88,11 @@ public class CollisionCounter : MonoBehaviour
             currentCollisions.Add(currentGo);
         }
     }
+
+    public CollisionUnit GetFirstCollisionUnit()
+    {
+        return currentCollisions[0];
+    }
 }
 
 [System.Serializable]

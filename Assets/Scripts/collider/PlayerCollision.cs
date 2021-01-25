@@ -126,22 +126,53 @@ public class PlayerCollision : MonoBehaviour
             }
             else if (colliderObj == ColliderObject.GameObject)
             {
-                
                 Vector2 contact = new Vector2(Mathf.Round(other.contacts[0].normal.x), Mathf.Round(other.contacts[0].normal.y));
-                
-                if (playerMovement.GetDiractionAccess() != contact)
+                Debug.Log("____________________");
+                foreach (var contactPoints in other.contacts)
                 {
-                    contactToExit = contact;
-                
-                    if (colCounter.Count() == 1)
+                    Debug.Log(contactPoints.normal);
+                }
+
+                contactToExit = contact;
+                Vector2 firstAx = other.contacts[0].normal;
+                Vector2 lastAx = other.contacts[other.contacts.Length - 1].normal;
+
+                if(colCounter.Count() == 1)
+                {
+                    if (other.contacts.Length == 1)
                     {
                         playerMovement.SetDiractionAccess(contact);
                     }
-                    else if (colCounter.Count() > 1)
+                    else if ((((firstAx.x == 1 || firstAx.x == -1) && firstAx.y == 0) || ((firstAx.y == 1 || firstAx .y == -1) && firstAx.x == 0)) 
+                    && (((lastAx.x == 1 || lastAx.x == -1) && lastAx.y == 0) || ((lastAx.y == 1 || lastAx .y == -1) && lastAx.x == 0)))
                     {
-                        playerMovement.SetDiractionAccess(contact + colCounter.GetNextCollisionUnit(this.gameObject).GetContact());
+                        playerMovement.SetDiractionAccess(other.contacts[0].normal + other.contacts[1].normal);
                     }
                 }
+                else if (colCounter.Count() > 1)
+                {
+                    playerMovement.SetDiractionAccess(contact + colCounter.GetNextCollisionUnit(this.gameObject).GetContact());
+                }
+                // Vector2 contact = new Vector2(Mathf.Round(other.contacts[0].normal.x), Mathf.Round(other.contacts[0].normal.y));
+                
+                // if (playerMovement.GetDiractionAccess() != contact)// && ((playerMovement.GetDiractionAccess().x != 0 && playerMovement.GetDiractionAccess().y == 0) 
+                //                                                    //|| (playerMovement.GetDiractionAccess().x == 0 && playerMovement.GetDiractionAccess().y != 0)))
+                // {
+                //     contactToExit = contact;
+                //     if (colCounter.Count() == 1)
+                //     {
+                //         Vector2 axisSum = colCounter.GetFirstCollisionUnit().GetContact() + contact;
+                //         //colCounter.TryAddCollision(new CollisionUnit(contact, this.gameObject));
+                //             //contact = axisSum;
+                //         contactToExit = axisSum;
+                //         playerMovement.SetDiractionAccess(axisSum);
+
+                //     }
+                //     else if (colCounter.Count() > 1)
+                //     {
+                //         playerMovement.SetDiractionAccess(contact + colCounter.GetNextCollisionUnit(this.gameObject).GetContact());
+                //     }
+                // }
             }
         }   
     }
