@@ -127,11 +127,11 @@ public class PlayerCollision : MonoBehaviour
             else if (colliderObj == ColliderObject.GameObject)
             {
                 Vector2 contact = new Vector2(Mathf.Round(other.contacts[0].normal.x), Mathf.Round(other.contacts[0].normal.y));
-                Debug.Log("____________________");
-                foreach (var contactPoints in other.contacts)
-                {
-                    Debug.Log(contactPoints.normal);
-                }
+                // Debug.Log("____________________");
+                // foreach (var contactPoints in other.contacts)
+                // {
+                //     Debug.Log(contactPoints.normal);
+                // }
 
                 contactToExit = contact;
                 Vector2 firstAx = other.contacts[0].normal;
