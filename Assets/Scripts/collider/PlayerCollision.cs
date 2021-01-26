@@ -12,6 +12,8 @@ public class PlayerCollision : MonoBehaviour
     CollisionCounter colCounter;
     Vector2 contactToExit = Vector2.zero;
 
+    readonly Vector2 ALL_DIR_ACCESS = new Vector2(0, 0);
+
     private void Start() 
     {
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
@@ -127,11 +129,6 @@ public class PlayerCollision : MonoBehaviour
             else if (colliderObj == ColliderObject.GameObject)
             {
                 Vector2 contact = new Vector2(Mathf.Round(other.contacts[0].normal.x), Mathf.Round(other.contacts[0].normal.y));
-                // Debug.Log("____________________");
-                // foreach (var contactPoints in other.contacts)
-                // {
-                //     Debug.Log(contactPoints.normal);
-                // }
 
                 contactToExit = contact;
                 Vector2 firstAx = other.contacts[0].normal;
@@ -141,7 +138,19 @@ public class PlayerCollision : MonoBehaviour
                 {
                     if (other.contacts.Length == 1)
                     {
+                        /*   игрок на углу обьекта   */
+                        if (firstAx.x != 0 && firstAx.y != 0)
+                        {
+                            Vector2 absCornerContact = new Vector2(Mathf.Abs(firstAx.x), Mathf.Abs(firstAx.y));
+                            contact = (absCornerContact.x > absCornerContact.y) ? new Vector2(contact.x, 0) : new Vector2(0, contact.y);
+                        }
+
                         playerMovement.SetDiractionAccess(contact);
+                        // Debug.Log("_____________");
+                        // foreach (var cpoint in other.contacts)
+                        // {
+                        //     Debug.Log(cpoint.normal);
+                        // }
                     }
                     else if ((((firstAx.x == 1 || firstAx.x == -1) && firstAx.y == 0) || ((firstAx.y == 1 || firstAx .y == -1) && firstAx.x == 0)) 
                     && (((lastAx.x == 1 || lastAx.x == -1) && lastAx.y == 0) || ((lastAx.y == 1 || lastAx .y == -1) && lastAx.x == 0)))
@@ -185,7 +194,7 @@ public class PlayerCollision : MonoBehaviour
 
             if (colCounter.IsEmpty())
             {
-                playerMovement.SetDiractionAccess(new Vector2(0, 0));
+                playerMovement.SetDiractionAccess(ALL_DIR_ACCESS);
             }
             else
             {

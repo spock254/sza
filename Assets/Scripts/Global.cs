@@ -108,6 +108,8 @@ public static class Global
 
     public static class TileMaps
     {
+        public const float TILE_OFFSET = 0.08f;
+
         public const string BASE = "base";
         public const string BASE_2 = "base2";
         public const string BASE_3 = "base3";
