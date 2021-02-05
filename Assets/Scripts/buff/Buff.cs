@@ -18,6 +18,7 @@ public class Buff : ScriptableObject
 
     EventController eventController = null;
     BuffController buffController = null;
+    
     public void BuffActivate(Item item) 
     {
         if (eventController == null) 
@@ -95,5 +96,10 @@ public class Buff : ScriptableObject
         buff.Debuff();
 
         //eventController.OnRemoveBuffEvent.Invoke(item);
+    }
+
+    public static bool IsItemContainsBuff(Item item)
+    {
+        return item.itemBuff.buff != null;
     }
 }

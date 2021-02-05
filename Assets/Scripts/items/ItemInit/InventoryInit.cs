@@ -15,7 +15,9 @@ public class InventoryInit : MonoBehaviour
     [SerializeField] Item left_hand = null;
     [SerializeField] Item right_hand = null;
     [SerializeField] Item left_pack = null;
+    [SerializeField] Item left_pack2 = null;
     [SerializeField] Item right_pack = null;
+    [SerializeField] Item right_pack2 = null;
     [SerializeField] Item card = null;
     [SerializeField] Item bagCell = null;
 
@@ -30,9 +32,11 @@ public class InventoryInit : MonoBehaviour
         inventoryDefaultDB.Add("lags",  lags);
         inventoryDefaultDB.Add("bag",  bag);
         inventoryDefaultDB.Add("left_hand", left_hand);
-        inventoryDefaultDB.Add("right_hand", right_hand);
+        inventoryDefaultDB.Add("right_hand", right_hand);       
         inventoryDefaultDB.Add("packet_left", left_pack);
+        inventoryDefaultDB.Add("packet_left2", left_pack2);
         inventoryDefaultDB.Add("packet_right", right_pack);
+        inventoryDefaultDB.Add("packet_right2", right_pack2);
         inventoryDefaultDB.Add("card", card);
 
         // инит для слотов сумки

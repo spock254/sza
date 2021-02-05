@@ -18,19 +18,11 @@ MonoBehaviour:
   itemPrice: 100
   itemSprite: {fileID: -1746338028335196486, guid: ba517837c15116049b3ca69283d32da4,
     type: 3}
-  stats:
-    playerStats: 5
-    value: 0
-    duration: 0
-    time: 0
-  ItemFightStats:
-    attack: 0
-    defence: 0
   itemUseData:
     itemSize: 0
     use:
       id: 0
-    itemTypes: 08000000070000000d000000
+    itemTypes: 0d0000000800000007000000090000000a000000
   itemAnimationData:
     itemSpriteFrames: []
   itemTimeflowModify:
@@ -42,6 +34,9 @@ MonoBehaviour:
     effectCells: 
     envPosition: {x: 0, y: 0, z: 0}
     currentCell: {fileID: 0}
+  itemBuff:
+    buffTime: 0
+    buff: {fileID: 0}
   itemOptionData:
     awPrefab: {fileID: 0}
     text: 
@@ -49,6 +44,10 @@ MonoBehaviour:
     isModified: 0
   itemReviewData:
     itemReviewPrefab: {fileID: 0}
+  itemSubstitution:
+    prefToSubstitut: {fileID: 0}
+    initState: 0
+    itemsToUse: []
   capacity: 0
   innerItems: []
   isDestroyOnPlayerUse: 0

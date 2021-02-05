@@ -18,7 +18,9 @@ public class ItemEditor : Editor
         "UseLeftHand",
         "UseRightHand",
         "UseLeftPack",
+        "UseLeftPack2",
         "UseRightPack",
+        "UseRightPack2",
         "UseCard",
 
         "BagUse", 
@@ -50,7 +52,9 @@ public class ItemEditor : Editor
         use.Add("UseLeftHand", new UseLeftHand());
         use.Add("UseRightHand", new UseRightHand());
         use.Add("UseLeftPack", new UseLeftPack());
+        use.Add("UseLeftPack2", new UseLeftPack2());
         use.Add("UseRightPack", new UseRightPack());
+        use.Add("UseRightPack2", new UseRightPack2());
         use.Add("UseCard", new UseCard());
 
         use.Add("BagUse", new BagUse());

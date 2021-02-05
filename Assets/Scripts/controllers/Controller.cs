@@ -23,7 +23,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     public Button left_hand_btn;
     public Button right_hand_btn;
     public Button left_pack_btn;
+    public Button left_pack2_btn;
     public Button right_pack_btn;
+    public Button right_pack2_btn;
     public Button card_btn;
 
     [Header("Bag cells")]
@@ -81,7 +83,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
     ActionWindowController actionWindow;
     DialogueManager dialogWindow;
     ActionPanelController actionPanel;
-    TerminalController terminalController; // не детектить нажатие пробела когда терминал открыт
+    TerminalController terminalController;  // не детектить нажатие пробела когда терминал открыт
+    BuffController buffController;          // для инита бафов при одетом шмоте в функции InitItemInInventory()
+
     void Start()
     {
         instance = this;
@@ -92,6 +96,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         actionPanel = Global.Component.GetActionPanelController();
         playerMovement = Global.Obj.GetPlayerGameObject().GetComponent<PlayerMovement>();
         terminalController = Global.Component.GetTerminalController();
+        buffController = Global.Component.GetBuffController();
 
         InitCells();
         InitItemInInventory();
@@ -144,7 +149,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         cellList.Add(left_hand_btn);
         cellList.Add(right_hand_btn);
         cellList.Add(left_pack_btn);
+        cellList.Add(left_pack2_btn);
         cellList.Add(right_pack_btn);
+        cellList.Add(right_pack2_btn);
         cellList.Add(card_btn);
     }
     void SetHandColor() 
@@ -363,6 +370,7 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
                             return; // приоритет что бы не взять айтем и не положить его потом на стол если он был уже на столе
                         }
 
+                        /*   клик по игроку   */
                         if (hit.collider.gameObject.tag == "playerAction")
                         {
                             Item item = currentHand.GetComponent<ItemCell>().item;
@@ -552,6 +560,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         GameObject cellGo = GameObject.FindGameObjectWithTag(itemType.ToString()
                                     .ToLower() + "_cell");
 
+        //GameObject cellGo = GameObject.FindGameObjectWithTag(itemType.ToString()
+        //                            .ToLower());
+
         Button cell = cellGo.GetComponent<Button>();
 
         if (!IsEmpty(currentHand)) //если в руке что то есть
@@ -731,7 +742,9 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         left_hand_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["left_hand"];
         right_hand_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["right_hand"];
         left_pack_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["packet_left"];
+        left_pack2_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["packet_left2"];
         right_pack_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["packet_right"];
+        right_pack2_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["packet_right2"];
         card_btn.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["card"];
 
         bagCell1.GetComponent<ItemCell>().item = inventoryInit.inventoryDefaultDB["1"];
@@ -751,31 +764,62 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
         if (itemInInventoryInit.head != null) 
         {
             DressCell(head_btn, Instantiate(itemInInventoryInit.head));
+
+            if (Buff.IsItemContainsBuff(itemInInventoryInit.head) == true)
+            {
+                buffController.ActivateBuffInInit(itemInInventoryInit.head);
+            }
         }
 
         if (itemInInventoryInit.arm != null)
         {
             DressCell(arm_btn, Instantiate(itemInInventoryInit.arm));
+
+            if (Buff.IsItemContainsBuff(itemInInventoryInit.arm) == true)
+            {
+                buffController.ActivateBuffInInit(itemInInventoryInit.arm);
+            }
         }
 
         if (itemInInventoryInit.face != null)
         {
             DressCell(face_btn, Instantiate(itemInInventoryInit.face));
+
+            if (Buff.IsItemContainsBuff(itemInInventoryInit.face) == true)
+            {
+                buffController.ActivateBuffInInit(itemInInventoryInit.face);
+            }
         }
 
         if (itemInInventoryInit.lags != null)
         {
             DressCell(lags_btn, Instantiate(itemInInventoryInit.lags));
+
+            if (Buff.IsItemContainsBuff(itemInInventoryInit.lags) == true)
+            {
+                buffController.ActivateBuffInInit(itemInInventoryInit.lags);
+            }
         }
 
         if (itemInInventoryInit.bag != null)
         {
             DressCell(bag_btn, Instantiate(itemInInventoryInit.bag));
+
+            if (Buff.IsItemContainsBuff(itemInInventoryInit.bag) == true)
+            {
+                buffController.ActivateBuffInInit(itemInInventoryInit.bag);
+            }
+
         }
 
         if (itemInInventoryInit.body != null)
         {
             DressCell(body_btn, Instantiate(itemInInventoryInit.body));
+            
+            if (Buff.IsItemContainsBuff(itemInInventoryInit.body) == true)
+            {
+                buffController.ActivateBuffInInit(itemInInventoryInit.body);
+            }
         }
 
         if (itemInInventoryInit.left_hand != null)
@@ -793,9 +837,19 @@ public class Controller : MonoBehaviour //, IPointerClickHandler
             DressCell(left_pack_btn, Instantiate(itemInInventoryInit.left_pack));
         }
 
+        if (itemInInventoryInit.left_pack2 != null)
+        {
+            DressCell(left_pack2_btn, Instantiate(itemInInventoryInit.left_pack2));
+        }
+
         if (itemInInventoryInit.right_pack != null)
         {
             DressCell(right_pack_btn, Instantiate(itemInInventoryInit.right_pack));
+        }
+
+        if (itemInInventoryInit.right_pack2 != null)
+        {
+            DressCell(right_pack2_btn, Instantiate(itemInInventoryInit.right_pack2));
         }
 
         if (itemInInventoryInit.card != null)

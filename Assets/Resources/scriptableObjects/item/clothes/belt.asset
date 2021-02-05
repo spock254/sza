@@ -18,14 +18,6 @@ MonoBehaviour:
   itemPrice: 500
   itemSprite: {fileID: 9044428675723339679, guid: af7c4b80bdc4d6d4d9b11de1eded2d3e,
     type: 3}
-  stats:
-    playerStats: 5
-    value: 0
-    duration: 0
-    time: 0
-  ItemFightStats:
-    attack: 0
-    defence: 15
   itemUseData:
     itemSize: 1
     use:
@@ -42,17 +34,26 @@ MonoBehaviour:
     effectCells: 
     envPosition: {x: 0, y: 0, z: 0}
     currentCell: {fileID: 0}
+  itemBuff:
+    buffTime: 0
+    buff: {fileID: 0}
   itemOptionData:
     awPrefab: {fileID: 0}
     text: 
     actionWindowTag: 
     isModified: 0
+  itemReviewData:
+    itemReviewPrefab: {fileID: 0}
+  itemSubstitution:
+    prefToSubstitut: {fileID: 0}
+    initState: 0
+    itemsToUse: []
   capacity: 10
   innerItems:
   - {fileID: 11400000, guid: 6d2aa7d6e34fcea4d82799450873509f, type: 2}
   - {fileID: 11400000, guid: 0a0829c0c9174404fb880f42a4d955f1, type: 2}
   - {fileID: 11400000, guid: 526918a5006dee94aa0a9f89b356392f, type: 2}
-  - {fileID: 11400000, guid: 0e20e0df3ee2902428d0a71797f20762, type: 2}
+  - {fileID: 11400000, guid: f07a400062900eb4ea5d376e606337ef, type: 2}
   - {fileID: 11400000, guid: ad462d570f8776a40ba2642a479b13fd, type: 2}
   - {fileID: 11400000, guid: 28ec8e2fc81cef94499bf595fb7ee8fb, type: 2}
   - {fileID: 11400000, guid: ef1ad2613d878cd47a19a9add5075a67, type: 2}

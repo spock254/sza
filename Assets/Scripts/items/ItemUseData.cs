@@ -10,7 +10,7 @@ public class ItemUseData
     // Upgrate - айтем для абгрейта
     // Upgradable - айтем который можно абрейдить
     
-    public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, Packet_left, Packet_right,
+    public enum ItemType { Head, Face, Body, Arm, Lags, Bag, Card, Packet_left, Packet_right,Packet_left2, Packet_right2,
                            Unwearable, Untakable, Dragable, HandUsable, HandCraftable, Openable, Upgrate, Upgradable, NONE }
 
     public ItemSize itemSize;

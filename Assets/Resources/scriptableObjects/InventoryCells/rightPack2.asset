@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3750084d06ac09a42990a58153c5754b, type: 3}
-  m_Name: orange
+  m_Name: rightPack2
   m_EditorClassIdentifier: 
-  id: -630250184
-  itemName: orange
-  itemDescription: orange
-  itemPrice: 15
-  itemSprite: {fileID: 1792031590282463174, guid: a93de999f9bb83743b7f7fc59e705741,
+  id: 1702359111
+  itemName: rightPack2
+  itemDescription: 
+  itemPrice: 0
+  itemSprite: {fileID: -1984152565365478437, guid: ec104ed1ab9d7bb4a973762543bdad4b,
     type: 3}
   itemUseData:
     itemSize: 0
     use:
       id: 0
-    itemTypes: 0700000008000000090000000a000000
+    itemTypes: 08000000
   itemAnimationData:
     itemSpriteFrames: []
   itemTimeflowModify:
@@ -35,8 +35,8 @@ MonoBehaviour:
     envPosition: {x: 0, y: 0, z: 0}
     currentCell: {fileID: 0}
   itemBuff:
-    buffTime: 5
-    buff: {fileID: 11400000, guid: 3d26f3ed328baca48813e23b127e8d88, type: 2}
+    buffTime: 0
+    buff: {fileID: 0}
   itemOptionData:
     awPrefab: {fileID: 0}
     text: 
@@ -50,9 +50,9 @@ MonoBehaviour:
     itemsToUse: []
   capacity: 0
   innerItems: []
-  isDestroyOnPlayerUse: 1
+  isDestroyOnPlayerUse: 0
   afterOnPlayerUseItem: {fileID: 0}
   references:
     version: 1
     00000000:
-      type: {class: FoodUse, ns: , asm: Assembly-CSharp}
+      type: {class: UseRightPack2, ns: , asm: Assembly-CSharp}

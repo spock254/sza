@@ -34,6 +34,18 @@ public class BuffController : MonoBehaviour
         eventController.OnRemoveBuffEvent.AddListener(RemoveBuff);
     }
 
+    public void ActivateBuffInInit(Item item)
+    {
+        StartCoroutine(LateStart(item));
+    }
+
+    IEnumerator LateStart(Item item)
+    {
+        yield return new WaitForEndOfFrame();
+
+        ActivateBuff(item);
+    }
+
     void AddBuff(Item item) 
     {
         List<GameObject> buffs = (item.itemBuff.buff.buffMode == Buff.BuffMode.BUFF) ? buffCells : debuffCells;

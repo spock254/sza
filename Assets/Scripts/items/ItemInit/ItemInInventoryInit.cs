@@ -13,7 +13,9 @@ public class ItemInInventoryInit : MonoBehaviour
     public Item left_hand = null;
     public Item right_hand = null;
     public Item left_pack = null;
+    public Item left_pack2 = null;
     public Item right_pack = null;
+    public Item right_pack2 = null;
     public Item card = null;
     public Item bagCell = null;
 
